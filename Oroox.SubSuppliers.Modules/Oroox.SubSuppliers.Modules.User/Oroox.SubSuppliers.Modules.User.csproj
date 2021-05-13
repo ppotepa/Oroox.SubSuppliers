@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Queries\**" />
+    <EmbeddedResource Remove="Queries\**" />
+    <None Remove="Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
@@ -13,11 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queries\" />
+    <ProjectReference Include="..\..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
   </ItemGroup>
 
 </Project>
