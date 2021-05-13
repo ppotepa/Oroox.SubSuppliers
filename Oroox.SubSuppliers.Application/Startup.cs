@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using IMSLogger = Microsoft.Extensions.Logging.ILogger;
 using Oroox.SubSuppliers.Core.Middleware.CorrelationId;
 using Oroox.SubSuppliers.Modules.User;
 using Serilog;
@@ -58,12 +57,12 @@ namespace Oroox.SubSuppliers.Application
 
             builder.RegisterType<LoggerFactory>()
                 .As<ILoggerFactory>()
-                .SingleInstance();
+                .InstancePerDependency();
 
             builder
                 .RegisterGeneric(typeof(Logger<>))
                 .As(typeof(ILogger<>))
-                .SingleInstance();
+                .InstancePerDependency();
         }
 
         public void ConfigureServices(IServiceCollection services)

@@ -8,14 +8,17 @@ namespace Oroox.SubSuppliers.Modules.User.Commands
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserCommandResponse>
     {
         private readonly ILogger logger;
-        public CreateUserCommandHandler(ILogger logger)
+        private readonly IMediator mediator;
+
+        public CreateUserCommandHandler(ILogger logger, IMediator mediator)
         {
             this.logger = logger;
+            this.mediator = mediator;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            await Task.Delay(100);
+            await this.mediator.Publish(new UserAccountCreated(request));
             return new CreateUserCommandResponse();
         }
     }

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oroox.SubSuppliers.Modules.User\Oroox.SubSuppliers.Modules.User.csproj" />
+    <ProjectReference Include="..\Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.User\Oroox.SubSuppliers.Modules.User.csproj" />
   </ItemGroup>
 
 </Project>

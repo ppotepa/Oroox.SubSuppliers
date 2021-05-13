@@ -25,12 +25,5 @@ namespace Oroox.SubSuppliers.Modules.User
             CreateUserCommandResponse response = await mediator.Send(request);
             return new ObjectResult(response);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Test()
-        {
-            TestRequestCommandResponse resp = await mediator.Send(new TestRequest());
-            return new ObjectResult(resp);
-        }
     }
 }
