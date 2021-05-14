@@ -1,4 +1,4 @@
-﻿namespace Oroox.SubSuppliers.Domain.Entities
+﻿namespace Oroox.SubSuppliers.Domain.Customer.Enumerations
 {
     public enum AddressType
     {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Primitives;
 using System;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Core.Middleware.CorrelationId
+namespace Oroox.SubSuppliers.Utilities.Middleware.CorrelationId
 {
     public class CorrelationIdMiddleware
     {

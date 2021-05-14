@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace Oroox.SubSuppliers.Domain.Entities
+namespace Oroox.SubSuppliers.Domain.Customer.Enumerations
 {
-    public enum CountryCode
+    public enum CountryCodeType
     {
         [Description("Afghanistan")] AF = 1,
         [Description("Åland Islands")] AX = 2,

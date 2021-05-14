@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Core.Abstractions
+namespace Oroox.SubSuppliers.Domain
 {
     public class Entity 
     { 

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Serilog.Debugging;
 using Serilog.Extensions.Logging;
 
-namespace Oroox.SubSuppliers.Core.Logging
+namespace Oroox.SubSuppliers.Utilities.Factories
 {
     public class SerilogLoggerFactory : Disposable, ILoggerFactory
     {
@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Core.Logging
 
         public new void Dispose() => _provider.Dispose();
 
-        public Microsoft.Extensions.Logging.ILogger CreateLogger(string categoryName)
+        public ILogger CreateLogger(string categoryName)
         {
             return _provider.CreateLogger(categoryName);
         }

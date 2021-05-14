@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Oroox.SubSuppliers.Core.Abstractions
+namespace Oroox.SubSuppliers.Utilities.Abstractions
 {
     public class ModuleController : ControllerBase { } 
 }

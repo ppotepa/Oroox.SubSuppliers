@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Core
+namespace Oroox.SubSuppliers.Utilities
 {
     public class Disposable : IDisposable
     {

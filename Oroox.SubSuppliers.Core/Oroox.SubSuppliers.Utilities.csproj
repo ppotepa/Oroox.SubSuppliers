@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Oroox.SubSuppliers.Core</AssemblyName>
-    <RootNamespace>Oroox.SubSuppliers.Core</RootNamespace>
+    <AssemblyName>Oroox.SubSuppliers.Utilities</AssemblyName>
+    <RootNamespace>Oroox.SubSuppliers.Utilities</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

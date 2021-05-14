@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Oroox.SubSuppliers.Core.Abstractions;
 using Oroox.SubSuppliers.Modules.User.Commands;
+using Oroox.SubSuppliers.Utilities.Abstractions;
 using Serilog;
 using System.Threading.Tasks;
 

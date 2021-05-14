@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Oroox.SubSuppliers.Core.Abstractions
+namespace Oroox.SubSuppliers.Utilities.Abstractions
 {
     public abstract class Enumeration : IComparable
     {

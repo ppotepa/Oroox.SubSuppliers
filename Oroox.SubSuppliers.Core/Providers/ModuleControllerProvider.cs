@@ -1,4 +1,4 @@
-﻿namespace Oroox.SubSuppliers.Core.Providers
+﻿namespace Oroox.SubSuppliers.Utilities.Providers
 {
     class ModuleControllerProvider 
     {

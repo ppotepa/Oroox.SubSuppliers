@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Oroox.SubSuppliers.Core.Middleware.CorrelationId;
 using Oroox.SubSuppliers.Modules.User;
+using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
 
 namespace Oroox.SubSuppliers.Application
