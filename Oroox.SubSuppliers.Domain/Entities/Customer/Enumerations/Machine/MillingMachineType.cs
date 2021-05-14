@@ -1,4 +1,4 @@
-﻿namespace Oroox.SubSuppliers.Domain.Customer.Enumerations
+﻿namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
 {
     public enum MillingMachineType 
     { 

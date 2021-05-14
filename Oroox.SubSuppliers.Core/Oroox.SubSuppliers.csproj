@@ -2,15 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Oroox.SubSuppliers.Utilities</AssemblyName>
-    <RootNamespace>Oroox.SubSuppliers.Utilities</RootNamespace>
+    <AssemblyName>Oroox.SubSuppliers</AssemblyName>
+    <RootNamespace>Oroox.SubSuppliers</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutofacSerilogIntegration" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="5.0.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Types\" />
   </ItemGroup>
 
 </Project>

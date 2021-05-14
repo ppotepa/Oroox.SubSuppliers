@@ -1,4 +1,4 @@
-﻿namespace Oroox.SubSuppliers.Domain.Customer.Enumerations.Technologies
+﻿namespace Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies
 {
     public enum OtherTechnologies
     {

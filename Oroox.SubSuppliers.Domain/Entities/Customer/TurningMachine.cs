@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Domain.Customer
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class TurningMachine : Entity
     {

@@ -1,18 +1,37 @@
-﻿using Oroox.SubSuppliers.Domain.Customer.Enumerations;
+﻿using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using System.Collections.Generic;
 
-namespace Oroox.SubSuppliers.Domain.Customer
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class Customer : Entity
     {
+        public Customer()
+        {
+        }
+
+        public Customer(string companyName, CompanySizeType companySize, Address address, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
+        {
+            CompanyName = companyName;
+            CompanySize = companySize;
+            Address = address;
+            MillingMachines = millingMachines;
+            TurningMachines = turningMachines;            
+            VATNumber = vATNumber;
+            Website = website;
+            RegistrationNumber = registrationNumber;
+            EmailAddress = emailAddress;
+        }
+
         public string CompanyName { get; set; }
         public CompanySizeType CompanySize { get; set; }
         public virtual Address Address { get; set; }
         public virtual ICollection<MillingMachine> MillingMachines { get; set; }
         public virtual ICollection<TurningMachine> TurningMachines { get; set; }
+        public virtual IReadOnlyCollection<Customer> Customers { get; set; }
         public string VATNumber { get; set; }
         public string Website { get; set; }
         public string RegistrationNumber { get; set; }
+        public string EmailAddress { get; set; }
     }
 
     public class CustomerAdditionalInfo : Entity

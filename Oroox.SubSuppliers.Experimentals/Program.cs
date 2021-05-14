@@ -1,4 +1,4 @@
-﻿using Oroox.SubSuppliers.Domain.Customer.Enumerations;
+﻿using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using System;
 
 namespace Oroox.SubSuppliers.Experimentals

@@ -1,7 +1,7 @@
-﻿using Oroox.SubSuppliers.Domain.Customer.Enumerations;
+﻿using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using System;
 
-namespace Oroox.SubSuppliers.Domain.Customer
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class Address : Entity
     {

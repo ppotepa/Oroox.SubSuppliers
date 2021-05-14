@@ -47,9 +47,11 @@ namespace Oroox.SubSuppliers.Application
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
+
             builder.RegisterModule(new UsersModule());
             builder.RegisterType<UsersController>().PropertiesAutowired();
-            builder.RegisterLogger();            
+            builder.RegisterLogger();  
+            
             builder.RegisterMediatR(new[]
             {
                 typeof(UsersModule).Assembly
