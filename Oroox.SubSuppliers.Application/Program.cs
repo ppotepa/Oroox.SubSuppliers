@@ -17,7 +17,6 @@ namespace Oroox.SubSuppliers.Application
                         .UseContentRoot(Directory.GetCurrentDirectory())
                         .UseIISIntegration()
                         .UseStartup<Startup>();
-                  
                 })
                 .Build();
 

@@ -9,7 +9,12 @@ using System.IO;
 
 namespace Oroox.SubSuppliers.Domain
 {
-    public class SubSuppliersContext : DbContext
+    public interface IApplicationContext 
+    {
+
+    }
+
+    public class SubSuppliersContext : DbContext, IApplicationContext
     {
         private readonly IConfiguration configuration;
         private readonly ServiceProvider serviceProvider;
@@ -23,7 +28,10 @@ namespace Oroox.SubSuppliers.Domain
 
         public SubSuppliersContext() : base()
         {
-            configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+            configuration = new ConfigurationBuilder()
+                                .AddEnvironmentVariables()
+                                .Build();
+
             serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton(configuration)
@@ -42,7 +50,7 @@ namespace Oroox.SubSuppliers.Domain
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-           
+            
         }
     }
 }

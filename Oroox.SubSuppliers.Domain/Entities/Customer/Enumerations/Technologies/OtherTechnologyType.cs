@@ -1,6 +1,6 @@
 ﻿namespace Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies
 {
-    public enum OtherTechnologies
+    public enum OtherTechnologyType
     {
         DeepHoleDrilling,
         ThreadsM,
@@ -11,5 +11,10 @@
         Knurling,
         Annealing,
         Other,
+    }
+
+    public class OtherTechnology : Entity
+    {
+        public OtherTechnologyType Type { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Oroox.SubSuppliers.Domain.Entities.Enumerations;
+using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Domain.Entities
@@ -26,8 +27,8 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public CompanySizeType CompanySize { get; set; }
         public virtual Address Address { get; set; }
         public virtual ICollection<MillingMachine> MillingMachines { get; set; }
-        public virtual ICollection<TurningMachine> TurningMachines { get; set; }
-        public virtual IReadOnlyCollection<Customer> Customers { get; set; }
+        public virtual ICollection<TurningMachine> TurningMachines { get; set; }        
+        public virtual ICollection<OtherTechnology> OtherTechnologies { get; set; }
         public string VATNumber { get; set; }
         public string Website { get; set; }
         public string RegistrationNumber { get; set; }

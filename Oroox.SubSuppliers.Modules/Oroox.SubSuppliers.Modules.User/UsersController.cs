@@ -19,10 +19,10 @@ namespace Oroox.SubSuppliers.Modules.User
             this.mediator = mediator;
         }       
         
-        [HttpGet]        
-        public async Task<IActionResult> Create(CreateUserCommand request)
+        [HttpPut]        
+        public async Task<IActionResult> Create(CreateCustomerCommand request)
         {
-            CreateUserCommandResponse response = await mediator.Send(request);
+            CreateCustomerResponse response = await mediator.Send(request);
             return new ObjectResult(response);
         }
     }

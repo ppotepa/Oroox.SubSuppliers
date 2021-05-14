@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Modules.User;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
@@ -36,9 +37,9 @@ namespace Oroox.SubSuppliers.Application
 
             app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseRouting();
-            app.UseEndpoints(x =>
+            app.UseEndpoints(builder =>
             {
-                x.MapControllers();
+                builder.MapControllers();
             });
 
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
@@ -50,12 +51,17 @@ namespace Oroox.SubSuppliers.Application
 
             builder.RegisterModule(new UsersModule());
             builder.RegisterType<UsersController>().PropertiesAutowired();
+
+            builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
             builder.RegisterLogger();  
             
-            builder.RegisterMediatR(new[]
-            {
-                typeof(UsersModule).Assembly
-            });
+            builder.RegisterMediatR
+            (
+                new[]
+                {
+                    typeof(UsersModule).Assembly,
+                }
+            );
 
             builder.RegisterType<LoggerFactory>()
                 .As<ILoggerFactory>()

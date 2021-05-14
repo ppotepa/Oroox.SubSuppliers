@@ -28,11 +28,14 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<int>("AddressType")
                         .HasColumnType("int");
 
+                    b.Property<string>("BuildingNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CountryCodeType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -45,6 +48,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -78,17 +84,20 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<int>("CompanySize")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("EmailAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -104,9 +113,41 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies.OtherTechnology", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("OtherTechnology");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
@@ -115,8 +156,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -142,6 +183,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<int>("MinimalMachiningDimensions")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -161,8 +205,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -181,6 +225,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.Property<int>("MinimalMachiningDimensions")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -206,10 +253,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies.OtherTechnology", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", null)
-                        .WithMany("Customers")
+                        .WithMany("OtherTechnologies")
                         .HasForeignKey("CustomerId");
                 });
 
@@ -239,9 +286,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     b.Navigation("Address");
 
-                    b.Navigation("Customers");
-
                     b.Navigation("MillingMachines");
+
+                    b.Navigation("OtherTechnologies");
 
                     b.Navigation("TurningMachines");
                 });

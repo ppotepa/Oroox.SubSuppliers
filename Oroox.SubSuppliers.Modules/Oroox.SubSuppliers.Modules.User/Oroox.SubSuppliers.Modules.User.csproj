@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.csproj" />
+    <ProjectReference Include="..\..\Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj" />
   </ItemGroup>
 
 
