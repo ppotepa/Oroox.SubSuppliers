@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Extensions", "Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Extensions.csproj", "{46D18AA1-CA1D-4BC9-8D43-214CEB81C4A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Core", "Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj", "{46D18AA1-CA1D-4BC9-8D43-214CEB81C4A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Application", "Oroox.SubSuppliers.Application\Oroox.SubSuppliers.Application.csproj", "{F9468349-CD02-42E0-BFA8-A181207E8951}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Oroox.SubSuppliers.Database", "Oroox.SubSuppliers.Database\Oroox.SubSuppliers.Database.sqlproj", "{45099EA8-EA69-414A-942B-381F83775162}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman", "Postman", "{BDC96769-4717-4918-B0FA-780DE0BD4878}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oroox.SubSuppliers.Domain", "Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj", "{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{45099EA8-EA69-414A-942B-381F83775162}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45099EA8-EA69-414A-942B-381F83775162}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45099EA8-EA69-414A-942B-381F83775162}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
