@@ -1,4 +1,0 @@
-﻿CREATE TABLE [dbo].[Address]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-)

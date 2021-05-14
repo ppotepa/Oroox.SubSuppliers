@@ -1,5 +1,0 @@
-﻿CREATE TABLE [dbo].[MachineType]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-	[MachineTypeName] VARCHAR(100),
-)
