@@ -1,5 +1,6 @@
 ﻿using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using System;
 using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Domain.Entities
@@ -10,11 +11,11 @@ namespace Oroox.SubSuppliers.Domain.Entities
         {
         }
 
-        public Customer(string companyName, CompanySizeType companySize, Address address, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
+        public Customer(string companyName, CompanySize companySize, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
         {
             CompanyName = companyName;
             CompanySize = companySize;
-            Address = address;
+            Addresses = addresses;
             MillingMachines = millingMachines;
             TurningMachines = turningMachines;            
             VATNumber = vATNumber;
@@ -24,15 +25,21 @@ namespace Oroox.SubSuppliers.Domain.Entities
         }
 
         public string CompanyName { get; set; }
-        public CompanySizeType CompanySize { get; set; }
-        public virtual Address Address { get; set; }
+        public CompanySize CompanySize { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<MillingMachine> MillingMachines { get; set; }
         public virtual ICollection<TurningMachine> TurningMachines { get; set; }        
         public virtual ICollection<OtherTechnology> OtherTechnologies { get; set; }
+        public virtual ICollection<Certification> Certifications { get; set; }
         public string VATNumber { get; set; }
         public string Website { get; set; }
         public string RegistrationNumber { get; set; }
         public string EmailAddress { get; set; }
+        public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
+
+        #region FOREIGN_KEYS
+        public Guid CompanySizeId { get; internal set; }
+        #endregion
     }
 
     public class CustomerAdditionalInfo : Entity
@@ -46,5 +53,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public int? WorkingShiftsPerDay { get; set; }
         public bool? CanUseStepFiles { get; set; }
         public string SpecialCharacteristics { get; set; }
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; internal set; }
     }
 }

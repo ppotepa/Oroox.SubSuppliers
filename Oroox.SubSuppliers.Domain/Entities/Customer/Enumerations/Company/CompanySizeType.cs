@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
 {
@@ -10,4 +11,10 @@ namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
         [Description("50-100")] LessThan100 = 100,
         [Description(">100")] MoreThan100 = 101,
     }
+
+    public class CompanySize : EnumerationEntity<CompanySizeType>
+    {
+        public ICollection<Customer> Customers { get; set; }
+    }
+
 }

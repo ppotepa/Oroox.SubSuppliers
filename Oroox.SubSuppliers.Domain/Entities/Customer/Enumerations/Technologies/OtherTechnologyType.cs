@@ -1,8 +1,10 @@
-﻿namespace Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies
+﻿using System.Collections.Generic;
+
+namespace Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies
 {
-    public enum OtherTechnologyType
+    public enum OtherTechnologyTypeEnum
     {
-        DeepHoleDrilling,
+        DeepHoleDrilling, 
         ThreadsM,
         ThreadsTr,
         Toothings,
@@ -13,8 +15,8 @@
         Other,
     }
 
-    public class OtherTechnology : Entity
+    public class OtherTechnology : EnumerationEntity<OtherTechnologyTypeEnum>
     {
-        public OtherTechnologyType Type { get; set; }
+        public ICollection<Customer> Customers { get; internal set; }
     }
 }

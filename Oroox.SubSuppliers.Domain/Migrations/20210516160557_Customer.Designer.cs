@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oroox.SubSuppliers.Domain;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    partial class SubSuppliersContextModelSnapshot : ModelSnapshot
+    [Migration("20210516160557_Customer")]
+    partial class Customer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

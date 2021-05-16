@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Oroox.SubSuppliers.Modules.User.Commands;
+using Oroox.SubSuppliers.Modules.User.Requests;
 using Oroox.SubSuppliers.Utilities.Abstractions;
 using Serilog;
 using System.Threading.Tasks;
@@ -19,10 +19,10 @@ namespace Oroox.SubSuppliers.Modules.User
             this.mediator = mediator;
         }       
         
-        [HttpPut]        
-        public async Task<IActionResult> Create(CreateCustomerCommand request)
+        [HttpPost]        
+        public async Task<IActionResult> Create(CreateCustomerRequest request)
         {
-            CreateCustomerResponse response = await mediator.Send(request);
+            CreateCustomerRequestResponse response = await mediator.Send(request);
             return new ObjectResult(response);
         }
     }

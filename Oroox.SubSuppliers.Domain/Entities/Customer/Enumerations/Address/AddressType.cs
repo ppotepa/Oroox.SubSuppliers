@@ -1,8 +1,12 @@
 ﻿namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
 {
-    public enum AddressType
+    public enum AddressTypeEnum
     {
         Shipping,
         Billing
+    }
+
+    public class AddressType : EnumerationEntity<AddressTypeEnum>
+    {       
     }
 }

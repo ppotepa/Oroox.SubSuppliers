@@ -13,5 +13,15 @@ namespace Oroox.SubSuppliers.Utilities.Extensions
                 func(enumerator.Current);
             }
         }
+
+        public static void ForEach<TObjectType>(this IEnumerable<TObjectType> @this, Action<TObjectType, int> func)
+        {
+            int index = 0;
+            IEnumerator<TObjectType> enumerator = @this.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                func(enumerator.Current, index++);
+            }
+        }
     }
 }

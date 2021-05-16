@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Quote\**" />
+    <EmbeddedResource Remove="Entities\Quote\**" />
+    <None Remove="Entities\Quote\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.6" />
@@ -31,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Quote\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
