@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
+using Oroox.SubSuppliers.Domain.Entities.Enumerations;
+using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using Oroox.SubSuppliers.Utilities;
 using Oroox.SubSuppliers.Utilities.Extensions;
 using System;
@@ -16,27 +18,27 @@ namespace Oroox.SubSuppliers.Domain
 {
     public interface IApplicationContext
     {
-        DbSet<Customer> Customers { get; set; }
-        public int SaveChanges();
-        public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+        public DbSet<AddressType> AddressTypes { get; set; }
+        public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
+        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<MillingMachineType> MillingMachineDimensionsTypes { get; set; }
+        public DbSet<MillingMachine> MillingMachineTypes { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<OtherTechnology> OtherTechnologies { get; set; }
+        int SaveChanges();
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
     }
 
     public class SubSuppliersContext : DbContext, IApplicationContext
     {
         private const string EnumerationClassName = "EnumerationEntity`1";
-        private readonly bool LoggingEnabled;
-
         private readonly IConfiguration configuration;
-        private readonly IServiceProvider serviceProvider;
-
-        private readonly OxSuppliersEnvironmentVariables environmentVariables;
-        private readonly string outputFileName;
         private readonly Type[] currentAssemblyTypes;
-
-        public DbSet<Customer> Customers { get; set; }
-
-        private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
-
+        private readonly OxSuppliersEnvironmentVariables environmentVariables;
+        private readonly bool LoggingEnabled;
+        private readonly string outputFileName;
+        private readonly IServiceProvider serviceProvider;
         public SubSuppliersContext(bool enableLogging = false) : base()
         {
             this.LoggingEnabled = enableLogging;
@@ -52,6 +54,18 @@ namespace Oroox.SubSuppliers.Domain
             outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
         }
+
+
+        private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
+
+        public DbSet<AddressType> AddressTypes { get; set; }
+        public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
+        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<MillingMachineType> MillingMachineDimensionsTypes { get; set; }
+        public DbSet<MillingMachine> MillingMachineTypes { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<OtherTechnology> OtherTechnologies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
@@ -73,17 +87,17 @@ namespace Oroox.SubSuppliers.Domain
         {
             builder.Entity<Address>().HasOne(x => x.AddressType);
             builder.Entity<Address>().HasOne(x => x.Customer);
-            builder.Entity<Address>().HasOne(x => x.CountryCode);
+            builder.Entity<Address>().HasOne(x => x.CountryCodeType);
         }
        
         private void GenerateCustomersTable(ModelBuilder builder)
         {
             builder.Entity<Customer>().HasKey(x => x.Id);
-            builder.Entity<Customer>().HasOne(x => x.CompanySize).WithMany(x => x.Customers).HasForeignKey(x => x.CompanySizeId);
+            builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
             builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
             builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
             builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
-            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer);
+            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
         }
@@ -108,8 +122,7 @@ namespace Oroox.SubSuppliers.Domain
                 })
                 .ToArray();
 
-                builder.Entity(entity).HasAlternateKey("Value");
-                builder.Entity(entity).Property("Value");
+                builder.Entity(entity).HasAlternateKey("Value");                
                 builder.Entity(entity).HasData(currentEnumDataSeed);
             });
         }

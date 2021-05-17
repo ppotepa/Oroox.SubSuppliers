@@ -8,7 +8,9 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual Customer Customer { get; set; }
         public virtual Guid CustomerId { get; set; }
         public AddressType AddressType { get; set; }
-        public CountryCode CountryCode { get; set; }
+        public Guid AddressTypeId { get; set; }
+        public CountryCodeType CountryCodeType { get; set; }
+        public Guid CountryCodeTypeId { get; set; }
         public string PhoneNumber { get; set; }
         public string PostalCode { get; set; }
         public string Street { get; set; }

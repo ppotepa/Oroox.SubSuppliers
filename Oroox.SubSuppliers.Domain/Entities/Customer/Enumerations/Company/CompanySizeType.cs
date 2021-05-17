@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
 {
-    public enum CompanySizeType
+    public enum CompanySizeTypeEnum
     {
         [Description("1-10")] LessThan10 = 10,
         [Description("10-25")] LessThan25 = 25,
@@ -12,9 +12,5 @@ namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
         [Description(">100")] MoreThan100 = 101,
     }
 
-    public class CompanySize : EnumerationEntity<CompanySizeType>
-    {
-        public ICollection<Customer> Customers { get; set; }
-    }
-
+    public class CompanySizeType : EnumerationEntity<CompanySizeTypeEnum> { }
 }

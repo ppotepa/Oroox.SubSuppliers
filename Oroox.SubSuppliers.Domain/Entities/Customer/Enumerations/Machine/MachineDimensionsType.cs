@@ -7,8 +7,6 @@
         FIVE_AXIS 
     }
 
-    public class MachineDimensionsType : EnumerationEntity<MachineDimensionsTypeEnum>
-    { 
-
-    }
+    public class MachineDimensionsType : EnumerationEntity<MachineDimensionsTypeEnum> { }
+    
 }

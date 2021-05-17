@@ -1,0 +1,2 @@
+add-migration Customers
+update-database

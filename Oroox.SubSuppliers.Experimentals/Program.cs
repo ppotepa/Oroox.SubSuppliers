@@ -7,7 +7,7 @@ namespace Oroox.SubSuppliers.Experimentals
     {
         static void Main(string[] args)
         {
-            string type = CountryCodeType.AD.ToString();
+            string type = CountryCodeTypeEnum.AD.ToString();
             Console.WriteLine(type);
         }
     }

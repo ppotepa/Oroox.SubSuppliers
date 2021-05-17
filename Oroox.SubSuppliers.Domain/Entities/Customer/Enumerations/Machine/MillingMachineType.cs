@@ -8,7 +8,6 @@
         TYPE_4
     }
 
-    public class MillingMachineType : EnumerationEntity<MillingMachineTypeEnum>
-    {
-    }
+    public class MillingMachineType : EnumerationEntity<MillingMachineTypeEnum> { }
+    
 }

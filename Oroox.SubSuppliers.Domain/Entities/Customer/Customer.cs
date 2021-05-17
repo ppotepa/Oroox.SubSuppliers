@@ -11,10 +11,10 @@ namespace Oroox.SubSuppliers.Domain.Entities
         {
         }
 
-        public Customer(string companyName, CompanySize companySize, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
+        public Customer(string companyName, CompanySizeType companySizeType, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
         {
             CompanyName = companyName;
-            CompanySize = companySize;
+            CompanySizeType = companySizeType;
             Addresses = addresses;
             MillingMachines = millingMachines;
             TurningMachines = turningMachines;            
@@ -25,7 +25,8 @@ namespace Oroox.SubSuppliers.Domain.Entities
         }
 
         public string CompanyName { get; set; }
-        public CompanySize CompanySize { get; set; }
+        public virtual CompanySizeType CompanySizeType { get; set; }
+        public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<MillingMachine> MillingMachines { get; set; }
         public virtual ICollection<TurningMachine> TurningMachines { get; set; }        
@@ -35,16 +36,16 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public string Website { get; set; }
         public string RegistrationNumber { get; set; }
         public string EmailAddress { get; set; }
-        public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
 
         #region FOREIGN_KEYS
-        public Guid CompanySizeId { get; internal set; }
+        public Guid CompanySizeTypeId { get; internal set; }
+        public Guid CustomerAdditionalInfoId { get; internal set; }
         #endregion
     }
 
     public class CustomerAdditionalInfo : Entity
     {
-        public string? SpecialTolerances { get; set; }
+        public string SpecialTolerances { get; set; }
         public double? AverageMinimalSurfaceQualitiesTurning { get; set; }
         public double? AverageMinimalSurfaceQualitiesMilling { get; set; }
         public double? AverageAndFastestLeadTimeTurning { get; set; }
@@ -54,6 +55,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public bool? CanUseStepFiles { get; set; }
         public string SpecialCharacteristics { get; set; }
         public Guid CustomerId { get; set; }
-        public Customer Customer { get; internal set; }
+        public virtual Customer Customer { get; internal set; }
     }
 }

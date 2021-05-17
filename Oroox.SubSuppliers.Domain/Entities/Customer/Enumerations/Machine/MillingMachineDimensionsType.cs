@@ -7,7 +7,5 @@
         FIVE_AXIS
     }
 
-    public class MillingMachineDimensionsType : EnumerationEntity<MillingMachineDimensionsTypeEnum>
-    {
-    }
+    public class MillingMachineDimensionsType : EnumerationEntity<MillingMachineDimensionsTypeEnum> { }
 }

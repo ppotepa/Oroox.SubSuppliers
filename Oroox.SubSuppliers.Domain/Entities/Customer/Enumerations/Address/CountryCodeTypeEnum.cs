@@ -2,11 +2,12 @@
 
 namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
 {
-    public class CountryCode : EnumerationEntity<CountryCodeType> 
+    public class CountryCodeType : EnumerationEntity<CountryCodeTypeEnum> 
     {
+
     }
 
-    public enum CountryCodeType
+    public enum CountryCodeTypeEnum
     {
         [Description("Afghanistan")] AF = 1,
         [Description("Åland Islands")] AX = 2,
