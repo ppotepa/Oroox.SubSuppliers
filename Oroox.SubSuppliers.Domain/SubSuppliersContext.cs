@@ -108,7 +108,8 @@ namespace Oroox.SubSuppliers.Domain
                 })
                 .ToArray();
 
-                builder.Entity(entity).HasIndex("Value");
+                builder.Entity(entity).HasAlternateKey("Value");
+                builder.Entity(entity).Property("Value");
                 builder.Entity(entity).HasData(currentEnumDataSeed);
             });
         }
