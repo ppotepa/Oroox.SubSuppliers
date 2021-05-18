@@ -9,13 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Modules.User;
-using Oroox.SubSuppliers.Modules.User.Requests;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
 
 namespace Oroox.SubSuppliers.Application
 {
-    public class Startup
+    public class Startup 
     {
         private readonly IConfiguration Configuration;
         public Startup(IConfiguration configuration)
@@ -35,7 +34,6 @@ namespace Oroox.SubSuppliers.Application
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SubsuppliersPlatform API");
             });
 
-
             app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseRouting();
             app.UseEndpoints(builder =>
@@ -44,24 +42,24 @@ namespace Oroox.SubSuppliers.Application
             });
 
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            //var resolved = AutofacContainer.Resolve<IEnumerable<IRequestValidator<CreateCustomerRequest>>>();
+            //var resolved2 = AutofacContainer.Resolve<IRequestValidator<CreateCustomerRequest>>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-           
+            builder.RegisterModule(new UsersModule());
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();            
-            builder.RegisterType<UsersController>().PropertiesAutowired();
+            builder.RegisterType<CustomersController>().PropertiesAutowired();
             builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
             builder.RegisterLogger();
 
-            builder.RegisterModule(new UsersModule());
-
             builder.RegisterMediatR
             (
-                new[]
-                {
+                new[] 
+                { 
                     typeof(UsersModule).Assembly,
-                }
+                }               
             );
 
             builder.RegisterType<LoggerFactory>()
@@ -78,13 +76,13 @@ namespace Oroox.SubSuppliers.Application
         {
             services.AddOptions();
             services.AddSwaggerGen();
-            services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor()
+            services.AddAutoMapper();
+
             services.AddMvc()
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddControllersAsServices();
-               
-
-         
+            
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
         }
     }
