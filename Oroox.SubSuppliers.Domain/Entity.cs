@@ -8,8 +8,9 @@ namespace Oroox.SubSuppliers.Domain
         public DateTime CreatedOn { get; set; }
         public bool Deleted { get; set; }
         public Guid Id { get; set; }
-        public Guid ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public Guid? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 
     public class EnumerationEntity<TEnumType> : IEnumerationEntity where TEnumType : Enum

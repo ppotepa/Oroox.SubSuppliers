@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Modules.User;
+using Oroox.SubSuppliers.Modules.User.Requests;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
 
@@ -47,14 +48,14 @@ namespace Oroox.SubSuppliers.Application
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
+           
+            builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();            
+            builder.RegisterType<UsersController>().PropertiesAutowired();
+            builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
+            builder.RegisterLogger();
 
             builder.RegisterModule(new UsersModule());
-            builder.RegisterType<UsersController>().PropertiesAutowired();
 
-            builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
-            builder.RegisterLogger();  
-            
             builder.RegisterMediatR
             (
                 new[]
@@ -77,9 +78,11 @@ namespace Oroox.SubSuppliers.Application
         {
             services.AddOptions();
             services.AddSwaggerGen();
+            services.AddHttpContextAccessor();
             services.AddMvc()
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddControllersAsServices();
+               
 
          
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));

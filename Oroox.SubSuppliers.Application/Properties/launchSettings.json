@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:30144",
+      "applicationUrl": "http://localhost:30144/swagger/",
       "sslPort": 44344
     }
   },
@@ -11,6 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;"
@@ -19,6 +20,7 @@
     "Oroox.SubSuppliers.Application": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;",
         "ASPNETCORE_ENVIRONMENT": "Development"

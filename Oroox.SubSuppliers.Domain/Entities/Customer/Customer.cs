@@ -2,6 +2,7 @@
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
@@ -9,6 +10,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
     {
         public Customer()
         {
+
         }
 
         public Customer(string companyName, CompanySizeType companySizeType, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
@@ -36,10 +38,14 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public string Website { get; set; }
         public string RegistrationNumber { get; set; }
         public string EmailAddress { get; set; }
+        public string PasswordHash { get; set; }
+
+        [NotMapped]
+        public string PasswordConfirmation { get; set; }
 
         #region FOREIGN_KEYS
-        public Guid CompanySizeTypeId { get; internal set; }
-        public Guid CustomerAdditionalInfoId { get; internal set; }
+        public Guid CompanySizeTypeId { get; set; }
+        public Guid CustomerAdditionalInfoId { get; set; }
         #endregion
     }
 

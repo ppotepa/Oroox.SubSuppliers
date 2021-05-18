@@ -1,7 +1,9 @@
-﻿using Oroox.SubSuppliers.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using Oroox.SubSuppliers.Domain.Extensions;
+using Oroox.SubSuppliers.Utilities.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,71 +15,59 @@ namespace Oroox.SubSuppliers.Domain
         public static async Task Main()
         {
             SubSuppliersContext ctx = new SubSuppliersContext(true);
-
-            Dictionary<CompanySizeTypeEnum, CompanySizeType> companyTypes = ctx.CompanySizeTypes.ToDictionary(c => c.Value, c => c);
-            Dictionary<CountryCodeTypeEnum, CountryCodeType> countryCodes = ctx.CountryCodeTypes.ToDictionary(c => c.Value, c => c);
-            Dictionary<AddressTypeEnum, AddressType> addressTypes = ctx.AddressTypes.ToDictionary(c => c.Value, c => c);            
-            Dictionary<OtherTechnologyTypeEnum, OtherTechnology> otherTechnologies = ctx.OtherTechnologies.ToDictionary(c => c.Value, c => c);            
-            Dictionary<MillingMachineTypeEnum, MillingMachineType> millingMachineTypes = ctx.MillingMachineTypes.ToDictionary(c => c.Value, c => c);            
-            Dictionary<MillingMachineDimensionsTypeEnum, MillingMachineDimensionsType> millingMachineDimensionsType = ctx.MillingMachineDimensionsTypes.ToDictionary(c => c.Value, c => c);            
-            Dictionary<CertificationTypeEnum, Certification> certifications = ctx.Certifications.ToDictionary(c => c.Value, c => c);            
-
-            ctx.Customers.Add
-            (
-                new Customer
-                {
-                    CompanySizeType = companyTypes[CompanySizeTypeEnum.LessThan10],
-                
+            var newCustomer = new Customer
+            {
+                CompanySizeType = ctx.Enumerations.CompanyTypes[CompanySizeTypeEnum.LessThan10],
                 Addresses = new[]
-                {
-                    new Address
                     {
-                        AddressType = new AddressType { Value = AddressTypeEnum.Billing },
-                        CountryCodeType = countryCodes[CountryCodeTypeEnum.AD],
-                        Deleted = false,
-                        PhoneNumber = "123 123 123",
-                        Street = "Jakas ulica 20",
-                    }
-                },
+                        new Address
+                        {
+                            AddressType = ctx.Enumerations.AddressTypes[AddressTypeEnum.Shipping],
+                            CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],
+                            Deleted = false,
+                            PhoneNumber = "123 123 123",
+                            Street = "Jakas ulica 20",
+                        }
+                    },
                 MillingMachines = new[]
-                {
-                    new MillingMachine
                     {
-                        MachineNumber = "TYPE_1",
-                        MillingMachineType = millingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = millingMachineDimensionsType[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 5,
-                        MinimalMachiningDimensions = 10,
-                        Name = "SuperMachine2000"
+                        new MillingMachine
+                        {
+                            MachineNumber = "TYPE_1",
+                            MillingMachineType = ctx.Enumerations.MillingMachines[MillingMachineTypeEnum.TYPE_1],
+                            MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
+                            Deleted = false,
+                            MaximalMachiningDimensions = 5,
+                            MinimalMachiningDimensions = 10,
+                            Name = "SuperMachine2000"
+                        },
+                        new MillingMachine
+                        {
+                            MachineNumber = "TYPE_2",
+                            MillingMachineType = ctx.Enumerations.MillingMachines[MillingMachineTypeEnum.TYPE_1],
+                            MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
+                            Deleted = false,
+                            MaximalMachiningDimensions = 5,
+                            MinimalMachiningDimensions = 5,
+                            Name = "SuperMachine4000"
+                        },
+                        new MillingMachine
+                        {
+                            MachineNumber = "TYPE_3",
+                            MillingMachineType = ctx.Enumerations.MillingMachines[MillingMachineTypeEnum.TYPE_1],
+                            MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
+                            Deleted = false,
+                            MaximalMachiningDimensions = 1,
+                            MinimalMachiningDimensions = 2,
+                            Name = "SuperMachine1000"
+                        },
                     },
-                    new MillingMachine
-                    {
-                        MachineNumber = "TYPE_2",
-                        MillingMachineType = millingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = millingMachineDimensionsType[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 5,
-                        MinimalMachiningDimensions = 5,
-                        Name = "SuperMachine4000"
-                    },
-                    new MillingMachine
-                    {
-                        MachineNumber = "TYPE_3",
-                        MillingMachineType = millingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = millingMachineDimensionsType[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 1,
-                        MinimalMachiningDimensions = 2,
-                        Name = "SuperMachine1000"
-                    },
-                },                
                 EmailAddress = "robert.shmidt@someCompany.com",
                 OtherTechnologies = new[]
-                {
-                    otherTechnologies[OtherTechnologyTypeEnum.Annealing],
-                    otherTechnologies[OtherTechnologyTypeEnum.Engravings],
-                },
+                    {
+                        ctx.Enumerations.OtherTechnologies[OtherTechnologyTypeEnum.Annealing],
+                        ctx.Enumerations.OtherTechnologies[OtherTechnologyTypeEnum.Engravings],
+                    },
                 CompanyName = "Shmidt and Family",
                 RegistrationNumber = "00/01/2000",
                 VATNumber = "000-000-000-000-000",
@@ -95,20 +85,18 @@ namespace Oroox.SubSuppliers.Domain
                     WorkingShiftsPerDay = 4,
                 },
                 Certifications = new[]
-                {
-                    new Certification
                     {
-                        Value = CertificationTypeEnum.EN9100,
-                    },
-                    new Certification
-                    {
-                        Value = CertificationTypeEnum.ISO13485,
+                        ctx.Enumerations.Certifications[CertificationTypeEnum.EN9100],
+                        ctx.Enumerations.Certifications[CertificationTypeEnum.ISO14001],
                     }
-                }
-            );
+            };
+
+            string newCustomerJson = newCustomer.ToJsonString();
+            ctx.Customers.Add(newCustomer);           
 
             bool result = await ctx.Customers.CheckIfEmailIsTaken("potepa.potepa@wp.pl");
-            Customer firstCustomer = ctx.Customers.First();
+            List<Customer> customers = await ctx.Customers.Include("Addresses").AsQueryable().Where(c => c.Addresses.Count != 0).ToListAsync();
+            customers.ForEach(el => el.Addresses.Remove(el.Addresses.First()));
             ctx.SaveChanges();
         }
     }
