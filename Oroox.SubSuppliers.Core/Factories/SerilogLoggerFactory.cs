@@ -5,6 +5,10 @@ using Serilog.Extensions.Logging;
 
 namespace Oroox.SubSuppliers.Utilities.Factories
 {
+    /// <summary>
+    /// Serilog Logger Factory
+    /// Used to override Defailt MS Logger.
+    /// </summary>
     public class SerilogLoggerFactory : Disposable, ILoggerFactory
     {
         private readonly SerilogLoggerProvider _provider;

@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Oroox.SubSuppliers.Utilities.Exceptions;
 using System;
 
 namespace Oroox.SubSuppliers.Utilities.Extensions
 {
+    /// <summary>
+    /// Allows IConfiguration interface that is being injected to obtain Environment Variables.
+    /// </summary>
     public static class ConfigurationExtensions
     {
         public static OxSuppliersEnvironmentVariables GetEnvironmentVariables(this IConfiguration @this)

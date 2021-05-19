@@ -2,6 +2,10 @@
 
 namespace Oroox.SubSuppliers.Utilities
 {
+    /// <summary>
+    /// Disposable class to satisfy Disposable Pattern.
+    /// <br>If you want your class to be Disposable friendly simply devire from this class.</br>
+    /// </summary>
     public class Disposable : IDisposable
     {
         private bool _disposed = false;

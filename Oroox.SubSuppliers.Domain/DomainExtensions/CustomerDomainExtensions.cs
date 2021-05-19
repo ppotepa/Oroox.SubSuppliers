@@ -7,7 +7,7 @@ namespace Oroox.SubSuppliers.Domain.Extensions
     public static partial class CustomerDomainExtensions
     {
         public static async Task<bool> CheckIfEmailIsTaken(this DbSet<Customer> @this, string email)
-        {            
+        {
             bool result = await @this.AnyAsync(c => c.CompanyName == email);
             return result;
         }

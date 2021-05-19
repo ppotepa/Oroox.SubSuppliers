@@ -2,6 +2,10 @@
 
 namespace Oroox.SubSuppliers.Utilities
 {
+    /// <summary>
+    /// POCO Class responsible for holding information of Environment Variables.
+    /// Used by IConfiguration.GetEnvironmentVariables();
+    /// </summary>
     public class OxSuppliersEnvironmentVariables
     {
         private const string Development = "Development";

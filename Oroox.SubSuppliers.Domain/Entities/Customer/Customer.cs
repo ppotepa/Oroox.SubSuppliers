@@ -43,6 +43,9 @@ namespace Oroox.SubSuppliers.Domain.Entities
         [NotMapped]
         public string PasswordConfirmation { get; set; }
 
+        [NotMapped]
+        public string Password { get; set; }
+
         #region FOREIGN_KEYS
         public Guid CompanySizeTypeId { get; set; }
         public Guid CustomerAdditionalInfoId { get; set; }

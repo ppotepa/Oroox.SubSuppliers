@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Utilities.Extensions
 {
     public static class StringExtensions
     {
-        public static string ToJsonString<TObject>(this TObject @object)
-        {
-            return JsonConvert.SerializeObject(@object);
-        }
+        /// <summary>
+        /// Converts an object to JObject
+        /// Uses Newtonsoft.Json.
+        /// </summary>
+        /// <typeparam name="TObject"></typeparam>
+        /// <param name="object"></param>
+        /// <returns></returns>
+        public static string ToJsonString<TObject>(this TObject @object, bool indent = false) =>
+            JsonConvert.SerializeObject(@object, indent is true ? Formatting.Indented : Formatting.None);
     }
 }

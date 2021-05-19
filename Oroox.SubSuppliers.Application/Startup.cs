@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Oroox.SubSuppliers.DependencyInjection;
 using Oroox.SubSuppliers.Domain;
+using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Modules.User;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
+using System.Reflection;
 
 namespace Oroox.SubSuppliers.Application
 {
@@ -36,31 +39,41 @@ namespace Oroox.SubSuppliers.Application
 
             app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseRouting();
-            app.UseEndpoints(builder =>
-            {
-                builder.MapControllers();
-            });
+            app.UseEndpoints(builder => builder.MapControllers());
 
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
-            //var resolved = AutofacContainer.Resolve<IEnumerable<IRequestValidator<CreateCustomerRequest>>>();
-            //var resolved2 = AutofacContainer.Resolve<IRequestValidator<CreateCustomerRequest>>();
         }
+
+        public interface IMail { }
+        public class Mail : IMail { };
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            Assembly[] moduleAssemblies = new[] 
+            {
+                typeof(UsersModule).Assembly
+            };
+
+            builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
             builder.RegisterModule(new UsersModule());
-            builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();            
+
+            builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
             builder.RegisterType<CustomersController>().PropertiesAutowired();
             builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
-            builder.RegisterLogger();
+            builder.RegisterType<Mail>().AsImplementedInterfaces().OnActivating(x =>
+            {
+                if (app.isDev is true)
+                {
+                    x = DevMailService();
+                }
 
-            builder.RegisterMediatR
-            (
-                new[] 
-                { 
-                    typeof(UsersModule).Assembly,
-                }               
-            );
+               
+                x = ProductionMail();
+               
+            });
+
+            builder.RegisterLogger();
+            builder.RegisterMediatR(moduleAssemblies);
 
             builder.RegisterType<LoggerFactory>()
                 .As<ILoggerFactory>()
@@ -76,12 +89,13 @@ namespace Oroox.SubSuppliers.Application
         {
             services.AddOptions();
             services.AddSwaggerGen();
-            services.AddHttpContextAccessor()
-            services.AddAutoMapper();
+            services.AddHttpContextAccessor();
 
-            services.AddMvc()
-                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .AddControllersAsServices();
+            services.AddMvc().AddNewtonsoftJson(options =>
+            {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            })
+            .AddControllersAsServices();
             
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
         }

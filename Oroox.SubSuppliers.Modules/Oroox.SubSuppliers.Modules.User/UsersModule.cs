@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.User
 {
+    /// <summary>
+    /// Autofac UsersModule
+    /// </summary>
     public class UsersModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -18,7 +21,7 @@ namespace Oroox.SubSuppliers.Modules.User
             requestTypes.ForEach(requestType => 
             {
                 Type requestResult = requestType.GetInterfaces().First().GetGenericArguments().First();
-                Type pipelineType = typeof(GenericHandler<,>).MakeGenericType(requestType, requestResult);
+                Type pipelineType = typeof(GenericPipeline<,>).MakeGenericType(requestType, requestResult);
                 List<Type> validators = ThisAssembly.GetTypes().Where(t => t.IsClosedTypeOf(typeof(IRequestValidator<>))).ToList();
 
                 validators.ForEach(validator =>

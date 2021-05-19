@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +51,7 @@ namespace Oroox.SubSuppliers.Domain
             }
             set => _currentEntities = value;
         }
+
         private readonly OxSuppliersEnvironmentVariables environmentVariables;
         private readonly bool LoggingEnabled;
         private readonly string outputFileName;
@@ -79,7 +79,6 @@ namespace Oroox.SubSuppliers.Domain
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
-   
 
         public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
         public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
@@ -109,7 +108,10 @@ namespace Oroox.SubSuppliers.Domain
             set => _enumerations = value;
         }
         private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
-        private MethodInfo ExpressionMethod(Type entity) => this.GetType().GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.NonPublic | BindingFlags.Instance).MakeGenericMethod(entity);
+        private MethodInfo ExpressionMethod(Type entity) 
+            => this.GetType()
+                    .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.NonPublic | BindingFlags.Instance)
+                    .MakeGenericMethod(entity);
         
         public override int SaveChanges()
         {
@@ -134,7 +136,6 @@ namespace Oroox.SubSuppliers.Domain
                     entry.Entity.DeletedOn = currentDateTime;
                     entry.State = EntityState.Modified;
                 }
-
             });
 
             return base.SaveChanges();

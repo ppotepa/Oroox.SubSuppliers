@@ -5,6 +5,13 @@ namespace Oroox.SubSuppliers.Utilities.Extensions
 {
     public static class EnumerableExtensions
     {
+    
+        /// <summary>
+        /// Allows using ForEach every Enumerable Collection.
+        /// </summary>
+        /// <typeparam name="TObjectType"></typeparam>
+        /// <param name="this"></param>
+        /// <param name="func"></param>
         public static void ForEach<TObjectType>(this IEnumerable<TObjectType> @this, Action<TObjectType> func) 
         {
             IEnumerator<TObjectType> enumerator = @this.GetEnumerator();
@@ -14,9 +21,16 @@ namespace Oroox.SubSuppliers.Utilities.Extensions
             }
         }
 
-        public static void ForEach<TObjectType>(this IEnumerable<TObjectType> @this, Action<TObjectType, int> func)
+        /// <summary>
+        /// Allows using ForEach every Enumerable Collection. 
+        /// This overload also allows to keep a track of current enumerator index.
+        /// </summary>
+        /// <typeparam name="TObjectType"></typeparam>
+        /// <param name="this"></param>
+        /// <param name="func"></param>
+        /// <param name="index"></param>
+        public static void ForEach<TObjectType>(this IEnumerable<TObjectType> @this, Action<TObjectType, int> func, int index = 0)
         {
-            int index = 0;
             IEnumerator<TObjectType> enumerator = @this.GetEnumerator();
             while (enumerator.MoveNext())
             {

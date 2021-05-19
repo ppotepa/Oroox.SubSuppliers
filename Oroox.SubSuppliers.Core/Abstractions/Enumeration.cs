@@ -5,6 +5,11 @@ using System.Reflection;
 
 namespace Oroox.SubSuppliers.Utilities.Abstractions
 {
+    /// <summary>
+    /// Enumeration class. 
+    /// Currently no use in this Project.
+    /// /// </summary>
+   
     public abstract class Enumeration : IComparable
     {
         private readonly int _value;

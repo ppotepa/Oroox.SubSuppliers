@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Oroox.SubSuppliers.Utilities.Extensions
+namespace Oroox.SubSuppliers.Utilities.Exceptions
 {
     [Serializable]
     internal class EnvironmentVariableMissingException : Exception

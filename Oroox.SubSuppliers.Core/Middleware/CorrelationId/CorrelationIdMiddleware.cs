@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Utilities.Middleware.CorrelationId
 {
+    /// <summary>
+    /// Works as an Request Interceptor.
+    /// Allows for request to return current TraceIdentifier.
+    /// </summary>
     public class CorrelationIdMiddleware
     {
         private readonly RequestDelegate _next;

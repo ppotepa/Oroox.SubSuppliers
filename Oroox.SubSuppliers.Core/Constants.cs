@@ -1,5 +1,8 @@
 ﻿namespace Oroox.SubSuppliers.Utilities
 {
+    /// <summary>
+    /// Constants strings.
+    /// </summary>
     public readonly struct Constants 
     {
         public readonly struct EnvironmentVariables 

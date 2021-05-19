@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using System;
 
 namespace Oroox.SubSuppliers.Utilities.Middleware.CorrelationId
 {
+    /// <summary>
+    /// DI extensions for CorrelationId Middleware
+    /// </summary>
     public static class CorrelationIdExtensions
     {
         public static IApplicationBuilder UseCorrelationId(this IApplicationBuilder app)
