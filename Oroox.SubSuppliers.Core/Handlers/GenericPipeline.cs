@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Oroox.SubSuppliers.Response;
 using Oroox.SubSuppliers.Utilities.Extensions;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Handlers
 {
-    public sealed class GenericPipeline<TRequest, TResponse> :  IRequestHandler<TRequest, TResponse>
+    public sealed class GenericPipeline<TRequest, TResponse> :  IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
         where TResponse : ResponseBase, new()
     {
@@ -20,13 +21,15 @@ namespace Oroox.SubSuppliers.Handlers
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor context;
         private readonly string traceId;
+        private readonly IRequestHandler<TRequest, TResponse> innerRequest;
 
         public GenericPipeline
         (
             IEnumerable<AbstractValidator<TRequest>> validators, 
             ILogger logger, 
             IMediator mediator,
-            IHttpContextAccessor context
+            IHttpContextAccessor context,
+            IRequestHandler<TRequest, TResponse> innerRequest
         )
         {
             this.validators = validators;
@@ -34,9 +37,10 @@ namespace Oroox.SubSuppliers.Handlers
             this.mediator = mediator;
             this.context = context;
             this.traceId = context.HttpContext.TraceIdentifier;
+            this.innerRequest = innerRequest;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             this.logger.Information($"{traceId} Processing a request {typeof(TRequest).Name}.");
             this.logger.Information($"{traceId} Request payload {request.ToJsonString(true)}.");
@@ -49,7 +53,7 @@ namespace Oroox.SubSuppliers.Handlers
             .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
             .ToArray();
 
-            if (validationMessages.Any() is true)
+            if (validationMessages.Any() is false)
             {
                 this.logger.Information($"{traceId} Validation errors found {validationMessages.ToJsonString(true)}");
                 return new TResponse
@@ -60,7 +64,8 @@ namespace Oroox.SubSuppliers.Handlers
                 };
             }
 
-            return await Task.FromResult<TResponse>(default);
+            var res = await this.innerRequest.Handle(request, cancellationToken);
+            return null;
         }
     }
 }

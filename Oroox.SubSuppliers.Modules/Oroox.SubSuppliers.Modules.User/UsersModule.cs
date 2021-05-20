@@ -18,7 +18,7 @@ namespace Oroox.SubSuppliers.Modules.User
         {
             List<Type> requestTypes = this.ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequest<>))).ToList();
 
-            requestTypes.ForEach(requestType => 
+            requestTypes.ForEach(requestType =>
             {
                 Type requestResult = requestType.GetInterfaces().First().GetGenericArguments().First();
                 Type pipelineType = typeof(GenericPipeline<,>).MakeGenericType(requestType, requestResult);
@@ -28,8 +28,8 @@ namespace Oroox.SubSuppliers.Modules.User
                 {
                     builder.RegisterType(validator).As(typeof(AbstractValidator<>).MakeGenericType(requestType));
                 });
-                
-                builder.RegisterType(pipelineType).AsImplementedInterfaces().InstancePerDependency();
+
+                builder.RegisterType(pipelineType).AsImplementedInterfaces().InstancePerDependency().PropertiesAutowired();
             });
 
             builder

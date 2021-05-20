@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
 using Oroox.SubSuppliers.Domain;
+using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Modules.User;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
@@ -59,7 +60,7 @@ namespace Oroox.SubSuppliers.Application
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
             builder.RegisterType<CustomersController>().PropertiesAutowired();
             builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
-
+            builder.RegisterGenericDecorator(typeof(GenericPipeline<,>), typeof(IPipelineBehavior<,>));
             builder.RegisterLogger();
             builder.RegisterMediatR(moduleAssemblies);
 
