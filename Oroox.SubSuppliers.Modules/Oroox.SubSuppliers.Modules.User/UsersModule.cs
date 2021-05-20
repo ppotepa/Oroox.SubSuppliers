@@ -1,8 +1,8 @@
 ﻿using Autofac;
+using FluentValidation;
 using MediatR;
 using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Handlers;
-using Oroox.SubSuppliers.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +22,11 @@ namespace Oroox.SubSuppliers.Modules.User
             {
                 Type requestResult = requestType.GetInterfaces().First().GetGenericArguments().First();
                 Type pipelineType = typeof(GenericPipeline<,>).MakeGenericType(requestType, requestResult);
-                List<Type> validators = ThisAssembly.GetTypes().Where(t => t.IsClosedTypeOf(typeof(IRequestValidator<>))).ToList();
+                List<Type> validators = ThisAssembly.GetTypes().Where(t => t.IsClosedTypeOf(typeof(AbstractValidator<>))).ToList();
 
                 validators.ForEach(validator =>
                 {
-                    builder.RegisterType(validator).As(typeof(IRequestValidator<>).MakeGenericType(requestType));
+                    builder.RegisterType(validator).As(typeof(AbstractValidator<>).MakeGenericType(requestType));
                 });
                 
                 builder.RegisterType(pipelineType).AsImplementedInterfaces().InstancePerDependency();

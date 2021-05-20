@@ -22,7 +22,7 @@ namespace Oroox.SubSuppliers.Utilities.Extensions
         }
 
         /// <summary>
-        /// Allows using ForEach every Enumerable Collection. 
+        /// Allows using ForEach on every Enumerable Collection. 
         /// This overload also allows to keep a track of current enumerator index.
         /// </summary>
         /// <typeparam name="TObjectType"></typeparam>

@@ -9,6 +9,7 @@ namespace Oroox.SubSuppliers.Response
         public IEnumerable<string> ValidationMessages { get; set; }
         public string Response { get; set; }
         public object Result { get; set; }
+        public string TraceId { get; set; }
         
     }
 }

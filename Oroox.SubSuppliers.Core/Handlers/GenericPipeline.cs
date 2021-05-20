@@ -1,8 +1,8 @@
-﻿using MediatR;
-using Oroox.SubSuppliers.Extensions;
+﻿using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Oroox.SubSuppliers.Response;
 using Oroox.SubSuppliers.Utilities.Extensions;
-using Oroox.SubSuppliers.Validation;
 using Serilog;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,39 +15,48 @@ namespace Oroox.SubSuppliers.Handlers
         where TRequest : IRequest<TResponse>
         where TResponse : ResponseBase, new()
     {
-        private readonly IEnumerable<IRequestValidator<TRequest>> validators;
+        private readonly IEnumerable<AbstractValidator<TRequest>> validators;
         private readonly ILogger logger;
         private readonly IMediator mediator;
-        private readonly IEnumerable<IRequestValidator<TRequest>> postProcessors;
-      
+        private readonly IHttpContextAccessor context;
+        private readonly string traceId;
 
         public GenericPipeline
         (
-            IEnumerable<IRequestValidator<TRequest>> validators, 
-            IEnumerable<IRequestValidator<TRequest>> postProcessors, 
+            IEnumerable<AbstractValidator<TRequest>> validators, 
             ILogger logger, 
-            IMediator mediator
+            IMediator mediator,
+            IHttpContextAccessor context
         )
         {
             this.validators = validators;
             this.logger = logger;
             this.mediator = mediator;
-            this.postProcessors = postProcessors;
+            this.context = context;
+            this.traceId = context.HttpContext.TraceIdentifier;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
         {
-            this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
-            this.logger.Information($"Request payload {request.ToJsonString(true)}.");
+            this.logger.Information($"{traceId} Processing a request {typeof(TRequest).Name}.");
+            this.logger.Information($"{traceId} Request payload {request.ToJsonString(true)}.");
 
-            string[] validationMessages = this.validators.Select(validator => validator.Process(request)).GetValidationMessages().ToArray();
+            string[] validationMessages = this.validators.Select(validator => {
+                validator.CascadeMode = CascadeMode.Stop;
+                return validator.Validate(request);
+            })
+            .Where(result => result.IsValid is false)
+            .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
+            .ToArray();
 
-            if (validationMessages.Any())
+            if (validationMessages.Any() is true)
             {
+                this.logger.Information($"{traceId} Validation errors found {validationMessages.ToJsonString(true)}");
                 return new TResponse
                 {
                     Response = "There were some validation errors.",
-                    ValidationMessages = validationMessages
+                    ValidationMessages = validationMessages,
+                    TraceId = traceId
                 };
             }
 
