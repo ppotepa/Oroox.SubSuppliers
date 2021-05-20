@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
-using Oroox.SubSuppliers.Domain;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Modules.User;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
@@ -51,16 +51,18 @@ namespace Oroox.SubSuppliers.Application
         {
             Assembly[] moduleAssemblies = new[] 
             {
-                typeof(UsersModule).Assembly
+                typeof(CustomersModule).Assembly
             };
 
             builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
-            builder.RegisterModule(new UsersModule());
+            builder.RegisterType<SubSuppliersContext>().As<IApplicationContext>().InstancePerRequest();
 
+            builder.RegisterModule(new CustomersModule());
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
+
             builder.RegisterType<CustomersController>().PropertiesAutowired();
-            builder.RegisterType<SubSuppliersContext>().AsImplementedInterfaces().InstancePerDependency();
             builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
+
             builder.RegisterLogger();
             builder.RegisterMediatR(moduleAssemblies);
 

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oroox.SubSuppliers.Domain;
+using Oroox.SubSuppliers.Domain.Context;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {

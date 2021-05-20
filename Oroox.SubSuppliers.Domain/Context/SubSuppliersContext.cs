@@ -13,7 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Oroox.SubSuppliers.Domain
+namespace Oroox.SubSuppliers.Domain.Context
 {
     public class SubSuppliersContext : DbContext, IApplicationContext
     {
@@ -39,6 +39,7 @@ namespace Oroox.SubSuppliers.Domain
         private readonly string outputFileName;
         private readonly IServiceProvider serviceProvider;
         private SubSuppliersContextEnumerations _enumerations;
+        public SubSuppliersContext() : base() { }
         public SubSuppliersContext(bool enableLogging = false) : base() 
         {
             this.LoggingEnabled = enableLogging;

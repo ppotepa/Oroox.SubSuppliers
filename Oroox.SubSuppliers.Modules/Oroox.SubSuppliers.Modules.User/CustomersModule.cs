@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using FluentValidation;
 using MediatR;
-using Oroox.SubSuppliers.Domain;
 using System;
 using System.Linq;
 

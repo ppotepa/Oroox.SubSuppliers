@@ -5,11 +5,10 @@ using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Domain
+namespace Oroox.SubSuppliers.Domain.Context
 {
     public interface IApplicationContext
     {
-       
         public DbSet<AddressType> AddressTypes { get; set; }
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
