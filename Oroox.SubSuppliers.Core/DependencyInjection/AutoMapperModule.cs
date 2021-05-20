@@ -19,8 +19,18 @@ namespace Oroox.SubSuppliers.DependencyInjection
             base.Load(builder);
 
             Assembly[] assembliesToScan = this.assemblies as Assembly[] ?? this.assemblies.ToArray();
-            builder.Register<IConfigurationProvider>(ctx => new MapperConfiguration(configuration => configuration.AddMaps(assembliesToScan))).SingleInstance();
-            builder.Register<IMapper>(context => new Mapper(context.Resolve<IConfigurationProvider>(), context.Resolve)).InstancePerDependency();
+
+            builder.Register<IConfigurationProvider>(ctx => 
+            {
+                return new MapperConfiguration(configuration => 
+                {
+                    configuration.AddMaps(assembliesToScan);
+                });
+            })
+            .SingleInstance();
+
+            builder.Register<IMapper>(context => new Mapper(context.Resolve<IConfigurationProvider>(), context.Resolve))
+                    .InstancePerDependency();
         }
     }
 }

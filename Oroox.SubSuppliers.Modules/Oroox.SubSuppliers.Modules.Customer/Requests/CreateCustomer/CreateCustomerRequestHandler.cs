@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.User.Responses;
@@ -11,20 +10,19 @@ namespace Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer
 {
     public class CreateCustomerRequestHandler : IRequestHandler<CreateCustomer, CreateCustomerRequestResponse>
     {
-        private readonly IApplicationContext applicationContext;
+        private readonly IApplicationContext context;
 
         public CreateCustomerRequestHandler(IApplicationContext context)
         {
-            this.applicationContext = context;
+            this.context = context;
         }
 
         public async Task<CreateCustomerRequestResponse> Handle(CreateCustomer request, CancellationToken cancellationToken)
         {
-            EntityEntry<Customer> customerId = await this.applicationContext.Customers.AddAsync(request.Customer);
-            applicationContext.SaveChanges();
+            EntityEntry<Customer> entry = await this.context.Customers.AddAsync(request.Customer, cancellationToken);
             return new CreateCustomerRequestResponse
             {
-                Response = $"CustomerId : {customerId.Entity.Id}"
+                Response = $"CustomerId : {entry.Entity.Id}"
             };
         }
     }

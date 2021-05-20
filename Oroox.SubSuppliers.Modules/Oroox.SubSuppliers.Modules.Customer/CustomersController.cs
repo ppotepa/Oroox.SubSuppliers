@@ -11,7 +11,6 @@ namespace Oroox.SubSuppliers.Modules.User
     /// Users Domain Controller
     /// </summary>
     [Route("api/[controller]/[action]")]
-    [ApiController]
     public class CustomersController : ModuleController
     {
         public CustomersController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
@@ -22,20 +21,8 @@ namespace Oroox.SubSuppliers.Modules.User
         /// <param name="request">UserDTO</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCustomerModel request) => await Handle
-        (
-            new CreateCustomer
-            {
-                Customer = new Domain.Entities.Customer
-                {
-                    CompanyName = null,
-                    EmailAddress = "potepa.pawel@gmail.com",
-                    RegistrationNumber = "01/01/01",
-                    Password = "password132",
-                    PasswordConfirmation = "password132"
-                }
-            }
-        );
+        public async Task<IActionResult> Create(CreateCustomerModel request) 
+            => await Handle(this.mapper.Map<CreateCustomer>(request));
 
         /// <summary>
         /// Gets User

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer;
 using Serilog;
 
@@ -9,10 +10,12 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
     /// </summary>
     public class CustomerValidator : AbstractValidator<CreateCustomer>
     {
+        private readonly ILogger logger;
+
         public CustomerValidator(ILogger logger) 
         {
-            logger.Information($"Started validation for : {this.GetType().Name}");
-
+            
+            this.logger = logger;
             this.CascadeMode = CascadeMode.Stop;
 
             RuleFor(request => request).NotNull();
@@ -25,6 +28,12 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
                 RuleFor(request => request.Customer.PasswordConfirmation).NotNull().NotEmpty().WithMessage("Password Confirmation cannot be null");
                 RuleFor(request => request.Customer.PasswordConfirmation).Equal(x => x.Customer.Password).WithMessage("Passwords must match.");
             });
+        }
+
+        public override ValidationResult Validate(ValidationContext<CreateCustomer> context)
+        {
+            logger.Information($"Started validation for : {this.GetType().Name}");
+            return base.Validate(context);
         }
     }
 }

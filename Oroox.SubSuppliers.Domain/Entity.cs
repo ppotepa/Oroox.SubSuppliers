@@ -4,6 +4,7 @@ namespace Oroox.SubSuppliers.Domain
 {
     public class Entity
     {
+        public Entity() { }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool Deleted { get; set; }

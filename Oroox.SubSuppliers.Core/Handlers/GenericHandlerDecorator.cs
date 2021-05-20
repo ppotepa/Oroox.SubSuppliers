@@ -57,8 +57,9 @@ namespace Oroox.SubSuppliers.Handlers
                     ValidationMessages = validationMessages
                 };
             }
-
-            TResponse response = await this.innerRequest.Handle(request, cancellationToken);
+            
+            TResponse response =  await this.innerRequest.Handle(request, cancellationToken);
+            int rowsChanged = context.SaveChanges();
             return response;
         }
     }

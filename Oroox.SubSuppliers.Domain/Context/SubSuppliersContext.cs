@@ -91,11 +91,15 @@ namespace Oroox.SubSuppliers.Domain.Context
             set => _enumerations = value;
         }
         private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
-        private MethodInfo ExpressionMethod(Type entity) 
-            => this.GetType()
-                    .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.NonPublic | BindingFlags.Instance)
-                    .MakeGenericMethod(entity);
+
+        private MethodInfo ExpressionMethod(Type entity)
+        {
+            return this.GetType()
+                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.NonPublic | BindingFlags.Instance)
+                          .MakeGenericMethod(entity);
+        }
         
+
         public override int SaveChanges()
         {
             DateTime currentDateTime = DateTime.Now;
@@ -194,6 +198,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             });
         }
 
-        private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity => entity => EF.Property<bool>(entity, "Deleted").Equals(false);
+        private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity 
+            => entity => EF.Property<bool>(entity, "Deleted").Equals(false);
     }
 }

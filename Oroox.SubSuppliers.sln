@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Extensio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Modules.Customer", "Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.Customer\Oroox.SubSuppliers.Modules.Customer.csproj", "{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oroox.SubSuppliers.Services", "Oroox.SubSuppliers.Services\Oroox.SubSuppliers.Services.csproj", "{7FFCDE58-9741-4CA5-ACA1-85CD05C03365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oroox.SubSuppliers.Infrastructure", "Oroox.SubSuppliers.Infrastructure\Oroox.SubSuppliers.Infrastructure.csproj", "{0A9E0067-82EF-48A8-AA88-47125D896637}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFCDE58-9741-4CA5-ACA1-85CD05C03365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFCDE58-9741-4CA5-ACA1-85CD05C03365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFCDE58-9741-4CA5-ACA1-85CD05C03365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFCDE58-9741-4CA5-ACA1-85CD05C03365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9E0067-82EF-48A8-AA88-47125D896637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9E0067-82EF-48A8-AA88-47125D896637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9E0067-82EF-48A8-AA88-47125D896637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9E0067-82EF-48A8-AA88-47125D896637}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

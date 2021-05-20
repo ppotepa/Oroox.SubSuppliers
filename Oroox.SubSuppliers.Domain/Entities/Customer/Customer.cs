@@ -8,11 +8,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class Customer : Entity
     {
-        public Customer()
-        {
-
-        }
-
+        public Customer() { }
         public Customer(string companyName, CompanySizeType companySizeType, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
         {
             CompanyName = companyName;

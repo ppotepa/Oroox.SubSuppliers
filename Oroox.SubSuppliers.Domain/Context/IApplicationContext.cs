@@ -17,7 +17,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
         public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
-        int SaveChanges();
-        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+        public int SaveChanges();
+        public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer;
 using Serilog;
 using System.Text.RegularExpressions;
@@ -11,9 +12,10 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
     public class CustomerEmailValidator : AbstractValidator<CreateCustomer>
     {
         Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        private readonly ILogger logger;
         public CustomerEmailValidator(ILogger logger)
         {
-            logger.Information($"Started validation for : {this.GetType().Name}");
+            this.logger = logger;
 
             RuleFor(request => request).NotNull();
             RuleFor(request => request.Customer).NotNull();
@@ -28,5 +30,10 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
             });
         }
         private bool BeValidEmail(string emailString) => emailRegex.Match(emailString ?? string.Empty).Success is true;
+        public override ValidationResult Validate(ValidationContext<CreateCustomer> context)
+        {
+            logger.Information($"Started validation for : {this.GetType().Name}");
+            return base.Validate(context);
+        }
     }
 }
