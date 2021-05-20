@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Applicat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{574FB598-E916-4D9B-BC85-BD8A1D8A04A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Modules.Customer", "Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.User\Oroox.SubSuppliers.Modules.Customer.csproj", "{6E7D8CB3-B43D-4A09-B4F6-295A96080E69}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman", "Postman", "{BDC96769-4717-4918-B0FA-780DE0BD4878}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Domain", "Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj", "{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}"
@@ -21,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{463351E0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Tests.Customer", "Oroox.SubSuppliers.Tests.Customer\Oroox.SubSuppliers.Tests.Customer.csproj", "{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oroox.SubSuppliers.Extensions", "Oroox.SubSuppliers.Extensions\Oroox.SubSuppliers.Extensions.csproj", "{8090D479-2F8A-4E2F-A575-4F5DEE865DC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Extensions", "Oroox.SubSuppliers.Extensions\Oroox.SubSuppliers.Extensions.csproj", "{8090D479-2F8A-4E2F-A575-4F5DEE865DC3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Modules.Customer", "Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.Customer\Oroox.SubSuppliers.Modules.Customer.csproj", "{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,6 @@ Global
 		{F9468349-CD02-42E0-BFA8-A181207E8951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9468349-CD02-42E0-BFA8-A181207E8951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9468349-CD02-42E0-BFA8-A181207E8951}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E7D8CB3-B43D-4A09-B4F6-295A96080E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E7D8CB3-B43D-4A09-B4F6-295A96080E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E7D8CB3-B43D-4A09-B4F6-295A96080E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E7D8CB3-B43D-4A09-B4F6-295A96080E69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,13 +53,17 @@ Global
 		{8090D479-2F8A-4E2F-A575-4F5DEE865DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8090D479-2F8A-4E2F-A575-4F5DEE865DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8090D479-2F8A-4E2F-A575-4F5DEE865DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6E7D8CB3-B43D-4A09-B4F6-295A96080E69} = {574FB598-E916-4D9B-BC85-BD8A1D8A04A8}
 		{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793} = {463351E0-4061-403E-A015-FA70F4C7CCD4}
+		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C} = {574FB598-E916-4D9B-BC85-BD8A1D8A04A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD4E0C8E-114A-4EBD-97BA-FCB36C3263AE}

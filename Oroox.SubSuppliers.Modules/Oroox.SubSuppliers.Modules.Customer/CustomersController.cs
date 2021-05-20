@@ -11,6 +11,7 @@ namespace Oroox.SubSuppliers.Modules.User
     /// Users Domain Controller
     /// </summary>
     [Route("api/[controller]/[action]")]
+    [ApiController]
     public class CustomersController : ModuleController
     {
         public CustomersController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
