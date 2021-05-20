@@ -2,9 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Oroox.SubSuppliers.Domain;
-using Oroox.SubSuppliers.Handlers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.User
@@ -16,24 +14,12 @@ namespace Oroox.SubSuppliers.Modules.User
     {
         protected override void Load(ContainerBuilder builder)
         {
-            List<Type> requestTypes = this.ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequest<>))).ToList();
-
-            requestTypes.ForEach(requestType =>
-            {
-                Type requestResult = requestType.GetInterfaces().First().GetGenericArguments().First();
-                Type pipelineType = typeof(GenericPipeline<,>).MakeGenericType(requestType, requestResult);
-                List<Type> validators = ThisAssembly.GetTypes().Where(t => t.IsClosedTypeOf(typeof(AbstractValidator<>))).ToList();
-
-                validators.ForEach(validator =>
-                {
-                    builder.RegisterType(validator).As(typeof(AbstractValidator<>).MakeGenericType(requestType));
-                });
-
-                builder.RegisterType(pipelineType).AsImplementedInterfaces().InstancePerDependency().PropertiesAutowired();
-            });
+            Type[] requestTypes = this.ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequest<>))).ToArray();
+            Type[] validators = ThisAssembly.GetTypes().Where(t => t.IsClosedTypeOf(typeof(IValidator<>))).ToArray();
+            builder.RegisterTypes(validators).As(typeof(IValidator<>).MakeGenericType(requestTypes));
 
             builder
-                .RegisterType<SubSuppliersContext>()
+                .RegisterType<IApplicationContext>()
                 .AsImplementedInterfaces()
                 .InstancePerDependency();
 

@@ -1,4 +1,4 @@
-﻿namespace Oroox.SubSuppliers.Utilities
+﻿namespace Oroox.SubSuppliers.Extensions
 {
     /// <summary>
     /// Constants strings.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Oroox.SubSuppliers.Utilities.Extensions
+namespace Oroox.SubSuppliers.Extensions
 {
     public static class EnumerableExtensions
     {

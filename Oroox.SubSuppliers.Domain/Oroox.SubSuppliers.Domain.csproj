@@ -33,11 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Oroox.SubSuppliers.Extensions\Oroox.SubSuppliers.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

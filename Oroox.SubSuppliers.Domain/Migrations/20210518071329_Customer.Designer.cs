@@ -9,7 +9,7 @@ using Oroox.SubSuppliers.Domain;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    [DbContext(typeof(SubSuppliersContext))]
+    [DbContext(typeof(IApplicationContext))]
     [Migration("20210518071329_Customer")]
     partial class Customer
     {

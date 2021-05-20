@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Oroox.SubSuppliers.Domain.Entities;
+﻿using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
-using Oroox.SubSuppliers.Domain.Extensions;
-using Oroox.SubSuppliers.Utilities.Extensions;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -16,7 +11,7 @@ namespace Oroox.SubSuppliers.Domain
         {
             SubSuppliersContext ctx = new SubSuppliersContext(true);
 
-            var newCustomer = new Customer
+            Customer newCustomer = new Customer
             {
                 CompanySizeType = ctx.Enumerations.CompanyTypes[CompanySizeTypeEnum.LessThan10],
                 Addresses = new[]

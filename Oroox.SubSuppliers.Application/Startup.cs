@@ -27,7 +27,7 @@ namespace Oroox.SubSuppliers.Application
 
         public ILifetimeScope AutofacContainer { get; private set; }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
             Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
@@ -59,8 +59,8 @@ namespace Oroox.SubSuppliers.Application
 
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
             builder.RegisterType<CustomersController>().PropertiesAutowired();
-            builder.RegisterType<SubSuppliersContext>().AsSelf().InstancePerDependency();
-            builder.RegisterGenericDecorator(typeof(GenericPipeline<,>), typeof(IPipelineBehavior<,>));
+            builder.RegisterType<SubSuppliersContext>().AsImplementedInterfaces().InstancePerDependency();
+            builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
             builder.RegisterLogger();
             builder.RegisterMediatR(moduleAssemblies);
 

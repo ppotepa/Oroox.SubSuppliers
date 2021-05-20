@@ -5,34 +5,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
-using Oroox.SubSuppliers.Utilities;
-using Oroox.SubSuppliers.Utilities.Extensions;
+using Oroox.SubSuppliers.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
 {
-    public interface IApplicationContext
-    {
-       
-        public DbSet<AddressType> AddressTypes { get; set; }
-        public DbSet<Certification> Certifications { get; set; }
-        public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
-        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
-        public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
-        public DbSet<OtherTechnology> OtherTechnologies { get; set; }
-        int SaveChanges();
-        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
-    }
-
     public class SubSuppliersContext : DbContext, IApplicationContext
     {
         private const string EnumerationClassName = "EnumerationEntity`1";
@@ -68,7 +50,7 @@ namespace Oroox.SubSuppliers.Domain
                 .AddSingleton(this)
                 .BuildServiceProvider();
 
-            environmentVariables = configuration.GetEnvironmentVariables();
+            environmentVariables = this.configuration.GetEnvironmentVariables();
             outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
         }

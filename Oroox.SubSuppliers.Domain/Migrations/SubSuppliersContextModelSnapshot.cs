@@ -8,7 +8,7 @@ using Oroox.SubSuppliers.Domain;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    [DbContext(typeof(SubSuppliersContext))]
+    [DbContext(typeof(IApplicationContext))]
     partial class SubSuppliersContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

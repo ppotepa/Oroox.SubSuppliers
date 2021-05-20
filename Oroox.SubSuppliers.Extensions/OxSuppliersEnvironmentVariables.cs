@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Utilities
+namespace Oroox.SubSuppliers.Extensions
 {
     /// <summary>
     /// POCO Class responsible for holding information of Environment Variables.
