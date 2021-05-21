@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Oroox.SubSuppliers.Domain.Context;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Utilities.Abstractions
@@ -15,11 +16,13 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
     {
         protected readonly IMediator mediator;
         protected readonly IMapper mapper;
+        protected readonly IApplicationContext context;
 
-        public ModuleController(IMediator mediator, IMapper mapper)
+        public ModuleController(IMediator mediator, IMapper mapper, IApplicationContext context)
         {
             this.mediator = mediator;
             this.mapper = mapper;
+            this.context = context;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]

@@ -1,17 +1,17 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Modules.User.Requests.Customer;
+using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Serilog;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Oroox.SubSuppliers.Modules.User.Validation
+namespace Oroox.SubSuppliers.Modules.Customers.Validation
 {
     /// <summary>
     /// Customer Validator.
     /// </summary>
-    public class CustomerEmailValidator : AbstractValidator<CreateCustomer>
+    public class CustomerEmailValidator : AbstractValidator<CreateCustomerRequest>
     {
         private readonly Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         private readonly ILogger logger;
@@ -43,7 +43,7 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
         private bool NotBeTaken(string emailString) 
             => this.context.Customers.Any(x => x.EmailAddress == emailString) is false;
 
-        public override ValidationResult Validate(ValidationContext<CreateCustomer> context)
+        public override ValidationResult Validate(ValidationContext<CreateCustomerRequest> context)
         {
             logger.Information($"Started validation for : {this.GetType().Name}");
             return base.Validate(context);

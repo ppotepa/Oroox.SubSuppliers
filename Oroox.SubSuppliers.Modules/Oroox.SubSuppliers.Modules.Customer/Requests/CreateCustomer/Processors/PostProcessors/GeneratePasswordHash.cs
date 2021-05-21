@@ -1,12 +1,11 @@
-﻿using Oroox.SubSuppliers.Modules.User.Requests.Customer;
-using Oroox.SubSuppliers.RequestHandlers;
+﻿using Oroox.SubSuppliers.Processors;
 using System.Threading;
 
-namespace Oroox.SubSuppliers.Modules.Customer.Requests.Processors
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
 {
-    public class GeneratePasswordHash : IPostRequestProcessor<CreateCustomer>
+    public class GeneratePasswordHash : IPostRequestProcessor<CreateCustomerRequest>
     {
-        public void Process(CreateCustomer request, CancellationToken cancelationToken)
+        public void Process(CreateCustomerRequest request, CancellationToken cancelationToken)
             => request.Customer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Customer.Password);
     }
 }

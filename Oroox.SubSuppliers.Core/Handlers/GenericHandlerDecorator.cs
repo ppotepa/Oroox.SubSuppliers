@@ -4,7 +4,7 @@ using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Event;
 using Oroox.SubSuppliers.Exceptions;
 using Oroox.SubSuppliers.Extensions;
-using Oroox.SubSuppliers.RequestHandlers;
+using Oroox.SubSuppliers.Processors;
 using Oroox.SubSuppliers.Response;
 using Serilog;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace Oroox.SubSuppliers.Handlers
             IEnumerable<IValidator<TRequest>> validators, 
             IEnumerable<IPreRequestProcessor<TRequest>> preProcessors, 
             IEnumerable<IPostRequestProcessor<TRequest>> postProcessors, 
-            IEnumerable<IEntityBinder<TRequest>> binder, 
+            //IEnumerable<IEntityBinder<TRequest>> binder, 
             IEnumerable<IEvent<TRequest>> events, 
             IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
@@ -46,7 +46,7 @@ namespace Oroox.SubSuppliers.Handlers
         {
             this.validators = validators;
             this.preProcessors = preProcessors;
-            this.binders = binder;
+            //this.binders = binder;
             this.postProcessors = postProcessors;
             this.logger = logger;
             this.events = events;

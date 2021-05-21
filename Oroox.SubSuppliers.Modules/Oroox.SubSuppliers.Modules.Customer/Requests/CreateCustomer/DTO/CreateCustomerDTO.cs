@@ -1,7 +1,7 @@
 ﻿using Oroox.SubSuppliers.Domain.Entities;
 using System.Collections.Generic;
 
-namespace Oroox.SubSuppliers.Modules.User.DTO
+namespace Oroox.SubSuppliers.Modules.Customers.DTO
 {
     public class CreateCustomerDTO 
     {

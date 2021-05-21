@@ -1,12 +1,11 @@
-﻿using Oroox.SubSuppliers.Modules.User.Requests.Customer;
-using Oroox.SubSuppliers.RequestHandlers;
+﻿using Oroox.SubSuppliers.Processors;
 using System.Threading;
 
-namespace Oroox.SubSuppliers.Modules.Customer.Requests.Processors
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
 {
-    internal class UserNameProcessor : IPreRequestProcessor<CreateCustomer>
+    internal class UserNameProcessor : IPreRequestProcessor<CreateCustomerRequest>
     {
-        public void Process(CreateCustomer request, CancellationToken cancelationToken)
+        public void Process(CreateCustomerRequest request, CancellationToken cancelationToken)
         {
             if (request.Customer.CompanyName.Contains('a'))
             {
@@ -19,4 +18,4 @@ namespace Oroox.SubSuppliers.Modules.Customer.Requests.Processors
             }
         }
     }
-}i
+}

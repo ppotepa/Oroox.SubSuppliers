@@ -1,9 +1,9 @@
 ﻿using Oroox.SubSuppliers.Response;
 
-namespace Oroox.SubSuppliers.Modules.User.Responses
+namespace Oroox.SubSuppliers.Modules.Customers.Responses
 {
     /// <summary>
-    /// Response Class for <seealso cref="Requests.CreateCustomer.CreateCustomerRequest"/>
+    /// Response Class for <seealso cref="Requests.CreateCustomerRequest.CreateCustomerRequest"/>
     /// </summary>
     public class CreateCustomerRequestResponse : ResponseBase { }
 }

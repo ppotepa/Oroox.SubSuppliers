@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Oroox.SubSuppliers.Modules.User.Requests;
-using Oroox.SubSuppliers.Modules.User.Requests.Customer;
+using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Serilog;
 
-namespace Oroox.SubSuppliers.Modules.User.Validation
+namespace Oroox.SubSuppliers.Modules.Customers.Validation
 {
     /// <summary>
     /// Customer Validator.
     /// </summary>
-    public class CustomerValidator : AbstractValidator<CreateCustomer>
+    public class CustomerValidator : AbstractValidator<CreateCustomerRequest>
     {
         private readonly ILogger logger;
 
@@ -31,7 +30,7 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
             });
         }
 
-        public override ValidationResult Validate(ValidationContext<CreateCustomer> context)
+        public override ValidationResult Validate(ValidationContext<CreateCustomerRequest> context)
         {
             logger.Information($"Started validation for : {this.GetType().Name}");
             return base.Validate(context);
