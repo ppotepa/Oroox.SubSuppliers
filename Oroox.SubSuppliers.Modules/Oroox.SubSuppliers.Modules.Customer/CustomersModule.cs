@@ -12,17 +12,18 @@ namespace Oroox.SubSuppliers.Modules.User
     /// </summary>
     public class CustomersModule : Module
     {
+        private Type[] RequestTypes => ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequest<>))).ToArray();
+        private Type[] Validators => ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IValidator<>))).ToArray();
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CustomersController>().PropertiesAutowired();
             builder.RegisterType<SubSuppliersContext>().As<IApplicationContext>().InstancePerLifetimeScope();
 
-            Type[] requestTypes = this.ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequest<>))).ToArray();
-            Type[] validators = ThisAssembly.GetTypes().Where(t => t.IsClosedTypeOf(typeof(IValidator<>))).ToArray();
-
-            builder.RegisterTypes(validators)
+            builder
+                .RegisterTypes(Validators)
                 .As(typeof(IValidator<>)
-                .MakeGenericType(requestTypes));
+                .MakeGenericType(RequestTypes));
 
             base.Load(builder);
         }

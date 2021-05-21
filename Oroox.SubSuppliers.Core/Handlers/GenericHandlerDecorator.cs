@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
-using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Response;
 using Serilog;
@@ -39,15 +39,15 @@ namespace Oroox.SubSuppliers.Handlers
             this.innerRequest = innerRequest;
             this.context = context;
         }
-
+       
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
 
             string[] validationMessages = this.validators.Select(validator => validator.Validate(request))
-            .Where(result => result.IsValid is false)
-            .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
-            .ToArray();
+                        .Where(result => result.IsValid is false)
+                        .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
+                        .ToArray();
 
             if (validationMessages.Any() is true)
             {

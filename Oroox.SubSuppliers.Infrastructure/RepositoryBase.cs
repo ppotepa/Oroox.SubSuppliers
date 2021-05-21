@@ -5,7 +5,8 @@ using System;
 
 namespace Oroox.SubSuppliers.Infrastructure
 {
-    public class RepositoryBase<TEntityType> : DbSet<TEntityType> where TEntityType : Entity
+    public class RepositoryBase<TEntityType> : DbSet<TEntityType> 
+        where TEntityType : Entity
     {
         private readonly SubSuppliersContext context;
         public RepositoryBase(SubSuppliersContext context)

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
 using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Modules.User;
+using Oroox.SubSuppliers.Services;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
 using System.Reflection;
@@ -52,10 +53,11 @@ namespace Oroox.SubSuppliers.Application
 
             builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
             builder.RegisterModule(new CustomersModule());
+            builder.RegisterModule(new ServicesModule(Configuration));
+
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
 
-            builder
-                .RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
+            builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
 
             builder.RegisterLogger();
             builder.RegisterMediatR(moduleAssemblies);

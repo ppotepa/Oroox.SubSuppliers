@@ -9,12 +9,11 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
     /// <summary>
     /// Customer Validator.
     /// </summary>
-    public class CustomerEmailValidator : AbstractValidator<CreateCustomer>
+    public class CustomerMachinesValidator : AbstractValidator<CreateCustomer>
     {
-        private readonly Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         private readonly ILogger logger;
-
-        public CustomerEmailValidator(ILogger logger)
+        public CustomerMachinesValidator(ILogger logger)
         {
             this.logger = logger;
 
@@ -23,15 +22,21 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
 
             When(x => x != null && x.Customer != null, () => 
             {
-                RuleFor(request => request.Customer.EmailAddress)
+                RuleFor(request => request.Customer.TurningMachines)
                                     .NotNull()
                                     .NotEmpty()
-                                    .Must(BeValidEmail)
-                                    .WithMessage("Invalid Email address.");
+                                    .Must(x => x.Count > 0)
+                                    .WithMessage("Please specify at least Turning Machine.");
+
+                RuleFor(request => request.Customer.MillingMachines)
+                                    .NotNull()
+                                    .NotEmpty()
+                                    .Must(x => x.Count > 0)
+                                    .WithMessage("Please specify at least Turning Machine.");
 
             });
         }
-        private bool BeValidEmail(string emailString) => emailRegex.Match(emailString ?? string.Empty).Success is true;
+
         public override ValidationResult Validate(ValidationContext<CreateCustomer> context)
         {
             logger.Information($"Started validation for : {this.GetType().Name}");

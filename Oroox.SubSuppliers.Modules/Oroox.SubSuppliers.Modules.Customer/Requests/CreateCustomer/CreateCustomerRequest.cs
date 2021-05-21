@@ -10,13 +10,12 @@ namespace Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer
     [AutoMap(typeof(CreateCustomer))]
     public class CreateCustomerModel
     {
-        
+        [SourceMember(nameof(CreateCustomer.Customer))]
         public CreateCustomerDTO Customer { get; set; }
     }
     
     public class CreateCustomer : IRequest<CreateCustomerRequestResponse>
     {
-        [SourceMember(nameof(CreateCustomerModel.Customer))]
         public Customer Customer { get; set; }
     }
 

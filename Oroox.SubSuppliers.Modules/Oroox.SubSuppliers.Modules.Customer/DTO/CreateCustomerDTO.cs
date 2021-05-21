@@ -19,7 +19,6 @@ namespace Oroox.SubSuppliers.Modules.User.DTO
         //public string EmailAddress { get; set; }
         //public string PasswordHash { get; set; }
         #endregion UNUSED
-
         public ICollection<MillingMachine> MillingMachines { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

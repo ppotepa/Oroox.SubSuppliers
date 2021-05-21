@@ -22,22 +22,5 @@ namespace Oroox.SubSuppliers.Application
 
             host.Run();
         }
-
-        public static IHost MainForTests(string[] args)
-        {
-            IHost host = Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(webHostBuilder =>
-                {
-                    webHostBuilder
-                        .UseContentRoot(Directory.GetCurrentDirectory())
-                        .UseIISIntegration()
-                        .UseStartup<Startup>();
-                })
-                .Build();
-
-            host.Run();
-            return host;
-        }
     }
 }

@@ -3,7 +3,7 @@
 namespace Oroox.SubSuppliers.Modules.User.Responses
 {
     /// <summary>
-    /// Response Class for <seealso cref="Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer.CreateCustomerRequest"/>
+    /// Response Class for <seealso cref="Requests.CreateCustomer.CreateCustomerRequest"/>
     /// </summary>
     public class CreateCustomerRequestResponse : ResponseBase { }
 }
