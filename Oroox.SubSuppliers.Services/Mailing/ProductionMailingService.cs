@@ -9,7 +9,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
 {
     public class ProductionMailingService : MailingServiceBase
     {
-        public ProductionMailingService(ILogger logger, ISmtpClient client) : base(logger, client) { }
+        public ProductionMailingService(ILogger logger) : base(logger) { }
 
         public override Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken)
         {

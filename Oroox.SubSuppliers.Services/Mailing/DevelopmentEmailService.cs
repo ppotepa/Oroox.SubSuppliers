@@ -9,13 +9,17 @@ namespace Oroox.SubSuppliers.Services.Mailing
 {
     public class DevelopmentEmailService : MailingServiceBase
     {
-        public DevelopmentEmailService(ILogger logger, ISmtpClient client) : base(logger, client) { }
+        public DevelopmentEmailService(ILogger logger) : base(logger) { }
 
         public async override Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken)
         {
-            this.client.Connect("smtp.gmail.com", 587, false);
-            this.client.Authenticate("orooxlab", "grappaice69");
-            await this.client.SendAsync(message);
+            using (this.client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.AuthenticateAsync("orooxlab", "grappaice69");
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true, cancelationToken);
+            }
         }
 
         public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken)

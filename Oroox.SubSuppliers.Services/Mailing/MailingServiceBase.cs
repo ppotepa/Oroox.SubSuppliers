@@ -13,12 +13,11 @@ namespace Oroox.SubSuppliers.Services.Mailing
     public abstract class MailingServiceBase : Disposable, IMailingService
     {
         protected readonly ILogger logger;
-        protected readonly ISmtpClient client;
+        protected ISmtpClient client;
 
-        protected MailingServiceBase(ILogger logger, ISmtpClient client)
+        protected MailingServiceBase(ILogger logger)
         {
             this.logger = logger;
-            this.client = client;
         }
 
         public abstract Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken);
