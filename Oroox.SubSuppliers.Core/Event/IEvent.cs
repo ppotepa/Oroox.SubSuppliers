@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using System.Threading;
 
-namespace Oroox.SubSuppliers
+namespace Oroox.SubSuppliers.Event
 {
     public interface IEvent<TRequest> where TRequest : IBaseRequest
     {
-        public void Handle(TRequest request, CancellationToken cancelationToken);
-    };
+        void Handle(TRequest request, CancellationToken cancelationToken);
+    }
 }

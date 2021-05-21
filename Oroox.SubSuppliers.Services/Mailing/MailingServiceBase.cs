@@ -21,6 +21,6 @@ namespace Oroox.SubSuppliers.Services.Mailing
         }
 
         public abstract Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken);
-        public abstract Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken);
+        public abstract Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null);
     }
 }

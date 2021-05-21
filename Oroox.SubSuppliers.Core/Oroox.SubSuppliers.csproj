@@ -32,8 +32,4 @@
     <ProjectReference Include="..\Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Bus\" />
-  </ItemGroup>
-
 </Project>

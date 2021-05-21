@@ -1,6 +1,5 @@
 ﻿using Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer;
 using Oroox.SubSuppliers.Services.Mailing;
-using System;
 using System.Threading;
 
 namespace Oroox.SubSuppliers.Modules.Customer.Events
@@ -14,9 +13,8 @@ namespace Oroox.SubSuppliers.Modules.Customer.Events
             this.mailingService = mailingService;
         }
 
-        public async void Handle(CreateCustomer request, CancellationToken cancelationToken)
-        {
+        public async void Handle(CreateCustomer request, CancellationToken cancelationToken) =>
             await this.mailingService.SendNewCustomerRegistrationMessage(request.Customer, cancelationToken);
-        }
+       
     }
 }

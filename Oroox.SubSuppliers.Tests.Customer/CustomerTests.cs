@@ -13,7 +13,7 @@ namespace Oroox.SubSuppliers.Tests.Customer
 
         public CustomerTests()
         {
-            this.host = Program.MainForTests(new string[] { });
+            //this.host = Program.MainForTests(new string[] { });
             this.mediator = this.host.Services.GetService(typeof(IMediator)) as IMediator;
         }
 

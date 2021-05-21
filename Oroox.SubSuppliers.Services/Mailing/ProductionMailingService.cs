@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
             throw new System.NotImplementedException();
         }
 
-        public override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken)
+        public override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null)
         {
             throw new System.NotImplementedException();
         }

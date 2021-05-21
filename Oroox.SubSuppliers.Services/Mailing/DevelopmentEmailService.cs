@@ -22,19 +22,19 @@ namespace Oroox.SubSuppliers.Services.Mailing
             }
         }
 
-        public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken)
+        public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null)
         {
             MimeMessage message = new MimeMessage
             {
-                To = { InternetAddress.Parse("pawel.potepa@hotmail.com") },
+                To = { InternetAddress.Parse("grzegorz.ociepka@oroox.com") },
                 From = { InternetAddress.Parse("orooxlab@gmail.com") },
                 Subject = "Test subject",
                 Body = new TextPart("plain")
                 {
-                    Text = $@"Hello {customer.CompanyName},
+                    Text = text is null ? $@"Hello {customer.CompanyName},
                         Thank you for registration. 
                         Your activation code is : DUPA123
-                    "
+                    " : text
                 }
             };
 

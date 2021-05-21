@@ -7,7 +7,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
 {
     public interface IMailingService
     {
-        public Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken);
+        public Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null);
         public Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken);
     }
 }
