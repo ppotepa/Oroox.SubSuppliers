@@ -11,7 +11,7 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
     /// </summary>
     public class CustomerMachinesValidator : AbstractValidator<CreateCustomer>
     {
-        Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        private readonly Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         private readonly ILogger logger;
         public CustomerMachinesValidator(ILogger logger)
         {

@@ -29,11 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Bus\" />
+    <ProjectReference Include="..\Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj" />
+    <Folder Include="Bus\" />
   </ItemGroup>
 
 </Project>

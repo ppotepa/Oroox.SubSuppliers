@@ -2,6 +2,7 @@
 using MimeKit;
 using Oroox.SubSuppliers.Domain.Entities;
 using Serilog;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Services.Mailing
@@ -10,14 +11,14 @@ namespace Oroox.SubSuppliers.Services.Mailing
     {
         public DevelopmentEmailService(ILogger logger, ISmtpClient client) : base(logger, client) { }
 
-        public async override Task ConnectAndSend(MimeMessage message)
+        public async override Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken)
         {
             this.client.Connect("smtp.gmail.com", 587, false);
             this.client.Authenticate("orooxlab", "grappaice69");
             await this.client.SendAsync(message);
         }
 
-        public async override Task SendNewCustomerRegistrationMessage(Customer customer)
+        public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken)
         {
             MimeMessage message = new MimeMessage
             {
@@ -33,8 +34,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
                 }
             };
 
-            await this.ConnectAndSend(message);
+            await this.ConnectAndSend(message, cancelationToken);
         }
-       
     }
 }

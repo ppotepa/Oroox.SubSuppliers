@@ -14,6 +14,7 @@ namespace Oroox.SubSuppliers.Modules.User
     {
         private Type[] RequestTypes => ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequest<>))).ToArray();
         private Type[] Validators => ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IValidator<>))).ToArray();
+        private Type[] Events => ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IEvent<>))).ToArray();
 
         protected override void Load(ContainerBuilder builder)
         {
@@ -23,6 +24,11 @@ namespace Oroox.SubSuppliers.Modules.User
             builder
                 .RegisterTypes(Validators)
                 .As(typeof(IValidator<>)
+                .MakeGenericType(RequestTypes));
+
+            builder
+                .RegisterTypes(Events)
+                .As(typeof(IEvent<>)
                 .MakeGenericType(RequestTypes));
 
             base.Load(builder);

@@ -17,11 +17,11 @@ namespace Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer
 
     public class CreateCustomer : IRequest<CreateCustomerRequestResponse>
     {
-        public Customer Customer { get; set; }
+        public Domain.Entities.Customer Customer{ get; set; }
 
         public static CreateCustomer NewCreateCustomerRequest => new CreateCustomer
         {
-            Customer = new Customer
+            Customer = new Domain.Entities.Customer
             {
                 CompanyName = "Some nice company name",
                 EmailAddress = "potepa.pawel@gmail.com",

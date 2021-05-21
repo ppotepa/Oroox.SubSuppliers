@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using MediatR;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Exceptions;
+using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Response;
 using Serilog;
 using System.Collections.Generic;
@@ -23,12 +24,14 @@ namespace Oroox.SubSuppliers.Handlers
     {
         private readonly IEnumerable<IValidator<TRequest>> validators;        
         private readonly IRequestHandler<TRequest, TResponse> innerRequest;
+        private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IApplicationContext context;
         private readonly ILogger logger;
 
         public GenericHandlerDecorator
         (
             IEnumerable<IValidator<TRequest>> validators, 
+            IEnumerable<IEvent<TRequest>> events, 
             IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
             ILogger logger
@@ -36,30 +39,43 @@ namespace Oroox.SubSuppliers.Handlers
         {
             this.validators = validators;
             this.logger = logger;
+            this.events = events;
             this.innerRequest = innerRequest;
             this.context = context;
         }
        
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
+            TResponse response;
 
-            string[] validationMessages = this.validators.Select(validator => validator.Validate(request))
-                        .Where(result => result.IsValid is false)
-                        .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
-                        .ToArray();
-
-            if (validationMessages.Any() is true)
+            try
             {
-                return new TResponse
+                this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
+
+                string[] validationMessages = this.validators.Select(validator => validator.Validate(request))
+                            .Where(result => result.IsValid is false)
+                            .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
+                            .ToArray();
+
+                if (validationMessages.Any() is true)
                 {
-                    Response = "There were some validation errors.",
-                    ValidationMessages = validationMessages
-                };
+                    return new TResponse
+                    {
+                        Response = "There were some validation errors.",
+                        ValidationMessages = validationMessages
+                    };
+                }
+
+                response = await this.innerRequest.Handle(request, cancellationToken);
+                int rowsChanged = context.SaveChanges();
             }
-            
-            TResponse response =  await this.innerRequest.Handle(request, cancellationToken);
-            int rowsChanged = context.SaveChanges();
+            catch (RequestProcessingException ex)
+            {
+                throw ex;
+            }
+
+            events.ForEach(@event =>  @event.Handle(request, cancellationToken));
+
             return response;
         }
     }
