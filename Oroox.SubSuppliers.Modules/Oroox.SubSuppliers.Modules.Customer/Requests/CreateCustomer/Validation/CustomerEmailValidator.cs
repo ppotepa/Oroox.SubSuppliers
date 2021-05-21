@@ -21,13 +21,13 @@ namespace Oroox.SubSuppliers.Modules.User.Validation
             RuleFor(request => request).NotNull();
             RuleFor(request => request.Customer).NotNull();
 
-            When(x => x != null && x.Customer != null, () => 
+            When(x => x != null && x.Customer != null, () =>
             {
                 RuleFor(request => request.Customer.EmailAddress)
-                                    .NotNull()
-                                    .NotEmpty()
-                                    .Must(BeValidEmail)
-                                    .WithMessage("Invalid Email address.");
+                                     .NotNull()
+                                     .NotEmpty()
+                                     .Must(BeValidEmail)
+                                     .WithMessage("Invalid Email address.");
 
             });
         }

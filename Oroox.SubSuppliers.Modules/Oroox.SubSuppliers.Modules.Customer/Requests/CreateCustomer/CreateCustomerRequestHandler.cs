@@ -22,7 +22,9 @@ namespace Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer
 
         public async Task<CreateCustomerRequestResponse> Handle(CreateCustomer request, CancellationToken cancellationToken)
         {
-            EntityEntry<Customer> entry = await this.context.Customers.AddAsync(request.Customer, cancellationToken);
+            EntityEntry<Domain.Entities.Customer> entry = await this.context.Customers.AddAsync(request.Customer, cancellationToken);
+            await this.mailingService.SendNewCustomerRegistrationMessage(request.Customer);
+
             return new CreateCustomerRequestResponse
             {
                 Response = $"CustomerId : {entry.Entity.Id}"

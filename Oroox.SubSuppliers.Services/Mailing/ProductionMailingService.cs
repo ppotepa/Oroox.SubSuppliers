@@ -1,14 +1,21 @@
 ﻿using MailKit.Net.Smtp;
-using Microsoft.Extensions.Logging;
+using MimeKit;
 using Oroox.SubSuppliers.Domain.Entities;
+using Serilog;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Services.Mailing
 {
     public class ProductionMailingService : MailingServiceBase
     {
-        public ProductionMailingService(ILogger logger, SmtpClient client) : base(logger, client) { }
+        public ProductionMailingService(ILogger logger, ISmtpClient client) : base(logger, client) { }
 
-        public override bool SendCustomerRegistrationEmail(Customer customer)
+        public override Task ConnectAndSend(MimeMessage message)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Task SendNewCustomerRegistrationMessage(Customer customer)
         {
             throw new System.NotImplementedException();
         }

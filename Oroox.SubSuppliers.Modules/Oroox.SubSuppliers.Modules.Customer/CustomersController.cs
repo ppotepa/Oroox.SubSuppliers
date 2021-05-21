@@ -22,7 +22,7 @@ namespace Oroox.SubSuppliers.Modules.User
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create(CreateCustomerModel request) 
-            => await Handle(this.mapper.Map<CreateCustomer>(request));
+            => await Handle(CreateCustomer.NewCreateCustomerRequest);
 
         /// <summary>
         /// Gets User

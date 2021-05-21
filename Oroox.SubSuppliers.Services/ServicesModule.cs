@@ -1,15 +1,19 @@
 ﻿using Autofac;
+using Autofac.Core.Resolving.Pipeline;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Services.Mailing;
+using Serilog;
+using System;
 
 namespace Oroox.SubSuppliers.Services
 {
     public class ServicesModule : Module
     {
         private readonly IConfiguration configuration;
+        private bool IsDevelopment => configuration.GetEnvironmentVariables().IsDevelopment;
 
         public ServicesModule(IConfiguration configuration)
         {
@@ -19,22 +23,30 @@ namespace Oroox.SubSuppliers.Services
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            OxSuppliersEnvironmentVariables environmentVariables = configuration.GetEnvironmentVariables();
+
+            builder
+                .RegisterType<SmtpClient>()
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterTypes(new[] { typeof(DevelopmentEmailService), typeof(ProductionMailingService) })
+                .AsSelf();
 
             builder
                 .RegisterTypes(new[] { typeof(DevelopmentEmailService), typeof(ProductionMailingService) })
                 .AsImplementedInterfaces()
-                .OnActivating(args =>
-                {
-                    args.ReplaceInstance
-                    (
-                        environmentVariables.IsDevelopment
-                            ? new DevelopmentEmailService(args.Context.Resolve<ILogger>(), new SmtpClient()) as IMailingService
-                            : new ProductionMailingService(args.Context.Resolve<ILogger>(), new SmtpClient()) as IMailingService
-                    );
+                .OnActivating
+                (
+                    args => 
+                    {
+                        ILogger logger = args.Context.Resolve<ILogger>();
+                        IMailingService instance = IsDevelopment is true
+                            ? args.Context.Resolve<DevelopmentEmailService>() as IMailingService
+                            : args.Context.Resolve<ProductionMailingService>();
 
-                });
-
+                        args.ReplaceInstance(instance);
+                    }
+                );
         }
     }
 }
