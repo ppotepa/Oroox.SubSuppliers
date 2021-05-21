@@ -30,11 +30,13 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual ICollection<TurningMachine> TurningMachines { get; set; }        
         public virtual ICollection<OtherTechnology> OtherTechnologies { get; set; }
         public virtual ICollection<Certification> Certifications { get; set; }
+        public virtual Registration Registration { get; set; }
         public string VATNumber { get; set; }
-        public string Website { get; set; }
+        public string Website { get; set; }        
         public string RegistrationNumber { get; set; }
         public string EmailAddress { get; set; }
         public string PasswordHash { get; set; }
+        public bool IsActive { get; set; }
 
         [NotMapped]
         public string PasswordConfirmation { get; set; }

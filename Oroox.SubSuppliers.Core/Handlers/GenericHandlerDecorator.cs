@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Event;
 using Oroox.SubSuppliers.Exceptions;
 using Oroox.SubSuppliers.Extensions;
+using Oroox.SubSuppliers.RequestHandlers;
 using Oroox.SubSuppliers.Response;
 using Serilog;
 using System.Collections.Generic;
@@ -22,7 +24,9 @@ namespace Oroox.SubSuppliers.Handlers
         where TRequest : IRequest<TResponse>
         where TResponse : ResponseBase, new()
     {
-        private readonly IEnumerable<IValidator<TRequest>> validators;        
+        private readonly IEnumerable<IValidator<TRequest>> validators;
+        private readonly IEnumerable<IPreRequestProcessor<TRequest>> preProcessors;
+        private readonly IEnumerable<IPostRequestProcessor<TRequest>> postProcessors;
         private readonly IRequestHandler<TRequest, TResponse> innerRequest;
         private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IApplicationContext context;
@@ -31,6 +35,9 @@ namespace Oroox.SubSuppliers.Handlers
         public GenericHandlerDecorator
         (
             IEnumerable<IValidator<TRequest>> validators, 
+            IEnumerable<IPreRequestProcessor<TRequest>> preProcessors, 
+            IEnumerable<IPostRequestProcessor<TRequest>> postProcessors, 
+            IEnumerable<IEntityBinder<TRequest>> binder, 
             IEnumerable<IEvent<TRequest>> events, 
             IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
@@ -38,6 +45,9 @@ namespace Oroox.SubSuppliers.Handlers
         )
         {
             this.validators = validators;
+            this.preProcessors = preProcessors;
+            this.binders = binder;
+            this.postProcessors = postProcessors;
             this.logger = logger;
             this.events = events;
             this.innerRequest = innerRequest;
@@ -51,11 +61,12 @@ namespace Oroox.SubSuppliers.Handlers
             try
             {
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
-
                 string[] validationMessages = this.validators.Select(validator => validator.Validate(request))
                             .Where(result => result.IsValid is false)
                             .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
                             .ToArray();
+
+                this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
 
                 if (validationMessages.Any() is true)
                 {
@@ -66,6 +77,7 @@ namespace Oroox.SubSuppliers.Handlers
                     };
                 }
 
+                this.postProcessors.ForEach(processor => processor.Process(request, cancellationToken));
                 response = await this.innerRequest.Handle(request, cancellationToken);
                 int rowsChanged = context.SaveChanges();
             }

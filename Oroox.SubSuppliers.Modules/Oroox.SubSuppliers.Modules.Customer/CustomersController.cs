@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer;
+using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Modules.User.Requests.Customer;
 using Oroox.SubSuppliers.Utilities.Abstractions;
 using System.Threading.Tasks;
 
@@ -13,7 +14,11 @@ namespace Oroox.SubSuppliers.Modules.User
     [Route("api/[controller]/[action]")]
     public class CustomersController : ModuleController
     {
-        public CustomersController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+        private readonly IApplicationContext context;
+        public CustomersController(IMediator mediator, IMapper mapper, IApplicationContext context) : base(mediator, mapper) 
+        {
+            this.context = context;
+        }
 
         /// <summary>
         /// Creates new Customer.
@@ -22,7 +27,7 @@ namespace Oroox.SubSuppliers.Modules.User
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create(CreateCustomerModel request) 
-            => await Handle(CreateCustomer.NewCreateCustomerRequest);
+            => await Handle(new CreateCustomer(context).Mock());
 
         /// <summary>
         /// Gets User

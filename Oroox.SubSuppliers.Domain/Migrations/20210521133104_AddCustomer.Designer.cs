@@ -5,14 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Domain.Context;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    [DbContext(typeof(IApplicationContext))]
-    [Migration("20210518071329_Customer")]
-    partial class Customer
+    [DbContext(typeof(SubSuppliersContext))]
+    [Migration("20210521133104_AddCustomer")]
+    partial class AddCustomer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,37 +72,37 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6c6168c6-311c-47f2-9a93-23ffcfcf2390"),
+                            Id = new Guid("a2a4d5e1-ada4-442c-9029-0291f19da8f9"),
                             Name = "ISO9001",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("b8673bc0-ae13-4e0c-9120-6e97e9a4bf2b"),
+                            Id = new Guid("5e750f90-ba52-4d08-a459-760176649bb5"),
                             Name = "ISO14001",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("f3611863-22a1-473e-bf3f-9befc47b90e0"),
+                            Id = new Guid("2f0bf6b9-56ef-4e71-8e44-ee795e0b31f7"),
                             Name = "ISO13485",
                             Value = 2
                         },
                         new
                         {
-                            Id = new Guid("acb00c7d-2521-4110-873b-3d7c9c5795c6"),
+                            Id = new Guid("3b10c3fb-1a5a-4164-a442-42eeac6cf7bb"),
                             Name = "ITAF16949",
                             Value = 3
                         },
                         new
                         {
-                            Id = new Guid("82025241-d908-4f6c-acc3-9757e8d2f071"),
+                            Id = new Guid("e6ad54ae-0a96-4c11-bd26-e4b353de61af"),
                             Name = "EN9100",
                             Value = 4
                         },
                         new
                         {
-                            Id = new Guid("71ecffd2-ca7d-4cb6-94b7-1e4cbfcea246"),
+                            Id = new Guid("2160d49c-5cc6-43b0-9c74-6d916640c0d9"),
                             Name = "Other",
                             Value = 5
                         });
@@ -236,6 +235,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -344,13 +346,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a0e865c6-8e97-49cb-baff-9d7c8f104daf"),
+                            Id = new Guid("67272ee9-40f2-472e-ba74-6c7ab12ad37d"),
                             Name = "Shipping",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("1cdaefda-ea11-4ff5-a42a-ba4f6a3e07a0"),
+                            Id = new Guid("1a690b08-1f0a-4ae0-9282-b229e3ba336c"),
                             Name = "Billing",
                             Value = 1
                         });
@@ -377,31 +379,31 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("91c98ac2-8aa3-4679-b39b-20f042cbfbab"),
+                            Id = new Guid("21460743-e733-4146-8e3a-e57fe0db1ac9"),
                             Name = "LessThan10",
                             Value = 10
                         },
                         new
                         {
-                            Id = new Guid("828e369e-c64f-4019-9a74-26a38155f925"),
+                            Id = new Guid("e2035d07-c048-4fd8-ba7d-de4b338a3909"),
                             Name = "LessThan25",
                             Value = 25
                         },
                         new
                         {
-                            Id = new Guid("1d264381-5557-4b95-8c03-fd50e2708aac"),
+                            Id = new Guid("5d1c6790-ce59-4315-b8cc-4d928de65e3e"),
                             Name = "LessThan50",
                             Value = 50
                         },
                         new
                         {
-                            Id = new Guid("2fde15b4-5dbb-4790-b8c6-cdd0aa04742c"),
+                            Id = new Guid("8d391ae5-462e-4593-9817-c4aaad5f2418"),
                             Name = "LessThan100",
                             Value = 100
                         },
                         new
                         {
-                            Id = new Guid("f211e9f6-026b-452f-8e63-e25d487b5082"),
+                            Id = new Guid("297e5990-5e7b-4dd5-8840-5b2ebc735414"),
                             Name = "MoreThan100",
                             Value = 101
                         });
@@ -428,1495 +430,1495 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d9b361d1-3610-4b60-a679-cea57e00fb64"),
+                            Id = new Guid("ee02752a-175b-4f4d-9a6a-9cdbb1cabb1f"),
                             Name = "AF",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("5da711c9-7b6d-4af0-abd2-48ddfd84839e"),
+                            Id = new Guid("de1eba2a-8bfa-4655-b600-6dedb4360faa"),
                             Name = "AX",
                             Value = 2
                         },
                         new
                         {
-                            Id = new Guid("e1dae2c2-bef4-4ec3-baee-8361b5eaa025"),
+                            Id = new Guid("f547c091-3ad0-4c23-9ddd-f0dd1f21c9c8"),
                             Name = "AL",
                             Value = 3
                         },
                         new
                         {
-                            Id = new Guid("8dc78db0-59a4-42a6-bce5-ec7cecba7992"),
+                            Id = new Guid("9170884d-0805-4cc6-8bd6-9e91679cf12f"),
                             Name = "DZ",
                             Value = 4
                         },
                         new
                         {
-                            Id = new Guid("fe0cd41d-1bf2-43a2-9187-02811ac6493e"),
+                            Id = new Guid("58fe6adb-ce0f-4b0a-a60f-446cfef69844"),
                             Name = "AS",
                             Value = 5
                         },
                         new
                         {
-                            Id = new Guid("9707e46a-7542-4ca7-9aa3-b7508f7e9243"),
+                            Id = new Guid("d061ca3d-190b-469b-a7d9-065159bd2555"),
                             Name = "AD",
                             Value = 6
                         },
                         new
                         {
-                            Id = new Guid("74353b05-1670-457b-bc45-9d81858d27c9"),
+                            Id = new Guid("6a77f82b-1150-42d1-bc85-25ded591c345"),
                             Name = "AO",
                             Value = 7
                         },
                         new
                         {
-                            Id = new Guid("7f08079c-9628-4b54-b931-94388bafacb2"),
+                            Id = new Guid("fcee1adb-3dc9-4cea-bda8-a61cc0b0f9a2"),
                             Name = "AI",
                             Value = 8
                         },
                         new
                         {
-                            Id = new Guid("6ac00c4e-7a55-47ab-9081-e09abb6567ba"),
+                            Id = new Guid("0048c727-0274-4436-975e-5193969fd82e"),
                             Name = "AQ",
                             Value = 9
                         },
                         new
                         {
-                            Id = new Guid("e43ef298-197a-4bec-b94a-5458073e608c"),
+                            Id = new Guid("f7bbb2e9-1676-4a94-8c10-fce561c4cab6"),
                             Name = "AG",
                             Value = 10
                         },
                         new
                         {
-                            Id = new Guid("a428afac-0e63-4370-b08f-471ff55889c7"),
+                            Id = new Guid("698e1841-1bfb-42c6-890d-6dd99d6d3256"),
                             Name = "AR",
                             Value = 11
                         },
                         new
                         {
-                            Id = new Guid("873e8430-974a-4c77-8692-f1e75cf7ef7f"),
+                            Id = new Guid("7b33fa09-354f-459c-8fb8-6f66b0ab05d2"),
                             Name = "AM",
                             Value = 12
                         },
                         new
                         {
-                            Id = new Guid("9429c696-51b0-4845-ba89-216b9a0b22bb"),
+                            Id = new Guid("2a08f668-cbad-4dd0-a2eb-85aad266ab7a"),
                             Name = "AW",
                             Value = 13
                         },
                         new
                         {
-                            Id = new Guid("3d4a395c-b155-468a-86fb-7e248fac282e"),
+                            Id = new Guid("877636f9-1976-4908-8e07-0afdb7cd27f9"),
                             Name = "AU",
                             Value = 14
                         },
                         new
                         {
-                            Id = new Guid("e8b49b12-887d-4239-a61c-f00e91268c7d"),
+                            Id = new Guid("a28c5acc-dfb4-4ce3-aec2-eefc6119a5fe"),
                             Name = "AT",
                             Value = 15
                         },
                         new
                         {
-                            Id = new Guid("f774f3ea-28fc-4fc8-b0f5-1791d0eb4446"),
+                            Id = new Guid("26acbeef-277e-479c-b6ad-238b40c0cbff"),
                             Name = "AZ",
                             Value = 16
                         },
                         new
                         {
-                            Id = new Guid("3ccfc780-3275-40d0-8dfd-3c43af225829"),
+                            Id = new Guid("ac69545f-c506-4c0e-b344-ac35b044da55"),
                             Name = "BS",
                             Value = 17
                         },
                         new
                         {
-                            Id = new Guid("598ca22e-30ac-4064-b367-c39ad77f946a"),
+                            Id = new Guid("699bd98f-58f4-4361-b157-c02205865e24"),
                             Name = "BH",
                             Value = 18
                         },
                         new
                         {
-                            Id = new Guid("a85c3c48-e296-49fa-ad6b-435d65719229"),
+                            Id = new Guid("6d4ab862-fead-49e7-a12c-aa6f923350af"),
                             Name = "BD",
                             Value = 19
                         },
                         new
                         {
-                            Id = new Guid("25ff9c82-a5e5-43c0-9272-eefeb02cabc5"),
+                            Id = new Guid("389fb376-963d-45f2-82ad-35ee2ca35374"),
                             Name = "BB",
                             Value = 20
                         },
                         new
                         {
-                            Id = new Guid("ede3338f-b93f-4ce2-8e22-634757183a6f"),
+                            Id = new Guid("a9688286-50dc-4263-8796-1b51cd99d985"),
                             Name = "BY",
                             Value = 21
                         },
                         new
                         {
-                            Id = new Guid("15ec6037-8df8-4b89-ab15-719bfe2633db"),
+                            Id = new Guid("7df8285d-920a-4205-af29-a06f801e35d3"),
                             Name = "BE",
                             Value = 22
                         },
                         new
                         {
-                            Id = new Guid("ad58afbf-af52-4884-9ea0-61eb0207b74c"),
+                            Id = new Guid("ad8ff767-9c3b-46ff-b72b-b5ae481f4aca"),
                             Name = "BZ",
                             Value = 23
                         },
                         new
                         {
-                            Id = new Guid("69c05536-8811-45a6-9015-ae8840670646"),
+                            Id = new Guid("acdefcb0-e8cd-4130-9b9c-c5635b326e5b"),
                             Name = "BJ",
                             Value = 24
                         },
                         new
                         {
-                            Id = new Guid("e2204d87-f819-4d66-a800-695d92b33264"),
+                            Id = new Guid("b1faf8d7-37a0-487c-8b31-de1273291f6b"),
                             Name = "BM",
                             Value = 25
                         },
                         new
                         {
-                            Id = new Guid("c8cd5ee5-bad4-4348-bb26-4dc80da4615f"),
+                            Id = new Guid("7bf59fc7-ea57-4e9c-a11e-f217767c5980"),
                             Name = "BT",
                             Value = 26
                         },
                         new
                         {
-                            Id = new Guid("1bf105b4-beca-4e8d-9c35-1b496ade0b77"),
+                            Id = new Guid("84ca8e0b-0a50-4fec-8b64-25cd73ffb08d"),
                             Name = "BO",
                             Value = 27
                         },
                         new
                         {
-                            Id = new Guid("14078921-b7f6-4f45-a9e7-5cbd1d052626"),
+                            Id = new Guid("3cd59006-2cc2-473b-bc62-478ef49d7de3"),
                             Name = "BQ",
                             Value = 28
                         },
                         new
                         {
-                            Id = new Guid("52ec1e4c-25ce-471f-b52d-76d34c7ec0f6"),
+                            Id = new Guid("e6a99909-5759-48b1-91d2-efffeabe3a11"),
                             Name = "BA",
                             Value = 29
                         },
                         new
                         {
-                            Id = new Guid("dace0a7f-cbbe-48a0-89d7-6d10bffce433"),
+                            Id = new Guid("b1009f00-aa17-449b-8dba-36b113ea9aa9"),
                             Name = "BW",
                             Value = 30
                         },
                         new
                         {
-                            Id = new Guid("c08ad48c-6d6a-44c5-90ff-945a5569df1a"),
+                            Id = new Guid("322f8a25-79cb-4784-b225-6d232caeeb71"),
                             Name = "BV",
                             Value = 31
                         },
                         new
                         {
-                            Id = new Guid("ffc40e82-0f8b-4efd-83d4-61b7b9a902a6"),
+                            Id = new Guid("f60c0eb7-a830-4390-a80b-d2e73f82fb64"),
                             Name = "BR",
                             Value = 32
                         },
                         new
                         {
-                            Id = new Guid("48841ba8-9b06-403b-a2c9-e07cd4f0e5fc"),
+                            Id = new Guid("bc4d43fb-b046-42ab-85f8-61efe7b70536"),
                             Name = "IO",
                             Value = 33
                         },
                         new
                         {
-                            Id = new Guid("5784115a-7e78-4801-98e9-08f006896417"),
+                            Id = new Guid("58742590-9402-4b92-882e-d83fc725482d"),
                             Name = "BN",
                             Value = 34
                         },
                         new
                         {
-                            Id = new Guid("19f5f3b0-2b8c-4ce0-924e-68512f235eaf"),
+                            Id = new Guid("dc193b6f-18b6-4bbc-a472-8a9b57b2f3f2"),
                             Name = "BG",
                             Value = 35
                         },
                         new
                         {
-                            Id = new Guid("9ca82797-1a93-471b-ab8c-391844a1e953"),
+                            Id = new Guid("392599b3-a796-47fa-895a-c2cac03501ba"),
                             Name = "BF",
                             Value = 36
                         },
                         new
                         {
-                            Id = new Guid("e04b997e-ac0d-4a77-8a33-5a4026339290"),
+                            Id = new Guid("1d94f49f-1b86-4030-8d76-050649351da5"),
                             Name = "BI",
                             Value = 37
                         },
                         new
                         {
-                            Id = new Guid("f63fb26e-aa72-4690-bf26-5c5886b25dec"),
+                            Id = new Guid("6cc4d49f-966f-422c-8219-ed6a2672c4f7"),
                             Name = "CV",
                             Value = 38
                         },
                         new
                         {
-                            Id = new Guid("54491b4e-3e81-45db-918f-673273df856f"),
+                            Id = new Guid("e19c21fb-13b7-4843-87b1-a74aa064f8c9"),
                             Name = "KH",
                             Value = 39
                         },
                         new
                         {
-                            Id = new Guid("e4f0a29a-fbaf-4192-9936-18530fd383f3"),
+                            Id = new Guid("76f3ab8a-771d-4fe6-a227-c14f92b04d60"),
                             Name = "CM",
                             Value = 40
                         },
                         new
                         {
-                            Id = new Guid("dc42e26f-6fef-469f-ae2d-b3888d51a544"),
+                            Id = new Guid("51bea4f6-0a29-4d5d-9b83-3043080ed789"),
                             Name = "CA",
                             Value = 41
                         },
                         new
                         {
-                            Id = new Guid("14f13abd-16a7-4acf-99ea-831e499ff96b"),
+                            Id = new Guid("72050860-67c4-4eb0-add5-c3618ea6d543"),
                             Name = "KY",
                             Value = 42
                         },
                         new
                         {
-                            Id = new Guid("afbe9dd2-8e6d-43a9-a35a-2e32f3177b39"),
+                            Id = new Guid("b5a56e19-479d-40b3-b801-1247679cc13b"),
                             Name = "CF",
                             Value = 43
                         },
                         new
                         {
-                            Id = new Guid("ca7f7250-0091-4154-9c27-c6c4ca560700"),
+                            Id = new Guid("634df984-ab06-463d-be69-691f5d4c566b"),
                             Name = "TD",
                             Value = 44
                         },
                         new
                         {
-                            Id = new Guid("2abb9340-b410-4f8c-a427-19e08a52b7cb"),
+                            Id = new Guid("133479e1-311e-4b1c-8bae-a2f216577737"),
                             Name = "CL",
                             Value = 45
                         },
                         new
                         {
-                            Id = new Guid("7f93a1b4-4ac4-410c-afd2-52aec3b7873d"),
+                            Id = new Guid("4b905fe7-3ffc-4033-aa2a-0863b9c92523"),
                             Name = "CN",
                             Value = 46
                         },
                         new
                         {
-                            Id = new Guid("e4df804f-be4a-480f-a9cd-2d5a9cbed9f6"),
+                            Id = new Guid("84adffcc-ea28-4d36-a5ca-6f2677843910"),
                             Name = "CX",
                             Value = 47
                         },
                         new
                         {
-                            Id = new Guid("d81d253e-c496-41f6-a3bc-b139e4e5a0ea"),
+                            Id = new Guid("66e934ae-9eaf-4a52-a1ef-be963a9297c2"),
                             Name = "CC",
                             Value = 48
                         },
                         new
                         {
-                            Id = new Guid("b49db942-f4cb-40ae-943b-e212f6d27578"),
+                            Id = new Guid("197d16b2-94a1-4cb3-94de-28614c817a72"),
                             Name = "CO",
                             Value = 49
                         },
                         new
                         {
-                            Id = new Guid("0ac22944-0f3a-412c-9010-4fd7340f463b"),
+                            Id = new Guid("56758042-868b-4c65-9c80-ae751dcf8825"),
                             Name = "KM",
                             Value = 50
                         },
                         new
                         {
-                            Id = new Guid("7f573094-492e-436d-9b7a-526720c6d04c"),
+                            Id = new Guid("3fc99b18-c72b-4e88-9baf-ff43d3228e97"),
                             Name = "CG",
                             Value = 51
                         },
                         new
                         {
-                            Id = new Guid("faaaea1d-2f38-4ff1-abc3-dff8b0cf84a6"),
+                            Id = new Guid("c9a2f1dd-4136-49db-80f1-be6e1a226d74"),
                             Name = "CD",
                             Value = 52
                         },
                         new
                         {
-                            Id = new Guid("8c499e25-0392-40f7-9700-1825f3b20969"),
+                            Id = new Guid("46f48d7c-8f16-44eb-a48b-5132ed9d1e77"),
                             Name = "CK",
                             Value = 53
                         },
                         new
                         {
-                            Id = new Guid("84f466bd-33cd-456a-94a4-0a32ccd95076"),
+                            Id = new Guid("b35bde70-3404-44f3-9a5e-a15b5b41847d"),
                             Name = "CR",
                             Value = 54
                         },
                         new
                         {
-                            Id = new Guid("35ed979b-6cbd-49b8-b7d6-57ce753eab72"),
+                            Id = new Guid("47a25aa3-d2b2-4ab1-8aef-cdd6edcee10e"),
                             Name = "CI",
                             Value = 55
                         },
                         new
                         {
-                            Id = new Guid("1e1d992c-b6c9-4c68-ad0a-078c032b54f3"),
+                            Id = new Guid("0369a7a1-3693-4c77-be39-fb206f9f0a4a"),
                             Name = "HR",
                             Value = 56
                         },
                         new
                         {
-                            Id = new Guid("e2209dbc-65b2-459f-9aa3-23134524f719"),
+                            Id = new Guid("153f28f3-0836-4664-962e-ae8aeeaf3103"),
                             Name = "CU",
                             Value = 57
                         },
                         new
                         {
-                            Id = new Guid("e2752b16-a36c-4d45-8577-38ba49e2a01a"),
+                            Id = new Guid("1828affa-607e-4cee-8bed-dd15d80a3ddb"),
                             Name = "CW",
                             Value = 58
                         },
                         new
                         {
-                            Id = new Guid("f1d06239-c445-48b5-959b-d79c6e927721"),
+                            Id = new Guid("35cf161c-5de5-4cb1-a668-810064dfa37a"),
                             Name = "CY",
                             Value = 59
                         },
                         new
                         {
-                            Id = new Guid("fb2f3150-a8f5-4b84-9dc5-2b42520034b6"),
+                            Id = new Guid("74dc9baf-3b2a-411f-8d9d-c758a54b220e"),
                             Name = "CZ",
                             Value = 60
                         },
                         new
                         {
-                            Id = new Guid("e1e4c5b1-b64c-4655-b5d0-90ac29b32a1c"),
+                            Id = new Guid("c963fb17-caab-4446-9324-98f0abc5fda4"),
                             Name = "DK",
                             Value = 61
                         },
                         new
                         {
-                            Id = new Guid("fc05de17-61aa-429f-9e66-35087c780401"),
+                            Id = new Guid("ce70d9f3-0cd7-47ea-b449-321d2b47d5ba"),
                             Name = "DJ",
                             Value = 62
                         },
                         new
                         {
-                            Id = new Guid("4dc20c1e-102e-46da-b9ba-15fbf6269cd1"),
+                            Id = new Guid("9d1feccd-b34e-43ac-a1f9-37ed65767ec6"),
                             Name = "DM",
                             Value = 63
                         },
                         new
                         {
-                            Id = new Guid("12299d40-8ece-464d-8e71-8d38089d5421"),
+                            Id = new Guid("72faf281-3a64-470d-9c4f-cba7745f0c3d"),
                             Name = "DO",
                             Value = 64
                         },
                         new
                         {
-                            Id = new Guid("cdcb4831-cb5a-43b4-8bc8-ad78c4aa6211"),
+                            Id = new Guid("3159abab-bb7e-445e-aef6-aff79ee87458"),
                             Name = "EC",
                             Value = 65
                         },
                         new
                         {
-                            Id = new Guid("2288501e-d1cb-4c0c-a1e0-93706ddda66a"),
+                            Id = new Guid("f02cd36c-3499-47ce-b732-b87ce3eb9772"),
                             Name = "EG",
                             Value = 66
                         },
                         new
                         {
-                            Id = new Guid("fc8ed871-b205-4d22-9da8-6a607e9452b1"),
+                            Id = new Guid("037afd35-f200-4e0b-8ba4-52612c136063"),
                             Name = "SV",
                             Value = 67
                         },
                         new
                         {
-                            Id = new Guid("4d337da5-942f-4748-9030-087d8c0e263e"),
+                            Id = new Guid("aca4ad52-09ea-43f6-9507-ff50a4f8183f"),
                             Name = "GQ",
                             Value = 68
                         },
                         new
                         {
-                            Id = new Guid("df1aefa3-1edb-454d-b60b-1ba3214b2e9c"),
+                            Id = new Guid("1a3acd53-90b4-49e8-9d01-2afea273ee0e"),
                             Name = "ER",
                             Value = 69
                         },
                         new
                         {
-                            Id = new Guid("f7ab1f0b-2b09-4aab-9f06-fe7d3f372be8"),
+                            Id = new Guid("fc4d9cd2-5af0-4636-bd48-5298636049d3"),
                             Name = "EE",
                             Value = 70
                         },
                         new
                         {
-                            Id = new Guid("d6f8161c-5f04-48a8-ba09-68b8552f3d94"),
+                            Id = new Guid("14a79347-9a83-4715-a2a1-1906f071d3a8"),
                             Name = "ET",
                             Value = 71
                         },
                         new
                         {
-                            Id = new Guid("1a033b5a-f694-4b83-b91d-724da25b9479"),
+                            Id = new Guid("6c8c9ed6-2b2b-4a22-a154-e5e7c34cd6e2"),
                             Name = "FK",
                             Value = 72
                         },
                         new
                         {
-                            Id = new Guid("9ef6e73c-94d3-4c20-8758-f4b6cf36e809"),
+                            Id = new Guid("77b58ec3-4d73-40d4-ab2a-f7aaad42c443"),
                             Name = "FO",
                             Value = 73
                         },
                         new
                         {
-                            Id = new Guid("1438a331-65f2-4105-b462-4d04688c18f5"),
+                            Id = new Guid("202eb601-d2c4-43e6-b441-754e989f9bda"),
                             Name = "FJ",
                             Value = 74
                         },
                         new
                         {
-                            Id = new Guid("dde8750d-2aea-410c-8cf6-3beb2891663e"),
+                            Id = new Guid("b254c038-3ab8-4b0a-abd7-4a3d96a3b9e7"),
                             Name = "FI",
                             Value = 75
                         },
                         new
                         {
-                            Id = new Guid("32c9d56a-93fe-4081-bde1-1eeb761cf9e2"),
+                            Id = new Guid("55b7c2f5-2fd7-441a-9081-103ad4cb1c27"),
                             Name = "FR",
                             Value = 76
                         },
                         new
                         {
-                            Id = new Guid("e6140b24-db34-4720-b6a6-99a78e2ecae6"),
+                            Id = new Guid("139416b3-dafe-4101-9c24-cb13b828698c"),
                             Name = "GF",
                             Value = 77
                         },
                         new
                         {
-                            Id = new Guid("c49ad50a-7621-4892-89b2-afbdac12472d"),
+                            Id = new Guid("d6849a69-8a2e-46cb-bb28-628cdad8b383"),
                             Name = "PF",
                             Value = 78
                         },
                         new
                         {
-                            Id = new Guid("54883948-4546-43e2-ad0c-ef352d4e3a99"),
+                            Id = new Guid("df07483e-d71f-43c0-a6cb-76a94bd2856a"),
                             Name = "TF",
                             Value = 79
                         },
                         new
                         {
-                            Id = new Guid("88d8deb6-b0f9-498b-a3aa-654be12d0420"),
+                            Id = new Guid("46a800df-4a30-41ab-9b64-116f044b2555"),
                             Name = "GA",
                             Value = 80
                         },
                         new
                         {
-                            Id = new Guid("84810bc3-29c0-4dfc-8da9-983a97cb941f"),
+                            Id = new Guid("c4366b50-90ad-482b-ae3d-a8678996a72a"),
                             Name = "GM",
                             Value = 81
                         },
                         new
                         {
-                            Id = new Guid("5b955395-2837-457b-a51c-8672b8e41da7"),
+                            Id = new Guid("2a24e370-dda0-476a-8024-744efc2bceea"),
                             Name = "GE",
                             Value = 82
                         },
                         new
                         {
-                            Id = new Guid("fedef4f3-3439-4522-ab5f-c61a6088b6db"),
+                            Id = new Guid("a8303add-b05c-43cd-9f50-722c16345410"),
                             Name = "DE",
                             Value = 83
                         },
                         new
                         {
-                            Id = new Guid("902ccaa8-9077-4e26-9183-4d31c64aa4ec"),
+                            Id = new Guid("deccbaf1-ef61-487e-a018-74f56104f578"),
                             Name = "GH",
                             Value = 84
                         },
                         new
                         {
-                            Id = new Guid("bb119c5b-7cfb-457d-9c72-9c06e2626ddd"),
+                            Id = new Guid("ae7ca192-6be6-4140-967b-fdc3147e807e"),
                             Name = "GI",
                             Value = 85
                         },
                         new
                         {
-                            Id = new Guid("4a98f0aa-b94e-4ead-b67a-78798ae48794"),
+                            Id = new Guid("21a7ebd7-fe44-4804-b34c-d77bfcae3f7b"),
                             Name = "GR",
                             Value = 86
                         },
                         new
                         {
-                            Id = new Guid("d370fb06-3017-4925-93ec-30e6081a9353"),
+                            Id = new Guid("791a58e0-cfbd-432d-b286-df1364a3fd12"),
                             Name = "GL",
                             Value = 87
                         },
                         new
                         {
-                            Id = new Guid("120b6a8a-57cd-495d-bf6f-a601437affc0"),
+                            Id = new Guid("7cfa4bbc-abf7-49d1-a1cd-fd4d1c14598a"),
                             Name = "GD",
                             Value = 88
                         },
                         new
                         {
-                            Id = new Guid("4a9b150a-0279-485c-a1d4-b3eee86de50f"),
+                            Id = new Guid("211b37e3-6955-4992-a4f8-b67b4a8ef951"),
                             Name = "GP",
                             Value = 89
                         },
                         new
                         {
-                            Id = new Guid("22878c06-24a5-4a93-9db3-6d298f306825"),
+                            Id = new Guid("ed032c81-4c2e-4cec-9feb-b3024f0f09a3"),
                             Name = "GU",
                             Value = 90
                         },
                         new
                         {
-                            Id = new Guid("b372be84-c091-4314-bbd8-509cac367371"),
+                            Id = new Guid("a306c837-272e-4c21-b113-d76540a68491"),
                             Name = "GT",
                             Value = 91
                         },
                         new
                         {
-                            Id = new Guid("6bd8c758-6cf1-440f-af1f-bcd9a9c5a9ed"),
+                            Id = new Guid("2cfa3ba8-0f62-4b55-8d3b-d43d79bdd635"),
                             Name = "GG",
                             Value = 92
                         },
                         new
                         {
-                            Id = new Guid("20424fbe-fb93-4715-ab8b-9698f8d9e859"),
+                            Id = new Guid("053cc8d1-65b7-43e1-8b26-28ee3d504d5f"),
                             Name = "GN",
                             Value = 93
                         },
                         new
                         {
-                            Id = new Guid("cc9a1be8-3116-4959-b57b-da130f21892e"),
+                            Id = new Guid("239270a9-b4ff-4eaf-82ac-6c895af9aad7"),
                             Name = "GW",
                             Value = 94
                         },
                         new
                         {
-                            Id = new Guid("35f72141-12dc-41cd-901a-431c2b8e4ed9"),
+                            Id = new Guid("fddb1513-5487-4d24-b5d1-8912d248c6b8"),
                             Name = "GY",
                             Value = 95
                         },
                         new
                         {
-                            Id = new Guid("37ebe25f-73d7-4662-829f-78b678258c3a"),
+                            Id = new Guid("a0e6d769-6b77-4ab9-a135-b7f56a10582e"),
                             Name = "HT",
                             Value = 96
                         },
                         new
                         {
-                            Id = new Guid("eb38bfe8-9a3d-48f3-84dd-2c19f3b4b3a0"),
+                            Id = new Guid("6295bcf9-1d52-40dd-9034-c8ac5d36e2a8"),
                             Name = "HM",
                             Value = 97
                         },
                         new
                         {
-                            Id = new Guid("1248ed53-803a-4b49-a94f-9ca72de7bd49"),
+                            Id = new Guid("8a8f6f0f-a12e-461d-b847-4698e0087833"),
                             Name = "VA",
                             Value = 98
                         },
                         new
                         {
-                            Id = new Guid("9cbbef28-df2c-4b05-94f2-75379f61f4cd"),
+                            Id = new Guid("5ba8464c-a219-46e8-872e-1f3af48987ad"),
                             Name = "HN",
                             Value = 99
                         },
                         new
                         {
-                            Id = new Guid("7bf141b3-8b86-4b4e-9e77-ee27e7c881bd"),
+                            Id = new Guid("774d35f7-16c8-4638-889a-ec3582b2dac6"),
                             Name = "HK",
                             Value = 100
                         },
                         new
                         {
-                            Id = new Guid("421dae95-3ced-486e-afd4-7969934d334f"),
+                            Id = new Guid("18e998e1-556c-4a54-b3be-e96b9cfd3586"),
                             Name = "HU",
                             Value = 101
                         },
                         new
                         {
-                            Id = new Guid("429cbe8e-acbf-4c90-90a2-bd59962c4b4c"),
+                            Id = new Guid("e0677999-66ea-4e8f-8fa2-14879a0a55e2"),
                             Name = "IS",
                             Value = 102
                         },
                         new
                         {
-                            Id = new Guid("636e5891-c63a-48a5-9cd2-96f13946afe0"),
+                            Id = new Guid("fdf4b620-b552-4026-8ec9-688044a2f264"),
                             Name = "IN",
                             Value = 103
                         },
                         new
                         {
-                            Id = new Guid("b31ac589-e333-422f-bde8-c8c7036638e1"),
+                            Id = new Guid("26e24b48-f1c3-4324-a216-8648ea8ce96d"),
                             Name = "ID",
                             Value = 104
                         },
                         new
                         {
-                            Id = new Guid("82a3e253-34c5-49a0-94b7-2ac439c90715"),
+                            Id = new Guid("80d2a6ec-6831-4b80-97c1-b52d749121bd"),
                             Name = "IR",
                             Value = 105
                         },
                         new
                         {
-                            Id = new Guid("a3cb65b4-be40-45f0-92e7-767228737d9d"),
+                            Id = new Guid("3a450dd3-b542-4219-a114-7ce866f0b014"),
                             Name = "IQ",
                             Value = 106
                         },
                         new
                         {
-                            Id = new Guid("58846b50-579b-45b4-b524-964ce109be09"),
+                            Id = new Guid("155f67df-11d5-482f-8078-439a98c0db1b"),
                             Name = "IE",
                             Value = 107
                         },
                         new
                         {
-                            Id = new Guid("aac53054-f3e7-4ce4-8bd8-fac14853107d"),
+                            Id = new Guid("3653d1fb-b78b-4af3-a07b-f4c7805c4848"),
                             Name = "IM",
                             Value = 108
                         },
                         new
                         {
-                            Id = new Guid("78c0a193-b88e-4a48-ba97-db6747d4eaf9"),
+                            Id = new Guid("81c21925-d860-45df-b717-a7a4c96dca36"),
                             Name = "IL",
                             Value = 109
                         },
                         new
                         {
-                            Id = new Guid("12dc6bf9-9635-43fe-8c54-d8f5e63248b7"),
+                            Id = new Guid("b425c8a8-0ee2-416a-9800-dbc2e76a1e02"),
                             Name = "IT",
                             Value = 110
                         },
                         new
                         {
-                            Id = new Guid("292007c4-07aa-4746-8d7e-f7b48a5aead0"),
+                            Id = new Guid("6d804a88-f71a-4ccc-a4bb-5ef29da5d25e"),
                             Name = "JM",
                             Value = 111
                         },
                         new
                         {
-                            Id = new Guid("c71a6a68-8267-41a0-9bbe-2b40212772e7"),
+                            Id = new Guid("e25cd762-f8ad-4191-820b-5a21b4a57dd5"),
                             Name = "JP",
                             Value = 112
                         },
                         new
                         {
-                            Id = new Guid("1a9b05cb-a47a-43db-b5e5-e5b98efc13ab"),
+                            Id = new Guid("30eb8ed6-c1d1-4d00-ad73-e38f312fedb4"),
                             Name = "JE",
                             Value = 113
                         },
                         new
                         {
-                            Id = new Guid("f867bf29-e31c-47c7-b71e-4b9257a22e6b"),
+                            Id = new Guid("25c3c395-a6b9-4555-a893-82febe3e5945"),
                             Name = "JO",
                             Value = 114
                         },
                         new
                         {
-                            Id = new Guid("29fc321d-ecfe-40c1-bac0-46d4b1d455bb"),
+                            Id = new Guid("7493d7ea-0a2e-4db5-a79e-72c7099b938b"),
                             Name = "KZ",
                             Value = 115
                         },
                         new
                         {
-                            Id = new Guid("b6fca20b-6ada-4d79-93dd-701a684140fe"),
+                            Id = new Guid("10c06541-720b-4914-b3fd-bdb12f692f86"),
                             Name = "KE",
                             Value = 116
                         },
                         new
                         {
-                            Id = new Guid("6785c0ae-a272-4f68-85ed-e2e5d89933ee"),
+                            Id = new Guid("32e1fc1a-fdf6-41b0-b1f4-deedcc1fd3cc"),
                             Name = "KI",
                             Value = 117
                         },
                         new
                         {
-                            Id = new Guid("2b22b106-719c-4319-9a51-72625492c1fd"),
+                            Id = new Guid("06c6541f-4cec-4fcf-9492-88282a77f9b7"),
                             Name = "KP",
                             Value = 118
                         },
                         new
                         {
-                            Id = new Guid("2368f725-7925-4e15-98f3-a51ca376695b"),
+                            Id = new Guid("bc668ba6-9f1c-4220-80d2-40ad66f81aaf"),
                             Name = "KR",
                             Value = 119
                         },
                         new
                         {
-                            Id = new Guid("10e3373b-a3bf-4af8-9e65-19815a662b1c"),
+                            Id = new Guid("0d3a4693-22e5-4b24-916f-ae040bcfdfcb"),
                             Name = "KW",
                             Value = 120
                         },
                         new
                         {
-                            Id = new Guid("725a5fca-a6b5-47a6-9aea-0ad0349a254d"),
+                            Id = new Guid("f05acf2a-f23d-41ea-a757-2d22347670f7"),
                             Name = "KG",
                             Value = 121
                         },
                         new
                         {
-                            Id = new Guid("e1eff479-15ee-458d-aa8f-f03060bd80aa"),
+                            Id = new Guid("0e208ed9-43f0-4853-b0df-3eee5ca83ca0"),
                             Name = "LA",
                             Value = 122
                         },
                         new
                         {
-                            Id = new Guid("1c3a93af-6366-4510-832d-380efb938a60"),
+                            Id = new Guid("9b971e69-8006-4ec1-a6ee-0d5d12e9f8b4"),
                             Name = "LV",
                             Value = 123
                         },
                         new
                         {
-                            Id = new Guid("f7be8b6f-fa5a-4d75-9c1e-ee1de8565f5a"),
+                            Id = new Guid("ba52c559-b282-46d8-a912-ec77675f904a"),
                             Name = "LB",
                             Value = 124
                         },
                         new
                         {
-                            Id = new Guid("0262e75b-2111-4c3f-8e61-94197c478cca"),
+                            Id = new Guid("8aa09226-408c-4d45-8097-0f00c6bb8dbd"),
                             Name = "LS",
                             Value = 125
                         },
                         new
                         {
-                            Id = new Guid("797aabee-7797-4278-81a4-742eb187a2b3"),
+                            Id = new Guid("694871b5-bbd7-4129-b133-444d30d77bce"),
                             Name = "LR",
                             Value = 126
                         },
                         new
                         {
-                            Id = new Guid("6ef6b570-ef53-4113-ac55-7fe6eb57bb55"),
+                            Id = new Guid("8e72a54f-12e2-4c5d-a567-90f5d4f75dd6"),
                             Name = "LY",
                             Value = 127
                         },
                         new
                         {
-                            Id = new Guid("f905159f-4c20-492c-94b3-61dc06a389e3"),
+                            Id = new Guid("dce7db69-ac0a-42ea-8fce-2b4759a6cde1"),
                             Name = "LI",
                             Value = 128
                         },
                         new
                         {
-                            Id = new Guid("b8af491f-714a-4a1f-9b91-ebfbbab67c30"),
+                            Id = new Guid("5bd3a292-d554-468a-9fad-ca0cbb5aea0f"),
                             Name = "LT",
                             Value = 129
                         },
                         new
                         {
-                            Id = new Guid("0552945e-a3a5-490f-92bd-10922d0b1a17"),
+                            Id = new Guid("13559ef0-ec8f-4df8-90a6-81c292bc5aa7"),
                             Name = "LU",
                             Value = 130
                         },
                         new
                         {
-                            Id = new Guid("351a8476-6f3f-4971-989a-8958577c05f9"),
+                            Id = new Guid("64d5db60-5b8e-4d28-8759-6684087a9f86"),
                             Name = "MO",
                             Value = 131
                         },
                         new
                         {
-                            Id = new Guid("fedab7d8-41ad-4ff5-940e-781bf468393d"),
+                            Id = new Guid("21d5b1c4-503a-4fa8-9169-3896ee99bd03"),
                             Name = "MK",
                             Value = 132
                         },
                         new
                         {
-                            Id = new Guid("1936016e-9623-4452-b0f4-fa5e09d0fe0f"),
+                            Id = new Guid("f5221f09-ded0-4ae7-b0d0-e9638669c5fc"),
                             Name = "MG",
                             Value = 133
                         },
                         new
                         {
-                            Id = new Guid("c8e0b2ab-d289-4820-9b11-333083915179"),
+                            Id = new Guid("a97120ad-7b3a-496c-8435-dc6efb224ed9"),
                             Name = "MW",
                             Value = 134
                         },
                         new
                         {
-                            Id = new Guid("6258361e-1c58-4b7b-9e74-6bf8e98efe58"),
+                            Id = new Guid("1270ee5e-70c9-4ac0-b2a8-37577e8df1b8"),
                             Name = "MY",
                             Value = 135
                         },
                         new
                         {
-                            Id = new Guid("fc93baa0-cee9-45b5-909d-6cf2949ae24c"),
+                            Id = new Guid("e4c9842b-3d47-4ef9-ae04-c3d0ac788234"),
                             Name = "MV",
                             Value = 136
                         },
                         new
                         {
-                            Id = new Guid("1eff6a53-a619-4f37-a0eb-ecb26da7a172"),
+                            Id = new Guid("704208f6-c664-4b30-9ce5-fe87d53eba6b"),
                             Name = "ML",
                             Value = 137
                         },
                         new
                         {
-                            Id = new Guid("93df74e1-03e6-4271-bcc0-ffa8ce14820f"),
+                            Id = new Guid("1143b247-9398-463f-9748-3b4dd20522f7"),
                             Name = "MT",
                             Value = 138
                         },
                         new
                         {
-                            Id = new Guid("f3bee5c9-e575-4657-bc1c-e73063cd819d"),
+                            Id = new Guid("338bc858-b9b3-47ca-9c3f-8b06e78bba86"),
                             Name = "MH",
                             Value = 139
                         },
                         new
                         {
-                            Id = new Guid("779e7c73-0f2e-4855-b9aa-6855f6edeb8f"),
+                            Id = new Guid("89734048-9854-47fe-80fb-441c2025ebc7"),
                             Name = "MQ",
                             Value = 140
                         },
                         new
                         {
-                            Id = new Guid("caf992c9-85a9-4262-bc46-c37bfc89fe66"),
+                            Id = new Guid("e9169237-7d99-4557-9079-53e8b8f2fb49"),
                             Name = "MR",
                             Value = 141
                         },
                         new
                         {
-                            Id = new Guid("8dfaa256-393b-4b19-a761-e0b0f731f816"),
+                            Id = new Guid("74f18378-7f4d-44a1-a893-91770e6f8597"),
                             Name = "MU",
                             Value = 142
                         },
                         new
                         {
-                            Id = new Guid("ef261bf4-1265-4513-91a5-e35034a51966"),
+                            Id = new Guid("f68267ec-c571-4eaf-98f1-d367f2c4b43d"),
                             Name = "YT",
                             Value = 143
                         },
                         new
                         {
-                            Id = new Guid("a30fd36c-d660-42de-beed-cad0ceaee3c0"),
+                            Id = new Guid("c3fbbbc5-4887-446f-8568-43dfc1d53e1e"),
                             Name = "MX",
                             Value = 144
                         },
                         new
                         {
-                            Id = new Guid("08e8bdc0-6b38-4aa1-9c01-3eaa753a197b"),
+                            Id = new Guid("50287ee0-1f5b-4347-925b-07ed56567581"),
                             Name = "FM",
                             Value = 145
                         },
                         new
                         {
-                            Id = new Guid("d1788722-486e-4309-9c0a-0833c1586839"),
+                            Id = new Guid("5d7a008b-c9b0-4471-9c83-0ea1ddfd5045"),
                             Name = "MD",
                             Value = 146
                         },
                         new
                         {
-                            Id = new Guid("c8c618f5-8024-4973-b916-3f65ad1c3b6e"),
+                            Id = new Guid("62ea5c35-3db8-4e8c-912b-7a18aeb343a1"),
                             Name = "MC",
                             Value = 147
                         },
                         new
                         {
-                            Id = new Guid("e6c1c6b0-cf16-437e-93bf-fa4628241b26"),
+                            Id = new Guid("c15a6969-d90a-4849-bd00-ce7824e67424"),
                             Name = "MN",
                             Value = 148
                         },
                         new
                         {
-                            Id = new Guid("b49406c1-d001-4e99-b52b-d0b5e9a79863"),
+                            Id = new Guid("f0ee72dd-fa17-4601-8795-02d53ebe8889"),
                             Name = "ME",
                             Value = 149
                         },
                         new
                         {
-                            Id = new Guid("d74132dd-7bec-4b62-bca9-83ad0ddc6b59"),
+                            Id = new Guid("7fdce1e2-dc0e-43b4-9486-f33306c9a72f"),
                             Name = "MS",
                             Value = 150
                         },
                         new
                         {
-                            Id = new Guid("9498db77-213b-486b-9786-2685eba4a9d1"),
+                            Id = new Guid("36d7e73b-1e15-4e9b-b6d2-5b252fb89ddb"),
                             Name = "MA",
                             Value = 151
                         },
                         new
                         {
-                            Id = new Guid("b155cc37-50ac-453d-badc-0f7d2d013574"),
+                            Id = new Guid("11819b12-077a-43a4-8417-460c3e3b0851"),
                             Name = "MZ",
                             Value = 152
                         },
                         new
                         {
-                            Id = new Guid("297e9d08-e0c5-4764-971d-2a6ebe299870"),
+                            Id = new Guid("4e3e5349-c012-4254-9d55-26ea387b0326"),
                             Name = "MM",
                             Value = 153
                         },
                         new
                         {
-                            Id = new Guid("9d05f5ed-2bab-4f28-a770-a3c6e3eb84a8"),
+                            Id = new Guid("750050aa-c75a-4ef2-a3e4-cfb58ee516b3"),
                             Name = "NA",
                             Value = 154
                         },
                         new
                         {
-                            Id = new Guid("9f4c42a7-f537-4d5a-b2c8-b6ee8e5241a8"),
+                            Id = new Guid("4bc003d1-999b-42d1-90b4-846c09e2a638"),
                             Name = "NR",
                             Value = 155
                         },
                         new
                         {
-                            Id = new Guid("30611f35-02bc-475c-94ae-d22bb531d0d7"),
+                            Id = new Guid("c5a92c78-2596-4882-b17c-d9732bb7513d"),
                             Name = "NP",
                             Value = 156
                         },
                         new
                         {
-                            Id = new Guid("347f8e72-9912-4624-a30d-e14a6152f075"),
+                            Id = new Guid("5a368bb5-40c6-4e91-a051-a19932d1f4c5"),
                             Name = "NL",
                             Value = 157
                         },
                         new
                         {
-                            Id = new Guid("37454c79-68d1-4231-abc2-937327b3a883"),
+                            Id = new Guid("58acd0f3-7aa1-4b38-b9a8-ebe7525a3dda"),
                             Name = "NC",
                             Value = 158
                         },
                         new
                         {
-                            Id = new Guid("37c2d9d3-be65-4e09-88dc-82394ef00896"),
+                            Id = new Guid("3360a2f1-5c5c-4028-9129-2c90131d4ed0"),
                             Name = "NZ",
                             Value = 159
                         },
                         new
                         {
-                            Id = new Guid("64cd81bc-a4cf-4ac5-baff-e4b38c9f3403"),
+                            Id = new Guid("9775060e-27c6-47d8-bdd0-bb8d24fd9897"),
                             Name = "NI",
                             Value = 160
                         },
                         new
                         {
-                            Id = new Guid("eecdf496-c3d3-41be-a6f9-1a8f5746b2ae"),
+                            Id = new Guid("8b158e33-0b9a-46c3-ad01-e8e064f375e5"),
                             Name = "NE",
                             Value = 161
                         },
                         new
                         {
-                            Id = new Guid("22808231-f980-4b27-a8d1-b721460afb1e"),
+                            Id = new Guid("2ca7c0a3-c56a-4502-94da-99aeeea27b8c"),
                             Name = "NG",
                             Value = 162
                         },
                         new
                         {
-                            Id = new Guid("78ed333e-4faa-48c2-9b96-49c96cbece6a"),
+                            Id = new Guid("d3822fc6-1512-49cc-8975-e2086cdfb0bf"),
                             Name = "NU",
                             Value = 163
                         },
                         new
                         {
-                            Id = new Guid("516062e1-6d34-41f7-8a93-5e0f33ed10b0"),
+                            Id = new Guid("27d91671-6aac-4c86-b749-69003b7fba9a"),
                             Name = "NF",
                             Value = 164
                         },
                         new
                         {
-                            Id = new Guid("ef6a34ae-3104-49c9-852d-7345fdb9075c"),
+                            Id = new Guid("c67919ca-db71-4bfa-ace1-32433e22f1e9"),
                             Name = "MP",
                             Value = 165
                         },
                         new
                         {
-                            Id = new Guid("e9a3dff8-6115-4b66-a50d-b3f2f3c93dfc"),
+                            Id = new Guid("77eea453-e268-4c0d-a06c-d09b16e977f8"),
                             Name = "NO",
                             Value = 166
                         },
                         new
                         {
-                            Id = new Guid("01b4443f-6cf6-44c8-8ead-4274490aa623"),
+                            Id = new Guid("ed28ee11-e23d-4103-b45a-db76b98ef66a"),
                             Name = "OM",
                             Value = 167
                         },
                         new
                         {
-                            Id = new Guid("b9cb7574-a77e-43be-87e7-5dae32ba4874"),
+                            Id = new Guid("734308af-c2ca-4d37-a6a3-4bd245e010ba"),
                             Name = "PK",
                             Value = 168
                         },
                         new
                         {
-                            Id = new Guid("50e73169-b7fa-49c1-b523-4eca6eeed81f"),
+                            Id = new Guid("bcf91ffc-37d1-4cac-970c-b0c47f24fa01"),
                             Name = "PW",
                             Value = 169
                         },
                         new
                         {
-                            Id = new Guid("20eda111-463e-4a54-b816-501693d87917"),
+                            Id = new Guid("78f2a19e-d0c1-4968-b510-6a053c31b0c4"),
                             Name = "PS",
                             Value = 170
                         },
                         new
                         {
-                            Id = new Guid("4d362e3e-9fb7-493b-9c2d-b60c39a356a7"),
+                            Id = new Guid("0f0ccfee-e26e-479b-9e8a-ff219147e72e"),
                             Name = "PA",
                             Value = 171
                         },
                         new
                         {
-                            Id = new Guid("28587de3-1c91-4a5d-8570-fdb0156080b0"),
+                            Id = new Guid("e4e334d8-9e9f-41e2-8964-e4f5c9697b99"),
                             Name = "PG",
                             Value = 172
                         },
                         new
                         {
-                            Id = new Guid("26e4fdbe-b05e-4021-9527-2af8ed201754"),
+                            Id = new Guid("d520b651-c391-4faf-b92f-d00d0d9965d7"),
                             Name = "PY",
                             Value = 173
                         },
                         new
                         {
-                            Id = new Guid("ede307e8-34b9-48ce-9265-e1c032443a7e"),
+                            Id = new Guid("415f226e-4d82-42c4-95dd-020e929aa94c"),
                             Name = "PE",
                             Value = 174
                         },
                         new
                         {
-                            Id = new Guid("9cf217bc-7ac1-42a4-bb4a-d1b18cfb56cd"),
+                            Id = new Guid("f04003c8-e13b-4c43-aacc-112fba6b7a52"),
                             Name = "PH",
                             Value = 175
                         },
                         new
                         {
-                            Id = new Guid("72e4f7fa-9453-4e91-a93b-af03941c7505"),
+                            Id = new Guid("8e5aea51-e9d4-4028-8dfe-fbbae29db819"),
                             Name = "PN",
                             Value = 176
                         },
                         new
                         {
-                            Id = new Guid("70e71f7d-d668-475b-931a-ef64fa4efbf0"),
+                            Id = new Guid("181d789b-3433-403c-b782-5fca65b83251"),
                             Name = "PL",
                             Value = 177
                         },
                         new
                         {
-                            Id = new Guid("a5d8f7c7-ccf9-4d16-b890-eb0fec94d40e"),
+                            Id = new Guid("c128323a-065c-4f63-bed8-20ac766233f1"),
                             Name = "PT",
                             Value = 178
                         },
                         new
                         {
-                            Id = new Guid("84d8608e-5605-4551-8e61-4f63682250d3"),
+                            Id = new Guid("75d84d0b-5d2b-423f-8236-88dd0cc5c58e"),
                             Name = "PR",
                             Value = 179
                         },
                         new
                         {
-                            Id = new Guid("d0da61d1-f7a7-4512-8487-b6da96ba7968"),
+                            Id = new Guid("97f546fd-c226-488a-9820-5a4ef96004ab"),
                             Name = "QA",
                             Value = 180
                         },
                         new
                         {
-                            Id = new Guid("dc2fca57-f4c0-4757-bcdf-6ba3c9a267ee"),
+                            Id = new Guid("bbd02f2e-49fa-485b-bcb8-9cace62a7b8c"),
                             Name = "RE",
                             Value = 181
                         },
                         new
                         {
-                            Id = new Guid("91960739-beee-4980-be63-9101c5aa4495"),
+                            Id = new Guid("c5fd82d9-d8a7-49ea-a0cc-13870a8842a1"),
                             Name = "RO",
                             Value = 182
                         },
                         new
                         {
-                            Id = new Guid("20df223c-1405-43c2-b134-f97215b11c61"),
+                            Id = new Guid("612b4105-151b-47f7-aaf6-ef15559c9ff0"),
                             Name = "RU",
                             Value = 183
                         },
                         new
                         {
-                            Id = new Guid("3c153b97-58a8-491f-9690-0c4a0e87d120"),
+                            Id = new Guid("3b480777-f466-47b8-9500-603d6f145f20"),
                             Name = "RW",
                             Value = 184
                         },
                         new
                         {
-                            Id = new Guid("b565d833-0089-4c5e-b934-b5348b340398"),
+                            Id = new Guid("3573e823-bdc6-4e7e-8ee3-52531c2dfaab"),
                             Name = "BL",
                             Value = 185
                         },
                         new
                         {
-                            Id = new Guid("bb365604-f02b-4c7a-9dbb-eb2bbd084b8f"),
+                            Id = new Guid("86960811-d456-420b-873b-28962a547dbf"),
                             Name = "SH",
                             Value = 186
                         },
                         new
                         {
-                            Id = new Guid("5ff920d1-0f2c-4ff7-883c-5280d93ab61b"),
+                            Id = new Guid("9b5d34ef-f407-489f-9343-91fd3dfb233f"),
                             Name = "KN",
                             Value = 187
                         },
                         new
                         {
-                            Id = new Guid("4bab451a-e0db-4e2d-ae99-8ba51651000a"),
+                            Id = new Guid("fc39c320-9142-43ef-912b-9990a5b548d6"),
                             Name = "LC",
                             Value = 188
                         },
                         new
                         {
-                            Id = new Guid("79488b6d-72b4-43de-a310-c12a1e44dac1"),
+                            Id = new Guid("4047a5c1-9b4b-417c-9a56-4fb811ebd051"),
                             Name = "MF",
                             Value = 189
                         },
                         new
                         {
-                            Id = new Guid("0cfa6fa8-2d2c-4715-b29a-1e2c4aad5fb1"),
+                            Id = new Guid("cd878fe1-140d-422e-993a-3f2d16c8805a"),
                             Name = "PM",
                             Value = 190
                         },
                         new
                         {
-                            Id = new Guid("cc4f0cc7-a59f-4be0-89df-6ffb8be1dc52"),
+                            Id = new Guid("86ca958d-c720-4c6d-b3d7-7da7140c29cc"),
                             Name = "VC",
                             Value = 191
                         },
                         new
                         {
-                            Id = new Guid("4ab8038d-9772-4d0d-b23c-1f8ef06d4aa9"),
+                            Id = new Guid("8d9cb652-b271-428b-9d8a-4cd90adcd4e9"),
                             Name = "WS",
                             Value = 192
                         },
                         new
                         {
-                            Id = new Guid("78e2f3d6-03a9-4b81-8cbb-c73228672251"),
+                            Id = new Guid("16ab42ff-8ddc-4f25-a64c-c0c23a8c5f59"),
                             Name = "SM",
                             Value = 193
                         },
                         new
                         {
-                            Id = new Guid("68b7e7ac-3a93-48b1-80fb-d1aaf0b3b523"),
+                            Id = new Guid("8d576da4-f840-40ce-a9b6-33bb8fb05624"),
                             Name = "ST",
                             Value = 194
                         },
                         new
                         {
-                            Id = new Guid("4f027f63-1459-4228-8013-6816b7405d9f"),
+                            Id = new Guid("11de18e3-c37b-4401-97b0-48d8b0fa8176"),
                             Name = "SA",
                             Value = 195
                         },
                         new
                         {
-                            Id = new Guid("bbc52722-97fc-4e82-9887-dabc3f926669"),
+                            Id = new Guid("7f66abe7-2a21-4807-9fe1-b740facd62e0"),
                             Name = "SN",
                             Value = 196
                         },
                         new
                         {
-                            Id = new Guid("c6cbbc32-ca0c-44c3-bc9d-9d11b2b09263"),
+                            Id = new Guid("efae3600-d8a4-4312-afa6-2a58f73b18b2"),
                             Name = "RS",
                             Value = 197
                         },
                         new
                         {
-                            Id = new Guid("ab4fbc7f-6e8d-40a3-903c-cdc859e95fbe"),
+                            Id = new Guid("bcfa6a62-0a90-41ca-9270-027da98d1c5d"),
                             Name = "SC",
                             Value = 198
                         },
                         new
                         {
-                            Id = new Guid("ce86b797-478f-49c8-a6f6-cccf0dbbb5e5"),
+                            Id = new Guid("84a1a222-b9a3-40b0-b9bd-5f206aae3380"),
                             Name = "SL",
                             Value = 199
                         },
                         new
                         {
-                            Id = new Guid("4573cb74-8212-42ad-99db-e6928aac81e7"),
+                            Id = new Guid("7333b43e-65a1-42da-81aa-ab0261bc1949"),
                             Name = "SG",
                             Value = 200
                         },
                         new
                         {
-                            Id = new Guid("1fcccab5-b743-4354-831c-4abcded67e9c"),
+                            Id = new Guid("2fe39403-c091-40d7-a13c-f45dc9fdc290"),
                             Name = "SX",
                             Value = 201
                         },
                         new
                         {
-                            Id = new Guid("e4869ca3-2a7d-494c-9c37-92c8a1b94d49"),
+                            Id = new Guid("0fd57a12-26c5-4105-b3e0-d12502d781fc"),
                             Name = "SK",
                             Value = 202
                         },
                         new
                         {
-                            Id = new Guid("07660805-9081-48b7-9405-65a610921a15"),
+                            Id = new Guid("0c4bbd83-0c25-4b9a-8fb6-8d34c448ed6f"),
                             Name = "SI",
                             Value = 203
                         },
                         new
                         {
-                            Id = new Guid("41d45958-69fc-49b4-9465-2ea39aa3671c"),
+                            Id = new Guid("5a118659-a2c5-4c64-9d23-2e5db25fdd6c"),
                             Name = "SB",
                             Value = 204
                         },
                         new
                         {
-                            Id = new Guid("1d9944bf-418b-44fa-888b-49c45097ad40"),
+                            Id = new Guid("dd4f3d0f-f8fd-4660-8e21-36265f4d5cb9"),
                             Name = "SO",
                             Value = 205
                         },
                         new
                         {
-                            Id = new Guid("a67e8fca-931a-4eb4-9773-d6477647f19d"),
+                            Id = new Guid("934f1188-3d4f-4311-925b-95b82b656242"),
                             Name = "ZA",
                             Value = 206
                         },
                         new
                         {
-                            Id = new Guid("e5305ac6-50ef-413d-8086-cc78010d5f2a"),
+                            Id = new Guid("c9675524-ebfc-4d16-a40e-5b479d9600bf"),
                             Name = "GS",
                             Value = 207
                         },
                         new
                         {
-                            Id = new Guid("befd8023-5437-43fa-aae4-8cd355ab211b"),
+                            Id = new Guid("118ba47e-d209-482b-b13b-c51507d5c9e5"),
                             Name = "SS",
                             Value = 208
                         },
                         new
                         {
-                            Id = new Guid("d15c6395-cc1e-401b-9cc4-e56715a31c43"),
+                            Id = new Guid("77058d59-6cd1-4ced-93ba-7f2fa1fcea73"),
                             Name = "ES",
                             Value = 209
                         },
                         new
                         {
-                            Id = new Guid("75fdd728-0013-4a38-965b-c061c31e0421"),
+                            Id = new Guid("3f925f3c-f923-47cb-9047-6828e697857c"),
                             Name = "LK",
                             Value = 210
                         },
                         new
                         {
-                            Id = new Guid("94b1dd2c-26c9-4eac-8e29-4899af089bd1"),
+                            Id = new Guid("c8b13b9a-36f8-40ad-985d-70e1ad27b8a6"),
                             Name = "SD",
                             Value = 211
                         },
                         new
                         {
-                            Id = new Guid("3e88325f-bae4-46e6-b0cd-f6199a79e42d"),
+                            Id = new Guid("f164518f-2a99-497d-9a2e-47ec9f16ce38"),
                             Name = "SR",
                             Value = 212
                         },
                         new
                         {
-                            Id = new Guid("46eb2de9-d565-47a0-95d1-190ded2bd341"),
+                            Id = new Guid("8d2de3fa-b8af-45c6-9f83-c11987709e83"),
                             Name = "SJ",
                             Value = 213
                         },
                         new
                         {
-                            Id = new Guid("b16a4ab2-958e-45cb-b764-bf3a7988ee00"),
+                            Id = new Guid("4d5e4b5d-ab4a-4e85-bd0f-78d0fe33d036"),
                             Name = "SZ",
                             Value = 214
                         },
                         new
                         {
-                            Id = new Guid("f86ffac4-2aaa-4dd2-bab3-6332bec8d366"),
+                            Id = new Guid("922f9763-699a-45e2-9e59-e5ab3ff2ae25"),
                             Name = "SE",
                             Value = 215
                         },
                         new
                         {
-                            Id = new Guid("8f81954b-5a5f-4be8-87d6-9edd9c2351f0"),
+                            Id = new Guid("2f1eff27-e291-420a-b33a-2fcc90fece61"),
                             Name = "CH",
                             Value = 216
                         },
                         new
                         {
-                            Id = new Guid("923aa1fb-de83-4be7-aebd-882c49337a33"),
+                            Id = new Guid("9a4f3a9e-464b-49b7-bd0b-f80caae39e86"),
                             Name = "SY",
                             Value = 217
                         },
                         new
                         {
-                            Id = new Guid("23b67af6-bedb-4bad-bc6a-db009a9e931a"),
+                            Id = new Guid("7bf44862-2699-4965-a736-ad6774a7a43f"),
                             Name = "TW",
                             Value = 218
                         },
                         new
                         {
-                            Id = new Guid("b020fae3-f1db-4cbf-9869-f71b9127876c"),
+                            Id = new Guid("644aaf2c-b35f-4f35-bae2-9d42bb217cf7"),
                             Name = "TJ",
                             Value = 219
                         },
                         new
                         {
-                            Id = new Guid("32040e6e-c743-4c50-8d11-a4865c2f7df5"),
+                            Id = new Guid("209c6e53-b31d-423a-860a-b3371bfc2084"),
                             Name = "TZ",
                             Value = 220
                         },
                         new
                         {
-                            Id = new Guid("0d50eaf2-1fac-4f51-8a8e-15944dfdcc99"),
+                            Id = new Guid("8950f339-2769-441b-a9b8-1a8106320b9f"),
                             Name = "TH",
                             Value = 221
                         },
                         new
                         {
-                            Id = new Guid("cb77aff4-5fc0-4bad-9782-31cba57d8c2e"),
+                            Id = new Guid("0946c5d4-8b53-4852-8bb3-0accc3deebac"),
                             Name = "TL",
                             Value = 222
                         },
                         new
                         {
-                            Id = new Guid("6577b91a-370c-4505-9944-be87287a7081"),
+                            Id = new Guid("2ba286ce-8b1b-4ceb-8314-6cad68925fd5"),
                             Name = "TG",
                             Value = 223
                         },
                         new
                         {
-                            Id = new Guid("028e2c2d-a0fb-49d6-875f-b18d423cf4f0"),
+                            Id = new Guid("5470eb7c-c2dd-4b37-a261-d1060de399cf"),
                             Name = "TK",
                             Value = 224
                         },
                         new
                         {
-                            Id = new Guid("8659b324-0137-4878-9587-2170bda5299c"),
+                            Id = new Guid("2ff2abe7-4d46-4ddb-aceb-f7156ec94dcb"),
                             Name = "TO",
                             Value = 225
                         },
                         new
                         {
-                            Id = new Guid("3791f875-3c6d-49fb-bc7f-c86b326c9080"),
+                            Id = new Guid("ca86647a-f8da-4bb3-9304-531247544aa3"),
                             Name = "TT",
                             Value = 226
                         },
                         new
                         {
-                            Id = new Guid("4bff4433-c9ce-4d33-96e4-6bb1dd1b11a9"),
+                            Id = new Guid("dcc2b781-ef65-4406-b94f-91e5f236c104"),
                             Name = "TN",
                             Value = 227
                         },
                         new
                         {
-                            Id = new Guid("7fa892d7-6b98-408b-bbee-860f53810803"),
+                            Id = new Guid("e1bc8935-6bea-4c34-b289-980c861d503e"),
                             Name = "TR",
                             Value = 228
                         },
                         new
                         {
-                            Id = new Guid("aec6a3f2-b600-40fb-9063-63ea44336924"),
+                            Id = new Guid("daaf5442-94e5-493d-bd4b-66c3978dca78"),
                             Name = "TM",
                             Value = 229
                         },
                         new
                         {
-                            Id = new Guid("c17c57e9-6aad-4c94-ad39-cb16216c55fc"),
+                            Id = new Guid("e795e160-30ae-49f1-9fb6-ef54e9dea3d2"),
                             Name = "TC",
                             Value = 230
                         },
                         new
                         {
-                            Id = new Guid("7c355222-4785-4407-aefe-699cb61da315"),
+                            Id = new Guid("84aae4be-ba58-428a-a310-34aaf4992b5a"),
                             Name = "TV",
                             Value = 231
                         },
                         new
                         {
-                            Id = new Guid("714d6093-0002-4bb6-8aa6-639315074bdb"),
+                            Id = new Guid("9e44d2f1-6d7b-4335-b6ab-d83316d249ec"),
                             Name = "UG",
                             Value = 232
                         },
                         new
                         {
-                            Id = new Guid("eaa8763f-1769-456f-83d6-c30749583407"),
+                            Id = new Guid("84aa5a15-ffc2-4308-937e-e3a37b5f075f"),
                             Name = "UA",
                             Value = 233
                         },
                         new
                         {
-                            Id = new Guid("238ad1a8-a1c3-4406-9f4e-1bc339239902"),
+                            Id = new Guid("1c63855c-238e-4b25-b2ff-f2c8cb594b12"),
                             Name = "AE",
                             Value = 234
                         },
                         new
                         {
-                            Id = new Guid("0298fb48-199d-4991-a804-f2d7f7d40bfd"),
+                            Id = new Guid("513b4ff3-9274-4605-a6cd-7ab5d6fe7c73"),
                             Name = "GB",
                             Value = 235
                         },
                         new
                         {
-                            Id = new Guid("b49375e9-a8d3-4c27-9be3-6948310daf4e"),
+                            Id = new Guid("22091318-cd6b-4049-9911-efce3eeb3deb"),
                             Name = "US",
                             Value = 236
                         },
                         new
                         {
-                            Id = new Guid("6df9757d-14c9-4203-bb25-ffd4163ff37b"),
+                            Id = new Guid("1eddaf41-9746-46c0-868b-b4303bfa007b"),
                             Name = "UM",
                             Value = 237
                         },
                         new
                         {
-                            Id = new Guid("cfcab9f5-3ac2-459a-8827-5b4a4f079ebb"),
+                            Id = new Guid("787e5033-5f97-4e81-8953-a1b41724dc0f"),
                             Name = "UY",
                             Value = 238
                         },
                         new
                         {
-                            Id = new Guid("af368219-3337-4da8-886e-4257ffbe56b5"),
+                            Id = new Guid("3633ea89-ac98-4a77-ba6d-f4744929132b"),
                             Name = "UZ",
                             Value = 239
                         },
                         new
                         {
-                            Id = new Guid("9a31479c-65ae-48f1-9df9-6f989a2f6762"),
+                            Id = new Guid("e2e8f63c-f1a4-4135-bd23-056730a22a52"),
                             Name = "VU",
                             Value = 240
                         },
                         new
                         {
-                            Id = new Guid("cd78692d-41b9-4aa2-8053-31250dc356ce"),
+                            Id = new Guid("fdf16a7e-6f06-47a8-bd53-da2ddd31cdec"),
                             Name = "VE",
                             Value = 241
                         },
                         new
                         {
-                            Id = new Guid("237361b4-e2fd-4c04-a951-d3edfb17d0e7"),
+                            Id = new Guid("97eca2aa-9a97-4365-8356-50d49bd58034"),
                             Name = "VN",
                             Value = 242
                         },
                         new
                         {
-                            Id = new Guid("91f205b9-bc58-409c-8fb3-0a7e198382c9"),
+                            Id = new Guid("70fbe487-a108-4bf4-a79f-02287d4331aa"),
                             Name = "VG",
                             Value = 243
                         },
                         new
                         {
-                            Id = new Guid("bfcbb2a2-be4e-485b-8dfe-21fb271120d9"),
+                            Id = new Guid("221ec5b8-f75b-4063-85d7-3de7ca4e0092"),
                             Name = "VI",
                             Value = 244
                         },
                         new
                         {
-                            Id = new Guid("9c0f5ee9-177e-4848-93f4-725db739f091"),
+                            Id = new Guid("4a585fd3-7ffa-4f89-a3eb-c8f7d6bdfa59"),
                             Name = "WF",
                             Value = 245
                         },
                         new
                         {
-                            Id = new Guid("713368ff-c7ce-4337-aeff-4514998a0f9a"),
+                            Id = new Guid("4ca05911-3157-4bfb-a678-f424cb655b98"),
                             Name = "EH",
                             Value = 246
                         },
                         new
                         {
-                            Id = new Guid("74ce7561-9b3f-42c1-98a7-3af8a7b9fff1"),
+                            Id = new Guid("09067e50-dab7-44fe-b5d9-61b734bc0ede"),
                             Name = "YE",
                             Value = 247
                         },
                         new
                         {
-                            Id = new Guid("6662a3ea-457a-4d02-93ad-0e7e522220de"),
+                            Id = new Guid("86c57c4d-8f12-45b5-8581-946c3fc3d481"),
                             Name = "ZM",
                             Value = 248
                         },
                         new
                         {
-                            Id = new Guid("83914dac-5e7d-452a-8100-46339500d8fd"),
+                            Id = new Guid("9d647981-183d-4844-a312-4f26695b356e"),
                             Name = "ZW",
                             Value = 249
                         });
@@ -1943,19 +1945,19 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7b944288-600e-4b73-80c9-5d1d5cb7f573"),
+                            Id = new Guid("0a4a1633-b058-4d8a-a066-b83d6dc63e58"),
                             Name = "THREE_AXIS",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("2b10da2c-61b1-4992-a488-02c5e8f80709"),
+                            Id = new Guid("ff77b51e-1019-49fb-9837-a054277eea69"),
                             Name = "THREE_PLUS_TWO_AXIS",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("bac76a2e-51dd-4386-8edb-7f5604f4d4ae"),
+                            Id = new Guid("b0ba1076-32e9-4683-9daa-4332734b5cc7"),
                             Name = "FIVE_AXIS",
                             Value = 2
                         });
@@ -1982,25 +1984,25 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1eccb47a-3548-4103-a709-06cfcfc0d9be"),
+                            Id = new Guid("a26ac0e4-677a-48fc-8384-c9454f92778e"),
                             Name = "TYPE_1",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("8f2796bf-c34a-491e-b860-5889dcc46bbb"),
+                            Id = new Guid("13daa247-12f7-4885-966e-276dc3722694"),
                             Name = "TYPE_2",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("e617b711-2939-4d5a-b0a8-e0d60b0a5035"),
+                            Id = new Guid("5fdcf81d-00f5-45b6-91f4-0b19bceb8550"),
                             Name = "TYPE_3",
                             Value = 2
                         },
                         new
                         {
-                            Id = new Guid("4affe675-3615-44bf-a270-6855239ab386"),
+                            Id = new Guid("c83bacb5-c1cd-4b25-9f07-29360d29d166"),
                             Name = "TYPE_4",
                             Value = 3
                         });
@@ -2027,55 +2029,55 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("25d7f49f-e567-41e9-b8fa-935995272b3b"),
+                            Id = new Guid("2cfcbb75-3a13-4eae-8c7f-7953f198d11e"),
                             Name = "DeepHoleDrilling",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("8d269b93-52af-449b-90d8-237e701cdf14"),
+                            Id = new Guid("d424f88d-3d6e-44f4-9fed-d5917a39e52d"),
                             Name = "ThreadsM",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("49f3ce32-7210-4ee2-8ec2-d32390e07268"),
+                            Id = new Guid("e4a35ad3-90ed-4de9-808a-e4780cba505b"),
                             Name = "ThreadsTr",
                             Value = 2
                         },
                         new
                         {
-                            Id = new Guid("ac167bf0-fc05-4ac5-b350-795fde0fb71f"),
+                            Id = new Guid("55dd3dfc-c30e-4eeb-8ee5-e39a99b79f93"),
                             Name = "Toothings",
                             Value = 3
                         },
                         new
                         {
-                            Id = new Guid("467e23b7-1765-4d39-80df-c3c6f6fbe5a0"),
+                            Id = new Guid("c2fd923a-ab53-4472-a622-3128ac911a7e"),
                             Name = "Engravings",
                             Value = 4
                         },
                         new
                         {
-                            Id = new Guid("9b7b1aa4-5923-40e5-a267-0f4683539c13"),
+                            Id = new Guid("3a09b1c8-5c5b-463f-8dfa-352f2cf0f947"),
                             Name = "LaserMarking",
                             Value = 5
                         },
                         new
                         {
-                            Id = new Guid("7510f501-e8a4-4737-9491-bd3d82aff09d"),
+                            Id = new Guid("3f3ddc24-6a9a-42e5-870e-fe7feb7a5806"),
                             Name = "Knurling",
                             Value = 6
                         },
                         new
                         {
-                            Id = new Guid("153d87de-0470-4b2e-bca5-1805c4049513"),
+                            Id = new Guid("5310b489-8165-4fc9-970b-6eeb03507ed9"),
                             Name = "Annealing",
                             Value = 7
                         },
                         new
                         {
-                            Id = new Guid("8227be71-3a28-4e57-a7a7-07d40daa8388"),
+                            Id = new Guid("6b33a4e0-e41a-48a4-86b7-3710e5d9915f"),
                             Name = "Other",
                             Value = 8
                         });
@@ -2158,22 +2160,60 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f33d801e-aa56-45d8-93dc-a81d838b8d49"),
+                            Id = new Guid("f32bad09-eb6c-45bf-a0ef-abea908b330c"),
                             Name = "THREE_AXIS",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("7d328025-3d87-4ce0-ba3a-89665420fbd1"),
+                            Id = new Guid("638e7164-0cb9-4a37-a716-2af0437d3475"),
                             Name = "THREE_PLUS_TWO_AXIS",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("1dcd614a-0bbd-4962-a837-70cf115c3538"),
+                            Id = new Guid("5ce52734-cdc6-4b7f-8180-c9a1a5b357db"),
                             Name = "FIVE_AXIS",
                             Value = 2
                         });
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ActivationCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
+
+                    b.ToTable("Registration");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.TurningMachine", b =>
@@ -2221,7 +2261,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("TurningMachineTypeId");
 
-                    b.ToTable("TurningMachine");
+                    b.ToTable("TurningMachines");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.TurningMachineType", b =>
@@ -2240,36 +2280,36 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasAlternateKey("Value");
 
-                    b.ToTable("TurningMachineType");
+                    b.ToTable("TurningMachineTypes");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("027b6f80-837d-425d-81c0-0002937dff9c"),
+                            Id = new Guid("94857418-d240-44a5-ba38-4b0ed0e13d9a"),
                             Name = "TURNING_MACHINE_TYPE_1",
                             Value = 0
                         },
                         new
                         {
-                            Id = new Guid("2d8fd979-4dee-45f1-add8-7cb462a2c64a"),
+                            Id = new Guid("36f8452a-176a-4ea8-ad8f-f9f8ecfe3c58"),
                             Name = "TURNING_MACHINE_TYPE_2",
                             Value = 1
                         },
                         new
                         {
-                            Id = new Guid("7c93a05f-4f8c-47d0-952e-7cff6061f728"),
+                            Id = new Guid("d61e11f4-ce6f-4e98-a1b7-5c88623052b5"),
                             Name = "TURNING_MACHINE_TYPE_3",
                             Value = 2
                         },
                         new
                         {
-                            Id = new Guid("4f187ada-b0b1-4d41-abbd-62009044cba8"),
+                            Id = new Guid("e8706c40-4e55-4b7d-9430-2b049c4fef24"),
                             Name = "TURNING_MACHINE_TYPE_4",
                             Value = 3
                         },
                         new
                         {
-                            Id = new Guid("973fc81f-ca06-49fe-8df7-79dde79efedc"),
+                            Id = new Guid("ae33f04c-5c84-4bcb-8f21-9515fd4d5082"),
                             Name = "TURNING_MACHINE_TYPE_5",
                             Value = 4
                         });
@@ -2381,6 +2421,17 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("MillingMachineType");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
+                        .WithOne("Registration")
+                        .HasForeignKey("Oroox.SubSuppliers.Domain.Entities.Registration", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.TurningMachine", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
@@ -2407,6 +2458,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("CustomerAdditionalInfo");
 
                     b.Navigation("MillingMachines");
+
+                    b.Navigation("Registration");
 
                     b.Navigation("TurningMachines");
                 });

@@ -39,7 +39,20 @@ namespace Oroox.SubSuppliers.Domain.Context
         private readonly string outputFileName;
         private readonly IServiceProvider serviceProvider;
         private SubSuppliersContextEnumerations _enumerations;
-        public SubSuppliersContext() : base() { }
+
+        public SubSuppliersContext() : base()
+        {
+            configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+            serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton(configuration)
+                .AddSingleton(this)
+                .BuildServiceProvider();
+
+            environmentVariables = this.configuration.GetEnvironmentVariables();
+            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
+            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
+        }
         public SubSuppliersContext(bool enableLogging = false) : base() 
         {
             this.LoggingEnabled = enableLogging;
@@ -62,9 +75,11 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
-
+        public DbSet<Registration> Registration { get; set; }
         public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
         public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
+        public DbSet<TurningMachineType> TurningMachineTypes { get; set; }
+        public DbSet<TurningMachine> TurningMachines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
 
         #endregion DB_SETS
@@ -82,6 +97,7 @@ namespace Oroox.SubSuppliers.Domain.Context
                         this.OtherTechnologies.ToDictionary(type => type.Value, instance => instance),
                         this.MillingMachineTypes.ToDictionary(type => type.Value, instance => instance),
                         this.MillingMachineDimensionsTypes.ToDictionary(type => type.Value, instance => instance),
+                        this.TurningMachineTypes.ToDictionary(type => type.Value, instance => instance),
                         this.Certifications.ToDictionary(type => type.Value, instance => instance)
                     );
                 }
@@ -91,6 +107,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             set => _enumerations = value;
         }
         private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
+       
 
         private MethodInfo ExpressionMethod(Type entity)
         {
@@ -171,6 +188,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
+            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId);
         }
 
         private void GenerateEnumerationTables(ModelBuilder builder)

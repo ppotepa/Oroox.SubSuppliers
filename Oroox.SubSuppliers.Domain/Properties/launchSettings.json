@@ -1,7 +1,10 @@
 {
   "profiles": {
     "Oroox.SubSuppliers.Domain": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "environmentVariables": {
+        "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;"
+      }
     }
   }
 }

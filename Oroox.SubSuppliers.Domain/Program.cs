@@ -10,7 +10,7 @@ namespace Oroox.SubSuppliers.Domain
     {
         public static async Task Main()
         {
-            SubSuppliersContext ctx = new SubSuppliersContext(true);
+            SubSuppliersContext ctx = new SubSuppliersContext(false);
 
             Customer newCustomer = new Customer
             {
@@ -31,7 +31,7 @@ namespace Oroox.SubSuppliers.Domain
                     new MillingMachine
                     {
                         MachineNumber = "TYPE_1",
-                        MillingMachineType = ctx.Enumerations.MillingMachines[MillingMachineTypeEnum.TYPE_1],
+                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
                         MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
                         Deleted = false,
                         MaximalMachiningDimensions = 5,
@@ -41,7 +41,7 @@ namespace Oroox.SubSuppliers.Domain
                     new MillingMachine
                     {
                         MachineNumber = "TYPE_2",
-                        MillingMachineType = ctx.Enumerations.MillingMachines[MillingMachineTypeEnum.TYPE_1],
+                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
                         MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
                         Deleted = false,
                         MaximalMachiningDimensions = 5,
@@ -51,7 +51,7 @@ namespace Oroox.SubSuppliers.Domain
                     new MillingMachine
                     {
                         MachineNumber = "TYPE_3",
-                        MillingMachineType = ctx.Enumerations.MillingMachines[MillingMachineTypeEnum.TYPE_1],
+                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
                         MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
                         Deleted = false,
                         MaximalMachiningDimensions = 1,

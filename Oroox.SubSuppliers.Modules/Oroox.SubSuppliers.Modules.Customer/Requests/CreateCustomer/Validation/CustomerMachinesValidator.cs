@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer;
+using Oroox.SubSuppliers.Modules.User.Requests.Customer;
 using Serilog;
 using System.Text.RegularExpressions;
 

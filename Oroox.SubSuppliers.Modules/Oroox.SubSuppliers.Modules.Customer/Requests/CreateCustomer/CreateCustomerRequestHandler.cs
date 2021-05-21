@@ -5,7 +5,7 @@ using Oroox.SubSuppliers.Modules.User.Responses;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer
+namespace Oroox.SubSuppliers.Modules.User.Requests.Customer
 {
     public class CreateCustomerRequestHandler : IRequestHandler<CreateCustomer, CreateCustomerRequestResponse>
     {
@@ -19,7 +19,6 @@ namespace Oroox.SubSuppliers.Modules.User.Requests.CreateCustomer
         public async Task<CreateCustomerRequestResponse> Handle(CreateCustomer request, CancellationToken cancellationToken)
         {
             EntityEntry<Domain.Entities.Customer> entry = await this.context.Customers.AddAsync(request.Customer, cancellationToken);
-
             return new CreateCustomerRequestResponse
             {
                 Response = $"CustomerId : {entry.Entity.Id}"

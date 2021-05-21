@@ -13,8 +13,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;"
+        "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;",
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Oroox.SubSuppliers.Application": {
@@ -23,7 +23,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Test": "Test"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
