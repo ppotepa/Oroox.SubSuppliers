@@ -2,6 +2,7 @@
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,5 +22,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public SubSuppliersContextEnumerations Enumerations { get; set; }
         public int SaveChanges();
         public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+        public EnumerationEntity<TEnumType> ResolveEnum<TEnumType>(int value) where TEnumType : Enum;
+       
     }
 }

@@ -11,7 +11,8 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
     /// Devires from ControllerBase.
     /// Is being used in each of entities Modules.
     /// </summary>
-
+    [ApiController]
+    [Route("api/[controller]/[action]")]
     public abstract class ModuleController : ControllerBase 
     {
         protected readonly IMediator mediator;

@@ -31,7 +31,7 @@ namespace Oroox.SubSuppliers.Handlers
         private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IApplicationContext context;
         private readonly ILogger logger;
-
+        
         public GenericHandlerDecorator
         (
             IEnumerable<IValidator<TRequest>> validators, 

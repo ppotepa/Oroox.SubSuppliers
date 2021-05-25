@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Faithlife.Utility;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -205,8 +206,8 @@ namespace Oroox.SubSuppliers.Domain.Context
 
                 var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>().Select(value => new
                 {
-                    Id = Guid.NewGuid(),
-                    Value = value,
+                    Id = GuidUtility.Create(currentEnum.GUID, Enum.GetName(currentEnum, value)),
+                    Value = Convert.ChangeType(value, currentEnum),
                     Name = Enum.GetName(currentEnum, value),
                 })
                 .ToArray();
@@ -218,5 +219,10 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity 
             => entity => EF.Property<bool>(entity, "Deleted").Equals(false);
+
+        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value)
+        {
+            return this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
+        }
     }
 }

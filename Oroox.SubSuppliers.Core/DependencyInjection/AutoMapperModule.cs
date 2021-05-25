@@ -29,8 +29,8 @@ namespace Oroox.SubSuppliers.DependencyInjection
             })
             .SingleInstance();
 
-            builder.Register<IMapper>(context => new Mapper(context.Resolve<IConfigurationProvider>(), context.Resolve))
-                    .InstancePerDependency();
+            builder.Register<IMapper>(context => new Mapper(context.Resolve<IConfigurationProvider>(), context.Resolve)).InstancePerDependency();
+
         }
     }
 }

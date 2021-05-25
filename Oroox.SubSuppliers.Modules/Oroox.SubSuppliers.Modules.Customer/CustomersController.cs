@@ -16,7 +16,6 @@ namespace Oroox.SubSuppliers.Modules.Customers
     /// <summary>
     /// Users Domain Controller
     /// </summary>
-    [Route("api/[controller]/[action]")]
     public class CustomersController : ModuleController
     {
         public CustomersController(IMediator mediator, IMapper mapper, IApplicationContext context) 
@@ -30,7 +29,7 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create(CreateCustomerModel request) 
-            => await Handle(new CreateCustomerRequest(context).Mock());
+            => await Handle(this.mapper.Map<CreateCustomerModel, CreateCustomerRequest>(request));
 
         /// <summary>
         /// Gets User
@@ -48,5 +47,11 @@ namespace Oroox.SubSuppliers.Modules.Customers
                     } 
                 }
             );
+
+        [HttpPost]
+        public async Task<IActionResult> Test(PeronModel request)
+        {
+            return null;   
+        }   
     }
 }
