@@ -2,6 +2,7 @@
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -88,7 +89,8 @@ namespace Oroox.SubSuppliers.Domain
                 }
             };
 
-            ctx.Customers.Add(newCustomer);
+            //ctx.Customers.Add(newCustomer);
+            ctx.Customers.Remove(ctx.Customers.AsQueryable().ToList().First());
             ctx.SaveChanges();
         }
     }

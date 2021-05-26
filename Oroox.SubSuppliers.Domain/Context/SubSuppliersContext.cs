@@ -77,7 +77,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Registration> Registration { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
         public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
         public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
         public DbSet<TurningMachineType> TurningMachineTypes { get; set; }
@@ -185,13 +185,13 @@ namespace Oroox.SubSuppliers.Domain.Context
         {
             builder.Entity<Customer>().HasKey(x => x.Id);
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
-            builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
+            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
+            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
+            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
-            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
         }
 
         private void GenerateEnumerationTables(ModelBuilder builder)

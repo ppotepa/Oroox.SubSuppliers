@@ -21,5 +21,10 @@
     <ProjectReference Include="..\..\Oroox.SubSuppliers.Services\Oroox.SubSuppliers.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Requests\ActivateCustomer\Events\" />
+    <Folder Include="Requests\ActivateCustomer\Validation\" />
+  </ItemGroup>
+
 
 </Project>

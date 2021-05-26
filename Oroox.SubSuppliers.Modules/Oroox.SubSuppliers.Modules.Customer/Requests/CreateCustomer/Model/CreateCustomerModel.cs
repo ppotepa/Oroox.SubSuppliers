@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Customers.DTO;
 using Oroox.SubSuppliers.Modules.Customers.Requests;
@@ -16,7 +15,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Model
     {
         public CreateCustomerMappingProfile()
         {
-            CreateMap<Customer, CreateCustomerDTO>().ReverseMap().ForMember(dto => dto.MillingMachines, customer => customer.MapFrom(m => m.MillingMachines));
+            CreateMap<Domain.Entities.Customer, CreateCustomerDTO>().ReverseMap().ForMember(dto => dto.MillingMachines, customer => customer.MapFrom(m => m.MillingMachines));
             CreateMap<TurningMachine, TurningMachineDTO>().ReverseMap();
 
             CreateMap<MillingMachine, MillingMachineDTO>();

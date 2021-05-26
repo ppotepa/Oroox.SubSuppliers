@@ -14,7 +14,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
-        public DbSet<Registration> Registration { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
         public DbSet<MillingMachineType> MillingMachineTypes { get; set; }

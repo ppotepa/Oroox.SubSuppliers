@@ -37,7 +37,6 @@ namespace Oroox.SubSuppliers.Handlers
             IEnumerable<IValidator<TRequest>> validators, 
             IEnumerable<IPreRequestProcessor<TRequest>> preProcessors, 
             IEnumerable<IPostRequestProcessor<TRequest>> postProcessors, 
-            //IEnumerable<IEntityBinder<TRequest>> binder, 
             IEnumerable<IEvent<TRequest>> events, 
             IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
@@ -46,7 +45,6 @@ namespace Oroox.SubSuppliers.Handlers
         {
             this.validators = validators;
             this.preProcessors = preProcessors;
-            //this.binders = binder;
             this.postProcessors = postProcessors;
             this.logger = logger;
             this.events = events;

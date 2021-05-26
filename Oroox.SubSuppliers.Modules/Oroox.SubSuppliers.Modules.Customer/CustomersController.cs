@@ -2,13 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Customers.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests;
-using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById;
-using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model;
 using Oroox.SubSuppliers.Utilities.Abstractions;
-using System;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers
@@ -35,23 +32,17 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// Gets User
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> GetCustomerById(GetCustomerByIdModel request)
-            =>  await Handle
-            (
-                new GetCustomerByIdRequest
-                {
-                    Customer = new Customer 
-                    {
-                        Id = Guid.Parse("BC0AE377-9322-4D1F-0C92-08D91C5D457C"),
-                    } 
-                }
-            );
+        [HttpGet]
+        public async Task<IActionResult> Activate([FromQuery] ActivateCustomerModel request)
+            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 
         [HttpPost]
-        public async Task<IActionResult> Test(PeronModel request)
-        {
-            return null;   
-        }   
+        public async Task<IActionResult> AddMillingMachine(ActivateCustomerModel request)
+            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+
+        [HttpPost]
+        public async Task<IActionResult> AddTurningMachine(ActivateCustomerModel request)
+            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+
     }
 }
