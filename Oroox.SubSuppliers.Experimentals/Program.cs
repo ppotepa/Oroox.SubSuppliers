@@ -1,25 +1,16 @@
-﻿using AutoMapper;
-using Oroox.SubSuppliers.Domain.Entities.Enumerations;
-using System;
-
-namespace Oroox.SubSuppliers.Experimentals
+﻿namespace Oroox.SubSuppliers.Experimentals
 {
-    class Program
-    {
-        class CustomerDTO 
-        {
-            public string Name { get; set; }
-        }
+    using System;
 
-        class Customer
-        {
-            public string Name { get; set; }
-        }
-
-        static void Main(string[] args)
-        {
-            string type = CountryCodeTypeEnum.AD.ToString();
-            Console.WriteLine(type);
-        }
-    }
+    public class Program
+	{
+		class Person
+		{
+			string Name { get; set; }
+		}
+		public static void Main()
+		{
+			Console.WriteLine(typeof(Person).GUID);
+		}
+	}
 }

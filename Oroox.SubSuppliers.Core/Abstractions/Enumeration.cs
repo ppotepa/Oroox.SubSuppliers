@@ -9,7 +9,7 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
     /// Enumeration class. 
     /// Currently no use in this Project.
     /// /// </summary>
-   
+
     public abstract class Enumeration : IComparable
     {
         private readonly int _value;

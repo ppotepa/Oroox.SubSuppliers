@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers", "Oroox.SubSuppliers.Core\Oroox.SubSuppliers.csproj", "{46D18AA1-CA1D-4BC9-8D43-214CEB81C4A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Core", "Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj", "{46D18AA1-CA1D-4BC9-8D43-214CEB81C4A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Application", "Oroox.SubSuppliers.Application\Oroox.SubSuppliers.Application.csproj", "{F9468349-CD02-42E0-BFA8-A181207E8951}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman", "Postman", "{BDC96769-4717-4918-B0FA-780DE0BD4878}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Domain", "Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj", "{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Experimentals", "Oroox.SubSuppliers.Experimentals\Oroox.SubSuppliers.Experimentals.csproj", "{77A6360D-6B40-466A-8C31-90AA79531D55}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{463351E0-4061-403E-A015-FA70F4C7CCD4}"
 EndProject
@@ -31,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Experimentals", "Oroox.SubSuppliers.Experimentals\Oroox.SubSuppliers.Experimentals.csproj", "{A3E0C68A-96EB-4A50-93A0-35862D2DF798}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{9FB46DE7-ADBB-4C81-B0D4-658931EE8C41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +52,6 @@ Global
 		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{77A6360D-6B40-466A-8C31-90AA79531D55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77A6360D-6B40-466A-8C31-90AA79531D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77A6360D-6B40-466A-8C31-90AA79531D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77A6360D-6B40-466A-8C31-90AA79531D55}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -74,6 +72,10 @@ Global
 		{0A9E0067-82EF-48A8-AA88-47125D896637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A9E0067-82EF-48A8-AA88-47125D896637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A9E0067-82EF-48A8-AA88-47125D896637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E0C68A-96EB-4A50-93A0-35862D2DF798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E0C68A-96EB-4A50-93A0-35862D2DF798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E0C68A-96EB-4A50-93A0-35862D2DF798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E0C68A-96EB-4A50-93A0-35862D2DF798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +83,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793} = {463351E0-4061-403E-A015-FA70F4C7CCD4}
 		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C} = {574FB598-E916-4D9B-BC85-BD8A1D8A04A8}
+		{9FB46DE7-ADBB-4C81-B0D4-658931EE8C41} = {BDC96769-4717-4918-B0FA-780DE0BD4878}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD4E0C8E-114A-4EBD-97BA-FCB36C3263AE}

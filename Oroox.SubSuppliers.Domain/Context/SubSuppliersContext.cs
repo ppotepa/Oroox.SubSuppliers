@@ -39,6 +39,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         private readonly bool LoggingEnabled;
         private readonly string outputFileName;
         private readonly IServiceProvider serviceProvider;
+        private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
         private SubSuppliersContextEnumerations _enumerations;
 
         public SubSuppliersContext() : base()
@@ -162,6 +163,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             AddGenericEntityFilter(builder);
             GenerateAddressTable(builder);
             GenerateEnumerationTables(builder);
+            
         }
 
         private void AddGenericEntityFilter(ModelBuilder builder)
@@ -183,13 +185,13 @@ namespace Oroox.SubSuppliers.Domain.Context
         {
             builder.Entity<Customer>().HasKey(x => x.Id);
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
-            builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
-            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
-            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
-            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId);
+            builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
-            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId);
+            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
         }
 
         private void GenerateEnumerationTables(ModelBuilder builder)
@@ -206,17 +208,19 @@ namespace Oroox.SubSuppliers.Domain.Context
 
                 var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>().Select(value => new
                 {
-                    Id = GuidUtility.Create(currentEnum.GUID, Enum.GetName(currentEnum, value)),
+                    Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)),
                     Value = Convert.ChangeType(value, currentEnum),
                     Name = Enum.GetName(currentEnum, value),
-                })
-                .ToArray();
+                }).ToArray();
 
                 builder.Entity(entity).HasAlternateKey("Value");
                 builder.Entity(entity).HasData(currentEnumDataSeed);
             });
         }
 
+        private static string GetEnumUniqueName(object value, Type currentEnum) 
+            => Enum.GetName(currentEnum, value) + "_" + value.ToString();
+      
         private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity 
             => entity => EF.Property<bool>(entity, "Deleted").Equals(false);
 

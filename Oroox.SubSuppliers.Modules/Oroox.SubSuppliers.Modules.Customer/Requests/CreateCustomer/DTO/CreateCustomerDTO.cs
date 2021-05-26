@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Modules.Customers.DTO
 {
@@ -10,5 +11,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.DTO
         public string Password { get; set; }
         public string PasswordConfirmation { get; set; }
         public string EmailAddress { get; set; }
+        public Guid CompanySizeTypeId { get; set; }
+        
     }
 }
