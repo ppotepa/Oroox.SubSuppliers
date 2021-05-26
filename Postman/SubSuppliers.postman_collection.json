@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "47f32dd1-d135-4293-9f9e-b07fe1da737d",
+		"name": "SubSuppliers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customer\": {\r\n    \"millingMachines\": [\r\n      {\r\n        \"name\": \"Machine1\",\r\n        \"minimalMachiningDimensions\": 0,\r\n        \"maximalMachiningDimensions\": 0,\r\n        \"millingMachineTypeId\": \"C87F5FAF-EF4F-55FC-BDE4-6B614690D107\",\r\n        \"millingMachineDimensionsTypeId\": \"7B4362DE-C2E5-53C1-901B-AAADBD8B4EB4\"\r\n      }\r\n    ],\r\n    \"turningMachines\": [\r\n      {\r\n        \"machineNumber\": \"Machone2\",\r\n        \"minimalMachiningDimensions\": 0,\r\n        \"maximalMachiningDimensions\": 0,\r\n        \"turningMachineTypeId\": \"C4C5A51C-6F3F-5A82-AEB8-DB1A520F5B67\"\r\n      }\r\n    ],\r\n    \"companyName\": \"TestCompany\",\r\n    \"password\": \"string\",\r\n    \"passwordConfirmation\": \"string\",\r\n    \"emailAddress\": \"pawel.potepa@oroox.com\",\r\n    \"companySizeTypeId\": \"85B1EE2C-1907-59A2-B31D-478FFBB68FCA\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/customers/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"customers",
+						"create"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -81,6 +81,7 @@ namespace Oroox.SubSuppliers.Application
             services.AddMvc().AddNewtonsoftJson(options =>
             {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             })
             .AddControllersAsServices();
             

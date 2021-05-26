@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{574FB598-E916-4D9B-BC85-BD8A1D8A04A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman", "Postman", "{BDC96769-4717-4918-B0FA-780DE0BD4878}"
+	ProjectSection(SolutionItems) = preProject
+		Postman\SubSuppliers.postman_collection.json = Postman\SubSuppliers.postman_collection.json
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Domain", "Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj", "{DCFD38BD-3417-4B9A-9FE4-FB8B54CEEC0D}"
 EndProject
@@ -31,8 +34,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oroox.SubSuppliers.Experimentals", "Oroox.SubSuppliers.Experimentals\Oroox.SubSuppliers.Experimentals.csproj", "{A3E0C68A-96EB-4A50-93A0-35862D2DF798}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{9FB46DE7-ADBB-4C81-B0D4-658931EE8C41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,7 +84,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5F7F2081-4EF3-4E70-89FB-4FB8EEF8D793} = {463351E0-4061-403E-A015-FA70F4C7CCD4}
 		{FBADFE99-76A0-43F2-A2ED-ED29FB67B57C} = {574FB598-E916-4D9B-BC85-BD8A1D8A04A8}
-		{9FB46DE7-ADBB-4C81-B0D4-658931EE8C41} = {BDC96769-4717-4918-B0FA-780DE0BD4878}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD4E0C8E-114A-4EBD-97BA-FCB36C3263AE}
