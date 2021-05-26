@@ -5,8 +5,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.Valid
 {
     public class ValidateCustomerNotNull : AbstractValidator<UpdateCustomerAdditionalInfoRequest>
     {
-        private readonly IApplicationContext context;
-        public ValidateCustomerNotNull(IApplicationContext context)
+        public ValidateCustomerNotNull()
         {
             RuleFor(x => x.CustomerAdditionalInfo.Customer).NotNull().WithMessage("Error. Customer not found.");
         }

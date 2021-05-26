@@ -61,12 +61,11 @@ namespace Oroox.SubSuppliers.Handlers
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
                 this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
 
-                string[] validationMessages = this.validators.Select(validator => validator.Validate(request))
+                string[] validationMessages = this.validators
+                            .Select(validator => validator.Validate(request))
                             .Where(result => result.IsValid is false)
                             .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
                             .ToArray();
-
-                
 
                 if (validationMessages.Any() is true)
                 {
@@ -78,6 +77,7 @@ namespace Oroox.SubSuppliers.Handlers
                 }
 
                 this.postProcessors.ForEach(processor => processor.Process(request, cancellationToken));
+
                 response = await this.innerRequest.Handle(request, cancellationToken);
                 int rowsChanged = context.SaveChanges();
             }

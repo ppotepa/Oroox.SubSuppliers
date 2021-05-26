@@ -17,6 +17,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
+        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
         public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public SubSuppliersContextEnumerations Enumerations { get; set; }

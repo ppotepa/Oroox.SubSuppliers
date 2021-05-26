@@ -1,4 +1,5 @@
 ﻿using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Processors;
 using System.Linq;
 using System.Threading;
@@ -15,8 +16,8 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.PrePr
 
         public void Process(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancelationToken)
         {
-            request.CustomerAdditionalInfo.Customer
-                = this.context.Customers.FirstOrDefault(x => x.Id == request.CustomerAdditionalInfo.CustomerId);
+            Customer targetCustomer = this.context.Customers.FirstOrDefault(x => x.Id == request.CustomerAdditionalInfo.CustomerId);
+            request.CustomerAdditionalInfo.Customer = targetCustomer;
         }
     }
 }

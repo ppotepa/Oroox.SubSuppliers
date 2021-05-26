@@ -109,7 +109,8 @@ namespace Oroox.SubSuppliers.Domain.Context
             set => _enumerations = value;
         }
         private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
-       
+
+        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
 
         private MethodInfo ExpressionMethod(Type entity)
         {

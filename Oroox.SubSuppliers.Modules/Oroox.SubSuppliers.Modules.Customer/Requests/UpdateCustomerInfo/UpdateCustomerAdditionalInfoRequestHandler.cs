@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,9 +16,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo
 
         public async Task<UpdateCustomerAdditionalInfoRequestResponse> Handle(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancellationToken)
         {
-            return new UpdateCustomerAdditionalInfoRequestResponse
+           EntityEntry<Domain.Entities.CustomerAdditionalInfo> entry = await this.context.CustomerAdditionalInfos.AddAsync(request.CustomerAdditionalInfo);
+            return new UpdateCustomerAdditionalInfoRequestResponse()
             {
-                Result = null
+                Response = $"Customer info id {entry.Entity.Id}",
             };
         }
     }
