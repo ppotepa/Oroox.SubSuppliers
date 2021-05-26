@@ -59,12 +59,14 @@ namespace Oroox.SubSuppliers.Handlers
             try
             {
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
+                this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
+
                 string[] validationMessages = this.validators.Select(validator => validator.Validate(request))
                             .Where(result => result.IsValid is false)
                             .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
                             .ToArray();
 
-                this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
+                
 
                 if (validationMessages.Any() is true)
                 {

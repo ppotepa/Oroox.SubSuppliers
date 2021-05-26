@@ -17,11 +17,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById
 
         public async Task<GetCustomerByIdResponse> Handle(GetCustomerByIdRequest request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Customer result = await this
-                .context
+            Domain.Entities.Customer result = await this.context
                 .Customers
                 .FirstOrDefaultAsync(customer => customer.Id == request.Customer.Id);
-                
+
             return new GetCustomerByIdResponse
             {
                 Result = result

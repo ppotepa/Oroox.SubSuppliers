@@ -21,7 +21,7 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
 
         public ModuleController(IMediator mediator, IMapper mapper, IApplicationContext context)
         {
-            this.mediator = mediator;
+            this.mediator = mediator;   
             this.mapper = mapper;
             this.context = context;
         }

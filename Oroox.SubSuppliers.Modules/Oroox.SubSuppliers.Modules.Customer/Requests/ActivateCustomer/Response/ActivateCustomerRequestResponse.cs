@@ -1,7 +1,8 @@
-﻿namespace Oroox.SubSuppliers.Modules.Customers.Requests.Responses
+﻿using Oroox.SubSuppliers.Response;
+
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.Responses
 {
-    public class ActivateCustomerRequestResponse 
+    public class ActivateCustomerRequestResponse : ResponseBase
     {
-        public bool Redirect { get; set; }
     }
 }

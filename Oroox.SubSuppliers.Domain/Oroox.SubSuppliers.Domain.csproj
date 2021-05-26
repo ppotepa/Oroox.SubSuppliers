@@ -38,8 +38,4 @@
     <ProjectReference Include="..\Oroox.SubSuppliers.Extensions\Oroox.SubSuppliers.Extensions.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

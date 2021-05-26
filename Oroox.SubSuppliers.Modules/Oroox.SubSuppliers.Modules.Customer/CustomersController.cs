@@ -5,7 +5,12 @@ using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Customers.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById;
+using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo;
+using Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.Model;
 using Oroox.SubSuppliers.Utilities.Abstractions;
+using System;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers
@@ -37,12 +42,20 @@ namespace Oroox.SubSuppliers.Modules.Customers
             => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 
         [HttpPost]
-        public async Task<IActionResult> AddMillingMachine(ActivateCustomerModel request)
-            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+        public async Task<IActionResult> GetCustomerById(GetCustomerByIdModel request)
+            => await Handle(this.mapper.Map<GetCustomerByIdModel, GetCustomerByIdRequest>(request));
 
         [HttpPost]
-        public async Task<IActionResult> AddTurningMachine(ActivateCustomerModel request)
-            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+        public async Task<IActionResult> UpdateCustomerInfo(UdateCustomerAdditionalInfoModel request)
+            => await Handle(this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddMillingMachine(ActivateCustomerModel request)
+        //    => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddTurningMachine(ActivateCustomerModel request)
+        //    => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 
     }
 }

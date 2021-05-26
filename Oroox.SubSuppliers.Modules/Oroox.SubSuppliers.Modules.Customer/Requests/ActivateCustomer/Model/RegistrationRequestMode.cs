@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.DTO;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model
@@ -12,7 +13,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model
     {
         public ActivateCustomerModelMappingProfile()
         {
-            CreateMap<Domain.Entities.Registration, RegistrationDTO>().ReverseMap();
+            CreateMap<Registration, RegistrationDTO>().ReverseMap();
             CreateMap<ActivateCustomerModel, ActivateCustomerRequest>().ReverseMap();
         }
     }

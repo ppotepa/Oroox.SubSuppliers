@@ -1,4 +1,5 @@
-﻿using Oroox.SubSuppliers.Domain.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Processors;
 using System.Linq;
 using System.Threading;
@@ -19,6 +20,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.PreProc
                 .Registrations
                 .AsQueryable()
                 .Where(x => x.ActivationCode == request.Registration.ActivationCode)
+                .Include(nameof(request.Registration.Customer))
                 .FirstOrDefault();
 
                 request.Registration = targetRegistration;

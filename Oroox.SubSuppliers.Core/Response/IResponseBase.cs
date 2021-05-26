@@ -10,6 +10,7 @@ namespace Oroox.SubSuppliers.Response
         public string Response { get; set; }
         public object Result { get; set; }
         public string TraceId { get; set; }
+        public string RedirectUrl { get; set; }
         
     }
 }

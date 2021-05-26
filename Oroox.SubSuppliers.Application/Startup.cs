@@ -57,8 +57,6 @@ namespace Oroox.SubSuppliers.Application
 
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
 
-            builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
-
             builder.RegisterLogger();
             builder.RegisterMediatR(moduleAssemblies);
 
@@ -70,6 +68,8 @@ namespace Oroox.SubSuppliers.Application
                 .RegisterGeneric(typeof(Logger<>))
                 .As(typeof(ILogger<>))
                 .InstancePerDependency();
+
+            builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
         }
 
         public void ConfigureServices(IServiceCollection services)

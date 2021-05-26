@@ -62,6 +62,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public bool? CanUseStepFiles { get; set; }
         public string SpecialCharacteristics { get; set; }
         public Guid CustomerId { get; set; }
-        public virtual Customer Customer { get; internal set; }
+        public virtual Customer Customer { get; set; }
     }
 }
