@@ -10,7 +10,6 @@ using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo;
 using Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.Model;
 using Oroox.SubSuppliers.Utilities.Abstractions;
-using System;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers
