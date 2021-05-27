@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,13 +13,30 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo
             this.context = context;
         }
 
-        public async Task<UpdateCustomerAdditionalInfoRequestResponse> Handle(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancellationToken)
+        public Task<UpdateCustomerAdditionalInfoRequestResponse> Handle(
+            UpdateCustomerAdditionalInfoRequest request,
+            CancellationToken cancellationToken)
         {
-           EntityEntry<Domain.Entities.CustomerAdditionalInfo> entry = await this.context.CustomerAdditionalInfos.AddAsync(request.CustomerAdditionalInfo);
-            return new UpdateCustomerAdditionalInfoRequestResponse()
+            UpdateCustomerAdditionalInfoRequestResponse response = default;
+
+            if (request.Customer.CustomerAdditionalInfo is null)
             {
-                Response = $"Customer info id {entry.Entity.Id}",
-            };
+                request.Customer.CustomerAdditionalInfo = request.CustomerAdditionalInfo;
+                response = new UpdateCustomerAdditionalInfoRequestResponse
+                {
+                    Response = $"Added new Customer Info. Id : {request.CustomerAdditionalInfo.Id}",
+                };
+            }
+            else 
+            {
+                request.Customer.CustomerAdditionalInfo.Update(request.CustomerAdditionalInfo);
+                response = new UpdateCustomerAdditionalInfoRequestResponse
+                {
+                    Response = $"Updated Customer Info. Id : {request.CustomerAdditionalInfo.Id}",
+                };
+            }
+
+            return Task.FromResult(response);
         }
     }
 }

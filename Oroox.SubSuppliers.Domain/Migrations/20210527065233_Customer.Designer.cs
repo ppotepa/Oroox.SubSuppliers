@@ -10,7 +10,7 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210526102545_Customer")]
+    [Migration("20210527065233_Customer")]
     partial class Customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,9 +223,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerAdditionalInfoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
@@ -322,7 +319,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("CustomerAdditionalInfo");
+                    b.ToTable("CustomerAdditionalInfos");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.AddressType", b =>

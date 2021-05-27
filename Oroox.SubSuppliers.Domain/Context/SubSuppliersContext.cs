@@ -229,5 +229,9 @@ namespace Oroox.SubSuppliers.Domain.Context
         {
             return this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
         }
+
+        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
+            => this.Attach(entity);
+        
     }
 }

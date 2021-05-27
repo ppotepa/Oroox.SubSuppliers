@@ -6,17 +6,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
-    public class Customer : Entity
+    public partial class Customer : Entity
     {
         public Customer() { }
-        public Customer(string companyName, CompanySizeType companySizeType, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vATNumber, string website, string registrationNumber, string emailAddress)
+        public Customer(string companyName, CompanySizeType companySizeType, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vatNumber, string website, string registrationNumber, string emailAddress)
         {
             CompanyName = companyName;
             CompanySizeType = companySizeType;
             Addresses = addresses;
             MillingMachines = millingMachines;
             TurningMachines = turningMachines;            
-            VATNumber = vATNumber;
+            VATNumber = vatNumber;
             Website = website;
             RegistrationNumber = registrationNumber;
             EmailAddress = emailAddress;
@@ -46,22 +46,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
         #region FOREIGN_KEYS
         public Guid CompanySizeTypeId { get; set; }
-        public Guid CustomerAdditionalInfoId { get; set; }
         #endregion
-    }
-
-    public class CustomerAdditionalInfo : Entity
-    {
-        public string SpecialTolerances { get; set; }
-        public double? AverageMinimalSurfaceQualitiesTurning { get; set; }
-        public double? AverageMinimalSurfaceQualitiesMilling { get; set; }
-        public double? AverageAndFastestLeadTimeTurning { get; set; }
-        public double? AverageAndFastestLeadTimeMilling { get; set; }
-        public double? AverageWorkingHoursPerWeek { get; set; }
-        public int? WorkingShiftsPerDay { get; set; }
-        public bool? CanUseStepFiles { get; set; }
-        public string SpecialCharacteristics { get; set; }
-        public Guid CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

@@ -166,7 +166,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CompanySizeTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerAdditionalInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -253,7 +252,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerAdditionalInfo",
+                name: "CustomerAdditionalInfos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -276,9 +275,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerAdditionalInfo", x => x.Id);
+                    table.PrimaryKey("PK_CustomerAdditionalInfos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CustomerAdditionalInfo_Customers_CustomerId",
+                        name: "FK_CustomerAdditionalInfos_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
@@ -822,8 +821,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 column: "CustomersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAdditionalInfo_CustomerId",
-                table: "CustomerAdditionalInfo",
+                name: "IX_CustomerAdditionalInfos_CustomerId",
+                table: "CustomerAdditionalInfos",
                 column: "CustomerId",
                 unique: true);
 
@@ -881,7 +880,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "ContactPerson");
 
             migrationBuilder.DropTable(
-                name: "CustomerAdditionalInfo");
+                name: "CustomerAdditionalInfos");
 
             migrationBuilder.DropTable(
                 name: "CustomerOtherTechnology");

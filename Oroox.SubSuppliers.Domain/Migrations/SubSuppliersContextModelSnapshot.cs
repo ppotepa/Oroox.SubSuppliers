@@ -221,9 +221,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerAdditionalInfoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
@@ -320,7 +317,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("CustomerAdditionalInfo");
+                    b.ToTable("CustomerAdditionalInfos");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.AddressType", b =>

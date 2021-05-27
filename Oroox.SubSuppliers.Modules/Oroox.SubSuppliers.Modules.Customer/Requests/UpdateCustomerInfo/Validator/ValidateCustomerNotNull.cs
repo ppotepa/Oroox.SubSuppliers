@@ -7,7 +7,8 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.Valid
     {
         public ValidateCustomerNotNull()
         {
-            RuleFor(x => x.CustomerAdditionalInfo.Customer).NotNull().WithMessage("Error. Customer not found.");
+            RuleFor(x => x.CustomerAdditionalInfo).NotNull().WithMessage("Invalid request.");
+            RuleFor(x => x.Customer).NotNull().WithMessage("Error. Customer not found.");
         }
     }
 }

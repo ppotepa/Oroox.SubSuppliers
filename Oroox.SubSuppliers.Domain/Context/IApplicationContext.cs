@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
-    public interface IApplicationContext
+    public interface IApplicationContext 
     {
         public DbSet<AddressType> AddressTypes { get; set; }
         public DbSet<Certification> Certifications { get; set; }
@@ -24,6 +24,8 @@ namespace Oroox.SubSuppliers.Domain.Context
         public int SaveChanges();
         public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
         public EnumerationEntity<TEnumType> ResolveEnum<TEnumType>(int value) where TEnumType : Enum;
-       
+        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class;
+
+
     }
 }

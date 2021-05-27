@@ -1,4 +1,5 @@
-﻿using Oroox.SubSuppliers.Domain.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Processors;
 using System.Linq;
@@ -16,8 +17,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.PrePr
 
         public void Process(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancelationToken)
         {
-            Customer targetCustomer = this.context.Customers.FirstOrDefault(x => x.Id == request.CustomerAdditionalInfo.CustomerId);
-            request.CustomerAdditionalInfo.Customer = targetCustomer;
+            request.Customer = this.context.Customers
+                .Include(nameof(request.Customer.CustomerAdditionalInfo))
+                .FirstOrDefault(x => x.Id == request.CustomerAdditionalInfo.CustomerId);
+           
         }
     }
 }
