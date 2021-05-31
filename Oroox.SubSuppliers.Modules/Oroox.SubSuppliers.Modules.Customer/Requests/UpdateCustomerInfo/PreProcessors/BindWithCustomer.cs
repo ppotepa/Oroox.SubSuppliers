@@ -21,7 +21,6 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.PrePr
                 .GetById(request.CustomerAdditionalInfo.CustomerId)
                 .Include(nameof(request.Customer.CustomerAdditionalInfo))
                 .FirstOrDefault();
-           
         }
     }
 }

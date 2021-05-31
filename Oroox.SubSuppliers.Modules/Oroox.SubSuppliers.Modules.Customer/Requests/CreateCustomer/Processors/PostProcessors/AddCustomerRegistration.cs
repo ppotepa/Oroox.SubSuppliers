@@ -9,17 +9,20 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
     {
         private const string AvailableCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         private Random Random => new Random();
+        private string ActivationCode => GetActivationCode();
         public void Process(CreateCustomerRequest request, CancellationToken cancelationToken)
         {
             request.Customer.Registration = new Domain.Entities.Registration()
             {
-                ActivationCode = GetActivationCode(),
+                ActivationCode = ActivationCode,
             };
         }
 
         private string GetActivationCode() => new string
         (
-            Enumerable.Repeat(AvailableCharacters, 10).Select(@string => @string[Random.Next(@string.Length)]).ToArray()
+            Enumerable.Repeat(AvailableCharacters, 10)
+                .Select(@string => @string[Random.Next(@string.Length)])
+                .ToArray()
         );
     }
 }

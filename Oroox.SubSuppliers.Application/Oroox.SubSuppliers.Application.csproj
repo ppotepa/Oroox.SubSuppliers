@@ -25,7 +25,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
     <ProjectReference Include="..\Oroox.SubSuppliers.Extensions\Oroox.SubSuppliers.Extensions.csproj" />
-    <ProjectReference Include="..\Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.Customer\Oroox.SubSuppliers.Modules.Customer.csproj" />
+    <ProjectReference Include="..\Oroox.SubSuppliers.Modules.Job\Oroox.SubSuppliers.Modules.Jobs.csproj" />
+    <ProjectReference Include="..\Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.Customer\Oroox.SubSuppliers.Modules.Customers.csproj" />
     <ProjectReference Include="..\Oroox.SubSuppliers.Services\Oroox.SubSuppliers.Services.csproj" />
   </ItemGroup>
 

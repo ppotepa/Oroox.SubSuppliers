@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Response;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Utilities.Abstractions
@@ -19,7 +20,7 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         protected readonly IMapper mapper;
         protected readonly IApplicationContext context;
 
-        public ModuleController(IMediator mediator, IMapper mapper, IApplicationContext context)
+        protected ModuleController(IMediator mediator, IMapper mapper, IApplicationContext context)
         {
             this.mediator = mediator;   
             this.mapper = mapper;
@@ -27,7 +28,15 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Handle(IBaseRequest request) 
-            => new ObjectResult(await this.mediator.Send(request));
+        public async Task<IActionResult> Handle(IBaseRequest request)
+        {
+            ResponseBase response = await this.mediator.Send(request) as ResponseBase;
+
+            if (response.RedirectUrl != string.Empty)
+                return new ObjectResult(response);
+            else 
+                return Redirect(response.RedirectUrl);
+
+        }
     } 
 }

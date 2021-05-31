@@ -2,3 +2,6 @@
 
 # IDE0003: Remove qualification
 dotnet_diagnostic.IDE0003.severity = silent
+
+# S101: Types should be named in PascalCase
+dotnet_diagnostic.S101.severity = silent

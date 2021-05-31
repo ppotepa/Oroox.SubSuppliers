@@ -8,5 +8,8 @@ namespace Oroox.SubSuppliers.Domain.Extensions
     {
         public static IQueryable<TEntity> GetById<TEntity>(this DbSet<TEntity> @this, Guid entityId) where TEntity : Entity
             => @this.Where(x => x.Id == entityId);
+
+        public static IQueryable<TEntity> GetByIdAsync<TEntity>(this DbSet<TEntity> @this, Guid entityId) where TEntity : Entity
+            => @this.Where(x => x.Id == entityId);
     }
 }

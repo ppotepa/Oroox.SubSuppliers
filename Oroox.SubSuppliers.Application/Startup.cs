@@ -8,8 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Modules.Customers;
+using Oroox.SubSuppliers.Modules.Jobs;
 using Oroox.SubSuppliers.Services;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
@@ -49,21 +51,19 @@ namespace Oroox.SubSuppliers.Application
             Assembly[] moduleAssemblies = new[] 
             {
                 typeof(CustomersModule).Assembly,
+                typeof(JobsModule).Assembly,
             };
 
+            builder.RegisterModule(new ServicesModule(Configuration));
             builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
             builder.RegisterModule(new CustomersModule());
-            builder.RegisterModule(new ServicesModule(Configuration));
 
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
 
             builder.RegisterLogger();
             builder.RegisterMediatR(moduleAssemblies);
 
-            builder.RegisterType<LoggerFactory>()
-                .As<ILoggerFactory>()
-                .InstancePerDependency();
-
+            builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().InstancePerDependency();
             builder
                 .RegisterGeneric(typeof(Logger<>))
                 .As(typeof(ILogger<>))

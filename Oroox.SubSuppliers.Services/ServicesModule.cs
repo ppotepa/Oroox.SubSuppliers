@@ -2,7 +2,7 @@
 using Autofac.Core.Resolving.Pipeline;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
-
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Services.Mailing;
 using Serilog;
@@ -24,6 +24,8 @@ namespace Oroox.SubSuppliers.Services
         {
             base.Load(builder);
 
+            builder.RegisterType<SubSuppliersContext>().As<IApplicationContext>().InstancePerLifetimeScope();
+
             builder
                 .RegisterType<SmtpClient>()
                 .AsImplementedInterfaces();
@@ -39,10 +41,9 @@ namespace Oroox.SubSuppliers.Services
                 (
                     args => 
                     {
-                        ILogger logger = args.Context.Resolve<ILogger>();
-                        IMailingService instance = IsDevelopment is true
-                            ? args.Context.Resolve<DevelopmentEmailService>() as IMailingService
-                            : args.Context.Resolve<ProductionMailingService>();
+                        IMailingService instance = IsDevelopment is true 
+                            ? args.Context.Resolve<DevelopmentEmailService>()
+                            : args.Context.Resolve<ProductionMailingService>() as IMailingService;
 
                         args.ReplaceInstance(instance);
                     }

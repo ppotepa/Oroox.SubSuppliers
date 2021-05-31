@@ -2,7 +2,6 @@
 using FluentValidation.Results;
 using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Serilog;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Validation
@@ -12,12 +11,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Validation
     /// </summary>
     public class CustomerMachinesValidator : AbstractValidator<CreateCustomerRequest>
     {
-        private readonly Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        private readonly Regex emailRegex = new Regex(@"/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/");
         private readonly ILogger logger;
         public CustomerMachinesValidator(ILogger logger)
         {
-            this.logger = logger;
-
             this.CascadeMode = CascadeMode.Stop;
 
             RuleFor(request => request).NotNull();
@@ -25,7 +22,6 @@ namespace Oroox.SubSuppliers.Modules.Customers.Validation
 
             When(x => x != null && x.Customer != null, () => 
             {
-
                 RuleFor(request => request.Customer.TurningMachines.Count + request.Customer.MillingMachines.Count)
                 .Must(x => x > 0)
                 .WithMessage("Please specify at least one machine.");
