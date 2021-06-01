@@ -15,6 +15,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Validation
         private readonly ILogger logger;
         public CustomerMachinesValidator(ILogger logger)
         {
+            this.logger = logger;
             this.CascadeMode = CascadeMode.Stop;
 
             RuleFor(request => request).NotNull();

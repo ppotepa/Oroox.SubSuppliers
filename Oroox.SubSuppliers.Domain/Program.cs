@@ -89,8 +89,8 @@ namespace Oroox.SubSuppliers.Domain
                 }
             };
 
-            //ctx.Customers.Add(newCustomer);
-            ctx.Customers.Remove(ctx.Customers.AsQueryable().ToList().First());
+            ctx.Customers.Add(newCustomer);
+            //ctx.Customers.Remove(ctx.Customers.AsQueryable().ToList().First());
             ctx.SaveChanges();
         }
     }

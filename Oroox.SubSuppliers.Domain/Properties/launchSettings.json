@@ -3,8 +3,10 @@
     "Oroox.SubSuppliers.Domain": {
       "commandName": "Project",
       "environmentVariables": {
-        "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;"
-      }
+        "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "remoteDebugEnabled": false
     }
   }
 }

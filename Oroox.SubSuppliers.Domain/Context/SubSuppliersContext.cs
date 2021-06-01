@@ -1,4 +1,11 @@
-﻿using Faithlife.Utility;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using Faithlife.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
@@ -7,12 +14,6 @@ using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using Oroox.SubSuppliers.Extensions;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
@@ -44,6 +45,9 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         public SubSuppliersContext() : base()
         {
+            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
+            this.LoggingEnabled = true;
+
             configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
             serviceProvider = new ServiceCollection()
                 .AddLogging()
@@ -51,13 +55,12 @@ namespace Oroox.SubSuppliers.Domain.Context
                 .AddSingleton(this)
                 .BuildServiceProvider();
 
-            environmentVariables = this.configuration.GetEnvironmentVariables();
-            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
+            environmentVariables = this.configuration.GetEnvironmentVariables();         
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
         }
         public SubSuppliersContext(bool enableLogging = false) : base() 
         {
-            this.LoggingEnabled = enableLogging;
+            this.LoggingEnabled = enableLogging;            
 
             configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
             serviceProvider = new ServiceCollection()
@@ -69,6 +72,8 @@ namespace Oroox.SubSuppliers.Domain.Context
             environmentVariables = this.configuration.GetEnvironmentVariables();
             outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
+
+            Database.EnsureCreated();
         }
 
         #region DB_SETS
@@ -160,6 +165,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
             GenerateCustomersTable(builder);
             AddGenericEntityFilter(builder);
             GenerateAddressTable(builder);
@@ -201,7 +207,7 @@ namespace Oroox.SubSuppliers.Domain.Context
                  .Where(type => type.GetInterfaces().Contains(typeof(IEnumerationEntity)) && type.Name != EnumerationClassName)
                  .ToList();
 
-            Type[] currentAssemblyEnums = currentAssemblyTypes.Where(type => type.IsEnum).ToArray();
+            Type[] currentAssemblyEnums = currentAssemblyTypes.Where(type => type.IsEnum).ToArray();            
 
             enumerationEntities.ForEach((entity, index) =>
             {

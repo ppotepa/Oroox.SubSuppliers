@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Modules.Customers
 {
     /// <summary>
     /// Users Domain Controller
-    /// </summary>
+    /// </summary>    
     public class CustomersController : ModuleController
     {
         public CustomersController(IMediator mediator, IMapper mapper, IApplicationContext context) 

@@ -1,30 +1,37 @@
+using System;
+using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutofacSerilogIntegration;
 using MediatR;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
-using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Modules.Customers;
 using Oroox.SubSuppliers.Modules.Jobs;
 using Oroox.SubSuppliers.Services;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
-using System.Reflection;
 
 namespace Oroox.SubSuppliers.Application
 {
     public class Startup 
     {
+        private const string DevelopmentCORS = "DevelopmentCORS";
         private readonly IConfiguration Configuration;
+        private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;        
+        
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
 
         public ILifetimeScope AutofacContainer { get; private set; }
@@ -33,15 +40,17 @@ namespace Oroox.SubSuppliers.Application
         {
             Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
+            app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SubsuppliersPlatform API");
             });
-
-            app.UseMiddleware<CorrelationIdMiddleware>();
+           
             app.UseRouting();
-            app.UseEndpoints(builder => builder.MapControllers());
+            app.UseCors(DevelopmentCORS);
+            app.UseMiddleware<CorrelationIdMiddleware>();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());                        
 
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
         }
@@ -74,18 +83,36 @@ namespace Oroox.SubSuppliers.Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            if (EnvironmentVariables.IsDevelopment)
+            {
+                services.AddCors(options =>
+                {
+                    options.AddPolicy(name: DevelopmentCORS,
+                    builder =>
+                    {
+                        builder.WithOrigins(new string[] { "http://localhost:4200" }).AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                    });
+
+                });
+            }
+
+
             services.AddOptions();
             services.AddSwaggerGen();
-            services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor();           
 
-            services.AddMvc().AddNewtonsoftJson(options =>
+           
+            services.AddControllers().AddNewtonsoftJson(options =>
             {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;                
             })
             .AddControllersAsServices();
-            
+
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
         }
+        
     }
 }
