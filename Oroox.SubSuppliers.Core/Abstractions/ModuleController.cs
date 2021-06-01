@@ -30,7 +30,7 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Handle(IBaseRequest request)
         {
-            ResponseBase response = await this.mediator.Send(request) as ResponseBase;
+            dynamic response = await this.mediator.Send(request);
 
             if (response.RedirectUrl != string.Empty)
                 return new ObjectResult(response);
