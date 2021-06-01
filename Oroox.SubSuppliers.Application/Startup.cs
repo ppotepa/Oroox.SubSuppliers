@@ -1,12 +1,9 @@
-using System;
-using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutofacSerilogIntegration;
 using MediatR;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,6 +15,7 @@ using Oroox.SubSuppliers.Modules.Jobs;
 using Oroox.SubSuppliers.Services;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
+using System.Reflection;
 
 namespace Oroox.SubSuppliers.Application
 {
@@ -91,8 +89,8 @@ namespace Oroox.SubSuppliers.Application
                     builder =>
                     {
                         builder.WithOrigins(new string[] { "http://localhost:4200" }).AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                     });
 
                 });

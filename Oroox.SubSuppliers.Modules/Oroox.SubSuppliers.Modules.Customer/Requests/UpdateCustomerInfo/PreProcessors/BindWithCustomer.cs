@@ -1,13 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using MediatR.Pipeline;
+using Microsoft.EntityFrameworkCore;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Extensions;
-using Oroox.SubSuppliers.Processors;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.PreProcessors
 {
-    public class BindWithCustomer : IPreRequestProcessor<UpdateCustomerAdditionalInfoRequest>
+    public class BindWithCustomer : IRequestPreProcessor<UpdateCustomerAdditionalInfoRequest>
     {
         private readonly IApplicationContext context;
         public BindWithCustomer(IApplicationContext context)
@@ -15,12 +17,14 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.PrePr
             this.context = context;
         }
 
-        public void Process(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancelationToken)
+        public Task Process(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancellationToken)
         {
             request.Customer = this.context.Customers
                 .GetById(request.CustomerAdditionalInfo.CustomerId)
                 .Include(nameof(request.Customer.CustomerAdditionalInfo))
                 .FirstOrDefault();
+
+            return Unit.Task;
         }
     }
 }

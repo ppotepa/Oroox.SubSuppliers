@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
+using MediatR.Pipeline;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Event;
 using Oroox.SubSuppliers.Exceptions;
 using Oroox.SubSuppliers.Extensions;
-using Oroox.SubSuppliers.Processors;
 using Oroox.SubSuppliers.Response;
 using Serilog;
 using System.Collections.Generic;
@@ -20,24 +20,25 @@ namespace Oroox.SubSuppliers.Handlers
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
-    public sealed class GenericHandlerDecorator<TRequest, TResponse> :  IPipelineBehavior<TRequest, TResponse>
+    public sealed class GenericHandlerDecorator<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
         where TResponse : ResponseBase, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> validators;
-        private readonly IEnumerable<IPreRequestProcessor<TRequest>> preProcessors;
-        private readonly IEnumerable<IPostRequestProcessor<TRequest>> postProcessors;
+        private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
+        private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
         private readonly IRequestHandler<TRequest, TResponse> innerRequest;
         private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IApplicationContext context;
         private readonly ILogger logger;
-        
+
         public GenericHandlerDecorator
         (
-            IEnumerable<IValidator<TRequest>> validators, 
-            IEnumerable<IPreRequestProcessor<TRequest>> preProcessors, 
-            IEnumerable<IPostRequestProcessor<TRequest>> postProcessors, 
-            IEnumerable<IEvent<TRequest>> events, 
+
+            IEnumerable<IValidator<TRequest>> validators,
+            IEnumerable<IRequestPreProcessor<TRequest>> preProcessors,
+            IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors,
+            IEnumerable<IEvent<TRequest>> events,
             IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
             ILogger logger
@@ -51,13 +52,13 @@ namespace Oroox.SubSuppliers.Handlers
             this.innerRequest = innerRequest;
             this.context = context;
         }
-       
+
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             TResponse response;
 
             try
-            {
+            {                
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
                 this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
 
@@ -75,10 +76,9 @@ namespace Oroox.SubSuppliers.Handlers
                         ValidationMessages = validationMessages
                     };
                 }
-
-                this.postProcessors.ForEach(processor => processor.Process(request, cancellationToken));
-
                 response = await this.innerRequest.Handle(request, cancellationToken);
+
+                this.postProcessors.ForEach(processor => processor.Process(request, response, cancellationToken));
                 int rowsChanged = context.SaveChanges();
             }
             catch (RequestProcessingException ex)
@@ -86,7 +86,7 @@ namespace Oroox.SubSuppliers.Handlers
                 throw ex;
             }
 
-            events.ForEach(@event =>  @event.Handle(request, cancellationToken));
+            events.ForEach(@event => @event.Handle(request, cancellationToken));
 
             return response;
         }

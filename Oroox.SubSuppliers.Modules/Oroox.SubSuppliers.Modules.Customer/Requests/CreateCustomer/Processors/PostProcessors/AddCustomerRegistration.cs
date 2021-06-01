@@ -1,21 +1,26 @@
-﻿using Oroox.SubSuppliers.Processors;
+﻿using MediatR;
+using MediatR.Pipeline;
+using Oroox.SubSuppliers.Modules.Customers.Responses;
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
 {
-    public class AddCustomerRegistration : IPostRequestProcessor<CreateCustomerRequest>
+    public class AddCustomerRegistration : IRequestPostProcessor<CreateCustomerRequest, CreateCustomerRequestResponse>
     {
         private const string AvailableCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         private Random Random => new Random();
         private string ActivationCode => GetActivationCode();
-        public void Process(CreateCustomerRequest request, CancellationToken cancelationToken)
+        public Task Process(CreateCustomerRequest request, CreateCustomerRequestResponse response, CancellationToken cancellationToken)
         {
             request.Customer.Registration = new Domain.Entities.Registration()
             {
                 ActivationCode = ActivationCode,
             };
+
+            return Unit.Task;
         }
 
         private string GetActivationCode() => new string

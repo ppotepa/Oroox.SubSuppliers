@@ -1,10 +1,11 @@
 ﻿using Autofac;
 using FluentValidation;
 using MediatR;
-using Oroox.SubSuppliers.Domain.Context;
+using MediatR.Pipeline;
 using Oroox.SubSuppliers.Event;
-using Oroox.SubSuppliers.Processors;
+using Oroox.SubSuppliers.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.Customers
@@ -16,12 +17,12 @@ namespace Oroox.SubSuppliers.Modules.Customers
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CustomersController>().PropertiesAutowired();            
+            builder.RegisterType<CustomersController>().PropertiesAutowired();
 
             Type[] Validators = ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IValidator<>))).ToArray();
             Type[] Events = ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IEvent<>))).ToArray();
-            Type[] PreProcessors = ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IPreRequestProcessor<>))).ToArray();
-            Type[] PostProcessors = ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IPostRequestProcessor<>))).ToArray();
+            Type[] PreProcessors = ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequestPreProcessor<>))).ToArray();
+            Type[] PostProcessors = ThisAssembly.GetTypes().Where(type => type.IsClosedTypeOf(typeof(IRequestPostProcessor<,>))).ToArray();
 
             builder.RegisterTypes(Validators).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterTypes(Events).AsImplementedInterfaces().InstancePerLifetimeScope();

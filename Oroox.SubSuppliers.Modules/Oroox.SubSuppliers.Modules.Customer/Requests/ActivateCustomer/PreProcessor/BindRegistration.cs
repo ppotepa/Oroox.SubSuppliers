@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using MediatR.Pipeline;
+using Microsoft.EntityFrameworkCore;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Processors;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.PreProcessor
 {
-    public class BindRegistration : IPreRequestProcessor<ActivateCustomerRequest>
+    public class BindRegistration : IRequestPreProcessor<ActivateCustomerRequest>
     {
         private readonly IApplicationContext context;
         public BindRegistration(IApplicationContext context)
@@ -14,7 +16,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.PreProc
             this.context = context;
         }
 
-        public void Process(ActivateCustomerRequest request, CancellationToken cancelationToken)
+        public Task Process(ActivateCustomerRequest request, CancellationToken cancellationToken)
         {
             Domain.Entities.Registration targetRegistration = context
                 .Registrations
@@ -22,8 +24,9 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.PreProc
                 .Include(nameof(request.Registration.Customer))
                 .FirstOrDefault(x => x.ActivationCode == request.Registration.ActivationCode);
 
-                request.Registration = targetRegistration;
-          
+            request.Registration = targetRegistration;
+
+            return Unit.Task;
         }
     }
 }

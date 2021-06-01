@@ -1,16 +1,20 @@
-﻿using Oroox.SubSuppliers.Processors;
+﻿using MediatR;
+using MediatR.Pipeline;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
 {
-    public class AddNewCustomerInfo : IPreRequestProcessor<CreateCustomerRequest>
+    public class AddNewCustomerInfo : IRequestPreProcessor<CreateCustomerRequest>
     {
-        public void Process(CreateCustomerRequest request, CancellationToken cancelationToken)
+        public Task Process(CreateCustomerRequest request, CancellationToken cancellationToken)
         {
-            if (request.Customer.CustomerAdditionalInfo == null) 
+            if (request.Customer.CustomerAdditionalInfo == null)
             {
                 request.Customer.CustomerAdditionalInfo = new Domain.Entities.CustomerAdditionalInfo();
             }
+
+            return Unit.Task;
         }
     }
 }
