@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Faithlife.Utility;
+﻿using Faithlife.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +7,12 @@ using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using Oroox.SubSuppliers.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
@@ -120,7 +119,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         private MethodInfo ExpressionMethod(Type entity)
         {
             return this.GetType()
-                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.NonPublic | BindingFlags.Instance)
+                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.Instance | BindingFlags.NonPublic)
                           .MakeGenericMethod(entity);
         }
         
@@ -153,52 +152,55 @@ namespace Oroox.SubSuppliers.Domain.Context
             return base.SaveChanges();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBUilder)
         {
             if (LoggingEnabled)
             {
-                builder.LogTo(text => File.AppendAllText(outputFileName, text));
+                optionsBUilder.LogTo(text => File.AppendAllText(outputFileName, text));
             }
 
-            builder.UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
+            optionsBUilder.UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
-            GenerateCustomersTable(builder);
-            AddGenericEntityFilter(builder);
-            GenerateAddressTable(builder);
-            GenerateEnumerationTables(builder);
+            GenerateCustomersTable(modelBuilder);
+            AddGenericEntityFilter(modelBuilder);
+            GenerateAddressTable(modelBuilder);
+            GenerateEnumerationTables(modelBuilder);
             
         }
 
-        private void AddGenericEntityFilter(ModelBuilder builder)
+        private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
             CurrentEntities.ForEach(entity =>
             {
                 dynamic expression = ExpressionMethod(entity).Invoke(this, null);
-                builder.Entity(entity).HasQueryFilter(expression);
+                modelBuilder.Entity(entity).HasQueryFilter(expression);
             });
         }
 
-        private void GenerateAddressTable(ModelBuilder builder)
+        private void GenerateAddressTable(ModelBuilder modelBuilder)
         {
-            builder.Entity<Address>().HasOne(x => x.AddressType);
-            builder.Entity<Address>().HasOne(x => x.Customer);
-            builder.Entity<Address>().HasOne(x => x.CountryCodeType);
+            modelBuilder.Entity<Address>().HasOne(x => x.AddressType);
+            modelBuilder.Entity<Address>().HasOne(x => x.Customer);
+            modelBuilder.Entity<Address>().HasOne(x => x.CountryCodeType);
         }
         private void GenerateCustomersTable(ModelBuilder builder)
         {
             builder.Entity<Customer>().HasKey(x => x.Id);
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
-            builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
-            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
-            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
-            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
+            builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
-            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.ClientCascade);
+            builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            
+            builder.Entity<CustomerAdditionalInfo>().HasOne(x => x.Customer).WithOne(x => x.CustomerAdditionalInfo).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<CustomerAdditionalInfo>().Property(x => x.Id).ValueGeneratedOnAdd();
         }
 
         private void GenerateEnumerationTables(ModelBuilder builder)

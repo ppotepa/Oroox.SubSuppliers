@@ -224,7 +224,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -281,7 +281,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -335,7 +335,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MillingMachine_MillingMachineDimensionsTypes_MillingMachineDimensionsTypeId",
                         column: x => x.MillingMachineDimensionsTypeId,
@@ -372,7 +372,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -400,7 +400,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TurningMachines_TurningMachineTypes_TurningMachineTypeId",
                         column: x => x.TurningMachineTypeId,

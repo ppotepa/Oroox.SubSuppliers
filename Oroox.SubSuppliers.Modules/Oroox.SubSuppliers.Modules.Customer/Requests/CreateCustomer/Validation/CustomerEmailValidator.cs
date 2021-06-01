@@ -18,9 +18,11 @@ namespace Oroox.SubSuppliers.Modules.Customers.Validation
         private readonly IApplicationContext context;
 
         public CustomerEmailValidator(ILogger logger, IApplicationContext context)
-        {
+        {            
             this.logger = logger;
             this.context = context;
+
+            logger.Information($"current instance {logger.GetHashCode()}");
 
             RuleFor(request => request).NotNull();
             RuleFor(request => request.Customer).NotNull();

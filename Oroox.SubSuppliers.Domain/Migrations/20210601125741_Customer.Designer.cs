@@ -10,7 +10,7 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210527065233_Customer")]
+    [Migration("20210601125741_Customer")]
     partial class Customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2359,7 +2359,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithMany("Addresses")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AddressType");
@@ -2385,7 +2385,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithOne("CustomerAdditionalInfo")
                         .HasForeignKey("Oroox.SubSuppliers.Domain.Entities.CustomerAdditionalInfo", "CustomerId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -2396,7 +2396,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithMany("MillingMachines")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.MillingMachineDimensionsType", "MillingMachineDimensionsType")
@@ -2423,7 +2423,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithOne("Registration")
                         .HasForeignKey("Oroox.SubSuppliers.Domain.Entities.Registration", "CustomerId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -2434,7 +2434,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithMany("TurningMachines")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Oroox.SubSuppliers.Domain.TurningMachineType", "TurningMachineType")
