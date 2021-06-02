@@ -3,10 +3,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Response;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Utilities.Abstractions
 {
+
     /// <summary>
     /// Abstract controller.
     /// Devires from ControllerBase.
@@ -14,15 +17,21 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public abstract class ModuleController : ControllerBase 
+    public abstract class ModuleController : ControllerBase
     {
         protected readonly IMediator mediator;
         protected readonly IMapper mapper;
         protected readonly IApplicationContext context;
 
+        private Dictionary<ShouldRedirect, Func<ResponseBase, IActionResult>> Actions => new Dictionary<ShouldRedirect, Func<ResponseBase, IActionResult>>()
+        {
+            [ShouldRedirect.NO] = (response) => new ObjectResult(response),
+            [ShouldRedirect.YES] = (response) => Redirect(response.RedirectUrl),
+        };
+
         protected ModuleController(IMediator mediator, IMapper mapper, IApplicationContext context)
         {
-            this.mediator = mediator;   
+            this.mediator = mediator;
             this.mapper = mapper;
             this.context = context;
         }
@@ -31,15 +40,10 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         public async Task<IActionResult> Handle(IBaseRequest request)
         {
             ResponseBase response = await this.mediator.Send(request) as ResponseBase;
-
-            if (response.RedirectUrl is null)
-            {
-                return new ObjectResult(response);
-            }
-            else
-            {
-                return Redirect(response.RedirectUrl);
-            }
+            ShouldRedirect shouldRedirect = string.IsNullOrEmpty(response.RedirectUrl) is false ? ShouldRedirect.YES : ShouldRedirect.NO;
+            return Actions[shouldRedirect](response);
         }
-    } 
+    }
+
+    enum ShouldRedirect { NO, YES };
 }
