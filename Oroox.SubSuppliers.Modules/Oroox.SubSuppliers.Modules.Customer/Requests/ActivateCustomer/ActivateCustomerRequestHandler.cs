@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests
                 (
                     new ActivateCustomerRequestResponse 
                     {
-                        RedirectUrl = "/" 
+                        RedirectUrl = "http://localhost:4200" 
                     }
                 );               
             }
@@ -24,7 +24,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests
             (
                 new ActivateCustomerRequestResponse 
                 {
-                    RedirectUrl = string.Empty 
+                   Response = "What are you doing here ?"
                 }
             );
         }

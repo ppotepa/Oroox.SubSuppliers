@@ -26,14 +26,14 @@ namespace Oroox.SubSuppliers.Services.Mailing
         {
             MimeMessage message = new MimeMessage
             {
-                To = { InternetAddress.Parse("pawel.potepa@hotmail.com") },
+                To = { InternetAddress.Parse("pawel.potepa@oroox.com") },
                 From = { InternetAddress.Parse("pawel.potepa@hotmail.com") },
                 Subject = "Test subject",
                 Body = new TextPart("plain")
                 {
                     Text = text is null ? $@"Hello {customer.CompanyName},
                         Thank you for registration. 
-                        Your activation code is : {customer.Registration.ActivationCode},
+                        Your activation code is : https://localhost:5001/api/customers/activate?Registration.ActivationCode={customer.Registration.ActivationCode},
                     " : text
                 }
             };
