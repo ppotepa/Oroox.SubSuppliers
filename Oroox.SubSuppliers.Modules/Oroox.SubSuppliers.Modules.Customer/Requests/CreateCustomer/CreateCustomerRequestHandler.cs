@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Modules.Customers.Responses;
+using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer;
+using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Responses;
 using System.Threading;
 using System.Threading.Tasks;
 

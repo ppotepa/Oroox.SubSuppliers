@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using Oroox.SubSuppliers.Modules.Customers.Requests.Responses;
+using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomerRequest.Response;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer
 {
     public class ActivateCustomerRequestHandler : IRequestHandler<ActivateCustomerRequest, ActivateCustomerRequestResponse>
     {

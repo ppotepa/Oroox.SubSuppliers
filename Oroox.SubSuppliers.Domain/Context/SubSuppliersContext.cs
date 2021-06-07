@@ -240,6 +240,11 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
-        
+
+        public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class
+            => this.ChangeTracker.Entries<TEntity>();
+
+        public IEnumerable<EntityEntry> NewEntries() 
+            => this.ChangeTracker.Entries();
     }
 }

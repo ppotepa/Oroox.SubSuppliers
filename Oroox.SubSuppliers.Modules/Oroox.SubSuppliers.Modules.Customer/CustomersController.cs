@@ -3,8 +3,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Customers.Model;
-using Oroox.SubSuppliers.Modules.Customers.Requests;
+using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer;
 using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById;
 using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo;
@@ -49,12 +52,8 @@ namespace Oroox.SubSuppliers.Modules.Customers
             => await Handle(this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
 
         [HttpPost]
-        public async Task<IActionResult> AddTurningMachineRequest(ActivateCustomerModel request)
-            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddTurningMachine(ActivateCustomerModel request)
-        //    => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+        public async Task<IActionResult> AddTurningMachine(AddTurningMachineRequestModel request)
+            => await Handle(this.mapper.Map<AddTurningMachineRequestModel, AddTurningMachineRequest>(request));
 
     }
 }

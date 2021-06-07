@@ -7,9 +7,9 @@ namespace Oroox.SubSuppliers.Domain.Extensions
     public static partial class DbSetDomainExtensions
     {
         public static IQueryable<TEntity> GetById<TEntity>(this DbSet<TEntity> @this, Guid entityId) where TEntity : Entity
-            => @this.Where(x => x.Id == entityId);
+            => @this.Where(x => x.Id == entityId).AsQueryable();
 
         public static IQueryable<TEntity> GetByIdAsync<TEntity>(this DbSet<TEntity> @this, Guid entityId) where TEntity : Entity
-            => @this.Where(x => x.Id == entityId);
+            => @this.Where(x => x.Id == entityId).AsQueryable();
     }
 }

@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using MediatR.Pipeline;
-using Oroox.SubSuppliers.Modules.Customers.Responses;
+using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Responses;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.PostProcessors
 {
     public class AddCustomerRegistration : IRequestPostProcessor<CreateCustomerRequest, CreateCustomerRequestResponse>
     {

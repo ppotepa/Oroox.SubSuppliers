@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Oroox.SubSuppliers.Domain.Entities;
-using Oroox.SubSuppliers.Modules.Customers.DTO;
-using Oroox.SubSuppliers.Modules.Customers.Requests;
+using Oroox.SubSuppliers.Modules.Customers.CreateCustomer.DTO;
+using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Model
 {

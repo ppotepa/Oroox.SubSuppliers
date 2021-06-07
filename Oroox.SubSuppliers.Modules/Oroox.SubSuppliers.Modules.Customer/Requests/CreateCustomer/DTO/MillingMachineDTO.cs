@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Modules.Customers.DTO
+namespace Oroox.SubSuppliers.Modules.Customers.CreateCustomer.DTO
 {
     public class MillingMachineDTO
     {

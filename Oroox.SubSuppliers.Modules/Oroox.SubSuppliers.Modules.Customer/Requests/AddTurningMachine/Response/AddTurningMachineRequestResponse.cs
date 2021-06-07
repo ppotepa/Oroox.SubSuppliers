@@ -1,6 +1,10 @@
-﻿namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine
+﻿using Oroox.SubSuppliers.Response;
+using System;
+
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine.Response
 {
-    public class AddTurningMachineRequestResponse
+    public class AddTurningMachineRequestResponse : BaseRespone
     {
+        public Guid TurningMachineId { get; set; }
     }
 }

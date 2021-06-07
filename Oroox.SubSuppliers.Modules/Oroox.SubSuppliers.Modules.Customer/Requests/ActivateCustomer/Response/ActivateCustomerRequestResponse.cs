@@ -1,8 +1,8 @@
 ﻿using Oroox.SubSuppliers.Response;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.Responses
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomerRequest.Response
 {
-    public class ActivateCustomerRequestResponse : ResponseBase
+    public class ActivateCustomerRequestResponse : BaseRespone
     {
          
     }

@@ -3,7 +3,7 @@ using MediatR.Pipeline;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.Processors
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.PreProcessors
 {
     public class AddNewCustomerInfo : IRequestPreProcessor<CreateCustomerRequest>
     {

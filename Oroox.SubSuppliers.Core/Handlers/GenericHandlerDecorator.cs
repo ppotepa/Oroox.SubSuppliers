@@ -22,7 +22,7 @@ namespace Oroox.SubSuppliers.Handlers
     /// <typeparam name="TResponse"></typeparam>
     public sealed class GenericHandlerDecorator<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : ResponseBase, new()
+        where TResponse : BaseRespone, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> validators;
         private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;

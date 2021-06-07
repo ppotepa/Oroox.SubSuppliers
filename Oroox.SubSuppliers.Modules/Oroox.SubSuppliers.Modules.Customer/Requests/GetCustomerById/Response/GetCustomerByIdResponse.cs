@@ -2,7 +2,7 @@
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Response
 {
-    public class GetCustomerByIdResponse : ResponseBase
+    public class GetCustomerByIdResponse : BaseRespone
     {
     }
 }
