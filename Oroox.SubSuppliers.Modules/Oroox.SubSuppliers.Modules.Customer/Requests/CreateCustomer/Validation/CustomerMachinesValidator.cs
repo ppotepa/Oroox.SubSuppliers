@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Serilog;
-using System.Text.RegularExpressions;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Validation
 {
@@ -22,11 +20,11 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Validatio
 
             When(x => x != null && x.Customer != null, () => 
             {
-                RuleFor(request => request.Customer.TurningMachines.Count + request.Customer.MillingMachines.Count)
+                RuleFor(request => request.Customer.Machines.Count + request.Customer.Machines.Count)
                 .Must(x => x > 0)
                 .WithMessage("Please specify at least one machine.");
 
-                When(request => request.Customer.TurningMachines != null && request.Customer.TurningMachines.Count > 0, () =>
+                When(request => request.Customer.Machines != null && request.Customer.Machines.Count > 0, () =>
                 {
                     //RuleFor(request => request.Customer.TurningMachines).NotNull()
                     //                .NotEmpty()
@@ -35,7 +33,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Validatio
 
                 });
 
-                When(request => request.Customer.MillingMachines != null && request.Customer.MillingMachines.Count > 0, () =>
+                When(request => request.Customer.Machines != null && request.Customer.Machines.Count > 0, () =>
                 {
                     //RuleFor(request => request.Customer.MillingMachines).NotNull()
                     //               .NotEmpty()

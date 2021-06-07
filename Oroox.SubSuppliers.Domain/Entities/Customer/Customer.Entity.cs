@@ -9,13 +9,22 @@ namespace Oroox.SubSuppliers.Domain.Entities
     public partial class Customer : Entity
     {
         public Customer() { }
-        public Customer(string companyName, CompanySizeType companySizeType, ICollection<Address> addresses, ICollection<MillingMachine> millingMachines, ICollection<TurningMachine> turningMachines, string vatNumber, string website, string registrationNumber, string emailAddress)
+        public Customer
+        (
+             string companyName,
+             CompanySizeType companySizeType,
+             ICollection<Address> addresses,
+             ICollection<Machine> machines,             
+             string vatNumber,
+             string website,
+             string registrationNumber,
+             string emailAddress
+        )
         {
             CompanyName = companyName;
             CompanySizeType = companySizeType;
             Addresses = addresses;
-            MillingMachines = millingMachines;
-            TurningMachines = turningMachines;            
+            Machines = machines;            
             VATNumber = vatNumber;
             Website = website;
             RegistrationNumber = registrationNumber;
@@ -26,8 +35,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual CompanySizeType CompanySizeType { get; set; }
         public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<MillingMachine> MillingMachines { get; set; }
-        public virtual ICollection<TurningMachine> TurningMachines { get; set; }        
+        public virtual ICollection<Machine> Machines { get; set; }        
         public virtual ICollection<OtherTechnology> OtherTechnologies { get; set; }
         public virtual ICollection<Certification> Certifications { get; set; }
         public virtual Registration Registration { get; set; }

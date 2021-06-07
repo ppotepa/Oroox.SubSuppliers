@@ -5,3 +5,6 @@ dotnet_diagnostic.IDE0003.severity = silent
 
 # S101: Types should be named in PascalCase
 dotnet_diagnostic.S101.severity = silent
+
+# Default severity for analyzer diagnostics with category 'Minor Code Smell'
+dotnet_analyzer_diagnostic.category-Minor Code Smell.severity = silent

@@ -15,6 +15,7 @@ using Oroox.SubSuppliers.Modules.Jobs;
 using Oroox.SubSuppliers.Services;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
+using System.Linq;
 using System.Reflection;
 
 namespace Oroox.SubSuppliers.Application
@@ -98,7 +99,7 @@ namespace Oroox.SubSuppliers.Application
 
 
             services.AddOptions();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(x => x.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()));
             services.AddHttpContextAccessor();           
 
            

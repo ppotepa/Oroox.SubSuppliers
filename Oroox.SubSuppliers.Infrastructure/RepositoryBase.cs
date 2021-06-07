@@ -16,9 +16,5 @@ namespace Oroox.SubSuppliers.Infrastructure
 
         public Guid Insert(TEntityType entity) 
             => this.context.Add(entity).Entity.Id;
-
-
-        public bool Delete(TEntityType entity) 
-            => this.context.Remove(entity).Entity.Deleted == true;
     }
 }

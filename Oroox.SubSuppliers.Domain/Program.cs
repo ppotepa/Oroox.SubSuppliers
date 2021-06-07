@@ -2,7 +2,6 @@
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -21,43 +20,24 @@ namespace Oroox.SubSuppliers.Domain
                     new Address
                     {
                         AddressType = ctx.Enumerations.AddressTypes[AddressTypeEnum.Shipping],
-                        CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],
-                        Deleted = false,
+                        CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],                        
                         PhoneNumber = "123 123 123",
                         Street = "Jakas ulica 20",
                     }
                 },
-                MillingMachines = new[]
+                Machines = new[]
                 {
                     new MillingMachine
                     {
-                        MachineNumber = "TYPE_1",
-                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 5,
-                        MinimalMachiningDimensions = 10,
-                        Name = "SuperMachine2000"
-                    },
-                    new MillingMachine
-                    {
-                        MachineNumber = "TYPE_2",
-                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 5,
-                        MinimalMachiningDimensions = 5,
-                        Name = "SuperMachine4000"
-                    },
-                    new MillingMachine
-                    {
-                        MachineNumber = "TYPE_3",
-                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 1,
-                        MinimalMachiningDimensions = 2,
-                        Name = "SuperMachine1000"
+                        MachineNumber = "TYPE_1",                                                                 
+                        Name = "SuperMachine2000",
+                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                        XMax  = 2, 
+                        YMax = 3, 
+                        YMin = 4, 
+                        XMin = 2, 
+                        ZMin = 1, 
+                        ZMax = 2.1
                     },
                 },
                 EmailAddress = "robert.shmidt@someCompany.com",

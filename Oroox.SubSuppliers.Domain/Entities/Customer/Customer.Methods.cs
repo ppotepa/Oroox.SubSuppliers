@@ -2,14 +2,9 @@
 {
     public partial class Customer : Entity
     {
-        public void AddMillingMachine(MillingMachine machine)
+        public void AddMachine(Machine machine)
         {
-            this.MillingMachines.Add(machine);
-        }
-
-        public void AddTurningMachine(TurningMachine machine)
-        {
-            this.TurningMachines.Add(machine);
+            this.Machines.Add(machine);
         }
 
         public void UpdateCustomerAdditionalInfo(CustomerAdditionalInfo info)

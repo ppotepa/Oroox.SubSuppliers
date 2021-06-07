@@ -20,8 +20,8 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public SubSuppliersContextEnumerations Enumerations { get; set; }
-        public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
-        public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
+        public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
+        public DbSet<Machine> Machines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class;
@@ -33,3 +33,4 @@ namespace Oroox.SubSuppliers.Domain.Context
 
     }
 }
+

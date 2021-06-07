@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
-using Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine.Response;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Response;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest
 {
-    public class AddTurningMachineRequestHandler : IRequestHandler<AddTurningMachineRequest, AddTurningMachineRequestResponse>
+    public class AddTurningMachineRequestHandler : IRequestHandler<AddCustomerMachineRequest, AddCustomerMachineRequestResponse>
     {
         private readonly ILogger logger;
         private readonly IApplicationContext context;
@@ -23,15 +23,15 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddTurningMachine
             this.context = context;
         }
 
-        public async Task<AddTurningMachineRequestResponse> Handle(AddTurningMachineRequest request, CancellationToken cancellationToken)
+        public async Task<AddCustomerMachineRequestResponse> Handle(AddCustomerMachineRequest request, CancellationToken cancellationToken)
         {   
             if (request.Customer != null)
             {
-                request.Customer.TurningMachines.Add(request.TurningMachine);
-                IEnumerable<EntityEntry<TurningMachine>> entries = this.context.NewEntries<TurningMachine>();
-                AddTurningMachineRequestResponse result = new AddTurningMachineRequestResponse
+                request.Customer.Machines.Add(request.Machine);
+                IEnumerable<EntityEntry<Machine>> entries = this.context.NewEntries<Machine>();
+                AddCustomerMachineRequestResponse result = new AddCustomerMachineRequestResponse
                 {
-                    TurningMachineId = entries.FirstOrDefault().Entity.Id
+                    MachineId = entries.FirstOrDefault().Entity.Id
                 };
 
                 return await Task.FromResult(result);

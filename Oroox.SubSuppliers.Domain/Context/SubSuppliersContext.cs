@@ -18,28 +18,14 @@ namespace Oroox.SubSuppliers.Domain.Context
 {
     public class SubSuppliersContext : DbContext, IApplicationContext
     {
-        private const string EnumerationClassName = "EnumerationEntity`1";
-        private readonly IConfiguration configuration;
+        private const string EnumerationClassName = "EnumerationEntity`1";        
         private readonly Type[] currentAssemblyTypes;
-        private Type[] _currentEntities = default;
-        private Type[] CurrentEntities
-        {
-            get 
-            {
-                if (_currentEntities is null)
-                {
-                    _currentEntities = currentAssemblyTypes.Where(t => t.IsSubclassOf(typeof(Entity))).ToArray();
-                }
-                return _currentEntities;
-            }
-            set => _currentEntities = value;
-        }
-
+        private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
         private readonly OxSuppliersEnvironmentVariables environmentVariables;
         private readonly bool LoggingEnabled;
         private readonly string outputFileName;
         private readonly IServiceProvider serviceProvider;
-        private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
+        private Type[] _currentEntities = default;
         private SubSuppliersContextEnumerations _enumerations;
 
         public SubSuppliersContext() : base()
@@ -47,48 +33,37 @@ namespace Oroox.SubSuppliers.Domain.Context
             outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
             this.LoggingEnabled = true;
 
-            configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+            IConfigurationRoot configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
             serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton(configuration)
                 .AddSingleton(this)
                 .BuildServiceProvider();
 
-            environmentVariables = this.configuration.GetEnvironmentVariables();         
+            environmentVariables = configuration.GetEnvironmentVariables();
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
         }
-        public SubSuppliersContext(bool enableLogging = false) : base() 
-        {
-            this.LoggingEnabled = enableLogging;            
 
-            configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+        public SubSuppliersContext(bool enableLogging = false) : base()
+        {
+            this.LoggingEnabled = enableLogging;
+
+            IConfigurationRoot configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
             serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton(configuration)
                 .AddSingleton(this)
                 .BuildServiceProvider();
 
-            environmentVariables = this.configuration.GetEnvironmentVariables();
+            environmentVariables = configuration.GetEnvironmentVariables();
             outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
 
             Database.EnsureCreated();
         }
 
-        #region DB_SETS
-        public DbSet<AddressType> AddressTypes { get; set; }
-        public DbSet<Certification> Certifications { get; set; }
-        public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
-        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Registration> Registrations { get; set; }
-        public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
-        public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
-        public DbSet<TurningMachineType> TurningMachineTypes { get; set; }
-        public DbSet<TurningMachine> TurningMachines { get; set; }
-        public DbSet<OtherTechnology> OtherTechnologies { get; set; }
+        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
 
-        #endregion DB_SETS
         public SubSuppliersContextEnumerations Enumerations
         {
             get
@@ -101,28 +76,54 @@ namespace Oroox.SubSuppliers.Domain.Context
                         this.CountryCodeTypes.ToDictionary(type => type.Value, instance => instance),
                         this.AddressTypes.ToDictionary(type => type.Value, instance => instance),
                         this.OtherTechnologies.ToDictionary(type => type.Value, instance => instance),
-                        this.MillingMachineTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.MillingMachineDimensionsTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.TurningMachineTypes.ToDictionary(type => type.Value, instance => instance),
+                        this.CNCMachineAxesTypes.ToDictionary(type => type.Value, instance => instance),
                         this.Certifications.ToDictionary(type => type.Value, instance => instance)
                     );
                 }
                 return _enumerations;
             }
-
             set => _enumerations = value;
         }
+
+        public DbSet<Machine> Machines { get; set; }
+
         private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
 
-        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
-
-        private MethodInfo ExpressionMethod(Type entity)
+        private Type[] CurrentEntities
         {
-            return this.GetType()
-                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.Instance | BindingFlags.NonPublic)
-                          .MakeGenericMethod(entity);
+            get 
+            {
+                if (_currentEntities is null)
+                {
+                    _currentEntities = currentAssemblyTypes.Where(t => t.IsSubclassOf(typeof(Entity))).ToArray();
+                }
+                return _currentEntities;
+            }
+            set => _currentEntities = value;
         }
-        
+        #region DB_SETS
+        public DbSet<AddressType> AddressTypes { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
+        public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
+        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<OtherTechnology> OtherTechnologies { get; set; }
+        public DbSet<Registration> Registrations { get; set; }          
+        #endregion DB_SETS
+        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
+            => this.Attach(entity);
+
+        public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class
+            => this.ChangeTracker.Entries<TEntity>();
+
+        public IEnumerable<EntityEntry> NewEntries()
+            => this.ChangeTracker.Entries();
+
+        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value)
+        {
+            return this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
+        }
 
         public override int SaveChanges()
         {
@@ -138,12 +139,12 @@ namespace Oroox.SubSuppliers.Domain.Context
 
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Entity.ModifiedOn = currentDateTime;    
+                    entry.Entity.ModifiedOn = currentDateTime;
                 }
 
                 if (entry.State == EntityState.Deleted)
                 {
-                    entry.Entity.Deleted = true;
+                    entry.Entity.MarkAsDeleted();
                     entry.Entity.DeletedOn = currentDateTime;
                     entry.State = EntityState.Modified;
                 }
@@ -152,25 +153,28 @@ namespace Oroox.SubSuppliers.Domain.Context
             return base.SaveChanges();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBUilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (LoggingEnabled)
             {
-                optionsBUilder.LogTo(text => File.AppendAllText(outputFileName, text));
+                optionsBuilder.LogTo(text => File.AppendAllText(outputFileName, text));
             }
 
-            optionsBUilder.UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
+            optionsBuilder.UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             GenerateCustomersTable(modelBuilder);
             AddGenericEntityFilter(modelBuilder);
             GenerateAddressTable(modelBuilder);
             GenerateEnumerationTables(modelBuilder);
-            
+
         }
+
+        private static string GetEnumUniqueName(object value, Type currentEnum)
+            => Enum.GetName(currentEnum, value) + "_" + value.ToString();
 
         private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
@@ -181,19 +185,23 @@ namespace Oroox.SubSuppliers.Domain.Context
             });
         }
 
+        private MethodInfo ExpressionMethod(Type entity) => this.GetType()
+                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.Instance | BindingFlags.NonPublic)
+                          .MakeGenericMethod(entity);
+
         private void GenerateAddressTable(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Address>().HasOne(x => x.AddressType);
             modelBuilder.Entity<Address>().HasOne(x => x.Customer);
             modelBuilder.Entity<Address>().HasOne(x => x.CountryCodeType);
         }
+
         private void GenerateCustomersTable(ModelBuilder builder)
         {
             builder.Entity<Customer>().HasKey(x => x.Id);
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
             builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);            
             builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
@@ -215,36 +223,19 @@ namespace Oroox.SubSuppliers.Domain.Context
             {
                 Type currentEnum = currentAssemblyEnums[index];
 
-                var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>().Select(value => new
-                {
-                    Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)),
-                    Value = Convert.ChangeType(value, currentEnum),
-                    Name = Enum.GetName(currentEnum, value),
-                }).ToArray();
+                (Guid Id, object Value, string Name)[] currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>().Select(value => (
+                    Id: GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)),
+                    Value: Convert.ChangeType(value, currentEnum),
+                    Name: Enum.GetName(currentEnum, value)
+                ))
+                .ToArray();
 
                 builder.Entity(entity).HasAlternateKey("Value");
-                builder.Entity(entity).HasData(currentEnumDataSeed);
+                builder.Entity(entity).HasData(currentEnumDataSeed);                
             });
         }
 
-        private static string GetEnumUniqueName(object value, Type currentEnum) 
-            => Enum.GetName(currentEnum, value) + "_" + value.ToString();
-      
-        private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity 
-            => entity => EF.Property<bool>(entity, "Deleted").Equals(false);
-
-        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value)
-        {
-            return this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
-        }
-
-        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
-            => this.Attach(entity);
-
-        public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class
-            => this.ChangeTracker.Entries<TEntity>();
-
-        public IEnumerable<EntityEntry> NewEntries() 
-            => this.ChangeTracker.Entries();
+        private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity
+            => (entity) => EF.Property<bool>(entity, "Deleted").Equals(false);
     }
 }
