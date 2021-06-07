@@ -25,8 +25,8 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
 
         private Dictionary<ShouldRedirect, Func<ResponseBase, IActionResult>> Actions => new Dictionary<ShouldRedirect, Func<ResponseBase, IActionResult>>()
         {
-            [ShouldRedirect.NO] = (response) => new ObjectResult(response),
-            [ShouldRedirect.YES] = (response) => Redirect(response.RedirectUrl),
+            [ShouldRedirect.ShouldNotRedirect]  = (response) => new ObjectResult(response),
+            [ShouldRedirect.ShoulRedirect]      = (response) => Redirect(response.RedirectUrl),
         };
 
         protected ModuleController(IMediator mediator, IMapper mapper, IApplicationContext context)
@@ -40,10 +40,10 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         public async Task<IActionResult> Handle(IBaseRequest request)
         {
             ResponseBase response = await this.mediator.Send(request) as ResponseBase;
-            ShouldRedirect shouldRedirect = string.IsNullOrEmpty(response.RedirectUrl) is false ? ShouldRedirect.YES : ShouldRedirect.NO;
+            ShouldRedirect shouldRedirect = string.IsNullOrEmpty(response.RedirectUrl) is false ? ShouldRedirect.ShoulRedirect : ShouldRedirect.ShouldNotRedirect;
             return Actions[shouldRedirect](response);
         }
     }
 
-    enum ShouldRedirect { NO, YES };
+    enum ShouldRedirect { ShouldNotRedirect, ShoulRedirect };
 }
