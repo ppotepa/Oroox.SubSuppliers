@@ -1,8 +1,10 @@
-﻿using Oroox.SubSuppliers.Domain.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -30,8 +32,8 @@ namespace Oroox.SubSuppliers.Domain
                 {
                     new MillingMachine
                     {
-                       MachineNumber = "TYPE_2",
-                        Name = "TurningMachine",
+                       MachineNumber = "T2",
+                        Name = "MillingMachine",
                         CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                         XMax  = 2,
                         YMax = 3,
@@ -40,7 +42,7 @@ namespace Oroox.SubSuppliers.Domain
                     },
                      new TurningMachine 
                     {
-                       MachineNumber = "TYPE_2",
+                       MachineNumber = "T1",
                         Name = "TurningMachine",
                         CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                         XMax  = 2,
@@ -79,14 +81,19 @@ namespace Oroox.SubSuppliers.Domain
                 }
             };
 
-            //newCustomer.AddMachine(new TurningMachine 
-            //{
-            //    CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
-            //    MachineNumber = "200",
-            //    Name = "Test"
-            //});
+            newCustomer.AddMachine(new TurningMachine
+            {
+                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                MachineNumber = "200",
+                Name = "Test",
+                XMax = 595959595,
+            });
 
             ctx.Customers.Add(newCustomer);
+            
+            var allCustomers = await ctx.Customers.Include("Machines").AsQueryable().ToListAsync();
+            var machines = allCustomers.First(c => c.TurningMachines.Any()).TurningMachines;
+
             ctx.SaveChanges();
         }
     }

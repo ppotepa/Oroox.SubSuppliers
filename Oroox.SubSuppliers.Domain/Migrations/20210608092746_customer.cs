@@ -278,11 +278,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     ZMin = table.Column<double>(type: "float", nullable: true),
                     ZMax = table.Column<double>(type: "float", nullable: true),
                     CNCMachineAxesTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CustomerId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     XMin = table.Column<double>(type: "float", nullable: true),
                     XMax = table.Column<double>(type: "float", nullable: true),
                     YMin = table.Column<double>(type: "float", nullable: true),
                     YMax = table.Column<double>(type: "float", nullable: true),
                     TurningMachine_CNCMachineAxesTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TurningMachine_CustomerId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -311,6 +313,18 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Machines_Customers_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Machines_Customers_TurningMachine_CustomerId1",
+                        column: x => x.TurningMachine_CustomerId1,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -743,9 +757,19 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Machines_CustomerId1",
+                table: "Machines",
+                column: "CustomerId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Machines_TurningMachine_CNCMachineAxesTypeId",
                 table: "Machines",
                 column: "TurningMachine_CNCMachineAxesTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Machines_TurningMachine_CustomerId1",
+                table: "Machines",
+                column: "TurningMachine_CustomerId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Registrations_CustomerId",

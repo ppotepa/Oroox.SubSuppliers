@@ -10,7 +10,7 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210608091516_customer")]
+    [Migration("20210608092746_customer")]
     partial class customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2126,6 +2126,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<Guid?>("CNCMachineAxesTypeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CustomerId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<double?>("XMax")
                         .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("float");
@@ -2150,6 +2153,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("CNCMachineAxesTypeId");
 
+                    b.HasIndex("CustomerId1");
+
                     b.HasDiscriminator().HasValue("MillingMachine");
                 });
 
@@ -2160,6 +2165,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<Guid?>("CNCMachineAxesTypeId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TurningMachine_CNCMachineAxesTypeId");
+
+                    b.Property<Guid?>("CustomerId1")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("TurningMachine_CustomerId1");
 
                     b.Property<double?>("XMax")
                         .ValueGeneratedOnUpdateSometimes()
@@ -2178,6 +2187,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("float");
 
                     b.HasIndex("CNCMachineAxesTypeId");
+
+                    b.HasIndex("CustomerId1");
 
                     b.HasDiscriminator().HasValue("TurningMachine");
                 });
@@ -2289,6 +2300,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .WithMany()
                         .HasForeignKey("CNCMachineAxesTypeId");
 
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", null)
+                        .WithMany("MillingMachines")
+                        .HasForeignKey("CustomerId1");
+
                     b.Navigation("CNCMachineAxesType");
                 });
 
@@ -2297,6 +2312,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", "CNCMachineAxesType")
                         .WithMany()
                         .HasForeignKey("CNCMachineAxesTypeId");
+
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", null)
+                        .WithMany("TurningMachines")
+                        .HasForeignKey("CustomerId1");
 
                     b.Navigation("CNCMachineAxesType");
                 });
@@ -2309,7 +2328,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.Navigation("Machines");
 
+                    b.Navigation("MillingMachines");
+
                     b.Navigation("Registration");
+
+                    b.Navigation("TurningMachines");
                 });
 #pragma warning restore 612, 618
         }

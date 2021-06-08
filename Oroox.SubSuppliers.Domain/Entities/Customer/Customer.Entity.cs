@@ -38,6 +38,11 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Machine> Machines { get; set; }        
         public virtual ICollection<OtherTechnology> OtherTechnologies { get; set; }
+
+        [NotMapped]
+        public virtual IEnumerable<MillingMachine> MillingMachines => Machines.OfType<MillingMachine>();
+        [NotMapped]
+        public virtual IEnumerable<TurningMachine> TurningMachines => Machines.OfType<TurningMachine>();
         public virtual ICollection<Certification> Certifications { get; set; }
         public virtual Registration Registration { get; set; }
         public string VATNumber { get; set; }
@@ -52,12 +57,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
         [NotMapped]
         public string Password { get; set; }
-
-        [NotMapped]
-        public virtual IEnumerable<Machine> TurningMachines => Machines.Where(machine => machine.GetType() == typeof(TurningMachine));
-
-        [NotMapped]
-        public virtual IEnumerable<Machine> MillingMachines => Machines.Where(machine => machine.GetType() == typeof(MillingMachine));
 
         #region FOREIGN_KEYS
         public Guid CompanySizeTypeId { get; set; }
