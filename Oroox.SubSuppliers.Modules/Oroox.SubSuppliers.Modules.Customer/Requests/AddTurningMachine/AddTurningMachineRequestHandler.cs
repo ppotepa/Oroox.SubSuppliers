@@ -29,6 +29,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
             {
                 request.Customer.Machines.Add(request.Machine);
                 IEnumerable<EntityEntry<Machine>> entries = this.context.NewEntries<Machine>();
+
                 AddCustomerMachineRequestResponse result = new AddCustomerMachineRequestResponse
                 {
                     MachineId = entries.FirstOrDefault().Entity.Id

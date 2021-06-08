@@ -50,7 +50,6 @@ namespace Oroox.SubSuppliers.Domain
                         YMin = 4,
                         XMin = 2,
                     },
-
                 },
                 EmailAddress = "robert.shmidt@someCompany.com",
                 OtherTechnologies = new[]

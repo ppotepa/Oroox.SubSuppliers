@@ -42,6 +42,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         [NotMapped]
         public virtual IEnumerable<MillingMachine> MillingMachines => Machines.OfType<MillingMachine>();
         [NotMapped]
+
         public virtual IEnumerable<TurningMachine> TurningMachines => Machines.OfType<TurningMachine>();
         public virtual ICollection<Certification> Certifications { get; set; }
         public virtual Registration Registration { get; set; }

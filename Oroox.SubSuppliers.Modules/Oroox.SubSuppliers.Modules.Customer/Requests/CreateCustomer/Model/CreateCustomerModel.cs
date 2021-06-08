@@ -15,7 +15,11 @@ namespace Oroox.SubSuppliers.Modules.Customers.Model
     {
         public CreateCustomerMappingProfile()
         {
-            CreateMap<Customer, CreateCustomerDTO>().ReverseMap().ForMember(dto => dto.Machines, customer => customer.MapFrom(m => m.MillingMachines));
+            CreateMap<Customer, CreateCustomerDTO>()
+                .ReverseMap()
+                .ForMember(dto => dto.Machines, customer => customer.MapFrom(m => m.MillingMachines));
+                
+
             CreateMap<Machine, CreateCustomerTurningMachineDTO>().ReverseMap();
 
             CreateMap<MillingMachine, MillingMachineDTO>();
