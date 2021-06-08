@@ -1,5 +1,4 @@
-﻿using Oroox.SubSuppliers.Domain.Utilities;
-using Oroox.SubSuppliers.Extensions;
+﻿using Oroox.SubSuppliers.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -55,33 +54,5 @@ namespace Oroox.SubSuppliers.Domain
         private static readonly string[] ShadowProperties = typeof(Entity).GetProperties().Select(p => p.Name).ToArray();
 
         public void MarkAsDeleted() => this.Deleted = true;
-    }
-
-    public class EnumerationEntity<TEnumType> : IEnumerationEntity where TEnumType : Enum
-    {
-        private static Type[] EnumeationTypes = EnumerationUtility.GetCurrentAssemblyEnumerations();
-        private string _value;
-        public TEnumType Value { get; set; }
-        public string Name { get => Value.ToString(); set => _value = value; }
-        public Guid Id { get; set; }
-
-
-        public override int GetHashCode() 
-            => HashCode.Combine(this.Value);
-
-
-        public static bool operator ==(EnumerationEntity<TEnumType> a, TEnumType b)
-        {
-            return Convert.ChangeType(a.Value, typeof(int)).Equals(Convert.ChangeType(b, typeof(int)));
-        }
-
-        public static bool operator !=(EnumerationEntity<TEnumType> a, TEnumType b)
-            => !Convert.ChangeType(a.Value, typeof(int)).Equals(Convert.ChangeType(b, typeof(int)));
-        
-    }
-
-    public interface IEnumerationEntity 
-    {
-        Guid Id { get; set; }
     }
 }
