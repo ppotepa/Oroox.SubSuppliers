@@ -2,6 +2,7 @@
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -25,8 +26,13 @@ namespace Oroox.SubSuppliers.Domain
                         Street = "Jakas ulica 20",
                     }
                 },
-                Machines = new[]
+                Machines = new List<Machine>()
                 {
+                    new TurningMachine()
+                    { 
+                        MachineNumber = "Test",
+                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_PLUS_TWO_AXIS],
+                    },
                     new MillingMachine
                     {
                         MachineNumber = "TYPE_1",                                                                 
@@ -39,6 +45,16 @@ namespace Oroox.SubSuppliers.Domain
                         ZMin = 1, 
                         ZMax = 2.1
                     },
+                    new TurningMachine
+                    {
+                        MachineNumber = "TYPE_1",
+                        Name = "SuperMachine2000",
+                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                        XMax  = 2,
+                        YMax = 3,
+                        YMin = 4,
+                        XMin = 2,
+                    }
                 },
                 EmailAddress = "robert.shmidt@someCompany.com",
                 OtherTechnologies = new[]
@@ -68,6 +84,16 @@ namespace Oroox.SubSuppliers.Domain
                     ctx.Enumerations.Certifications[CertificationTypeEnum.ISO14001],
                 }
             };
+
+            newCustomer.AddMachine(new TurningMachine 
+            {
+                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                MachineNumber = "200",
+                Name = "Test"
+            });
+
+            var a =  new AddressType() == AddressTypeEnum.Shipping;
+            var b =  new AddressType() == AddressTypeEnum.Billing;
 
             ctx.Customers.Add(newCustomer);
             //ctx.Customers.Remove(ctx.Customers.AsQueryable().ToList().First());

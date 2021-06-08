@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,7 @@ using System.Reflection;
 namespace Oroox.SubSuppliers.Domain.Context
 {
     public class SubSuppliersContext : DbContext, IApplicationContext
-    {
-        private const string EnumerationClassName = "EnumerationEntity`1";        
+    {            
         private readonly Type[] currentAssemblyTypes;
         private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
         private readonly OxSuppliersEnvironmentVariables environmentVariables;
@@ -169,12 +169,10 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             GenerateCustomersTable(modelBuilder);
             AddGenericEntityFilter(modelBuilder);
             GenerateAddressTable(modelBuilder);
             GenerateEnumerationTables(modelBuilder);
-
         }
 
         private static string GetEnumUniqueName(object value, Type currentEnum)
@@ -217,11 +215,8 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void GenerateEnumerationTables(ModelBuilder builder)
         {
-            List<Type> enumerationEntities = currentAssemblyTypes
-                 .Where(type => type.GetInterfaces().Contains(typeof(IEnumerationEntity)) && type.Name != EnumerationClassName)
-                 .ToList();
-
-            Type[] currentAssemblyEnums = enumerationEntities.Select(entity => entity.BaseType.GenericTypeArguments.First()).ToArray();
+            Type[] enumerationEntities = EnumerationUtility.GetCurrentAssemblyEnumerations();
+            Type[] currentAssemblyEnums = EnumerationUtility.GetCurrentAssemblyEnumerationTypes();
 
             enumerationEntities.ForEach((entity, index) =>
             {
