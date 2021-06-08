@@ -26,35 +26,29 @@ namespace Oroox.SubSuppliers.Domain
                         Street = "Jakas ulica 20",
                     }
                 },
-                Machines = new List<Machine>()
+                Machines = new List<Machine>
                 {
-                    new TurningMachine()
-                    { 
-                        MachineNumber = "Test",
-                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_PLUS_TWO_AXIS],
-                    },
                     new MillingMachine
                     {
-                        MachineNumber = "TYPE_1",                                                                 
-                        Name = "SuperMachine2000",
+                       MachineNumber = "TYPE_2",
+                        Name = "TurningMachine",
                         CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
-                        XMax  = 2, 
-                        YMax = 3, 
-                        YMin = 4, 
-                        XMin = 2, 
-                        ZMin = 1, 
-                        ZMax = 2.1
+                        XMax  = 2,
+                        YMax = 3,
+                        YMin = 4,
+                        XMin = 2,                        
                     },
-                    new TurningMachine
+                     new TurningMachine 
                     {
-                        MachineNumber = "TYPE_1",
-                        Name = "SuperMachine2000",
+                       MachineNumber = "TYPE_2",
+                        Name = "TurningMachine",
                         CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                         XMax  = 2,
                         YMax = 3,
                         YMin = 4,
                         XMin = 2,
-                    }
+                    },
+
                 },
                 EmailAddress = "robert.shmidt@someCompany.com",
                 OtherTechnologies = new[]
@@ -85,18 +79,14 @@ namespace Oroox.SubSuppliers.Domain
                 }
             };
 
-            newCustomer.AddMachine(new TurningMachine 
-            {
-                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
-                MachineNumber = "200",
-                Name = "Test"
-            });
-
-            var a =  new AddressType() == AddressTypeEnum.Shipping;
-            var b =  new AddressType() == AddressTypeEnum.Billing;
+            //newCustomer.AddMachine(new TurningMachine 
+            //{
+            //    CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+            //    MachineNumber = "200",
+            //    Name = "Test"
+            //});
 
             ctx.Customers.Add(newCustomer);
-            //ctx.Customers.Remove(ctx.Customers.AsQueryable().ToList().First());
             ctx.SaveChanges();
         }
     }

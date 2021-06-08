@@ -109,9 +109,10 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
-        public DbSet<Registration> Registrations { get; set; }          
-        public DbSet<MillingMachine> MillingMachines { get; set; }
-        public DbSet<MillingMachine> TurningMachines { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
+        public DbSet<TurningMachine> TurningMachines { get; set; }
+        public DbSet<MillingMachine> MIllingMachines { get; set; }
+
         #endregion DB_SETS
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
@@ -173,6 +174,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             AddGenericEntityFilter(modelBuilder);
             GenerateAddressTable(modelBuilder);
             GenerateEnumerationTables(modelBuilder);
+            GenerateMachineTable(modelBuilder);
         }
 
         private static string GetEnumUniqueName(object value, Type currentEnum)
@@ -196,6 +198,11 @@ namespace Oroox.SubSuppliers.Domain.Context
             modelBuilder.Entity<Address>().HasOne(x => x.AddressType);
             modelBuilder.Entity<Address>().HasOne(x => x.Customer);
             modelBuilder.Entity<Address>().HasOne(x => x.CountryCodeType);
+        }
+
+        private void GenerateMachineTable(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Machine>().HasDiscriminator(x => x.MachineTypeName);
         }
 
         private void GenerateCustomersTable(ModelBuilder builder)

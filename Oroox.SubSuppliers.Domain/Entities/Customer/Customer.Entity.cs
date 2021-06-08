@@ -3,6 +3,7 @@ using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
@@ -51,6 +52,12 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
         [NotMapped]
         public string Password { get; set; }
+
+        [NotMapped]
+        public virtual IEnumerable<Machine> TurningMachines => Machines.Where(machine => machine.GetType() == typeof(TurningMachine));
+
+        [NotMapped]
+        public virtual IEnumerable<Machine> MillingMachines => Machines.Where(machine => machine.GetType() == typeof(MillingMachine));
 
         #region FOREIGN_KEYS
         public Guid CompanySizeTypeId { get; set; }
