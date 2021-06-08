@@ -3,7 +3,7 @@
 namespace Oroox.SubSuppliers.Domain.Entities
 {
     public enum CNCMachineTypeEnum { MILLING, TURNING }
-    public class Machine : Entity
+    public abstract class Machine : Entity
     {
         public virtual Customer Customer { get; set; }
         public string MachineNumber { get; set; }
@@ -11,7 +11,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public Guid CustomerId { get; set; }
     }
    
-    public class CNCMachine : Machine
+    public abstract class CNCMachine : Machine
     {
         public double? XMin { get; set; }
         public double? XMax { get; set; }

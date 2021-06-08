@@ -60,6 +60,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
 
             Database.EnsureCreated();
+            
         }
 
         public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
@@ -99,7 +100,6 @@ namespace Oroox.SubSuppliers.Domain.Context
                 }
                 return _currentEntities;
             }
-            set => _currentEntities = value;
         }
         #region DB_SETS
         public DbSet<AddressType> AddressTypes { get; set; }
@@ -110,6 +110,8 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<Registration> Registrations { get; set; }          
+        public DbSet<MillingMachine> MillingMachines { get; set; }
+        public DbSet<MillingMachine> TurningMachines { get; set; }
         #endregion DB_SETS
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
@@ -155,6 +157,8 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.EnableSensitiveDataLogging();
+
             if (LoggingEnabled)
             {
                 optionsBuilder.LogTo(text => File.AppendAllText(outputFileName, text));
@@ -178,7 +182,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
-            CurrentEntities.ForEach(entity =>
+            CurrentEntities.Where(e => e.BaseType == typeof(Entity)).ForEach(entity =>
             {
                 dynamic expression = ExpressionMethod(entity).Invoke(this, null);
                 modelBuilder.Entity(entity).HasQueryFilter(expression);
@@ -217,21 +221,32 @@ namespace Oroox.SubSuppliers.Domain.Context
                  .Where(type => type.GetInterfaces().Contains(typeof(IEnumerationEntity)) && type.Name != EnumerationClassName)
                  .ToList();
 
-            Type[] currentAssemblyEnums = currentAssemblyTypes.Where(type => type.IsEnum).ToArray();            
+            Type[] currentAssemblyEnums = enumerationEntities.Select(entity => entity.BaseType.GenericTypeArguments.First()).ToArray();
 
             enumerationEntities.ForEach((entity, index) =>
             {
                 Type currentEnum = currentAssemblyEnums[index];
 
-                (Guid Id, object Value, string Name)[] currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>().Select(value => (
-                    Id: GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)),
-                    Value: Convert.ChangeType(value, currentEnum),
-                    Name: Enum.GetName(currentEnum, value)
-                ))
+                var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>()
+                .Select(value =>
+                {
+                    var @v = Convert.ChangeType(value, currentEnum);
+                    var @n = Enum.GetName(currentEnum, value);
+                    var @id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum));
+                   
+                    return new
+                    {
+                        Id = id, 
+                        Value = @v,
+                        Name = @n
+                    };
+                })
                 .ToArray();
 
-                builder.Entity(entity).HasAlternateKey("Value");
-                builder.Entity(entity).HasData(currentEnumDataSeed);                
+                builder.Entity(entity).HasAlternateKey("Id");
+                builder.Entity(entity).HasAlternateKey("Value");                
+                builder.Entity(entity).HasData(currentEnumDataSeed);
+               
             });
         }
 
