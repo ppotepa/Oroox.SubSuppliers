@@ -20,8 +20,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.PrePr
         public Task Process(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancellationToken)
         {
             request.Customer = this.context.Customers
-                .GetById(request.CustomerAdditionalInfo.CustomerId)
-                .Include(nameof(request.Customer.CustomerAdditionalInfo))
+                .GetById(request.CustomerAdditionalInfo.CustomerId)                
                 .FirstOrDefault();
 
             return Unit.Task;

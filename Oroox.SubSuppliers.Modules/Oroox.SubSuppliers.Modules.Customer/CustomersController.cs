@@ -31,7 +31,7 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// </summary>
         /// <param name="request">UserDTO</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Create(CreateCustomerModel request) 
             => await Handle(this.mapper.Map<CreateCustomerModel, CreateCustomerRequest>(request));
 
@@ -43,17 +43,17 @@ namespace Oroox.SubSuppliers.Modules.Customers
         public async Task<IActionResult> Activate([FromQuery] ActivateCustomerModel request)
             => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> GetCustomerById(GetCustomerByIdModel request)
             => await Handle(this.mapper.Map<GetCustomerByIdModel, GetCustomerByIdRequest>(request));
 
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> UpdateCustomerInfo(UdateCustomerAdditionalInfoModel request)
             => await Handle(this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
 
-        [HttpPost]
-        public async Task<IActionResult> AddTurningMachine(AddCustomerMachine request)
-            => await Handle(this.mapper.Map<AddCustomerMachine, AddCustomerMachineRequest>(request));
+        [HttpPut]
+        public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachineModel request)
+            => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachineRequest>(request));
 
     }
 }

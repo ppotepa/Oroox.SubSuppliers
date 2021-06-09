@@ -23,7 +23,7 @@ namespace Oroox.SubSuppliers.Domain
                     new Address
                     {
                         AddressType = ctx.Enumerations.AddressTypes[AddressTypeEnum.Shipping],
-                        CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],                        
+                        CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],
                         PhoneNumber = "123 123 123",
                         Street = "Jakas ulica 20",
                     }
@@ -38,9 +38,9 @@ namespace Oroox.SubSuppliers.Domain
                         XMax  = 2,
                         YMax = 3,
                         YMin = 4,
-                        XMin = 2,                        
+                        XMin = 2,
                     },
-                     new TurningMachine 
+                     new TurningMachine
                     {
                        MachineNumber = "T1",
                         Name = "TurningMachine",
@@ -86,12 +86,12 @@ namespace Oroox.SubSuppliers.Domain
                 MachineNumber = "200",
                 Name = "Test",
                 XMax = 595959595,
-            });
+            }, null);
 
             ctx.Customers.Add(newCustomer);
-            
-            var allCustomers = await ctx.Customers.Include("Machines").AsQueryable().ToListAsync();
-            var machines = allCustomers.First(c => c.TurningMachines.Any()).TurningMachines;
+
+            var allCustomers = await ctx.Customers.AsQueryable().ToListAsync();
+            //var machines = allCustomers.FirstOrDefault(c => c.TurningMachines.Any()).TurningMachines;
 
             ctx.SaveChanges();
         }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Validation
 {
-    public class ValidateTurningMachine : AbstractValidator<AddCustomerMachineRequest>
+    public class ValidateTurningMachine : AbstractValidator<AddCustomerTurningMachineRequest>
     {
         private readonly IApplicationContext context;
         public ValidateTurningMachine(IApplicationContext context)
@@ -13,8 +13,8 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
             this.context = context;
             this.CascadeMode = CascadeMode.Stop;
 
-            RuleFor(x => x.Machine.CustomerId).NotNull().NotEmpty().Must(Exist).WithMessage(x => $"Customer with id {x.Machine.CustomerId} does not exist");
-            RuleFor(x => x.Machine.MachineNumber).NotNull().NotEmpty();            
+            RuleFor(x => x.CustomerId).NotNull().NotEmpty().Must(Exist).WithMessage(x => $"Customer with id {x.CustomerId} does not exist");
+            RuleFor(x => x.TurningMachines.Select(x => x.MachineNumber)).NotNull().NotEmpty();            
         }
 
         private bool Exist(Guid customerId)

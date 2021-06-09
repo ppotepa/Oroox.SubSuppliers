@@ -1,6 +1,8 @@
 ﻿using Faithlife.Utility;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
@@ -14,6 +16,8 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
@@ -60,7 +64,6 @@ namespace Oroox.SubSuppliers.Domain.Context
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
 
             Database.EnsureCreated();
-            
         }
 
         public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
@@ -69,7 +72,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         {
             get
             {
-                if (this._enumerations is null)
+                if (_enumerations is null)
                 {
                     _enumerations = new SubSuppliersContextEnumerations
                     (
@@ -86,7 +89,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             set => _enumerations = value;
         }
 
-        public DbSet<Machine> Machines { get; set; }
+        public DbSet<TurningMachine> Machines { get; set; }
 
         private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
 
@@ -112,6 +115,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<TurningMachine> TurningMachines { get; set; }
         public DbSet<MillingMachine> MIllingMachines { get; set; }
+        public IEnumerable<object> Entries => ((IEnumerable<object>)this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
 
         #endregion DB_SETS
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
@@ -123,29 +127,27 @@ namespace Oroox.SubSuppliers.Domain.Context
         public IEnumerable<EntityEntry> NewEntries()
             => this.ChangeTracker.Entries();
 
-        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value)
-        {
-            return this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
-        }
+        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value) 
+            => this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
 
-        public override int SaveChanges()
+        public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
             List<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>().ToList();
 
             entities.ForEach(entry =>
             {
-                if (entry.State == EntityState.Added)
+                if (entry.State is EntityState.Added)
                 {
                     entry.Entity.CreatedOn = currentDateTime;
                 }
 
-                if (entry.State == EntityState.Modified)
+                if (entry.State is EntityState.Modified)
                 {
                     entry.Entity.ModifiedOn = currentDateTime;
                 }
 
-                if (entry.State == EntityState.Deleted)
+                if (entry.State is EntityState.Deleted)
                 {
                     entry.Entity.MarkAsDeleted();
                     entry.Entity.DeletedOn = currentDateTime;
@@ -153,19 +155,23 @@ namespace Oroox.SubSuppliers.Domain.Context
                 }
             });
 
-            return base.SaveChanges();
+            return await base.SaveChangesAsync(true, cancellationToken);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
+           
 
             if (LoggingEnabled)
             {
                 optionsBuilder.LogTo(text => File.AppendAllText(outputFileName, text));
             }
 
-            optionsBuilder.UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
+                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -202,7 +208,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void GenerateMachineTable(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Machine>().HasDiscriminator(x => x.MachineTypeName);
+            modelBuilder.Entity<TurningMachine>().HasDiscriminator(x => x.MachineTypeName);
         }
 
         private void GenerateCustomersTable(ModelBuilder builder)

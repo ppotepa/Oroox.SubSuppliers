@@ -1,20 +1,16 @@
-﻿using Oroox.SubSuppliers.Domain.Utilities;
-using System;
+﻿using System;
 
 namespace Oroox.SubSuppliers.Domain
 {
     public class EnumerationEntity<TEnumType> : IEnumerationEntity where TEnumType : Enum
     {
-        private static Type[] EnumeationTypes = EnumerationUtility.GetCurrentAssemblyEnumerations();
         private string _value;
         public TEnumType Value { get; set; }
         public string Name { get => Value.ToString(); set => _value = value; }
         public Guid Id { get; set; }
 
 
-        public override int GetHashCode() 
-            => HashCode.Combine(this.Value);
-
+        public override int GetHashCode() => HashCode.Combine(this.Value);
 
         public static bool operator ==(EnumerationEntity<TEnumType> a, TEnumType b)
         {

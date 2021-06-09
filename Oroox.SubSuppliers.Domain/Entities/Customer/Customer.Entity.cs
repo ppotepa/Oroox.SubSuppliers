@@ -12,6 +12,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         private IEnumerable<MillingMachine> millingMachines;
 
         private IEnumerable<TurningMachine> turningMachines;
+        private ICollection<Machine> machines;
 
         public Customer() { }
         public Customer
@@ -43,7 +44,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
         public string EmailAddress { get; set; }
         public bool IsActive { get; set; }
-        public virtual ICollection<Machine> Machines { get; set; }
+        public virtual ICollection<Machine> Machines { get => machines ?? new Machine[] { }; set => machines = value; }
         [NotMapped]
         public virtual IEnumerable<MillingMachine> MillingMachines
         {

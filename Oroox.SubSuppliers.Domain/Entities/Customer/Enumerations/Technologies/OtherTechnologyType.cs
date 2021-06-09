@@ -17,6 +17,6 @@ namespace Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies
 
     public class OtherTechnology : EnumerationEntity<OtherTechnologyTypeEnum>
     {
-        public ICollection<Customer> Customers { get; internal set; }
+        public virtual ICollection<Customer> Customers { get; internal set; }
     }
 }

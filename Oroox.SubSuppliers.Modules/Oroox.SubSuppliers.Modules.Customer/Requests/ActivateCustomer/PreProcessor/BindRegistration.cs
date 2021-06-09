@@ -20,8 +20,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.PreProc
         {
             Domain.Entities.Registration targetRegistration = context
                 .Registrations
-                .AsQueryable()
-                .Include(nameof(request.Registration.Customer))
+                .AsQueryable()                
                 .FirstOrDefault(x => x.ActivationCode == request.Registration.ActivationCode);
 
             request.Registration = targetRegistration;

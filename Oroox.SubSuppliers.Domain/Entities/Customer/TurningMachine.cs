@@ -2,7 +2,7 @@
 {
     public class TurningMachine : CNCMachine
     {
-        public CNCMachineAxesType CNCMachineAxesType { get; set; }
+        public virtual CNCMachineAxesType CNCMachineAxesType { get; set; }
     };
 
 }
