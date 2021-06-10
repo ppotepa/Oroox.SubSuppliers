@@ -10,15 +10,15 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210609073706_customer")]
-    partial class customer
+    [Migration("20210610135934_Customer")]
+    partial class Customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
+                .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CertificationCustomer", b =>
@@ -64,8 +64,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("Certifications");
 
@@ -218,8 +216,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("CNCMachineAxesTypes");
 
@@ -375,8 +371,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Value");
-
                     b.ToTable("AddressTypes");
 
                     b.HasData(
@@ -407,8 +401,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("CompanySizeTypes");
 
@@ -458,8 +450,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("CountryCodeTypes");
 
@@ -1974,8 +1964,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Value");
-
                     b.ToTable("OtherTechnologies");
 
                     b.HasData(
@@ -2123,7 +2111,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     b.HasBaseType("Oroox.SubSuppliers.Domain.Entities.Machine");
 
-                    b.Property<Guid?>("CNCMachineAxesTypeId")
+                    b.Property<Guid>("CNCMachineAxesTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double?>("XMax")
@@ -2157,7 +2145,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     b.HasBaseType("Oroox.SubSuppliers.Domain.Entities.Machine");
 
-                    b.Property<Guid?>("CNCMachineAxesTypeId")
+                    b.Property<Guid>("CNCMachineAxesTypeId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TurningMachine_CNCMachineAxesTypeId");
 
@@ -2286,8 +2274,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", "CNCMachineAxesType")
-                        .WithMany()
-                        .HasForeignKey("CNCMachineAxesTypeId");
+                        .WithMany("MillingMachines")
+                        .HasForeignKey("CNCMachineAxesTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("CNCMachineAxesType");
                 });
@@ -2295,10 +2285,19 @@ namespace Oroox.SubSuppliers.Domain.Migrations
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.TurningMachine", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", "CNCMachineAxesType")
-                        .WithMany()
-                        .HasForeignKey("CNCMachineAxesTypeId");
+                        .WithMany("TurningMachines")
+                        .HasForeignKey("CNCMachineAxesTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("CNCMachineAxesType");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", b =>
+                {
+                    b.Navigation("MillingMachines");
+
+                    b.Navigation("TurningMachines");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>

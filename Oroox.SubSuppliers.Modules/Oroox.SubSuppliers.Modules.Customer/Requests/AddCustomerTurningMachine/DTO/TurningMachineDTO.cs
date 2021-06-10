@@ -12,6 +12,6 @@ namespace Oroox.SubSuppliers.Modules.Customers.AddTurningMachine.DTO
         public double? YMax { get; set; }
         public string Name { get; set; }
         public Guid TurningMachineTypeId { get; set; }
-        public CNCMachineAxesTypeDTO CNCMachineAxesType { get; set; }
+        public Guid CNCMachineAxesTypeId { get; set; }
     }
 }

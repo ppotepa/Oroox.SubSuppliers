@@ -15,8 +15,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
     {
         public AddTurningMachineRequestMappingProfile()
         {
-            CreateMap<TurningMachineDTO, TurningMachine>().ReverseMap();
-            CreateMap<CNCMachineAxesTypeDTO, CNCMachineAxesType>().ReverseMap();
+            CreateMap<TurningMachineDTO, TurningMachine>().ReverseMap();            
             CreateMap<AddCustomerTurningMachineModel, AddCustomerTurningMachineRequest>().ReverseMap();           
         }
     }

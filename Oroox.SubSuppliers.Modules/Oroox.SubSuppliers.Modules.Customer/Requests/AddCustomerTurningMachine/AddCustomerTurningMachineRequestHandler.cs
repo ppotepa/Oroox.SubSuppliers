@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Response;
 using Serilog;
@@ -28,12 +27,12 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
             {
                 request.TurningMachines.ForEach(machine => 
                 {
-                    request.Customer.AddMachine(machine, context);                     
+                    request.Customer.AddMachine(machine);
                 });
-
+                
                 AddCustomerTurningMachineRequestResponse result = new AddCustomerTurningMachineRequestResponse
                 {
-                    MachineIds = this.context.NewEntries<TurningMachine>().Select(x => x.Entity.Id)
+                    MachineIds = null,
                 };
                
                 return await Task.FromResult(result);

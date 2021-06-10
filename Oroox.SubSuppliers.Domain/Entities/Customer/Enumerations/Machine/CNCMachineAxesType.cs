@@ -1,4 +1,6 @@
-﻿namespace Oroox.SubSuppliers.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public enum CNCMachineAxesTypeEnum
     {
@@ -7,5 +9,9 @@
         FIVE_AXIS
     }
 
-    public class CNCMachineAxesType : EnumerationEntity<CNCMachineAxesTypeEnum> { }
+    public class CNCMachineAxesType : EnumerationEntity<CNCMachineAxesTypeEnum>
+    {
+        public virtual ICollection<TurningMachine> TurningMachines { get; set; }
+        public virtual ICollection<MillingMachine> MillingMachines { get; set; }
+    }
 }

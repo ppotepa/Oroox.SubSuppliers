@@ -4,7 +4,6 @@ using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -35,20 +34,22 @@ namespace Oroox.SubSuppliers.Domain
                        MachineNumber = "T2",
                         Name = "MillingMachine",
                         CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
-                        XMax  = 2,
-                        YMax = 3,
-                        YMin = 4,
-                        XMin = 2,
+                        XMax  = 10f,
+                        YMax = 20f,
+                        YMin = 30f,
+                        XMin = 40f,
                     },
-                     new TurningMachine
+                     new MillingMachine
                     {
                        MachineNumber = "T1",
                         Name = "TurningMachine",
                         CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
-                        XMax  = 2,
-                        YMax = 3,
-                        YMin = 4,
-                        XMin = 2,
+                        XMax  = 4.0f,
+                        YMax = 30f,
+                        YMin = 40f,
+                        XMin = 20f,
+                        ZMax = 10f,
+                        ZMin = 100f
                     },
                 },
                 EmailAddress = "robert.shmidt@someCompany.com",
@@ -86,7 +87,15 @@ namespace Oroox.SubSuppliers.Domain
                 MachineNumber = "200",
                 Name = "Test",
                 XMax = 595959595,
-            }, null);
+            });
+
+            newCustomer.AddMachine(new MillingMachine
+            {
+                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                MachineNumber = "2001",
+                Name = "Tes2t",
+                XMax = 5959595,
+            });
 
             ctx.Customers.Add(newCustomer);
 

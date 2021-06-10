@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
@@ -114,7 +113,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<TurningMachine> TurningMachines { get; set; }
-        public DbSet<MillingMachine> MIllingMachines { get; set; }
+        public DbSet<MillingMachine> MillingMachines { get; set; }
         public IEnumerable<object> Entries => ((IEnumerable<object>)this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
 
         #endregion DB_SETS
@@ -133,35 +132,37 @@ namespace Oroox.SubSuppliers.Domain.Context
         public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
-            List<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>().ToList();
-
+            var entities = ChangeTracker.Entries<Entity>();
+            var enumerations = ChangeTracker.Entries<IEnumerationEntity>();
+            
             entities.ForEach(entry =>
             {
-                if (entry.State is EntityState.Added)
+                var dynamicEntry = entry as dynamic;
+
+                if (dynamicEntry.State is EntityState.Added)
                 {
-                    entry.Entity.CreatedOn = currentDateTime;
+                    dynamicEntry.Entity.CreatedOn = currentDateTime;
                 }
 
-                if (entry.State is EntityState.Modified)
+                if (dynamicEntry.State is EntityState.Modified)
                 {
-                    entry.Entity.ModifiedOn = currentDateTime;
+                    dynamicEntry.Entity.ModifiedOn = currentDateTime;
                 }
 
                 if (entry.State is EntityState.Deleted)
                 {
-                    entry.Entity.MarkAsDeleted();
-                    entry.Entity.DeletedOn = currentDateTime;
+                    dynamicEntry.Entity.MarkAsDeleted();
+                    dynamicEntry.Entity.DeletedOn = currentDateTime;
                     entry.State = EntityState.Modified;
                 }
             });
 
-            return await base.SaveChangesAsync(true, cancellationToken);
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
-           
 
             if (LoggingEnabled)
             {
@@ -188,6 +189,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
+            
             CurrentEntities.Where(e => e.BaseType == typeof(Entity)).ForEach(entity =>
             {
                 dynamic expression = ExpressionMethod(entity).Invoke(this, null);
@@ -208,7 +210,20 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void GenerateMachineTable(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TurningMachine>().HasDiscriminator(x => x.MachineTypeName);
+            modelBuilder.Entity<CNCMachineAxesType>()
+                .HasMany(x => x.MillingMachines)
+                .WithOne(x => x.CNCMachineAxesType)
+                .HasForeignKey(x => x.CNCMachineAxesTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<CNCMachineAxesType>()
+                .HasMany(x => x.TurningMachines)
+                .WithOne(x => x.CNCMachineAxesType)
+                .HasForeignKey(x => x.CNCMachineAxesTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TurningMachine>().HasDiscriminator(x => x.MachineTypeName);            
+            modelBuilder.Entity<MillingMachine>().HasDiscriminator(x => x.MachineTypeName);
         }
 
         private void GenerateCustomersTable(ModelBuilder builder)
@@ -221,8 +236,8 @@ namespace Oroox.SubSuppliers.Domain.Context
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            //builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey<Machine>(x => x.CustomerId).ond
             
+            //builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey<Machine>(x => x.CustomerId).ond            
             builder.Entity<CustomerAdditionalInfo>().HasOne(x => x.Customer).WithOne(x => x.CustomerAdditionalInfo).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<CustomerAdditionalInfo>().Property(x => x.Id).ValueGeneratedOnAdd();
         }
@@ -239,27 +254,29 @@ namespace Oroox.SubSuppliers.Domain.Context
                 var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>()
                 .Select(value =>
                 {
-                    var @v = Convert.ChangeType(value, currentEnum);
-                    var @n = Enum.GetName(currentEnum, value);
-                    var @id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum));
-                   
                     return new
                     {
-                        Id = id, 
-                        Value = @v,
-                        Name = @n
+                        Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)), 
+                        Value = Convert.ChangeType(value, currentEnum),
+                        Name = Enum.GetName(currentEnum, value)
                     };
                 })
                 .ToArray();
 
-                builder.Entity(entity).HasAlternateKey("Id");
-                builder.Entity(entity).HasAlternateKey("Value");                
+                builder.Entity(entity).HasKey(new[] { "Id" });
                 builder.Entity(entity).HasData(currentEnumDataSeed);
-               
             });
         }
 
         private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity
             => (entity) => EF.Property<bool>(entity, "Deleted").Equals(false);
+
+        void IApplicationContext.Update<TEntity>(TEntity entity) 
+            => this.Update(entity);
+
+        public void Detach<TEntity>(TEntity entity) where TEntity : Entity
+        {
+            this.Entry(entity).State = EntityState.Detached;
+        }
     }
 }

@@ -24,16 +24,14 @@ namespace Oroox.SubSuppliers.Application
     {
         private const string DevelopmentCORS = "DevelopmentCORS";
         private readonly IConfiguration Configuration;
-        private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;        
-        
-        
+        private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
-
-        public ILifetimeScope AutofacContainer { get; private set; }
 
         public void Configure(IApplicationBuilder app)
         {
@@ -72,10 +70,7 @@ namespace Oroox.SubSuppliers.Application
             builder.RegisterMediatR(moduleAssemblies);
 
             builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().InstancePerDependency();
-            builder
-                .RegisterGeneric(typeof(Logger<>))
-                .As(typeof(ILogger<>))
-                .InstancePerDependency();
+            builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();
 
             builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
         }

@@ -39,7 +39,7 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// Gets User
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Activate([FromQuery] ActivateCustomerModel request)
             => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 

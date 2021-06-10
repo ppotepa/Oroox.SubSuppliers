@@ -23,6 +23,10 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
         public DbSet<TurningMachine> Machines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
+
+        void Update<TEntity>(TEntity entity) where TEntity : Entity;
+        void Detach<TEntity>(TEntity entity) where TEntity : Entity;
+
         public DbSet<Registration> Registrations { get; set; }
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class;
         public EnumerationEntity<TEnumType> ResolveEnum<TEnumType>(int value) where TEnumType : Enum;

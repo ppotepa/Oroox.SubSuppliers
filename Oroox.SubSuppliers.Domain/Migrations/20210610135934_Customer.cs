@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    public partial class customer : Migration
+    public partial class Customer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,13 +12,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AddressTypes", x => x.Id);
-                    table.UniqueConstraint("AK_AddressTypes_Value", x => x.Value);
                 });
 
             migrationBuilder.CreateTable(
@@ -26,13 +25,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Certifications", x => x.Id);
-                    table.UniqueConstraint("AK_Certifications_Value", x => x.Value);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,13 +38,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CNCMachineAxesTypes", x => x.Id);
-                    table.UniqueConstraint("AK_CNCMachineAxesTypes_Value", x => x.Value);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,13 +51,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CompanySizeTypes", x => x.Id);
-                    table.UniqueConstraint("AK_CompanySizeTypes_Value", x => x.Value);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,13 +84,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CountryCodeTypes", x => x.Id);
-                    table.UniqueConstraint("AK_CountryCodeTypes_Value", x => x.Value);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,13 +97,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OtherTechnologies", x => x.Id);
-                    table.UniqueConstraint("AK_OtherTechnologies_Value", x => x.Value);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,14 +291,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         name: "FK_Machine_CNCMachineAxesTypes_CNCMachineAxesTypeId",
                         column: x => x.CNCMachineAxesTypeId,
                         principalTable: "CNCMachineAxesTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Machine_CNCMachineAxesTypes_TurningMachine_CNCMachineAxesTypeId",
                         column: x => x.TurningMachine_CNCMachineAxesTypeId,
                         principalTable: "CNCMachineAxesTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Machine_Customers_CustomerId",
                         column: x => x.CustomerId,

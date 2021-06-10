@@ -77,7 +77,6 @@ namespace Oroox.SubSuppliers.Handlers
                     };
                 }
                 response = await this.innerRequest.Handle(request, cancellationToken);
-                var entries = this.context.Entries;
                 this.postProcessors.ForEach(processor => processor.Process(request, response, cancellationToken));
                 await context.SaveChangesAsync(true, cancellationToken);
             }
@@ -87,7 +86,6 @@ namespace Oroox.SubSuppliers.Handlers
             }
 
             events.ForEach(@event => @event.Handle(request, cancellationToken));
-
             return response;
         }
     }
