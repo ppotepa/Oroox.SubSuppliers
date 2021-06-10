@@ -23,17 +23,17 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
             RuleFor(x => x.TurningMachines.Select(x => x.MachineNumber)).NotNull().NotEmpty();
            
             RuleForEach(x => x.TurningMachines)
-            .NotNull()
-            .NotEmpty()
-            .Must(HaveNonNegativeDimensions)
-            .Must(HaveNameSpecified)
-            .WithMessage((request, machine) =>
-            {
-                return 
-                    $"Invalid dimensions for machine with name : " +
-                    $"[{ machine.Name }],\\n Wrong Dimensions : " +
-                    $"{ string.Join(", ", machine.Dimensions.Where(x => x.value < 0).Select(x => x.propertyName)) }";
-            });
+                .NotNull()
+                .NotEmpty()
+                .Must(HaveNonNegativeDimensions)
+                .Must(HaveNameSpecified)
+                .WithMessage((request, machine) =>
+                {
+                    return 
+                        $"Invalid dimensions for machine with name : " +
+                        $"[{ machine.Name }],\\n Wrong Dimensions : " +
+                        $"{ string.Join(", ", machine.Dimensions.Where(x => x.value < 0).Select(x => x.propertyName)) }";
+                });
         }
 
         private bool HaveNameSpecified(TurningMachine machine) 
