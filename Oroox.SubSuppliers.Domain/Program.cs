@@ -15,19 +15,19 @@ namespace Oroox.SubSuppliers.Domain
     {
         public static async Task Main()
         {
-            SubSuppliersContext ctx = new SubSuppliersContext(false);            
-            //Enumerable.Range(1, 1000).ForEach((x, i) => 
-            //{
-            //    ctx.Customers.Add(NewCustomer(ctx));
-            //    if(i % 1000 is 0) ctx.SaveChanges();
-            //    Console.WriteLine(i);
-            //});
+            SubSuppliersContext ctx = new SubSuppliersContext(false);
+            Enumerable.Range(1, 1000).ForEach((x, i) =>
+            {
+                ctx.Customers.Add(NewCustomer(ctx, i));
+                if (i % 1000 is 0) ctx.SaveChanges();
+                Console.WriteLine(i);
+            });
 
             List<Customer> allCustomers = await ctx.Customers.AsQueryable().ToListAsync();
             ctx.SaveChanges();
         }
 
-        private static Customer NewCustomer(SubSuppliersContext ctx)
+        private static Customer NewCustomer(SubSuppliersContext ctx, int index)
         {
             Customer newCustomer = new Customer
             {
@@ -67,7 +67,7 @@ namespace Oroox.SubSuppliers.Domain
                         ZMin = 100f
                     },
                 },
-                EmailAddress = "robert.shmidt@someCompany.com",
+                EmailAddress = $"robert.shmidt{index}@someCompany.com",
                 OtherTechnologies = new[]
                 {
                     ctx.Enumerations.OtherTechnologies[OtherTechnologyTypeEnum.Annealing],

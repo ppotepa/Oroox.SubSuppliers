@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using MediatR.Pipeline;
-using Microsoft.EntityFrameworkCore;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Extensions;
 using System.Linq;

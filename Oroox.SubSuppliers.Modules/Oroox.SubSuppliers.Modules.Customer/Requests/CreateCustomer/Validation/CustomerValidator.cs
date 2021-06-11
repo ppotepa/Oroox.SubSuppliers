@@ -15,18 +15,16 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
     {
         private readonly ILogger logger;        
         private static readonly Regex SafePasswordRegex 
-            = new Regex(@"^(?=.*[A - Z].*[A - Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}");
+            = new Regex(@"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$");
 
         private string SafePasswordMessage => string.Join
         (
             separator: Environment.NewLine,
             value: new string[]
             {
-                "Ensure your Password has two uppercase letters     😉.", // Make code Human Friendly.
-                "Ensure your Password has one special case letter   😎.",
-                "Ensure your Password has two digits                😍.",
-                "Ensure your Password has three uppercase letters   😅.",
-                "Ensure your Password has three lowercase letters   😅.",
+                "Ensure your Password has at least one digit        😍.",
+                "Ensure your Password has three uppercase letters   😎.",
+                "Ensure your Password has three lowercase letters   😉.",
                 "Ensure your Password length of 8                   😇.",
             }
         );
@@ -58,7 +56,8 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
             return true;
         }
 
-        private bool BeSafe(string passwordString) => SafePasswordRegex.IsMatch(passwordString);
+        private bool BeSafe(string passwordString) 
+            => SafePasswordRegex.IsMatch(passwordString);
 
         private bool ExistIfStringIsNotNull(string websiteUrl)
         {

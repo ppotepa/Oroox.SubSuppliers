@@ -135,7 +135,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             
             entities.ForEach(entry =>
             {
-                var dynamicEntry = entry as dynamic;
+                dynamic dynamicEntry = entry as dynamic;
 
                 if (dynamicEntry.State is EntityState.Added)
                 {
@@ -225,7 +225,8 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void GenerateCustomersTable(ModelBuilder builder)
         {
-            builder.Entity<Customer>().HasKey(x => new string [] { nameof(x.Id), nameof(x.EmailAddress) });
+            builder.Entity<Customer>().HasKey(x => new { x.Id });
+            builder.Entity<Customer>().HasAlternateKey(x => new { x.EmailAddress });
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
             builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);            
