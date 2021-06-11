@@ -53,11 +53,11 @@ namespace Oroox.SubSuppliers.Modules.Customers
         public async Task<IActionResult> UpdateCustomerInfo(UdateCustomerAdditionalInfoModel request)
             => await Handle(this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachineModel request)
             => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachinesRequest>(request));
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> AddCustomerMillingMachine(AddCustomerMillingMachineModel request)
         {
             IActionResult result = await Handle(this.mapper.Map<AddCustomerMillingMachineModel, AddCustomerMillingMachineRequest>(request));
