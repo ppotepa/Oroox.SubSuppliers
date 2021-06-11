@@ -17,7 +17,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer
 
         public Task<ActivateCustomerRequestResponse> Handle(ActivateCustomerRequest request, CancellationToken cancellationToken)
         {
-            if (request.Registration != null)
+            if (request.Registration != null && request.Registration.Customer.IsActive is false)
             {
                 request.Registration.Customer.IsActive = true;
 

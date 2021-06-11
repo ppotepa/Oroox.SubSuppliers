@@ -26,7 +26,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
         {
             MimeMessage message = new MimeMessage
             {
-                To = { InternetAddress.Parse("pawel.potepa@oroox.com") },
+                To = { InternetAddress.Parse(customer.EmailAddress) },
                 From = { InternetAddress.Parse("pawel.potepa@hotmail.com") },
                 Subject = "Test subject",
                 Body = new TextPart("plain")
