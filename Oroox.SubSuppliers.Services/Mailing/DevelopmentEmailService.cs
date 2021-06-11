@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using Oroox.SubSuppliers.Domain.Entities;
 using Serilog;
@@ -9,13 +10,29 @@ namespace Oroox.SubSuppliers.Services.Mailing
 {
     public class DevelopmentEmailService : MailingServiceBase
     {
-        public DevelopmentEmailService(ILogger logger) : base(logger) { }
+        private readonly IConfiguration configuration;
+        public DevelopmentEmailService(ILogger logger, IConfiguration configration) : base(logger) 
+        {
+            this.configuration = configration;
+        }
+
+        private (string smtp, int port, bool useSsl) DEVELOPMENT_SERVER_CREDENTIALS = 
+        (
+            smtp: "smtp.gmail.com", 
+            port: 587, 
+            useSsl: false
+        );
 
         public async override Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken)
         {
             using (this.client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.ConnectAsync
+                (
+                    DEVELOPMENT_SERVER_CREDENTIALS.smtp,
+                    DEVELOPMENT_SERVER_CREDENTIALS.port,
+                    DEVELOPMENT_SERVER_CREDENTIALS.useSsl
+                );
                 await client.AuthenticateAsync("orooxlab", "grappaice69");
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true, cancelationToken);
