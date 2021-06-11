@@ -2,9 +2,9 @@
 
 namespace Oroox.SubSuppliers.Response
 {
-    public class ResponseBase
+    public class BaseRespone
     {
-        public ResponseBase() { }
+        public BaseRespone() { }
         public IEnumerable<string> ValidationMessages { get; set; }
         public string Response { get; set; }
         public object Result { get; set; }

@@ -1,21 +1,22 @@
-﻿using Oroox.SubSuppliers.Domain.Entities.Enumerations;
-using System;
+﻿using System;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
-    public class MillingMachine : Entity
+    public class MillingMachine : CNCMachine
     {
-        public virtual Customer Customer { get; set; }
-        
-        public string MachineNumber { get; set; }
-        public virtual MillingMachineType MillingMachineType { get; set; }        
-        public virtual MillingMachineDimensionsType MillingMachineDimensionsType { get; set; }
-        public string Name { get; set; }
-        public int MinimalMachiningDimensions { get; set; }
-        public int MaximalMachiningDimensions { get; set; }
+        public double ZMin { get; set; }
+        public double ZMax { get; set; }
+        public virtual CNCMachineAxesType CNCMachineAxesType { get; set; }
+        public Guid CNCMachineAxesTypeId { get; set; }
 
-        public Guid CustomerId { get; set; }
-        public Guid MillingMachineTypeId { get; set; }
-        public Guid MillingMachineDimensionsTypeId { get; set; }
+        public override (string PropertyName, double? Value)[] Dimensions => new[]
+        {
+            ( propertyName : nameof(this.XMin), value : this.XMin ),
+            ( propertyName : nameof(this.XMax), value : this.XMax ),
+            ( propertyName : nameof(this.YMin), value : this.YMin ),
+            ( propertyName : nameof(this.YMax), value : this.YMax ),
+            ( propertyName : nameof(this.ZMin), value : this.ZMin ),
+            ( propertyName : nameof(this.ZMax), value : this.ZMax ),
+        };
     }
 }

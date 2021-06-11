@@ -1,9 +1,8 @@
 ﻿using Oroox.SubSuppliers.Event;
-using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Oroox.SubSuppliers.Services.Mailing;
 using System.Threading;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Events
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Events
 {
     class SendRegistrationMailEvent : IEvent<CreateCustomerRequest>
     {

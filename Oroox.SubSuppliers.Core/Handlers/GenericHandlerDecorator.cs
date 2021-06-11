@@ -1,12 +1,14 @@
 ﻿using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.AspNetCore.Http;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Event;
 using Oroox.SubSuppliers.Exceptions;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Response;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -22,7 +24,7 @@ namespace Oroox.SubSuppliers.Handlers
     /// <typeparam name="TResponse"></typeparam>
     public sealed class GenericHandlerDecorator<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : ResponseBase, new()
+        where TResponse : BaseRespone, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> validators;
         private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
@@ -30,6 +32,7 @@ namespace Oroox.SubSuppliers.Handlers
         private readonly IRequestHandler<TRequest, TResponse> innerRequest;
         private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IApplicationContext context;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ILogger logger;
 
         public GenericHandlerDecorator
@@ -39,6 +42,7 @@ namespace Oroox.SubSuppliers.Handlers
             IEnumerable<IRequestPreProcessor<TRequest>> preProcessors,
             IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors,
             IEnumerable<IEvent<TRequest>> events,
+            IHttpContextAccessor httpContextAccessor,
             IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
             ILogger logger
@@ -47,6 +51,7 @@ namespace Oroox.SubSuppliers.Handlers
             this.validators = validators;
             this.preProcessors = preProcessors;
             this.postProcessors = postProcessors;
+            this.httpContextAccessor = httpContextAccessor;
             this.logger = logger;
             this.events = events;
             this.innerRequest = innerRequest;
@@ -76,18 +81,24 @@ namespace Oroox.SubSuppliers.Handlers
                         ValidationMessages = validationMessages
                     };
                 }
-                response = await this.innerRequest.Handle(request, cancellationToken);
 
+                response = await this.innerRequest.Handle(request, cancellationToken);
                 this.postProcessors.ForEach(processor => processor.Process(request, response, cancellationToken));
-                int rowsChanged = context.SaveChanges();
+                await context.SaveChangesAsync(true, cancellationToken);
             }
-            catch (RequestProcessingException ex)
-            {
-                throw ex;
+            catch (Exception exception)
+            {        
+                throw new RequestProcessingException
+                (
+                    message:    $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +
+                                $"See Data to provide better view.",
+
+                    request: request,
+                    innerException: exception
+                );
             }
 
             events.ForEach(@event => @event.Handle(request, cancellationToken));
-
             return response;
         }
     }

@@ -1,8 +1,9 @@
-﻿using Oroox.SubSuppliers.Domain.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -22,42 +23,33 @@ namespace Oroox.SubSuppliers.Domain
                     {
                         AddressType = ctx.Enumerations.AddressTypes[AddressTypeEnum.Shipping],
                         CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],
-                        Deleted = false,
                         PhoneNumber = "123 123 123",
                         Street = "Jakas ulica 20",
                     }
                 },
-                MillingMachines = new[]
+                Machines = new List<Machine>
                 {
                     new MillingMachine
                     {
-                        MachineNumber = "TYPE_1",
-                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 5,
-                        MinimalMachiningDimensions = 10,
-                        Name = "SuperMachine2000"
+                       MachineNumber = "T2",
+                        Name = "MillingMachine",
+                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                        XMax  = 10f,
+                        YMax = 20f,
+                        YMin = 30f,
+                        XMin = 40f,
                     },
-                    new MillingMachine
+                     new MillingMachine
                     {
-                        MachineNumber = "TYPE_2",
-                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 5,
-                        MinimalMachiningDimensions = 5,
-                        Name = "SuperMachine4000"
-                    },
-                    new MillingMachine
-                    {
-                        MachineNumber = "TYPE_3",
-                        MillingMachineType = ctx.Enumerations.MillingMachineTypes[MillingMachineTypeEnum.TYPE_1],
-                        MillingMachineDimensionsType = ctx.Enumerations.MillingMachineDimensionsTypes[MillingMachineDimensionsTypeEnum.FIVE_AXIS],
-                        Deleted = false,
-                        MaximalMachiningDimensions = 1,
-                        MinimalMachiningDimensions = 2,
-                        Name = "SuperMachine1000"
+                       MachineNumber = "T1",
+                        Name = "TurningMachine",
+                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                        XMax  = 4.0f,
+                        YMax = 30f,
+                        YMin = 40f,
+                        XMin = 20f,
+                        ZMax = 10f,
+                        ZMin = 100f
                     },
                 },
                 EmailAddress = "robert.shmidt@someCompany.com",
@@ -89,8 +81,27 @@ namespace Oroox.SubSuppliers.Domain
                 }
             };
 
+            newCustomer.AddMachine(new TurningMachine
+            {
+                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                MachineNumber = "200",
+                Name = "Test",
+                XMax = 595959595,
+            });
+
+            newCustomer.AddMachine(new MillingMachine
+            {
+                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                MachineNumber = "2001",
+                Name = "Tes2t",
+                XMax = 5959595,
+            });
+
             ctx.Customers.Add(newCustomer);
-            //ctx.Customers.Remove(ctx.Customers.AsQueryable().ToList().First());
+
+            var allCustomers = await ctx.Customers.AsQueryable().ToListAsync();
+            //var machines = allCustomers.FirstOrDefault(c => c.TurningMachines.Any()).TurningMachines;
+
             ctx.SaveChanges();
         }
     }

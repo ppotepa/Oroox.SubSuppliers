@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Modules.Customers.DTO
+namespace Oroox.SubSuppliers.Modules.Customers.CreateCustomer.DTO
 {
-    public class TurningMachineDTO
+    public class CreateCustomerTurningMachineDTO
     {
         public string MachineNumber { get; set; }
         public int MinimalMachiningDimensions { get; set; }

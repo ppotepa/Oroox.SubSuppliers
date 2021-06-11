@@ -2,16 +2,16 @@
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
-    public class TurningMachine : Entity
+    public class TurningMachine : CNCMachine
     {
-        public virtual Customer Customer { get; set; }       
-        public TurningMachineType TurningMachineType { get; set; }
-        
-        public string MachineNumber { get; set; }
-        public int MinimalMachiningDimensions { get; set; }
-        public int MaximalMachiningDimensions { get; set; }
-
-        public Guid CustomerId { get; set; }
-        public Guid TurningMachineTypeId { get; set; }
+        public virtual CNCMachineAxesType CNCMachineAxesType { get; set; }
+        public Guid CNCMachineAxesTypeId { get; set; }
+        public override (string PropertyName, double? Value)[] Dimensions => new[]
+        {
+            ( propertyName : nameof(this.XMin), value : this.XMin ),
+            ( propertyName : nameof(this.XMax), value : this.XMax ),
+            ( propertyName : nameof(this.YMin), value : this.YMin ),
+            ( propertyName : nameof(this.YMax), value : this.YMax ),
+        };
     }
 }

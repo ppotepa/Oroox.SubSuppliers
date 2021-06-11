@@ -9,99 +9,78 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
     /// Enumeration class. 
     /// Currently no use in this Project.
     /// /// </summary>
-
     public abstract class Enumeration : IComparable
     {
+        private const string VALUE = "value";
         private readonly int _value;
         private readonly string _displayName;
 
-        protected Enumeration()
-        {
-        }
-
+        protected Enumeration() { }
         protected Enumeration(int value, string displayName)
         {
             _value = value;
             _displayName = displayName;
         }
 
-        public int Value
+        public int Value => _value;
+        public string DisplayName => _displayName;
+
+        public override string ToString() => DisplayName;
+
+        public static IEnumerable<TEnumerationType> GetAll<TEnumerationType>() where TEnumerationType : Enumeration, new()
         {
-            get { return _value; }
-        }
+            Type type = typeof(TEnumerationType);
+            FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-        public string DisplayName
-        {
-            get { return _displayName; }
-        }
-
-        public override string ToString()
-        {
-            return DisplayName;
-        }
-
-        public static IEnumerable<T> GetAll<T>() where T : Enumeration, new()
-        {
-            var type = typeof(T);
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
-
-            foreach (var info in fields)
-            {
-                var instance = new T();
-                var locatedValue = info.GetValue(instance) as T;
-
-                if (locatedValue != null)
-                {
-                    yield return locatedValue;
-                }
-            }
+            return from FieldInfo info in fields
+                       let instance = new TEnumerationType()
+                       let locatedValue = info.GetValue(instance) as TEnumerationType
+                       where locatedValue != null
+                   select locatedValue;
         }
 
         public override bool Equals(object obj)
         {
-            var otherValue = obj as Enumeration;
+            Enumeration otherValue = obj as Enumeration;
 
-            if (otherValue == null)
+            if (otherValue is null)
             {
                 return false;
             }
 
-            var typeMatches = GetType().Equals(obj.GetType());
-            var valueMatches = _value.Equals(otherValue.Value);
+            bool typeMatches = GetType().Equals(obj.GetType());
+            bool valueMatches = _value.Equals(otherValue.Value);
 
             return typeMatches && valueMatches;
         }
 
-        public override int GetHashCode()
-        {
-            return _value.GetHashCode();
-        }
+        public override int GetHashCode() => _value.GetHashCode();
 
         public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
         {
-            var absoluteDifference = Math.Abs(firstValue.Value - secondValue.Value);
+            int absoluteDifference = Math.Abs(firstValue.Value - secondValue.Value);
             return absoluteDifference;
         }
 
-        public static T FromValue<T>(int value) where T : Enumeration, new()
+        public static TEnumeration FromValue<TEnumeration>(int value) where TEnumeration : Enumeration, new()
         {
-            var matchingItem = parse<T, int>(value, "value", item => item.Value == value);
+            TEnumeration matchingItem = Parse<TEnumeration, int>(value, VALUE, item => item.Value == value);
             return matchingItem;
         }
 
-        public static T FromDisplayName<T>(string displayName) where T : Enumeration, new()
+        public static TEnumeration FromDisplayName<TEnumeration>(string displayName) where TEnumeration : Enumeration, new()
         {
-            var matchingItem = parse<T, string>(displayName, "display name", item => item.DisplayName == displayName);
+            TEnumeration matchingItem = Parse<TEnumeration, string>(displayName, "display name", item => item.DisplayName == displayName);
             return matchingItem;
         }
 
-        private static T parse<T, K>(K value, string description, Func<T, bool> predicate) where T : Enumeration, new()
+        private static TEnumeration Parse<TEnumeration, TValue>(TValue value, string description, Func<TEnumeration, bool> predicate) where TEnumeration : Enumeration, new()
         {
-            var matchingItem = GetAll<T>().FirstOrDefault(predicate);
+            TEnumeration matchingItem = GetAll<TEnumeration>().FirstOrDefault(predicate);
 
             if (matchingItem == null)
             {
-                var message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof(T));
+                string message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof(TEnumeration));
                 throw new ApplicationException(message);
             }
 

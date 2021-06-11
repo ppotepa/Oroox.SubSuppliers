@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using Oroox.SubSuppliers.Domain.Context;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.Validator
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo.Validators
 {
     public class ValidateCustomerNotNull : AbstractValidator<UpdateCustomerAdditionalInfoRequest>
     {

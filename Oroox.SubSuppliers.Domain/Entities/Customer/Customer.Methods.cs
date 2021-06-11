@@ -1,17 +1,19 @@
-﻿namespace Oroox.SubSuppliers.Domain.Entities
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public partial class Customer : Entity
     {
-        public void AddMillingMachine(MillingMachine machine)
+        public void AddMachine(Machine machine)
         {
-            this.MillingMachines.Add(machine);
+            this.Machines.Add(machine);
         }
-
-        public void AddTurningMachine(TurningMachine machine)
-        {
-            this.TurningMachines.Add(machine);
-        }
-
+           
+     
+        public void AddMachines(IEnumerable<Machine> machines) 
+            => this.Machines.AddRange(machines);
+       
         public void UpdateCustomerAdditionalInfo(CustomerAdditionalInfo info)
         {
             this.CustomerAdditionalInfo = info;

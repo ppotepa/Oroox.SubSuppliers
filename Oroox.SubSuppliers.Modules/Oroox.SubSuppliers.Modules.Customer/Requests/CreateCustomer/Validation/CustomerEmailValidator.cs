@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Serilog;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Validation
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Validation
 {
     /// <summary>
     /// Customer Validator.

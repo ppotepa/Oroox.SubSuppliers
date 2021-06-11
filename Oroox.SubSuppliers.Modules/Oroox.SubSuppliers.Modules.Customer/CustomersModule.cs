@@ -1,11 +1,8 @@
 ﻿using Autofac;
 using FluentValidation;
-using MediatR;
 using MediatR.Pipeline;
 using Oroox.SubSuppliers.Event;
-using Oroox.SubSuppliers.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.Customers

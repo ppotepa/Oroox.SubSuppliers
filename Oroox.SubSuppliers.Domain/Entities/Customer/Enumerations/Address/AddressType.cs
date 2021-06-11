@@ -6,7 +6,5 @@
         Billing
     }
 
-    public class AddressType : EnumerationEntity<AddressTypeEnum>
-    {       
-    }
+    public class AddressType : EnumerationEntity<AddressTypeEnum> { }   
 }

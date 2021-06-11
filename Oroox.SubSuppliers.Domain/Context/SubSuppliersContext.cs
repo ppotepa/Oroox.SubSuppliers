@@ -1,11 +1,13 @@
 ﻿using Faithlife.Utility;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,83 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
     public class SubSuppliersContext : DbContext, IApplicationContext
-    {
-        private const string EnumerationClassName = "EnumerationEntity`1";
-        private readonly IConfiguration configuration;
+    {            
         private readonly Type[] currentAssemblyTypes;
+        private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
+        private readonly OxSuppliersEnvironmentVariables environmentVariables;
+        private readonly bool LoggingEnabled;
+        private readonly string outputFileName;
+        private readonly IServiceProvider serviceProvider;
         private Type[] _currentEntities = default;
+        private SubSuppliersContextEnumerations _enumerations;
+
+        public SubSuppliersContext() : base()
+        {
+            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
+            this.LoggingEnabled = true;
+
+            IConfigurationRoot configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+            serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton(configuration)
+                .AddSingleton(this)
+                .BuildServiceProvider();
+
+            environmentVariables = configuration.GetEnvironmentVariables();
+            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
+        }
+
+        public SubSuppliersContext(bool enableLogging = false) : base()
+        {
+            this.LoggingEnabled = enableLogging;
+
+            IConfigurationRoot configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+            serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton(configuration)
+                .AddSingleton(this)
+                .BuildServiceProvider();
+
+            environmentVariables = configuration.GetEnvironmentVariables();
+            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
+            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
+
+            Database.EnsureCreated();
+        }
+
+        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
+
+        public SubSuppliersContextEnumerations Enumerations
+        {
+            get
+            {
+                if (_enumerations is null)
+                {
+                    _enumerations = new SubSuppliersContextEnumerations
+                    (
+                        this.CompanySizeTypes.ToDictionary(type => type.Value, instance => instance),
+                        this.CountryCodeTypes.ToDictionary(type => type.Value, instance => instance),
+                        this.AddressTypes.ToDictionary(type => type.Value, instance => instance),
+                        this.OtherTechnologies.ToDictionary(type => type.Value, instance => instance),
+                        this.CNCMachineAxesTypes.ToDictionary(type => type.Value, instance => instance),
+                        this.Certifications.ToDictionary(type => type.Value, instance => instance)
+                    );
+                }
+                return _enumerations;
+            }
+            set => _enumerations = value;
+        }
+
+        public DbSet<TurningMachine> Machines { get; set; }
+
+        private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
+
         private Type[] CurrentEntities
         {
             get 
@@ -32,154 +102,103 @@ namespace Oroox.SubSuppliers.Domain.Context
                 }
                 return _currentEntities;
             }
-            set => _currentEntities = value;
         }
-
-        private readonly OxSuppliersEnvironmentVariables environmentVariables;
-        private readonly bool LoggingEnabled;
-        private readonly string outputFileName;
-        private readonly IServiceProvider serviceProvider;
-        private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
-        private SubSuppliersContextEnumerations _enumerations;
-
-        public SubSuppliersContext() : base()
-        {
-            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
-            this.LoggingEnabled = true;
-
-            configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
-            serviceProvider = new ServiceCollection()
-                .AddLogging()
-                .AddSingleton(configuration)
-                .AddSingleton(this)
-                .BuildServiceProvider();
-
-            environmentVariables = this.configuration.GetEnvironmentVariables();         
-            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
-        }
-        public SubSuppliersContext(bool enableLogging = false) : base() 
-        {
-            this.LoggingEnabled = enableLogging;            
-
-            configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
-            serviceProvider = new ServiceCollection()
-                .AddLogging()
-                .AddSingleton(configuration)
-                .AddSingleton(this)
-                .BuildServiceProvider();
-
-            environmentVariables = this.configuration.GetEnvironmentVariables();
-            outputFileName = $"ef.migrations-{FormattedDateTime}.output.log";
-            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
-
-            Database.EnsureCreated();
-        }
-
         #region DB_SETS
         public DbSet<AddressType> AddressTypes { get; set; }
         public DbSet<Certification> Certifications { get; set; }
+        public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Registration> Registrations { get; set; }
-        public DbSet<MillingMachineDimensionsType> MillingMachineDimensionsTypes { get; set; }
-        public DbSet<MillingMachineType> MillingMachineTypes { get; set; }
-        public DbSet<TurningMachineType> TurningMachineTypes { get; set; }
-        public DbSet<TurningMachine> TurningMachines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
+        public DbSet<TurningMachine> TurningMachines { get; set; }
+        public DbSet<MillingMachine> MillingMachines { get; set; }
+        public IEnumerable<object> Entries => ((IEnumerable<object>)this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
 
         #endregion DB_SETS
-        public SubSuppliersContextEnumerations Enumerations
-        {
-            get
-            {
-                if (this._enumerations is null)
-                {
-                    _enumerations = new SubSuppliersContextEnumerations
-                    (
-                        this.CompanySizeTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.CountryCodeTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.AddressTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.OtherTechnologies.ToDictionary(type => type.Value, instance => instance),
-                        this.MillingMachineTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.MillingMachineDimensionsTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.TurningMachineTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.Certifications.ToDictionary(type => type.Value, instance => instance)
-                    );
-                }
-                return _enumerations;
-            }
+        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
+            => this.Attach(entity);
 
-            set => _enumerations = value;
-        }
-        private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
+        public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class
+            => this.ChangeTracker.Entries<TEntity>().Where(entry => entry.State is EntityState.Added);
 
-        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
+        public IEnumerable<EntityEntry> NewEntries() =>
+           this.ChangeTracker.Entries<Entity>().Where(entry => entry.State is EntityState.Added);
 
-        private MethodInfo ExpressionMethod(Type entity)
-        {
-            return this.GetType()
-                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.Instance | BindingFlags.NonPublic)
-                          .MakeGenericMethod(entity);
-        }
-        
+        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value) 
+            => this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
 
-        public override int SaveChanges()
+        public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
-            List<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>().ToList();
-
+            IEnumerable<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>();
+            
             entities.ForEach(entry =>
             {
-                if (entry.State == EntityState.Added)
+                var dynamicEntry = entry as dynamic;
+
+                if (dynamicEntry.State is EntityState.Added)
                 {
-                    entry.Entity.CreatedOn = currentDateTime;
+                    dynamicEntry.Entity.CreatedOn = currentDateTime;
                 }
 
-                if (entry.State == EntityState.Modified)
+                if (dynamicEntry.State is EntityState.Modified)
                 {
-                    entry.Entity.ModifiedOn = currentDateTime;    
+                    dynamicEntry.Entity.ModifiedOn = currentDateTime;
                 }
 
-                if (entry.State == EntityState.Deleted)
+                if (entry.State is EntityState.Deleted)
                 {
-                    entry.Entity.Deleted = true;
-                    entry.Entity.DeletedOn = currentDateTime;
+                    dynamicEntry.Entity.MarkAsDeleted();
+                    dynamicEntry.Entity.DeletedOn = currentDateTime;
                     entry.State = EntityState.Modified;
                 }
             });
 
-            return base.SaveChanges();
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBUilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.EnableSensitiveDataLogging();
+
             if (LoggingEnabled)
             {
-                optionsBUilder.LogTo(text => File.AppendAllText(outputFileName, text));
+                optionsBuilder.LogTo(text => File.AppendAllText(outputFileName, text));
             }
 
-            optionsBUilder.UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
+                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
             GenerateCustomersTable(modelBuilder);
             AddGenericEntityFilter(modelBuilder);
             GenerateAddressTable(modelBuilder);
             GenerateEnumerationTables(modelBuilder);
-            
+            GenerateMachineTable(modelBuilder);
         }
+
+        private static string GetEnumUniqueName(object value, Type currentEnum)
+            => Enum.GetName(currentEnum, value) + "_" + value.ToString();
 
         private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
-            CurrentEntities.ForEach(entity =>
+            
+            CurrentEntities.Where(e => e.BaseType == typeof(Entity)).ForEach(entity =>
             {
                 dynamic expression = ExpressionMethod(entity).Invoke(this, null);
                 modelBuilder.Entity(entity).HasQueryFilter(expression);
             });
         }
+
+        private MethodInfo ExpressionMethod(Type entity) => this.GetType()
+                          .GetMethod(nameof(GetGlobalFilterExpression), BindingFlags.Instance | BindingFlags.NonPublic)
+                          .MakeGenericMethod(entity);
 
         private void GenerateAddressTable(ModelBuilder modelBuilder)
         {
@@ -187,59 +206,76 @@ namespace Oroox.SubSuppliers.Domain.Context
             modelBuilder.Entity<Address>().HasOne(x => x.Customer);
             modelBuilder.Entity<Address>().HasOne(x => x.CountryCodeType);
         }
+
+        private void GenerateMachineTable(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CNCMachineAxesType>()
+                .HasMany(x => x.MillingMachines)
+                .WithOne(x => x.CNCMachineAxesType)
+                .HasForeignKey(x => x.CNCMachineAxesTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<CNCMachineAxesType>()
+                .HasMany(x => x.TurningMachines)
+                .WithOne(x => x.CNCMachineAxesType)
+                .HasForeignKey(x => x.CNCMachineAxesTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TurningMachine>().HasDiscriminator(x => x.MachineTypeName);            
+            modelBuilder.Entity<MillingMachine>().HasDiscriminator(x => x.MachineTypeName);
+        }
+
         private void GenerateCustomersTable(ModelBuilder builder)
         {
             builder.Entity<Customer>().HasKey(x => x.Id);
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
             builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.MillingMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.TurningMachines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);            
             builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             
+            //builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey<Machine>(x => x.CustomerId).ond            
             builder.Entity<CustomerAdditionalInfo>().HasOne(x => x.Customer).WithOne(x => x.CustomerAdditionalInfo).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<CustomerAdditionalInfo>().Property(x => x.Id).ValueGeneratedOnAdd();
         }
 
         private void GenerateEnumerationTables(ModelBuilder builder)
         {
-            List<Type> enumerationEntities = currentAssemblyTypes
-                 .Where(type => type.GetInterfaces().Contains(typeof(IEnumerationEntity)) && type.Name != EnumerationClassName)
-                 .ToList();
-
-            Type[] currentAssemblyEnums = currentAssemblyTypes.Where(type => type.IsEnum).ToArray();            
+            Type[] enumerationEntities = EnumerationUtility.GetCurrentAssemblyEnumerations();
+            Type[] currentAssemblyEnums = EnumerationUtility.GetCurrentAssemblyEnumerationTypes();
 
             enumerationEntities.ForEach((entity, index) =>
             {
                 Type currentEnum = currentAssemblyEnums[index];
 
-                var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>().Select(value => new
+                var currentEnumDataSeed = Enum.GetValues(currentEnum).Cast<object>()
+                .Select(value =>
                 {
-                    Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)),
-                    Value = Convert.ChangeType(value, currentEnum),
-                    Name = Enum.GetName(currentEnum, value),
-                }).ToArray();
+                    return new
+                    {
+                        Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)), 
+                        Value = Convert.ChangeType(value, currentEnum),
+                        Name = Enum.GetName(currentEnum, value)
+                    };
+                })
+                .ToArray();
 
-                builder.Entity(entity).HasAlternateKey("Value");
+                builder.Entity(entity).HasKey(new[] { "Id" });
                 builder.Entity(entity).HasData(currentEnumDataSeed);
             });
         }
 
-        private static string GetEnumUniqueName(object value, Type currentEnum) 
-            => Enum.GetName(currentEnum, value) + "_" + value.ToString();
-      
-        private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity 
-            => entity => EF.Property<bool>(entity, "Deleted").Equals(false);
+        private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity
+            => (entity) => EF.Property<bool>(entity, "Deleted").Equals(false);
 
-        EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value)
+        void IApplicationContext.Update<TEntity>(TEntity entity) 
+            => this.Update(entity);
+
+        public void Detach<TEntity>(TEntity entity) where TEntity : Entity
         {
-            return this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
+            this.Entry(entity).State = EntityState.Detached;
         }
-
-        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
-            => this.Attach(entity);
-        
     }
 }

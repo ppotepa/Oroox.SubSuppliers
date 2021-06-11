@@ -10,6 +10,7 @@
     <PackageReference Include="AutofacSerilogIntegration" Version="5.0.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.6" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
@@ -27,7 +28,6 @@
     <ProjectReference Include="..\Oroox.SubSuppliers.Extensions\Oroox.SubSuppliers.Extensions.csproj" />
     <ProjectReference Include="..\Oroox.SubSuppliers.Modules.Job\Oroox.SubSuppliers.Modules.Jobs.csproj" />
     <ProjectReference Include="..\Oroox.SubSuppliers.Modules\Oroox.SubSuppliers.Modules.Customer\Oroox.SubSuppliers.Modules.Customers.csproj" />
-    <ProjectReference Include="..\Oroox.SubSuppliers.Services\Oroox.SubSuppliers.Services.csproj" />
   </ItemGroup>
 
  

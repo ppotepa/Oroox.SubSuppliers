@@ -2,7 +2,7 @@
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo
 {
-    public class UpdateCustomerAdditionalInfoRequestResponse : ResponseBase
+    public class UpdateCustomerAdditionalInfoRequestResponse : BaseRespone
     {
     }
 }

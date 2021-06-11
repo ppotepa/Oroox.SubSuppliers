@@ -10,21 +10,24 @@ namespace Oroox.SubSuppliers.Domain
     public class Entity 
     {
         public object this[string propertyName] => _properties[propertyName];
+        public bool HasRootEntity => this.GetType().BaseType != null && this.GetType().BaseType != typeof(object);
         private void UpdateProperty(string propertyName, object @value)
         {
             this.Properties[propertyName].SetMethod.Invoke(this, new object[] { @value });
         }
 
         private Dictionary<string, PropertyInfo> _properties = default;
+
         [NotMapped]
-        public Dictionary<string, PropertyInfo> Properties 
+        internal Dictionary<string, PropertyInfo> Properties
         {
-            get 
+            get
             {
                 if (_properties is null)
                 {
-                    this._properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                                    .Where(prop => prop.CanWrite &&  prop.Name != "Properties")
+                    this._properties = this.GetType()
+                                                    .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                                    .Where(prop => prop.CanWrite && prop.Name != "Properties")
                                                     .ToDictionary(x => x.Name, x => x);
 
                 }
@@ -49,19 +52,7 @@ namespace Oroox.SubSuppliers.Domain
                 .ForEach(x => this.UpdateProperty(x.Key, x.Value.GetValue(entity)));
 
         private static readonly string[] ShadowProperties = typeof(Entity).GetProperties().Select(p => p.Name).ToArray();
-    }
 
-    public class EnumerationEntity<TEnumType> : IEnumerationEntity where TEnumType : Enum
-    {
-        private string _value;
-        public TEnumType Value { get; set; }
-        public string Name { get => Value.ToString(); set => _value = value; }
-        public Guid Id { get; set; }
-        
-    }
-
-    public interface IEnumerationEntity 
-    {
-        Guid Id { get; set; }
+        public void MarkAsDeleted() => this.Deleted = true;
     }
 }

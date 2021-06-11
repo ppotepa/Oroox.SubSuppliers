@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Oroox.SubSuppliers.Modules.Customers.Requests;
 using Serilog;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Validation
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
 {
     /// <summary>
     /// Customer Validator.

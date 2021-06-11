@@ -10,7 +10,7 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210601125741_Customer")]
+    [Migration("20210610135934_Customer")]
     partial class Customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
+                .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CertificationCustomer", b =>
@@ -64,8 +64,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("Certifications");
 
@@ -205,6 +203,43 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CNCMachineAxesTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("6742fcc8-0eff-5717-aee9-d9b939b3a343"),
+                            Name = "THREE_AXIS",
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("3885e147-acca-5bbb-b04e-735d54671725"),
+                            Name = "THREE_PLUS_TWO_AXIS",
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("7b4362de-c2e5-53c1-901b-aaadbd8b4eb4"),
+                            Name = "FIVE_AXIS",
+                            Value = 2
+                        });
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -336,8 +371,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Value");
-
                     b.ToTable("AddressTypes");
 
                     b.HasData(
@@ -368,8 +401,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("CompanySizeTypes");
 
@@ -419,8 +450,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("CountryCodeTypes");
 
@@ -1921,90 +1950,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.MachineDimensionsType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
-
-                    b.ToTable("MachineDimensionsType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("6742fcc8-0eff-5717-aee9-d9b939b3a343"),
-                            Name = "THREE_AXIS",
-                            Value = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("3885e147-acca-5bbb-b04e-735d54671725"),
-                            Name = "THREE_PLUS_TWO_AXIS",
-                            Value = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("7b4362de-c2e5-53c1-901b-aaadbd8b4eb4"),
-                            Name = "FIVE_AXIS",
-                            Value = 2
-                        });
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.MillingMachineType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
-
-                    b.ToTable("MillingMachineTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2ba465b4-881c-5bc5-b38a-1d35a87874dc"),
-                            Name = "TYPE_1",
-                            Value = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("96ccd35d-0f7d-5a71-b936-48b25093defe"),
-                            Name = "TYPE_2",
-                            Value = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("c87f5faf-ef4f-55fc-bde4-6b614690d107"),
-                            Name = "TYPE_3",
-                            Value = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("f02d8a9a-1d0d-5272-9b38-a6e65e15940a"),
-                            Name = "TYPE_4",
-                            Value = 3
-                        });
-                });
-
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies.OtherTechnology", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2018,8 +1963,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
 
                     b.ToTable("OtherTechnologies");
 
@@ -2080,7 +2023,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Machine", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2104,17 +2047,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<string>("MachineNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaximalMachiningDimensions")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("MillingMachineDimensionsTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MillingMachineTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("MinimalMachiningDimensions")
-                        .HasColumnType("int");
+                    b.Property<string>("MachineTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
@@ -2129,50 +2064,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("MillingMachineDimensionsTypeId");
+                    b.ToTable("Machine");
 
-                    b.HasIndex("MillingMachineTypeId");
-
-                    b.ToTable("MillingMachine");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachineDimensionsType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Value");
-
-                    b.ToTable("MillingMachineDimensionsTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("6742fcc8-0eff-5717-aee9-d9b939b3a343"),
-                            Name = "THREE_AXIS",
-                            Value = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("3885e147-acca-5bbb-b04e-735d54671725"),
-                            Name = "THREE_PLUS_TWO_AXIS",
-                            Value = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("7b4362de-c2e5-53c1-901b-aaadbd8b4eb4"),
-                            Name = "FIVE_AXIS",
-                            Value = 2
-                        });
+                    b.HasDiscriminator<string>("MachineTypeName").HasValue("Machine");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
@@ -2213,103 +2107,67 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Registrations");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.TurningMachine", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.HasBaseType("Oroox.SubSuppliers.Domain.Entities.Machine");
+
+                    b.Property<Guid>("CNCMachineAxesTypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<double?>("XMax")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<double?>("XMin")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<double?>("YMax")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                    b.Property<double?>("YMin")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("ZMax")
+                        .HasColumnType("float");
 
-                    b.Property<string>("MachineNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("ZMin")
+                        .HasColumnType("float");
 
-                    b.Property<int>("MaximalMachiningDimensions")
-                        .HasColumnType("int");
+                    b.HasIndex("CNCMachineAxesTypeId");
 
-                    b.Property<int>("MinimalMachiningDimensions")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TurningMachineTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("TurningMachineTypeId");
-
-                    b.ToTable("TurningMachines");
+                    b.HasDiscriminator().HasValue("MillingMachine");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.TurningMachineType", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.TurningMachine", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasBaseType("Oroox.SubSuppliers.Domain.Entities.Machine");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CNCMachineAxesTypeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("TurningMachine_CNCMachineAxesTypeId");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<double?>("XMax")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<double?>("XMin")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.HasAlternateKey("Value");
+                    b.Property<double?>("YMax")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.ToTable("TurningMachineTypes");
+                    b.Property<double?>("YMin")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("float");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7634ad7d-600f-5c74-98bc-ed7bc6f42399"),
-                            Name = "TURNING_MACHINE_TYPE_1",
-                            Value = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("23e24e01-996d-5ae2-b63a-b988b607685a"),
-                            Name = "TURNING_MACHINE_TYPE_2",
-                            Value = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("c4c5a51c-6f3f-5a82-aeb8-db1a520f5b67"),
-                            Name = "TURNING_MACHINE_TYPE_3",
-                            Value = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("34c0fc6f-7649-5991-ae36-852d73b57c6e"),
-                            Name = "TURNING_MACHINE_TYPE_4",
-                            Value = 3
-                        },
-                        new
-                        {
-                            Id = new Guid("a7f50e2d-5eae-583a-804f-4e8bcd6c2429"),
-                            Name = "TURNING_MACHINE_TYPE_5",
-                            Value = 4
-                        });
+                    b.HasIndex("CNCMachineAxesTypeId");
+
+                    b.HasDiscriminator().HasValue("TurningMachine");
                 });
 
             modelBuilder.Entity("CertificationCustomer", b =>
@@ -2391,31 +2249,15 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Machine", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
-                        .WithMany("MillingMachines")
+                        .WithMany("Machines")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.MillingMachineDimensionsType", "MillingMachineDimensionsType")
-                        .WithMany()
-                        .HasForeignKey("MillingMachineDimensionsTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Enumerations.MillingMachineType", "MillingMachineType")
-                        .WithMany()
-                        .HasForeignKey("MillingMachineTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
-
-                    b.Navigation("MillingMachineDimensionsType");
-
-                    b.Navigation("MillingMachineType");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
@@ -2429,23 +2271,33 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", "CNCMachineAxesType")
+                        .WithMany("MillingMachines")
+                        .HasForeignKey("CNCMachineAxesTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CNCMachineAxesType");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.TurningMachine", b =>
                 {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", "CNCMachineAxesType")
                         .WithMany("TurningMachines")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CNCMachineAxesTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Oroox.SubSuppliers.Domain.TurningMachineType", "TurningMachineType")
-                        .WithMany()
-                        .HasForeignKey("TurningMachineTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("CNCMachineAxesType");
+                });
 
-                    b.Navigation("Customer");
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", b =>
+                {
+                    b.Navigation("MillingMachines");
 
-                    b.Navigation("TurningMachineType");
+                    b.Navigation("TurningMachines");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>
@@ -2454,11 +2306,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.Navigation("CustomerAdditionalInfo");
 
-                    b.Navigation("MillingMachines");
+                    b.Navigation("Machines");
 
                     b.Navigation("Registration");
-
-                    b.Navigation("TurningMachines");
                 });
 #pragma warning restore 612, 618
         }
