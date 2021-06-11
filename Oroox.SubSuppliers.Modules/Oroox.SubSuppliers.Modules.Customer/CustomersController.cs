@@ -5,6 +5,8 @@ using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Customers.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine;
 using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer;
@@ -53,12 +55,13 @@ namespace Oroox.SubSuppliers.Modules.Customers
 
         [HttpPost]
         public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachineModel request)
-            => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerMillingMachineRequest>(request));
+            => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachinesRequest>(request));
 
         [HttpPost]
-        public async Task<IActionResult> AddCustomerMillingMachine(AddCustomerMillingMachineRequest request)
-           => await Handle(this.mapper.Map<AddCustomerMillingMachineRequest, AddCustomerMillingMachineRequest>(request));
-
-
+        public async Task<IActionResult> AddCustomerMillingMachine(AddCustomerMillingMachineModel request)
+        {
+            IActionResult result = await Handle(this.mapper.Map<AddCustomerMillingMachineModel, AddCustomerMillingMachineRequest>(request));
+            return result;
+        }      
     }
 }

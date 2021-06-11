@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Validation
 {
-    public class TurningMachinesValidator : AbstractValidator<AddCustomerMillingMachineRequest>
+    public class TurningMachinesValidator : AbstractValidator<AddCustomerTurningMachinesRequest>
     {
         private readonly IApplicationContext context;
         public TurningMachinesValidator(IApplicationContext context)
@@ -32,14 +32,14 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachin
                     return 
                         $"Invalid dimensions for machine with name : " +
                         $"[{ machine.Name }],\\n Wrong Dimensions : " +
-                        $"{ string.Join(", ", machine.Dimensions.Where(x => x.value < 0).Select(x => x.propertyName)) }";
+                        $"{ string.Join(", ", machine.Dimensions.Where(dimendions => dimendions.Value < 0).Select(dimensions => dimensions.PropertyName)) }";
                 });
         }
 
         private bool HaveNameSpecified(TurningMachine machine) 
             => string.IsNullOrEmpty(machine.Name);
         private bool HaveNonNegativeDimensions(TurningMachine machine) 
-            => machine.Dimensions.All(machineDimensions => machineDimensions.value > 0);
+            => machine.Dimensions.All(machineDimensions => machineDimensions.Value > 0);
 
 
         private bool Exist(Guid customerId)

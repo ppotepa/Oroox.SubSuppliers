@@ -5,6 +5,7 @@ using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +34,8 @@ namespace Oroox.SubSuppliers.Domain.Context
         public int SaveChanges();
         public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
         public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class;
-        public IEnumerable<EntityEntry> NewEntries() => this.ChangeTracker.Entries();
+        public IEnumerable<EntityEntry> NewEntries();
+           
         public IEnumerable<object> Entries { get; }
 
     }

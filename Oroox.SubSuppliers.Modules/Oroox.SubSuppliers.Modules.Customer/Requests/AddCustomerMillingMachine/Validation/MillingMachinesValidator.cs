@@ -27,23 +27,28 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachin
                 .NotNull()
                 .NotEmpty()
                 .Must(HaveNonNegativeDimensions)
+                .WithMessage("Please specify machine name")
                 .Must(HaveNameSpecified)
                 .WithMessage((request, machine) =>
                 {
-                    return
-                        $"Invalid dimensions for machine with name : " +
+                    string message = $"Invalid dimensions for machine with name : " +
                         $"[{ machine.Name }],\\n Wrong Dimensions : " +
-                        $"{ string.Join(", ", machine.Dimensions.Where(x => x.value < 0).Select(x => x.propertyName)) }";
+                        $"{ string.Join(", ", machine.Dimensions.Where(dimensions => dimensions.Value < 0).Select(dimensions => dimensions.PropertyName)) }";
+
+                    return message;
                 });
         }
 
-        private bool HaveNameSpecified(MillingMachine machine) => string.IsNullOrEmpty(machine.Name);
+        private bool HaveNameSpecified(MillingMachine machine) 
+            => !string.IsNullOrEmpty(machine.Name);
 
         private bool HaveNonNegativeDimensions(MillingMachine machine) 
-            => machine.Dimensions.All(x => x.value > 0);
+            => machine.Dimensions.All(dimensions => dimensions.Value > 0);
 
         private bool Exist(Guid customerId)
-                => this.context.Customers.AsQueryable().Any(x => x.Id == customerId);
+                => this.context.Customers
+                        .AsQueryable()
+                        .Any(customer => customer.Id == customerId);
     }
 
 }

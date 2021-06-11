@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.PreProcessors
 {
-    public class BindWithCustomer : IRequestPreProcessor<AddCustomerMillingMachineRequest>
+    public class BindWithCustomer : IRequestPreProcessor<AddCustomerTurningMachinesRequest>
     {
         private readonly IApplicationContext context;
         public BindWithCustomer(IApplicationContext context)
@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachin
             this.context = context;
         }
 
-        public Task Process(AddCustomerMillingMachineRequest request, CancellationToken cancellationToken)
+        public Task Process(AddCustomerTurningMachinesRequest request, CancellationToken cancellationToken)
         {
             request.Customer = this.context.Customers
                 .GetById(request.CustomerId)                

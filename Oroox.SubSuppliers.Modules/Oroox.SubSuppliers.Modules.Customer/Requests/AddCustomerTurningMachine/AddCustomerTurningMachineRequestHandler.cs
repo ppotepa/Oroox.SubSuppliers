@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine
 {
-    public class AddCustomerTurningMachineRequestHandler : IRequestHandler<AddCustomerMillingMachineRequest, AddCustomerTurningMachineRequestResponse>
+    public class AddCustomerTurningMachineRequestHandler : IRequestHandler<AddCustomerTurningMachinesRequest, AddCustomerTurningMachineRequestResponse>
     {
         private readonly ILogger logger;
         private readonly IApplicationContext context;
@@ -20,7 +20,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachin
             this.context = context;
         }
 
-        public async Task<AddCustomerTurningMachineRequestResponse> Handle(AddCustomerMillingMachineRequest request, CancellationToken cancellationToken)
+        public async Task<AddCustomerTurningMachineRequestResponse> Handle(AddCustomerTurningMachinesRequest request, CancellationToken cancellationToken)
         {   
             if (request.Customer != null)
             {

@@ -121,10 +121,10 @@ namespace Oroox.SubSuppliers.Domain.Context
             => this.Attach(entity);
 
         public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class
-            => this.ChangeTracker.Entries<TEntity>();
+            => this.ChangeTracker.Entries<TEntity>().Where(entry => entry.State is EntityState.Added);
 
-        public IEnumerable<EntityEntry> NewEntries()
-            => this.ChangeTracker.Entries();
+        public IEnumerable<EntityEntry> NewEntries() =>
+           this.ChangeTracker.Entries<Entity>().Where(entry => entry.State is EntityState.Added);
 
         EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value) 
             => this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
@@ -132,8 +132,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
-            var entities = ChangeTracker.Entries<Entity>();
-            var enumerations = ChangeTracker.Entries<IEnumerationEntity>();
+            IEnumerable<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>();
             
             entities.ForEach(entry =>
             {

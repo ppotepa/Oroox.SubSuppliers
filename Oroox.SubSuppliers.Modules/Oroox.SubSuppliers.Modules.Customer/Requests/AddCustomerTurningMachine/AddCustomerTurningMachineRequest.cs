@@ -5,7 +5,7 @@ using System;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine
 {
-    public class AddCustomerMillingMachineRequest : IRequest<AddCustomerTurningMachineRequestResponse>
+    public class AddCustomerTurningMachinesRequest : IRequest<AddCustomerTurningMachineRequestResponse>
     {
         public TurningMachine[] TurningMachines { get; set; }
         public Customer Customer { get; set; }

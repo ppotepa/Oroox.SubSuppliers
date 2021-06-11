@@ -19,7 +19,7 @@ namespace Oroox.SubSuppliers.Domain
         private Dictionary<string, PropertyInfo> _properties = default;
 
         [NotMapped]
-        public Dictionary<string, PropertyInfo> Properties
+        internal Dictionary<string, PropertyInfo> Properties
         {
             get
             {

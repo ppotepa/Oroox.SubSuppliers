@@ -14,6 +14,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public CNCMachineTypeEnum CNCMachineType
             => this.GetType() == typeof(MillingMachine) ? CNCMachineTypeEnum.MILLING : CNCMachineTypeEnum.TURNING;
 
-        public virtual (string propertyName, double? value)[] Dimensions 
+        public virtual (string PropertyName, double? Value)[] Dimensions 
             => throw new NotImplementedException("");
     }}
