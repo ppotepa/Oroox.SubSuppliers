@@ -6,12 +6,12 @@ namespace Oroox.SubSuppliers.Domain.Entities
     {
         public virtual CNCMachineAxesType CNCMachineAxesType { get; set; }
         public Guid CNCMachineAxesTypeId { get; set; }
-        public (string propertyName, double? value)[] Dimensions => new[] 
+        public (string propertyName, double? value)[] Dimensions => new[]
         {
             ( propertyName : nameof(this.XMin), value : this.XMin ),
             ( propertyName : nameof(this.XMax), value : this.XMax ),
             ( propertyName : nameof(this.YMin), value : this.YMin ),
-            ( propertyName : nameof(this.YMax), value : this.YMax ), 
+            ( propertyName : nameof(this.YMax), value : this.YMax ),
         };
     }
 }

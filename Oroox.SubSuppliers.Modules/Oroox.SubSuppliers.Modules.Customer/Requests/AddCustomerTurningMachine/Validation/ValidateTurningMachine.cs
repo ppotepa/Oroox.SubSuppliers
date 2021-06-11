@@ -4,9 +4,9 @@ using Oroox.SubSuppliers.Domain.Entities;
 using System;
 using System.Linq;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Validation
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Validation
 {
-    public class ValidateTurningMachine : AbstractValidator<AddCustomerTurningMachineRequest>
+    public class ValidateTurningMachine : AbstractValidator<AddCustomerMillingMachineRequest>
     {
         private readonly IApplicationContext context;
         public ValidateTurningMachine(IApplicationContext context)
@@ -38,7 +38,6 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
 
         private bool HaveNameSpecified(TurningMachine machine) 
             => string.IsNullOrEmpty(machine.Name);
-
         private bool HaveNonNegativeDimensions(TurningMachine machine)
         {
             return new[]
@@ -50,7 +49,6 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
             }
             .All(number => number > 0);
         }
-
         private bool Exist(Guid customerId)
             => this.context.Customers.AsQueryable().Any(x => x.Id == customerId);
     }

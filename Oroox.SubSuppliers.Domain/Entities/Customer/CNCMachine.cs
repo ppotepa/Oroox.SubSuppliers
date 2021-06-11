@@ -11,5 +11,4 @@
 
         public CNCMachineTypeEnum CNCMachineType
             => this.GetType() == typeof(MillingMachine) ? CNCMachineTypeEnum.MILLING : CNCMachineTypeEnum.TURNING;
-    };
-}
+    }}

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Response
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Response
 {
     public class AddCustomerTurningMachineRequestResponse : BaseRespone
     {

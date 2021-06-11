@@ -1,16 +1,15 @@
 ﻿using MediatR;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Extensions;
-using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Response;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Response;
 using Serilog;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine
 {
-    public class AddCustomerTurningMachineRequestHandler : IRequestHandler<AddCustomerTurningMachineRequest, AddCustomerTurningMachineRequestResponse>
+    public class AddCustomerTurningMachineRequestHandler : IRequestHandler<AddCustomerMillingMachineRequest, AddCustomerTurningMachineRequestResponse>
     {
         private readonly ILogger logger;
         private readonly IApplicationContext context;
@@ -21,7 +20,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
             this.context = context;
         }
 
-        public async Task<AddCustomerTurningMachineRequestResponse> Handle(AddCustomerTurningMachineRequest request, CancellationToken cancellationToken)
+        public async Task<AddCustomerTurningMachineRequestResponse> Handle(AddCustomerMillingMachineRequest request, CancellationToken cancellationToken)
         {   
             if (request.Customer != null)
             {

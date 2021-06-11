@@ -5,8 +5,8 @@ using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Customers.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.Model;
-using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest;
-using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Model;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer;
 using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById;
 using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model;
@@ -31,7 +31,7 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// </summary>
         /// <param name="request">UserDTO</param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Create(CreateCustomerModel request) 
             => await Handle(this.mapper.Map<CreateCustomerModel, CreateCustomerRequest>(request));
 
@@ -51,9 +51,10 @@ namespace Oroox.SubSuppliers.Modules.Customers
         public async Task<IActionResult> UpdateCustomerInfo(UdateCustomerAdditionalInfoModel request)
             => await Handle(this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachineModel request)
-            => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachineRequest>(request));
+            => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerMillingMachineRequest>(request));
+
 
     }
 }

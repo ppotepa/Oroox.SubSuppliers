@@ -3,7 +3,7 @@ using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Customers.AddTurningMachine.DTO;
 using System;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineRequest.Model
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Model
 {
     public class AddCustomerTurningMachineModel
     {
@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMachineReques
         public AddTurningMachineRequestMappingProfile()
         {
             CreateMap<TurningMachineDTO, TurningMachine>().ReverseMap();            
-            CreateMap<AddCustomerTurningMachineModel, AddCustomerTurningMachineRequest>().ReverseMap();           
+            CreateMap<AddCustomerTurningMachineModel, AddCustomerMillingMachineRequest>().ReverseMap();           
         }
     }
 
