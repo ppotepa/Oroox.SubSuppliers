@@ -90,7 +90,9 @@ namespace Oroox.SubSuppliers.Handlers
             {        
                 throw new RequestProcessingException
                 (
-                    message: $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}",
+                    message:    $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +
+                                $"See Data to provide better view.",
+
                     request: request,
                     innerException: exception
                 );
