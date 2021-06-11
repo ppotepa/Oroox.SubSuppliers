@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.Response;
 using System;
@@ -22,7 +21,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachin
 
                 AddCustomerMillingMachineRequestResponse result = new AddCustomerMillingMachineRequestResponse
                 {
-                    Response = "Sucessfully added MillingMachines",
+                    Response = $"Sucessfully added {request.MillingMachines.Count()} MillingMachines",
                 };
 
                 return await Task.FromResult(result);

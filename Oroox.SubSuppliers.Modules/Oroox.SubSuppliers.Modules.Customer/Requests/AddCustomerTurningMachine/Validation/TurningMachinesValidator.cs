@@ -38,6 +38,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachin
 
         private bool HaveNameSpecified(TurningMachine machine) 
             => string.IsNullOrEmpty(machine.Name);
+
         private bool HaveNonNegativeDimensions(TurningMachine machine) 
             => machine.Dimensions.All(machineDimensions => machineDimensions.Value > 0);
 

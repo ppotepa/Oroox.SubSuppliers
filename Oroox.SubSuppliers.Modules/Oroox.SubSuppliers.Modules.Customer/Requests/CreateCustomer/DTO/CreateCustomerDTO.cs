@@ -8,6 +8,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.CreateCustomer.DTO
         public string Password { get; set; }
         public string PasswordConfirmation { get; set; }
         public string EmailAddress { get; set; }
+        public string WebSite { get; set; }
         public Guid CompanySizeTypeId { get; set; }        
     }
 }

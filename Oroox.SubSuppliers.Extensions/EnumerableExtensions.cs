@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FluentValidation;
+using MediatR;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Oroox.SubSuppliers.Extensions
 {
@@ -37,5 +40,13 @@ namespace Oroox.SubSuppliers.Extensions
                 func(enumerator.Current, index++);
             }
         }
+
+        public static string[] GetValidationMessages<TRequest>(this IEnumerable<IValidator<TRequest>> validators, TRequest request) where TRequest : IBaseRequest
+            => validators.Select(validator => validator.Validate(request))
+                            .Where(result => result.IsValid is false)
+                            .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
+                            .ToArray();
+
+
     }
 }

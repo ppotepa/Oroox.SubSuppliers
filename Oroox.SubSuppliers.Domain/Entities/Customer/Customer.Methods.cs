@@ -8,6 +8,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public void AddMachine(Machine machine)
         {
             this.Machines.Add(machine);
+            machine.CreatedBy = this.Id;
         }
            
      

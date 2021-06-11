@@ -35,7 +35,7 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create(CreateCustomerModel request) 
-            => await Handle(this.mapper.Map<CreateCustomerModel, CreateCustomerRequest>(request));
+            => await Handle(request: this.mapper.Map<CreateCustomerModel, CreateCustomerRequest>(request));
 
         /// <summary>
         /// Gets User
@@ -43,25 +43,22 @@ namespace Oroox.SubSuppliers.Modules.Customers
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Activate([FromQuery] ActivateCustomerModel request)
-            => await Handle(this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
+            => await Handle(request: this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 
         [HttpGet]
         public async Task<IActionResult> GetCustomerById(GetCustomerByIdModel request)
-            => await Handle(this.mapper.Map<GetCustomerByIdModel, GetCustomerByIdRequest>(request));
+            => await Handle(request: this.mapper.Map<GetCustomerByIdModel, GetCustomerByIdRequest>(request));
 
         [HttpPatch]
         public async Task<IActionResult> UpdateCustomerInfo(UdateCustomerAdditionalInfoModel request)
-            => await Handle(this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
+            => await Handle(request: this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
 
         [HttpPut]
         public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachineModel request)
-            => await Handle(this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachinesRequest>(request));
+            => await Handle(request: this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachinesRequest>(request));
 
         [HttpPut]
-        public async Task<IActionResult> AddCustomerMillingMachine(AddCustomerMillingMachineModel request)
-        {
-            IActionResult result = await Handle(this.mapper.Map<AddCustomerMillingMachineModel, AddCustomerMillingMachineRequest>(request));
-            return result;
-        }      
+        public async Task<IActionResult> AddCustomerMillingMachine(AddCustomerMillingMachineModel request) 
+            => await Handle(request: this.mapper.Map<AddCustomerMillingMachineModel, AddCustomerMillingMachineRequest>(request));
     }
 }

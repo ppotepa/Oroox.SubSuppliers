@@ -44,7 +44,7 @@ namespace Oroox.SubSuppliers.Domain.Context
                 .BuildServiceProvider();
 
             environmentVariables = configuration.GetEnvironmentVariables();
-            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
+            currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();            
         }
 
         public SubSuppliersContext(bool enableLogging = false) : base()
@@ -277,5 +277,12 @@ namespace Oroox.SubSuppliers.Domain.Context
         {
             this.Entry(entity).State = EntityState.Detached;
         }
+
+        public void BeginTransaction() =>
+            this.Database.BeginTransaction();
+
+        public void CommitTransaction() =>
+            this.Database.CommitTransaction();
+       
     }
 }

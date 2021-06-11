@@ -63,15 +63,13 @@ namespace Oroox.SubSuppliers.Handlers
             TResponse response;
 
             try
-            {                
+            {
+                this.context.BeginTransaction();
+
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
                 this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
 
-                string[] validationMessages = this.validators
-                            .Select(validator => validator.Validate(request))
-                            .Where(result => result.IsValid is false)
-                            .SelectMany(e => e.Errors.Select(err => err.ErrorMessage))
-                            .ToArray();
+                string[] validationMessages = this.validators.GetValidationMessages(request);
 
                 if (validationMessages.Any() is true)
                 {
@@ -98,7 +96,9 @@ namespace Oroox.SubSuppliers.Handlers
                 );
             }
 
-            events.ForEach(@event => @event.Handle(request, cancellationToken));
+            this.context.CommitTransaction();
+
+            events.ForEach(@event => @event.Handle(request, cancellationToken));            
             return response;
         }
     }

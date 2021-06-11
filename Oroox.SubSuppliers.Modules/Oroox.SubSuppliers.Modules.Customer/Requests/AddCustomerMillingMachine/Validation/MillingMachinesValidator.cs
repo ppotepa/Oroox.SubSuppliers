@@ -13,7 +13,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachin
         public ValidateTurningMachine(IApplicationContext context)
         {
             this.context = context;
-            this.CascadeMode = CascadeMode.Stop;
+            this.CascadeMode = CascadeMode.Continue;
 
             RuleFor(x => x.CustomerId)
                 .NotNull()
@@ -26,9 +26,9 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachin
             RuleForEach(x => x.MillingMachines)
                 .NotNull()
                 .NotEmpty()
-                .Must(HaveNonNegativeDimensions)
-                .WithMessage("Please specify machine name")
                 .Must(HaveNameSpecified)
+                .WithMessage((request, machine) => $"Please specify machine name for machine with index : {Array.IndexOf(request.MillingMachines, machine) + 1}")
+                .Must(HaveNonNegativeDimensions)
                 .WithMessage((request, machine) =>
                 {
                     string message = $"Invalid dimensions for machine with name : " +
@@ -36,11 +36,16 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachin
                         $"{ string.Join(", ", machine.Dimensions.Where(dimensions => dimensions.Value < 0).Select(dimensions => dimensions.PropertyName)) }";
 
                     return message;
-                });
+                })
+                .Must(HaveAxesTypeSpecified)
+                .WithMessage((request, machine) => $"Please specify machine axes type for machine with index : {Array.IndexOf(request.MillingMachines, machine) + 1}");
         }
 
         private bool HaveNameSpecified(MillingMachine machine) 
-            => !string.IsNullOrEmpty(machine.Name);
+            => !string.IsNullOrEmpty(machine.MachineNumber);
+
+        private bool HaveAxesTypeSpecified(MillingMachine machine)
+           => machine.CNCMachineAxesTypeId != default;
 
         private bool HaveNonNegativeDimensions(MillingMachine machine) 
             => machine.Dimensions.All(dimensions => dimensions.Value > 0);

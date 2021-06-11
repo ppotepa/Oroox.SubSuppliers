@@ -5,7 +5,6 @@ using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,6 +37,8 @@ namespace Oroox.SubSuppliers.Domain.Context
            
         public IEnumerable<object> Entries { get; }
 
+        public void BeginTransaction();
+        public void CommitTransaction();
     }
 }
 
