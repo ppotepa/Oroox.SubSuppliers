@@ -39,7 +39,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
             }
         }
 
-        public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null)
+        public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string messageText = null)
         {
             MimeMessage message = new MimeMessage
             {
@@ -48,10 +48,10 @@ namespace Oroox.SubSuppliers.Services.Mailing
                 Subject = "Test subject",
                 Body = new TextPart("plain")
                 {
-                    Text = text is null ? $@"Hello {customer.CompanyName},
+                    Text = messageText is null ? $@"Hello {customer.CompanyName},
                         Thank you for registration. 
-                        Your activation code is : https://localhost:5001/api/customers/activate?Registration.ActivationCode={customer.Registration.ActivationCode},
-                    " : text
+                        Your activation code is : https://localhost:5001/api/customers/activate?Registration.ActivationCode={customer.Registration.ActivationCode}"
+                    : messageText
                 }
             };
 
