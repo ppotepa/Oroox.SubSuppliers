@@ -3,7 +3,7 @@
 namespace Oroox.SubSuppliers.Modules.Jobs
 {
     /// <summary>
-    /// Autofac UsersModule
+    /// Autofac JobsModule
     /// </summary>
     public class JobsModule : Module
     {
