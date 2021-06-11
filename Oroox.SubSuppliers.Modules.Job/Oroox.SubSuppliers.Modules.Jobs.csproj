@@ -5,17 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Requests\**" />
-    <EmbeddedResource Remove="Requests\**" />
-    <None Remove="Requests\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Requests\" />
   </ItemGroup>
 
 </Project>

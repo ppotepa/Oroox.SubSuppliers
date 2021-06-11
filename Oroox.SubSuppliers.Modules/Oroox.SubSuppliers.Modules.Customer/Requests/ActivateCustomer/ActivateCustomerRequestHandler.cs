@@ -34,7 +34,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer
             (
                 new ActivateCustomerRequestResponse 
                 {
-                   Response = "What are you doing here ?"
+                   Response = "What are you doing here ? 🤔🤔🤔"
                 }
             );
         }

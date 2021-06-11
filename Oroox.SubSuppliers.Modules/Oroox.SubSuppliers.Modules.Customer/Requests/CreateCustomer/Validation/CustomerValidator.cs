@@ -22,10 +22,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
             separator: Environment.NewLine,
             value: new string[]
             {
-                "Ensure your Password has at least one digit        😍.",
-                "Ensure your Password has three uppercase letters   😎.",
-                "Ensure your Password has three lowercase letters   😉.",
-                "Ensure your Password length of 8                   😇.",
+                "Ensure your Password has at least one digit                😍.",
+                "Ensure your Password has at least one uppercase letters    😎.",
+                "Ensure your Password has at least one lowercase letters    😉.",
+                "Ensure your Password length of 8                           😇.",
             }
         );
 

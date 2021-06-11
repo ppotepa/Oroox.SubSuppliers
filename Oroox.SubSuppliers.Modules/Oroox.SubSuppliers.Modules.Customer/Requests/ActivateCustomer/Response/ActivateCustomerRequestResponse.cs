@@ -4,6 +4,5 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomerRequest.
 {
     public class ActivateCustomerRequestResponse : BaseRespone
     {
-         
     }
 }

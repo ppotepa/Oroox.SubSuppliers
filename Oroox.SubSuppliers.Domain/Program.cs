@@ -15,6 +15,11 @@ namespace Oroox.SubSuppliers.Domain
     {
         public static async Task Main()
         {
+            var result = 1 > 2 && 1 >= 31;
+            var result2 =  1 == 31;
+            var result3 = 1 != 2;
+
+
             SubSuppliersContext ctx = new SubSuppliersContext(false);
             Enumerable.Range(1, 1000).ForEach((x, i) =>
             {
