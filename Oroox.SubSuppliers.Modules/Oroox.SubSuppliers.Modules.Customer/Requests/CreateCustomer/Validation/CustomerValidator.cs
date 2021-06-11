@@ -21,18 +21,17 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
             separator: Environment.NewLine,
             value: new string[]
             {
-                "Ensure your Password has two uppercase letters 😉.",
-                "Ensure your Password has one special case letter 😎",
-                "Ensure your Password has two digits 😍.",
-                "Ensure your Password has three lowercase letters 😅.",
-                "Ensure your Password has three lowercase letters 😅.",
-                "Ensure your Password is of length 8 😇.",
+                "Ensure your Password has two uppercase letters     😉.",
+                "Ensure your Password has one special case letter   😎.",
+                "Ensure your Password has two digits                😍.",
+                "Ensure your Password has three lowercase letters   😅.",
+                "Ensure your Password has three lowercase letters   😅.",
+                "Ensure your Password length of 8                   😇.",
             }
         );
 
         public CustomerValidator(ILogger logger)
         {
-
             this.logger = logger;
             this.CascadeMode = CascadeMode.Stop;
 
