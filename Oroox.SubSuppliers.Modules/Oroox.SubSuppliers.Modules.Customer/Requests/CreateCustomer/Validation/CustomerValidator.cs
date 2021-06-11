@@ -50,8 +50,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
             });
         }
 
-        private bool BeSafe(string passwordString)
-            => SafePasswordRegex.IsMatch(passwordString);
+        private bool BeSafe(string passwordString) => SafePasswordRegex.IsMatch(passwordString);
 
         private bool ExistIfStringIsNotNull(string websiteUrl)
         {
@@ -61,11 +60,9 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
             }
 
             if (IsValidUrl(websiteUrl))
-                return new HttpClient()
-                            .GetAsync(websiteUrl)
-                            .GetAwaiter()
-                            .GetResult()
-                            .IsSuccessStatusCode;
+            {
+                return new HttpClient().GetAsync(websiteUrl).GetAwaiter().GetResult().IsSuccessStatusCode;
+            }   
             
             return false;
         }
