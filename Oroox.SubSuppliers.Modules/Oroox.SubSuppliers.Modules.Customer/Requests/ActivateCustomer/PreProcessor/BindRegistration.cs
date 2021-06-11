@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using MediatR.Pipeline;
-using Microsoft.EntityFrameworkCore;
 using Oroox.SubSuppliers.Domain.Context;
 using System.Linq;
 using System.Threading;
@@ -18,12 +17,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer.PreProc
 
         public Task Process(ActivateCustomerRequest request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Registration targetRegistration = context
+            request.Registration = context
                 .Registrations
                 .AsQueryable()                
                 .FirstOrDefault(x => x.ActivationCode == request.Registration.ActivationCode);
-
-            request.Registration = targetRegistration;
 
             return Unit.Task;
         }
