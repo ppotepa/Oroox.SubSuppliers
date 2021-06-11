@@ -27,8 +27,9 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer
                     {
                         RedirectUrl = environmentVariables.IsDevelopment ? "http://localhost:4200" : "/"
                     }
-                );         
+                );
             }
+
             return Task.FromResult
             (
                 new ActivateCustomerRequestResponse 

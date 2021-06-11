@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Modules.Customers.AddTurningMachine.DTO
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.DTO
 {
-    public class TurningMachineDTO
+    public class MillingMachineDTO
     {
         public string MachineNumber { get; set; }
         public double? XMin { get; set; }
@@ -10,9 +10,11 @@ namespace Oroox.SubSuppliers.Modules.Customers.AddTurningMachine.DTO
 
         public double? YMin { get; set; }
         public double? YMax { get; set; }
-        public string Name { get; set; }
 
-        public Guid TurningMachineTypeId { get; set; }
+        public double? ZMin { get; set; }
+        public double? ZMax { get; set; }
+
+        public string Name { get; set; }        
         public Guid CNCMachineAxesTypeId { get; set; }
     }
 }

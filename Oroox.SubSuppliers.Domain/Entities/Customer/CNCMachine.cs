@@ -1,4 +1,6 @@
-﻿namespace Oroox.SubSuppliers.Domain.Entities
+﻿using System;
+
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public enum CNCMachineTypeEnum { MILLING, TURNING }
     public abstract class CNCMachine : Machine
@@ -11,4 +13,7 @@
 
         public CNCMachineTypeEnum CNCMachineType
             => this.GetType() == typeof(MillingMachine) ? CNCMachineTypeEnum.MILLING : CNCMachineTypeEnum.TURNING;
+
+        public virtual (string propertyName, double? value)[] Dimensions 
+            => throw new NotImplementedException("");
     }}
