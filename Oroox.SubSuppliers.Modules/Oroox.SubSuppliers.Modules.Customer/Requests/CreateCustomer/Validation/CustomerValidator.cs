@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Oroox.SubSuppliers.Domain.Entities;
 using Serilog;
 using System;
 using System.Net.Http;
@@ -21,10 +22,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
             separator: Environment.NewLine,
             value: new string[]
             {
-                "Ensure your Password has two uppercase letters     😉.",
+                "Ensure your Password has two uppercase letters     😉.", // Make code Human Friendly.
                 "Ensure your Password has one special case letter   😎.",
                 "Ensure your Password has two digits                😍.",
-                "Ensure your Password has three lowercase letters   😅.",
+                "Ensure your Password has three uppercase letters   😅.",
                 "Ensure your Password has three lowercase letters   😅.",
                 "Ensure your Password length of 8                   😇.",
             }
@@ -46,24 +47,29 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
                 RuleFor(request => request.Customer.PasswordConfirmation).NotNull().NotEmpty().WithMessage("Password Confirmation cannot be null");
                 RuleFor(request => request.Customer.PasswordConfirmation).Equal(x => x.Customer.Password).WithMessage("Passwords must match.");
                 RuleFor(request => request.Customer.Website).Must(ExistIfStringIsNotNull).WithMessage("Invalid website url or website does not exist.");
+
+                RuleForEach(x => x.Customer.Addresses).Must(AllBeValid);
             });
+        }
+
+        private bool AllBeValid(Address address)
+        {
+            //TODO Finish Address Validation.
+            return true;
         }
 
         private bool BeSafe(string passwordString) => SafePasswordRegex.IsMatch(passwordString);
 
         private bool ExistIfStringIsNotNull(string websiteUrl)
         {
-            if (string.IsNullOrEmpty(websiteUrl)) 
-            {
-                return true;
-            }
+            bool isValidForHttpClientCheck = string.IsNullOrEmpty(websiteUrl) is false && IsValidUrl(websiteUrl);
 
-            if (IsValidUrl(websiteUrl))
+            if (isValidForHttpClientCheck is true) 
             {
                 return new HttpClient().GetAsync(websiteUrl).GetAwaiter().GetResult().IsSuccessStatusCode;
-            }   
+            }
             
-            return false;
+            return true;
         }
 
         private static bool IsValidUrl(string websiteUrl) =>

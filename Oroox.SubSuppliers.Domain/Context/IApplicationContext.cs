@@ -39,6 +39,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         public void BeginTransaction();
         public void CommitTransaction();
+        void RollBack();
     }
 }
 

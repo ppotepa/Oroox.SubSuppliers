@@ -64,7 +64,6 @@ namespace Oroox.SubSuppliers.Domain.Context
 
             Database.EnsureCreated();
         }
-
         public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
 
         public SubSuppliersContextEnumerations Enumerations
@@ -160,7 +159,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        {           
             optionsBuilder.EnableSensitiveDataLogging();
 
             if (LoggingEnabled)
@@ -171,7 +170,6 @@ namespace Oroox.SubSuppliers.Domain.Context
             optionsBuilder
                 .UseLazyLoadingProxies()
                 .UseSqlServer(environmentVariables.OX_SS_DB_CONNECTIONSTRING_DEV);
-                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -180,7 +178,7 @@ namespace Oroox.SubSuppliers.Domain.Context
             AddGenericEntityFilter(modelBuilder);
             GenerateAddressTable(modelBuilder);
             GenerateEnumerationTables(modelBuilder);
-            GenerateMachineTable(modelBuilder);
+            GenerateMachineTable(modelBuilder);            
         }
 
         private static string GetEnumUniqueName(object value, Type currentEnum)
@@ -227,13 +225,14 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void GenerateCustomersTable(ModelBuilder builder)
         {
-            builder.Entity<Customer>().HasKey(x => x.Id);
+            builder.Entity<Customer>().HasKey(x => new string [] { nameof(x.Id), nameof(x.EmailAddress) });
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
             builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);            
             builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
+         
             builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             
             //builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey<Machine>(x => x.CustomerId).ond            
@@ -283,6 +282,9 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         public void CommitTransaction() =>
             this.Database.CommitTransaction();
-       
+
+        public void RollBack() 
+            => this.Database.RollbackTransaction();
+        
     }
 }

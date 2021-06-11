@@ -88,15 +88,12 @@ namespace Oroox.SubSuppliers.Application
                         .AllowAnyMethod()
                         .AllowCredentials();
                     });
-
                 });
             }
 
-
             services.AddOptions();
             services.AddSwaggerGen(x => x.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()));
-            services.AddHttpContextAccessor();           
-
+            services.AddHttpContextAccessor();   
            
             services.AddControllers().AddNewtonsoftJson(options =>
             {

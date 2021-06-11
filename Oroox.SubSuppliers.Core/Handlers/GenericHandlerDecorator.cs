@@ -85,7 +85,9 @@ namespace Oroox.SubSuppliers.Handlers
                 await context.SaveChangesAsync(true, cancellationToken);
             }
             catch (Exception exception)
-            {        
+            {
+                context.RollBack();
+
                 throw new RequestProcessingException
                 (
                     message:    $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +

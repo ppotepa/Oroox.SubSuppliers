@@ -3,7 +3,10 @@ using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using Oroox.SubSuppliers.Extensions;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -12,8 +15,20 @@ namespace Oroox.SubSuppliers.Domain
     {
         public static async Task Main()
         {
-            SubSuppliersContext ctx = new SubSuppliersContext(false);
+            SubSuppliersContext ctx = new SubSuppliersContext(false);            
+            //Enumerable.Range(1, 1000).ForEach((x, i) => 
+            //{
+            //    ctx.Customers.Add(NewCustomer(ctx));
+            //    if(i % 1000 is 0) ctx.SaveChanges();
+            //    Console.WriteLine(i);
+            //});
 
+            List<Customer> allCustomers = await ctx.Customers.AsQueryable().ToListAsync();
+            ctx.SaveChanges();
+        }
+
+        private static Customer NewCustomer(SubSuppliersContext ctx)
+        {
             Customer newCustomer = new Customer
             {
                 CompanySizeType = ctx.Enumerations.CompanyTypes[CompanySizeTypeEnum.LessThan10],
@@ -96,13 +111,7 @@ namespace Oroox.SubSuppliers.Domain
                 Name = "Tes2t",
                 XMax = 5959595,
             });
-
-            ctx.Customers.Add(newCustomer);
-
-            var allCustomers = await ctx.Customers.AsQueryable().ToListAsync();
-            //var machines = allCustomers.FirstOrDefault(c => c.TurningMachines.Any()).TurningMachines;
-
-            ctx.SaveChanges();
+            return newCustomer;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Oroox.SubSuppliers.Extensions
         {
             return value is T;
         }
-
+       
         private static void ThrowExceptionWhenSourceArgumentIsNull()
         {
             throw new ArgumentNullException("source", "Unable to convert object to a dictionary. The source object is null.");
