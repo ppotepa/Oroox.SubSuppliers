@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
+    <ProjectReference Include="..\..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
