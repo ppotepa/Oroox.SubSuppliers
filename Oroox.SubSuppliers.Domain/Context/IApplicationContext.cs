@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using Oroox.SubSuppliers.Domain.Entities.Job;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -19,6 +20,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Job> Jobs { get; set; }
         public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
         public DbSet<TurningMachine> Machines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }

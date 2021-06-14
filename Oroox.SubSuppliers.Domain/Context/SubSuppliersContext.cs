@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
+using Oroox.SubSuppliers.Domain.Entities.Job;
 using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
 using System;
@@ -109,24 +110,39 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public IEnumerable<object> Entries 
+            => ((IEnumerable<object>)this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<MillingMachine> MillingMachines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<TurningMachine> TurningMachines { get; set; }
-        public DbSet<MillingMachine> MillingMachines { get; set; }
-        public IEnumerable<object> Entries => ((IEnumerable<object>)this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
-
         #endregion DB_SETS
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
 
+        public void BeginTransaction() =>
+            this.Database.BeginTransaction();
+
+        public void CommitTransaction() =>
+            this.Database.CommitTransaction();
+
+        public void Detach<TEntity>(TEntity entity) where TEntity : Entity
+        {
+            this.Entry(entity).State = EntityState.Detached;
+        }
+
         public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class
-            => this.ChangeTracker.Entries<TEntity>().Where(entry => entry.State is EntityState.Added);
+                                    => this.ChangeTracker.Entries<TEntity>().Where(entry => entry.State is EntityState.Added);
 
         public IEnumerable<EntityEntry> NewEntries() =>
            this.ChangeTracker.Entries<Entity>().Where(entry => entry.State is EntityState.Added);
 
         EnumerationEntity<TEnumType> IApplicationContext.ResolveEnum<TEnumType>(int value) 
             => this.Find(typeof(EnumerationEntity<TEnumType>), new object[] { value }) as EnumerationEntity<TEnumType>;
+
+        public void RollBack()
+            => this.Database.RollbackTransaction();
 
         public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
@@ -157,6 +173,9 @@ namespace Oroox.SubSuppliers.Domain.Context
 
             return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+
+        void IApplicationContext.Update<TEntity>(TEntity entity)
+            => this.Update(entity);
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {           
@@ -205,37 +224,19 @@ namespace Oroox.SubSuppliers.Domain.Context
             modelBuilder.Entity<Address>().HasOne(x => x.CountryCodeType);
         }
 
-        private void GenerateMachineTable(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CNCMachineAxesType>()
-                .HasMany(x => x.MillingMachines)
-                .WithOne(x => x.CNCMachineAxesType)
-                .HasForeignKey(x => x.CNCMachineAxesTypeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<CNCMachineAxesType>()
-                .HasMany(x => x.TurningMachines)
-                .WithOne(x => x.CNCMachineAxesType)
-                .HasForeignKey(x => x.CNCMachineAxesTypeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<TurningMachine>().HasDiscriminator(x => x.MachineTypeName);            
-            modelBuilder.Entity<MillingMachine>().HasDiscriminator(x => x.MachineTypeName);
-        }
-
         private void GenerateCustomersTable(ModelBuilder builder)
         {
             builder.Entity<Customer>().HasKey(x => new { x.Id });
             builder.Entity<Customer>().HasAlternateKey(x => new { x.EmailAddress });
             builder.Entity<Customer>().HasOne(x => x.CompanySizeType);
             builder.Entity<Customer>().HasMany(x => x.Addresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);            
+            builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasOne(x => x.CustomerAdditionalInfo).WithOne(x => x.Customer).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().HasMany(x => x.Certifications).WithMany(x => x.Customers);
             builder.Entity<Customer>().HasMany(x => x.OtherTechnologies).WithMany(x => x.Customers);
-         
+
             builder.Entity<Customer>().HasOne(x => x.Registration).WithOne(x => x.Customer).HasForeignKey<Registration>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
-            
+
             //builder.Entity<Customer>().HasMany(x => x.Machines).WithOne(x => x.Customer).HasForeignKey<Machine>(x => x.CustomerId).ond            
             builder.Entity<CustomerAdditionalInfo>().HasOne(x => x.Customer).WithOne(x => x.CustomerAdditionalInfo).HasForeignKey<CustomerAdditionalInfo>(x => x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<CustomerAdditionalInfo>().Property(x => x.Id).ValueGeneratedOnAdd();
@@ -255,7 +256,7 @@ namespace Oroox.SubSuppliers.Domain.Context
                 {
                     return new
                     {
-                        Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)), 
+                        Id = GuidUtility.Create(this.EnumerationNamespace, GetEnumUniqueName(value, currentEnum)),
                         Value = Convert.ChangeType(value, currentEnum),
                         Name = Enum.GetName(currentEnum, value)
                     };
@@ -267,25 +268,24 @@ namespace Oroox.SubSuppliers.Domain.Context
             });
         }
 
+        private void GenerateMachineTable(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CNCMachineAxesType>()
+                .HasMany(x => x.MillingMachines)
+                .WithOne(x => x.CNCMachineAxesType)
+                .HasForeignKey(x => x.CNCMachineAxesTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<CNCMachineAxesType>()
+                .HasMany(x => x.TurningMachines)
+                .WithOne(x => x.CNCMachineAxesType)
+                .HasForeignKey(x => x.CNCMachineAxesTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TurningMachine>().HasDiscriminator(x => x.MachineTypeName);            
+            modelBuilder.Entity<MillingMachine>().HasDiscriminator(x => x.MachineTypeName);
+        }
         private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity
             => (entity) => EF.Property<bool>(entity, "Deleted").Equals(false);
-
-        void IApplicationContext.Update<TEntity>(TEntity entity) 
-            => this.Update(entity);
-
-        public void Detach<TEntity>(TEntity entity) where TEntity : Entity
-        {
-            this.Entry(entity).State = EntityState.Detached;
-        }
-
-        public void BeginTransaction() =>
-            this.Database.BeginTransaction();
-
-        public void CommitTransaction() =>
-            this.Database.CommitTransaction();
-
-        public void RollBack() 
-            => this.Database.RollbackTransaction();
-        
     }
 }
