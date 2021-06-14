@@ -13,13 +13,10 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
         public bool CountersinkDetected { get; set; }
         /// <summary>If HoleShape = ROUND</summary>
         public SinkingMethodType? SinkingMethodType { get; set; }
-        
-
         /// <summary>If HoleShape = SQUARE/RECTANGULAR/SLOTTED</summary>
         public float? LengthA { get; set; }  // mm
         /// <summary>If HoleShape = RECTANGULAR/SLOTTED</summary>
         public float? LengthB { get; set; }  // mm
-
 
         public float Depth { get; set; }    // for cnc [mm]
         public float Volume { get; set; }   // for cnc [m^3] precision up to 0.1 mm^3
@@ -27,9 +24,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 
         public Guid? FinishingId { get; set; }
         public bool IsExcluded { get; set; }
-
         public Hole() { }
-        
     }
     public enum SinkingMethodType
     {
