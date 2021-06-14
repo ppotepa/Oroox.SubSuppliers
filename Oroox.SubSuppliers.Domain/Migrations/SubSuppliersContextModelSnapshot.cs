@@ -2024,6 +2024,35 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Job", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Job");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Machine", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2044,6 +2073,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("HourlyRate")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("MachineNumber")
                         .HasColumnType("nvarchar(max)");

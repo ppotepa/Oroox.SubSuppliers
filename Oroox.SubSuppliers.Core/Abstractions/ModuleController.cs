@@ -40,12 +40,15 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         public async Task<IActionResult> Handle(IBaseRequest request)
         {
             BaseRespone response = await this.mediator.Send(request) as BaseRespone;
-            ShouldRedirect shouldRedirect = string.IsNullOrEmpty(response.RedirectUrl) is false ? ShouldRedirect.ShoulRedirect : ShouldRedirect.ShouldNotRedirect;
+            ShouldRedirect shouldRedirect = string.IsNullOrEmpty(response.RedirectUrl) is false 
+                ? ShouldRedirect.ShoulRedirect 
+                : ShouldRedirect.ShouldNotRedirect;
+
             return Actions[shouldRedirect](response);
         }
     }
 
-    enum ShouldRedirect 
+    internal enum ShouldRedirect 
     {
         ShouldNotRedirect, 
         ShoulRedirect 

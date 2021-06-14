@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\" />
+    <Folder Include="Requests\CreateNewJob\Validators\" />
+    <Folder Include="Requests\CreateNewJob\PostProcessors\" />
+    <Folder Include="Requests\CreateNewJob\PreProcessors\" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public string MachineNumber { get; set; }
         public string Name { get; set; }
         public Guid CustomerId { get; set; }
-
+           
         public string MachineTypeName 
         {
             get

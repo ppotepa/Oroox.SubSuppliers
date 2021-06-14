@@ -93,6 +93,23 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Job",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Job", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OtherTechnologies",
                 columns: table => new
                 {
@@ -269,6 +286,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     MachineNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HourlyRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MachineTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ZMin = table.Column<double>(type: "float", nullable: true),
                     ZMax = table.Column<double>(type: "float", nullable: true),
@@ -763,6 +781,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "CustomerOtherTechnology");
+
+            migrationBuilder.DropTable(
+                name: "Job");
 
             migrationBuilder.DropTable(
                 name: "Machine");

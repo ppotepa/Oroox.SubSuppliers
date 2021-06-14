@@ -25,14 +25,13 @@ namespace Oroox.SubSuppliers.Application
         private const string DevelopmentCORS = "DevelopmentCORS";
         private readonly IConfiguration Configuration;
         private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;
-        public ILifetimeScope AutofacContainer { get; private set; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
         public void Configure(IApplicationBuilder app)
         {
             Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
@@ -54,7 +53,7 @@ namespace Oroox.SubSuppliers.Application
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            Assembly[] moduleAssemblies = new[] 
+            Assembly[] moduleAssemblies = new[]
             {
                 typeof(CustomersModule).Assembly,
                 typeof(JobsModule).Assembly,
@@ -104,6 +103,5 @@ namespace Oroox.SubSuppliers.Application
 
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
         }
-        
     }
 }
