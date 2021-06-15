@@ -7,11 +7,6 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
     public class FinalCost
     {
-        public FinalCost()
-        {
-            CostPerQuantity = new Dictionary<uint, decimal>();
-        }
-
         public Guid Id { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]

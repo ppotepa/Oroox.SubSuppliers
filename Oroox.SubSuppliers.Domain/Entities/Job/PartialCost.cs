@@ -14,7 +14,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
         T PartialCostType { get; set; }
     }
 
-    public class PartialCost : IPartialCost<PartialCostType>
+    public class PartialCost : Entity, IPartialCost<PartialCostType>
     {
         public PartialCost()
         {

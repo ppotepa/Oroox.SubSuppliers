@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Extensions;
@@ -11,8 +12,9 @@ namespace Oroox.SubSuppliers.Services
     public class ServicesModule : Module
     {
         private readonly IConfiguration configuration;
-        private bool IsDevelopment => configuration.GetEnvironmentVariables().IsDevelopment;
+        private IWebHostEnvironment env;
 
+        private bool IsDevelopment => configuration.GetEnvironmentVariables().IsDevelopment;
         public ServicesModule(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -50,13 +52,14 @@ namespace Oroox.SubSuppliers.Services
                 (
                     args =>
                     {
-                        IMailingService instance = IsDevelopment is true
-                            ? args.Context.Resolve<DevelopmentEmailService>()
-                            : args.Context.Resolve<ProductionJobsService>() as IMailingService;
+                        IJobsService instance = IsDevelopment is true
+                            ? args.Context.Resolve<DevelopmentEmailService>() as IJobsService
+                            : args.Context.Resolve<ProductionJobsService>();
 
                         args.ReplaceInstance(instance);
                     }
                 );
+
         }
     }
 }

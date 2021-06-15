@@ -4,6 +4,7 @@ using AutofacSerilogIntegration;
 using MediatR;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,9 @@ namespace Oroox.SubSuppliers.Application
         private const string DevelopmentCORS = "DevelopmentCORS";
         private readonly IConfiguration Configuration;
         private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;
+
+        private IWebHostEnvironment hostingEnvironment;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,7 +36,7 @@ namespace Oroox.SubSuppliers.Application
         }
 
         public ILifetimeScope AutofacContainer { get; private set; }
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment hostingEnvironment)
         {
             Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
@@ -42,7 +46,7 @@ namespace Oroox.SubSuppliers.Application
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SubsuppliersPlatform API");
             });
-           
+            
             app.UseRouting();
             app.UseCors(DevelopmentCORS);
             app.UseMiddleware<CorrelationIdMiddleware>();

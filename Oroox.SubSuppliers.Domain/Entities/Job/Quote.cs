@@ -22,7 +22,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
     public class Quote : Entity
     {   
         public Guid CadFileId { get; set; }
-        public List<MilledPart> MilledParts { get; set; } = new List<MilledPart>();
+        public virtual List<MilledPart> MilledParts { get; set; } = new List<MilledPart>();
         public float Width { get; set; } // [m] precision up to 0.01 mm
         public float Height { get; set; } // [m] precision up to 0.01 mm
         public float Depth { get; set; } //[m]  precision up to 0.01 mm                                   

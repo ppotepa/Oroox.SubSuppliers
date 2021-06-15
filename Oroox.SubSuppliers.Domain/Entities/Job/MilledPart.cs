@@ -3,16 +3,15 @@ using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
-    public class MilledPart
+    public class MilledPart : Entity
     {
         public MilledPart()
         {
             Holes = new List<Hole>();
         }
 
-        public Guid Id { get; set; }
         public Guid QuoteId { get; set; }
-        public List<Hole> Holes { get; set; } = new List<Hole>();
+        public virtual List<Hole> Holes { get; set; } = new List<Hole>();
         public float Width { get; set; }// precision up to 0.01 mm  
         public float Height { get; set; }// precision up to 0.01 mm
         public float Depth { get; set; }// precision up to 0.01 mm 

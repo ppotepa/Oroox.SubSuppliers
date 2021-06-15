@@ -5,6 +5,6 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
     public class CalculationDetailsGroup
     {
         public string Name { get; set; }
-        public List<CalculationDetailsSection> Sections { get; set; } = new List<CalculationDetailsSection>();
+        public virtual List<CalculationDetailsSection> Sections { get; set; }
     }
 }
