@@ -127,7 +127,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public void CommitTransaction() =>
             this.Database.CommitTransaction();
 
-        public void Detach<TEntity>(TEntity entity) where TEntity : Entity
+        public void Detach<TEntity>(TEntity entity) where TEntity : Entity 
         {
             this.Entry(entity).State = EntityState.Detached;
         }

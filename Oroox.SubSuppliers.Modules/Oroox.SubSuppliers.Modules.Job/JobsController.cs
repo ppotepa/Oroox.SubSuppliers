@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
+using Oroox.SubSuppliers.Modules.Jobs.RequestsCreateNewJob.Model;
 using Oroox.SubSuppliers.Utilities.Abstractions;
 using System.Threading.Tasks;
 

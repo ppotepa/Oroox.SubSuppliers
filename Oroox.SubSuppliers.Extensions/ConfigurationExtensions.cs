@@ -20,5 +20,13 @@ namespace Oroox.SubSuppliers.Extensions
                 ASPNETCORE_ENVIRONMENT = Environment.GetEnvironmentVariable(Constants.EnvironmentVariables.ASPNETCORE_ENVIRONMENT) ?? throw new EnvironmentVariableMissingException("ASPNETCORE_ENVIRONMENT")
             };
         }
+
+        public static OxSubSuppliersApplicationSettings GetApplicationSettings(this IConfiguration @this)
+        {
+            OxSubSuppliersApplicationSettings instance = new OxSubSuppliersApplicationSettings();
+            @this.Bind("OxApplicationSettings", instance);
+            return instance;
+        }  
     }
+
 }
