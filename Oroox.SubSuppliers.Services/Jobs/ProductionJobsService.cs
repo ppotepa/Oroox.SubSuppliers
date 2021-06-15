@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Oroox.SubSuppliers.Domain.Entities.Job.Details;
 using System;
 using System.Net.Http;
 
@@ -11,10 +12,10 @@ namespace Oroox.SubSuppliers.Services.Jobs
         {
             this.configuration = configuration;
         }
-
-        public void GetJobById(Guid jobId)
+     
+        public CalculationDetails GetJobById(Guid jobId)
         {
-            HttpClient httpClient = new HttpClient();
+            throw new NotImplementedException();
         }
     }
 }

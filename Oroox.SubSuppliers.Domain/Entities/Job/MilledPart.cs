@@ -5,11 +5,6 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
     public class MilledPart : Entity
     {
-        public MilledPart()
-        {
-            Holes = new List<Hole>();
-        }
-
         public Guid QuoteId { get; set; }
         public virtual List<Hole> Holes { get; set; } = new List<Hole>();
         public float Width { get; set; }// precision up to 0.01 mm  

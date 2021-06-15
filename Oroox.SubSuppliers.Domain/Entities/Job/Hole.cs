@@ -2,9 +2,8 @@
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
-    public class Hole
+    public class Hole : Entity
     {
-        public Guid Id { get; set; }
         public Guid PartId { get; set; }        
 
         /// <summary>If HoleShape = ROUND</summary>
