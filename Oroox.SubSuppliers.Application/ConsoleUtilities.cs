@@ -5,6 +5,10 @@ namespace Oroox.SubSuppliers.Application
 {
     public partial class Program
     {
+        /// <summary>
+        /// Thanks to
+        /// https://stackoverflow.com/questions/13656846/how-to-programmatic-disable-c-sharp-console-applications-quick-edit-mode
+        /// </summary>
         static class ConsoleUtilities
         {
             const uint ENABLE_QUICK_EDIT = 0x0040;
