@@ -12,7 +12,7 @@ namespace Oroox.SubSuppliers.Services.Jobs
         {
             this.configuration = configuration;
         }
-     
+
         public CalculationDetails GetJobById(Guid jobId)
         {
             throw new NotImplementedException();
