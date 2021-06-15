@@ -7,10 +7,7 @@ namespace Oroox.SubSuppliers.Application
     {
         static class ConsoleUtilities
         {
-
             const uint ENABLE_QUICK_EDIT = 0x0040;
-
-            // STD_INPUT_HANDLE (DWORD): -10 is the standard input device.
             const int STD_INPUT_HANDLE = -10;
 
             [DllImport("kernel32.dll", SetLastError = true)]
@@ -24,26 +21,15 @@ namespace Oroox.SubSuppliers.Application
 
             internal static bool DisableQuickEditMode()
             {
-
                 IntPtr consoleHandle = GetStdHandle(STD_INPUT_HANDLE);
-
-                // get current console mode
                 uint consoleMode;
-                if (!GetConsoleMode(consoleHandle, out consoleMode))
-                {
-                    // ERROR: Unable to get console mode.
+                if (!GetConsoleMode(consoleHandle, out consoleMode)) 
                     return false;
-                }
 
-                // Clear the quick edit bit in the mode flags
                 consoleMode &= ~ENABLE_QUICK_EDIT;
-
-                // set the new mode
-                if (!SetConsoleMode(consoleHandle, consoleMode))
-                {
-                    // ERROR: Unable to set console mode
+               
+                if (!SetConsoleMode(consoleHandle, consoleMode)) 
                     return false;
-                }
 
                 return true;
             }
