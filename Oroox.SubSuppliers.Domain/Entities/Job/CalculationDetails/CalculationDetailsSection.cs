@@ -2,7 +2,7 @@
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
 {
-    public class CalculationDetailsSection
+    public class CalculationDetailsSection : Entity
     {
         public string Name { get; set; }
         public virtual List<CalculationDetails> Details { get; set; }

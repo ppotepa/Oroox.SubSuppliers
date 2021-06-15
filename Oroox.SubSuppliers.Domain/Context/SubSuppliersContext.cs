@@ -8,6 +8,7 @@ using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using Oroox.SubSuppliers.Domain.Entities.Job;
+using Oroox.SubSuppliers.Domain.Entities.Job.Details;
 using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
 using System;
@@ -108,10 +109,11 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
-        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
+        public DbSet<CalculationDetails> CalculationDetails { get; set; }
+        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }        
         public DbSet<Customer> Customers { get; set; }
         public IEnumerable<object> Entries 
-            => ((IEnumerable<object>)this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
+            => ((IEnumerable<object>) this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
         public DbSet<Job> Jobs { get; set; }
         public DbSet<MillingMachine> MillingMachines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }

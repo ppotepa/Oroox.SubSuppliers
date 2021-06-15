@@ -44,7 +44,7 @@
         COLOUR = 15,
     }
 
-    public class CalculationDetails
+    public class CalculationDetails : Entity
     {
         public string Name { get; set; }
         public string Class { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
 {
-    public class CalculationDetailsGroup
+    public class CalculationDetailsGroup : Entity
     {
         public string Name { get; set; }
         public string Key { get; set; }

@@ -5,15 +5,19 @@ using System.Text.Json.Serialization;
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
-    public class FinalCost
+    public class CostPerQuantity : Entity
     {
-        public Guid Id { get; set; }
+        public uint Quantity { get; set; }
+        public decimal Cost { get; set; }
+    }
 
+    public class FinalCost : Entity
+    {
         [JsonConverter(typeof(StringEnumConverter))]
         public FinalCostType PartialCostType { get; set; }
 
         /// <summary>unit cost for quantity</summary>
-        public Dictionary<uint, decimal> CostPerQuantity { get; set; }
+        public virtual List<CostPerQuantity> CostPerQuantity { get; set; }
 
         /// <summary>unit cost for date</summary>
         public DateTime Date { get; set; }
