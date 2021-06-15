@@ -27,11 +27,9 @@ namespace Oroox.SubSuppliers.Application
         private readonly IConfiguration Configuration;
         private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;
 
-        private IWebHostEnvironment hostingEnvironment;
-
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
             this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
 
@@ -87,9 +85,10 @@ namespace Oroox.SubSuppliers.Application
                     options.AddPolicy(name: DevelopmentCORS,
                     builder =>
                     {
-                        builder.WithOrigins(new string[] { "http://localhost:4200" }).AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
+                        builder.WithOrigins(new string[] { "http://localhost:4200" })
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials();
                     });
                 });
             }

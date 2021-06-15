@@ -4,6 +4,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
 {
     public class CalculationDetailsGroupMap
     {
-        public virtual Dictionary<string, CalculationDetailsGroup> Details { get; set; }
+        public uint Quantity { get; set; }
+        public virtual List<CalculationDetailsGroup> Details { get; set; }
     }
 }
