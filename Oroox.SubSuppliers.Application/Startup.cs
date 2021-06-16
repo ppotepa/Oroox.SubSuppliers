@@ -47,7 +47,10 @@ namespace Oroox.SubSuppliers.Application
             
             app.UseRouting();
             app.UseCors(DevelopmentCORS);
+            
             app.UseMiddleware<CorrelationIdMiddleware>();
+            app.UseMiddleware<TransactionMiddleware>();
+
             app.UseEndpoints(endpoints => endpoints.MapControllers());                        
 
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
@@ -73,8 +76,8 @@ namespace Oroox.SubSuppliers.Application
             builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().InstancePerDependency();
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();
 
-            builder.RegisterGeneric(typeof(GenericHandlerDecorator<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerDependency();         
-            
+            builder.RegisterGeneric(typeof(GenericHandlerDecorator<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerDependency();
+                
         }
 
         public void ConfigureServices(IServiceCollection services)

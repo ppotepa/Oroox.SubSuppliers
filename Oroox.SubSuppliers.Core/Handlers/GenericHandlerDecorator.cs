@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Oroox.SubSuppliers.Handlers
 {
@@ -38,7 +39,7 @@ namespace Oroox.SubSuppliers.Handlers
         private readonly ILogger logger;
 
         public GenericHandlerDecorator
-        (            
+        (
             IEnumerable<IValidator<TRequest>> validators,
             IEnumerable<IRequestPreProcessor<TRequest>> preProcessors,
             IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors,
@@ -60,12 +61,11 @@ namespace Oroox.SubSuppliers.Handlers
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-        {           
-            TResponse response;
+        {
+            TResponse response = default;
 
             try
             {
-
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
                 this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
 
@@ -86,11 +86,9 @@ namespace Oroox.SubSuppliers.Handlers
             }
             catch (Exception exception)
             {
-                context.RollBack();
-
                 throw new RequestProcessingException
                 (
-                    message:    $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +
+                    message: $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +
                                 $"See Data to provide better view.",
 
                     request: request,
@@ -98,9 +96,7 @@ namespace Oroox.SubSuppliers.Handlers
                 );
             }
 
-            this.context.CommitTransaction();
-
-            events.ForEach(@event => @event.Handle(request, cancellationToken));            
+            events.ForEach(@event => @event.Handle(request, cancellationToken));
             return response;
         }
     }

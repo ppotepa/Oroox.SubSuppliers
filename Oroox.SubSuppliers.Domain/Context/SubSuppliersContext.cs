@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
@@ -19,6 +20,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
@@ -119,6 +121,8 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<TurningMachine> TurningMachines { get; set; }
+
+        public DatabaseFacade DataBase => this.Database;
         #endregion DB_SETS
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
@@ -146,7 +150,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public void RollBack()
             => this.Database.RollbackTransaction();
 
-        public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, TransactionScope scope, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
             IEnumerable<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>();
@@ -172,7 +176,7 @@ namespace Oroox.SubSuppliers.Domain.Context
                     entry.State = EntityState.Modified;
                 }
             });
-
+          
             return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
@@ -207,7 +211,6 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
-            
             CurrentEntities.Where(e => e.BaseType == typeof(Entity)).ForEach(entity =>
             {
                 dynamic expression = ExpressionMethod(entity).Invoke(this, null);

@@ -21,7 +21,10 @@ namespace Oroox.SubSuppliers.Services
         {
             base.Load(builder);
 
-            builder.RegisterType<SubSuppliersContext>().As<IApplicationContext>().InstancePerLifetimeScope();
+            builder.RegisterType<SubSuppliersContext>()
+                .As<IApplicationContext>()
+                .InstancePerLifetimeScope();
+                
 
             builder
                 .RegisterType<SmtpClient>()

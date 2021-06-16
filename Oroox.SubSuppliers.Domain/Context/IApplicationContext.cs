@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
@@ -36,6 +37,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public IEnumerable<EntityEntry<TEntity>> NewEntries<TEntity>() where TEntity : class;
         public IEnumerable<EntityEntry> NewEntries();
         public IEnumerable<object> Entries { get; }
+        public DatabaseFacade DataBase { get; }
 
         public void BeginTransaction();
         public void CommitTransaction();
