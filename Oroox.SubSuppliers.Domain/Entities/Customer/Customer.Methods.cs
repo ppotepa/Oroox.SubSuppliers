@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
@@ -10,11 +9,8 @@ namespace Oroox.SubSuppliers.Domain.Entities
             this.Machines.Add(machine);
             machine.CreatedBy = this.Id;
         }
-           
      
-        public void AddMachines(IEnumerable<Machine> machines) 
-            => this.Machines.AddRange(machines);
-       
+        public void AddMachines(IEnumerable<Machine> machines) => this.Machines.AddRange(machines);
         public void UpdateCustomerAdditionalInfo(CustomerAdditionalInfo info)
         {
             this.CustomerAdditionalInfo = info;

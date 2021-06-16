@@ -26,6 +26,8 @@ namespace Oroox.SubSuppliers.Handlers
         where TRequest : IRequest<TResponse>
         where TResponse : BaseRespone, new()
     {
+        private static List<object> instances = new List<object>();
+
         private readonly IEnumerable<IValidator<TRequest>> validators;
         private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
         private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
@@ -36,8 +38,7 @@ namespace Oroox.SubSuppliers.Handlers
         private readonly ILogger logger;
 
         public GenericHandlerDecorator
-        (
-
+        (            
             IEnumerable<IValidator<TRequest>> validators,
             IEnumerable<IRequestPreProcessor<TRequest>> preProcessors,
             IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors,
@@ -59,12 +60,11 @@ namespace Oroox.SubSuppliers.Handlers
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-        {
+        {           
             TResponse response;
 
             try
             {
-                this.context.BeginTransaction();
 
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
                 this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));

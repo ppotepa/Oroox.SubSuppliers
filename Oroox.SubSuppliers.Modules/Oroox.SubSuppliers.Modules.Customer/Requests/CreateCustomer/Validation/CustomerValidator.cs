@@ -31,6 +31,8 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer
 
         public CustomerValidator(ILogger logger)
         {
+           logger.Information(nameof(CustomerValidator) + " " + this.GetHashCode());
+            
             this.logger = logger;
             this.CascadeMode = CascadeMode.Stop;
 

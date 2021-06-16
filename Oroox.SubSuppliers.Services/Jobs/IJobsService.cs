@@ -5,6 +5,6 @@ namespace Oroox.SubSuppliers.Services.Jobs
 {
     public interface IJobsService
     {
-        public CalculationDetails GetJobById(Guid jobId);
+        public CalculationDetailsForQuote GetJobById(Guid jobId);
     }
 }

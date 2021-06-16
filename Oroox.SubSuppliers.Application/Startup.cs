@@ -73,7 +73,8 @@ namespace Oroox.SubSuppliers.Application
             builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().InstancePerDependency();
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();
 
-            builder.RegisterGenericDecorator(typeof(GenericHandlerDecorator<,>), typeof(IPipelineBehavior<,>));
+            builder.RegisterGeneric(typeof(GenericHandlerDecorator<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerDependency();         
+            
         }
 
         public void ConfigureServices(IServiceCollection services)

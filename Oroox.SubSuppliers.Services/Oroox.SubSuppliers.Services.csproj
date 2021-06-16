@@ -19,4 +19,16 @@
     <ProjectReference Include="..\Oroox.SubSuppliers.Domain\Oroox.SubSuppliers.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Jobs\DevelopmentJobsService.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Jobs\devjob.model.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

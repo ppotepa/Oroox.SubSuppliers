@@ -28,19 +28,26 @@ namespace Oroox.SubSuppliers.Services
                 .AsImplementedInterfaces();
 
             builder
+               .RegisterTypes(new[] { typeof(DevelopmentEmailService), typeof(ProductionMailingService) });
+
+            builder
                 .RegisterTypes(new[] { typeof(DevelopmentEmailService), typeof(ProductionMailingService) })
                 .AsImplementedInterfaces()
                 .OnActivating
                 (
-                    args => 
+                    args =>
                     {
-                        IMailingService instance = IsDevelopment is true 
+                        IMailingService instance = IsDevelopment is true
                             ? args.Context.Resolve<DevelopmentEmailService>()
                             : args.Context.Resolve<ProductionMailingService>() as IMailingService;
 
                         args.ReplaceInstance(instance);
                     }
-                );
+                )
+                .InstancePerDependency();
+
+            builder
+                .RegisterTypes(new[] { typeof(DevelopmentJobsService), typeof(ProductionJobsService) });
 
             builder
                 .RegisterTypes(new[] { typeof(DevelopmentJobsService), typeof(ProductionJobsService) })
@@ -50,12 +57,14 @@ namespace Oroox.SubSuppliers.Services
                     args =>
                     {
                         IJobsService instance = IsDevelopment is true
-                            ? args.Context.Resolve<DevelopmentEmailService>() as IJobsService
+                            ? args.Context.Resolve<DevelopmentJobsService>() as IJobsService
                             : args.Context.Resolve<ProductionJobsService>();
 
                         args.ReplaceInstance(instance);
                     }
-                );
+                )
+                .InstancePerDependency();
+                
 
         }
     }

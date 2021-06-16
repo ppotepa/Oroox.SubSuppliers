@@ -1,0 +1,1592 @@
+﻿{
+  "1": {
+    "Details": {
+      "part_0": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 3.24,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 31.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_1": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 0.95,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 28.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_2": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 0.95,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 28.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "5": {
+    "Details": {
+      "part_0": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 16.20,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 22.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 49.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_1": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 4.75,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 6.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 33.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_2": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 4.75,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 6.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 33.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "10": {
+    "Details": {
+      "part_0": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 32.40,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 43.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 70.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_1": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 9.50,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 13.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 40.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_2": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 9.50,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 13.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 40.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "20": {
+    "Details": {
+      "part_0": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 64.80,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 86.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 113.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_1": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 19.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 25.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 52.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_2": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 19.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 25.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 52.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "50": {
+    "Details": {
+      "part_0": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 162.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 216.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 243.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_1": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 47.50,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 63.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 90.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_2": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 47.50,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 63.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 90.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "100": {
+    "Details": {
+      "part_0": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 4.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 324.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 432.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 459.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_1": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 95.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 127.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 154.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      },
+      "part_2": {
+        "Name": null,
+        "Sections": [
+          {
+            "Name": "Holes",
+            "Details": [
+              {
+                "Name": "HOLE_HOLE_RATES",
+                "Class": "H_5",
+                "IsBold": false,
+                "NumericValue": 60.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_NUMBER_HOLES",
+                "Class": "H_6",
+                "IsBold": false,
+                "NumericValue": 1.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 5
+              },
+              {
+                "Name": "HOLE_SETUP_TIME",
+                "Class": "H_4",
+                "IsBold": false,
+                "NumericValue": 20.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_TIME",
+                "Class": "H_7",
+                "IsBold": false,
+                "NumericValue": 95.00,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 0,
+                "ValueType": 2
+              },
+              {
+                "Name": "HOLE_SETUP_COST",
+                "Class": "H_8",
+                "IsBold": false,
+                "NumericValue": 26.67,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_DRILLING_TOTAL_COST",
+                "Class": "H_10",
+                "IsBold": false,
+                "NumericValue": 127.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 1,
+                "ValueType": 4
+              },
+              {
+                "Name": "HOLE_TOTAL_COST",
+                "Class": "H_11",
+                "IsBold": false,
+                "NumericValue": 154.0,
+                "OperationType": 5,
+                "PriorityOrder": 1,
+                "Value": "",
+                "ValueGroupType": 2,
+                "ValueType": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
