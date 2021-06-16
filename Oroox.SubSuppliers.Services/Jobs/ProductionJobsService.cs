@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Oroox.SubSuppliers.Domain.Entities.Job.Details;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Services.Jobs
 {
@@ -12,7 +14,12 @@ namespace Oroox.SubSuppliers.Services.Jobs
             this.configuration = configuration;
         }
 
-        public CalculationDetailsForQuote GetJobById(Guid jobId)
+        public Guid CreateNewJob()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CalculationDetailsForQuote> RetrieveJobFromOxQuoteApp(Guid jobId, CancellationToken cancelationToken)
         {
             throw new NotImplementedException();
         }

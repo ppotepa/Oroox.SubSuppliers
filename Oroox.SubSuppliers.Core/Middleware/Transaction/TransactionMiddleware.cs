@@ -12,12 +12,11 @@ namespace Oroox.SubSuppliers.Utilities.Middleware.CorrelationId
     /// </summary>
     public class TransactionMiddleware
     {
-        private readonly RequestDelegate _next;        
-        private TransactionScope _transaction;
+        private readonly RequestDelegate next = default;        
 
         public TransactionMiddleware(RequestDelegate next, IOptions<CorrelationIdOptions> options)
         {
-            _next = next ?? throw new ArgumentNullException(nameof(next));
+            this.next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
         public async Task Invoke(HttpContext context)
@@ -28,18 +27,18 @@ namespace Oroox.SubSuppliers.Utilities.Middleware.CorrelationId
                 Timeout = TransactionManager.MaximumTimeout
             };
 
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
                 try
                 {
-                    await _next(context);
+                    await next(context);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    scope.Dispose();
+                    throw ex;
                 }
 
-                scope.Complete();
+                transaction.Complete();
             }
         }
     }

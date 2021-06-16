@@ -1,21 +1,27 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities.Job.Details;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using ValueType = Oroox.SubSuppliers.Domain.Entities.Job.Details.ValueType;
 
 namespace Oroox.SubSuppliers.Services.Jobs
 {
     public class DevelopmentJobsService : IJobsService
     {
         private readonly IConfiguration configuration;
+        private readonly IApplicationContext context;        
 
-        public DevelopmentJobsService(IConfiguration configuration)
+        public DevelopmentJobsService(IConfiguration configuration, IApplicationContext context)
         {
             this.configuration = configuration;
+            this.context = context;
         }
 
         private string[] PathParts => new string[]
@@ -30,17 +36,17 @@ namespace Oroox.SubSuppliers.Services.Jobs
 
         private string JsonFileLocation => Path.Combine(PathParts);
         private string JsonFileText => File.ReadAllText(JsonFileLocation);
-        public CalculationDetailsForQuote GetJobById(Guid jobId)
-        {
 
+        public  async Task<CalculationDetailsForQuote> RetrieveJobFromOxQuoteApp(Guid jobId, CancellationToken cancelationToken)
+        {
             JObject jQuantities = JsonConvert.DeserializeObject<JObject>(JsonFileText);
             IList<JToken> tokens = new OldObject(jQuantities).ChildrenPublic;
-
+            
             List<CalculationDetailsGroupMap> newStructure = tokens.Select(token =>
             {
                 CalculationDetailsGroupMap map = new CalculationDetailsGroupMap
                 {
-                    Quantity = (uint)Convert.ToInt32(token.Path),
+                    Quantity = (uint) Convert.ToInt32(token.Path),
                     Details = token?.First["Details"]?.ToArray().Select((part, partIndex) =>
                     {
                         Console.WriteLine(part.Path);
@@ -49,22 +55,22 @@ namespace Oroox.SubSuppliers.Services.Jobs
                         {
                             PartIndex = partIndex,
                             Name = part.First["Name"].Value<object>().ToString(),
-                            Sections = part?.First["Sections"]?.Select(x => 
+                            Sections = part?.First["Sections"]?.Select(section =>
                             {
-                                var result = new CalculationDetailsSection
+                                CalculationDetailsSection result = new CalculationDetailsSection
                                 {
-                                    Name = x?["Name"]?.Value<string>(),
-                                    Details = x?["Details"].Select((section, sectionIndex) =>
+                                    Name = section["Name"]?.Value<string>(),
+                                    Details = section["Details"].Select((section, sectionIndex) =>
                                     {
-                                        var Class = section["Class"].Value<string>();
-                                        var Value = section["Value"].Value<string>();
-                                        var IsBold = section["IsBold"].Value<bool>();
-                                        var ValueGroupType = (ValueGroupType) section["ValueGroupType"].Value<int>();
-                                        var ValueType = (Domain.Entities.Job.Details.ValueType)section["ValueType"].Value<int>();
-                                        var Name = section["Name"].Value<string>();
-                                        var NumericValue = section["NumericValue"].Value<decimal>();
-                                        var OperationType = (OperationType)section["OperationType"].Value<int>();
-                                        var PriorityOrder = section["PriorityOrder"].Value<uint>();
+                                        string Class = section["Class"].Value<string>();
+                                        string Value = section["Value"].Value<string>();
+                                        bool IsBold = section["IsBold"].Value<bool>();
+                                        ValueGroupType ValueGroupType = (ValueGroupType)section["ValueGroupType"].Value<int>();
+                                        ValueType ValueType = (ValueType)section["ValueType"].Value<int>();
+                                        string Name = section["Name"].Value<string>();
+                                        decimal NumericValue = section["NumericValue"].Value<decimal>();
+                                        OperationType OperationType = (OperationType)section["OperationType"].Value<int>();
+                                        uint PriorityOrder = section["PriorityOrder"].Value<uint>();
 
                                         return new CalculationDetails
                                         {
@@ -78,23 +84,25 @@ namespace Oroox.SubSuppliers.Services.Jobs
                                             OperationType = OperationType,
                                             PriorityOrder = PriorityOrder
                                         };
-                                    }).ToList()
+
+                                    }).ToList() ?? new List<CalculationDetails>()
                                 };
                                 return result;
-                            }).ToList() ?? new List<CalculationDetailsSection>()
+                            })
+                            .ToList() ?? new List<CalculationDetailsSection>()
                         };
                     })
-                    .ToList()
+                    .ToList() ?? new List<CalculationDetailsGroup>()
                 };
                 return map;
-            })
-            .ToList();
+            }).ToList();
 
-            return new CalculationDetailsForQuote
+            var details = new CalculationDetailsForQuote
             {
-                DetailsForQuantities = newStructure, 
-                QuoteId = Guid.NewGuid()
+                DetailsForQuantities = newStructure,                
             };
+
+            return await Task.FromResult(details);
         }
 
         class OldObject : JObject

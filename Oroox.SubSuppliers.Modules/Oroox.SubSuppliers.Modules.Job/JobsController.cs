@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
 using Oroox.SubSuppliers.Modules.Jobs.RequestsCreateNewJob.Model;
@@ -22,8 +23,12 @@ namespace Oroox.SubSuppliers.Modules.Jobs
         /// </summary>
         /// <param name="request">UserDTO</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Create(CreateNewJobModel request)
-            => await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
+        {
+            var result = await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
+            string resjson = JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+            return result;
+        }        
     }
 }
