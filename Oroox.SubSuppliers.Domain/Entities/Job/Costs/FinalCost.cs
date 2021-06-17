@@ -16,7 +16,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
         [JsonConverter(typeof(StringEnumConverter))]
         public FinalCostType PartialCostType { get; set; }
 
-        /// <summary>unit cost for quantity</summary>
+        [JsonConverter(typeof(OldToNewCostForQuantityModelConverter))]
         public virtual List<CostPerQuantity> CostPerQuantity { get; set; }
 
         /// <summary>unit cost for date</summary>

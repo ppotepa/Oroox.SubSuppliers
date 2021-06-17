@@ -29,6 +29,7 @@ namespace Oroox.SubSuppliers.Services
             builder
                 .RegisterType<SmtpClient>()
                 .AsImplementedInterfaces();
+            
 
             builder
                .RegisterTypes(new[] { typeof(DevelopmentEmailService), typeof(ProductionMailingService) });
@@ -59,6 +60,8 @@ namespace Oroox.SubSuppliers.Services
                 (
                     args =>
                     {
+                        IApplicationContext ctx = args.Context.Resolve<IApplicationContext>();
+
                         IJobsService instance = IsDevelopment is true
                             ? args.Context.Resolve<DevelopmentJobsService>() as IJobsService
                             : args.Context.Resolve<ProductionJobsService>();

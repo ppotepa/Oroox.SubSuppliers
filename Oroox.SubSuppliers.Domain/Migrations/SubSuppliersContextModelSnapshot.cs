@@ -2454,7 +2454,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Deleted")
@@ -3077,9 +3077,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Quote", "Quote")
                         .WithMany()

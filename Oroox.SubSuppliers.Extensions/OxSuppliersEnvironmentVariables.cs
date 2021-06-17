@@ -40,7 +40,7 @@ namespace Oroox.SubSuppliers.Extensions
 
     public class Serviceurls
     {
-        public string JobServiceUrl { get; set; }
+        public string OxQuoteAppUrl { get; set; }
     }
 
     public class Production

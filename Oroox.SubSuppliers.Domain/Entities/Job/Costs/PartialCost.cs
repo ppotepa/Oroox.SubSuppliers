@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
@@ -21,6 +22,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
         [JsonConverter(typeof(StringEnumConverter))]
         public PartialCostType PartialCostType { get; set; }
         /// <summary>unit cost for quantity</summary>
+        [JsonConverter(typeof(OldToNewCostForQuantityModelConverter))]
         public virtual List<CostPerQuantity> CostPerQuantity { get; set; }
     }
 

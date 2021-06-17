@@ -7,6 +7,6 @@ namespace Oroox.SubSuppliers.Services.Jobs
 {
     public interface IJobsService
     {
-        public Task<CalculationDetailsForQuote> RetrieveJobFromOxQuoteApp(Guid jobId, CancellationToken cancelationToken);
+        public Task<CalculationDetailsForQuote> RetrieveJobFromOxQuoteApp(Guid quoteId, CancellationToken cancelationToken);
     }
 }

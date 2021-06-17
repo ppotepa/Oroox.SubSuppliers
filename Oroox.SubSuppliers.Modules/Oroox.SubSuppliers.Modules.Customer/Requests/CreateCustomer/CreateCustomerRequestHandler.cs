@@ -22,7 +22,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests
             EntityEntry<Domain.Entities.Customer> entry = await this.context.Customers.AddAsync(request.Customer, cancellationToken);
             return new CreateCustomerRequestResponse
             {
-                Response = $"CustomerId : {entry.Entity.Id}"
+                ResponseText = $"CustomerId : {entry.Entity.Id}"
             };
         }
     }

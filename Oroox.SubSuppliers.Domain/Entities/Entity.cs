@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace Oroox.SubSuppliers.Domain
 {
@@ -38,12 +39,18 @@ namespace Oroox.SubSuppliers.Domain
         }
 
         public Entity() { }
+        [JsonIgnore]
         public Guid CreatedBy { get; set; }
+        [JsonIgnore]
         public DateTime CreatedOn { get; set; }
+        [JsonIgnore]
         public bool Deleted { get; set; }
         public Guid Id { get; set; }
+        [JsonIgnore]
         public Guid? ModifiedBy { get; set; }
+        [JsonIgnore]
         public DateTime? ModifiedOn { get; set; }
+        [JsonIgnore]
         public DateTime? DeletedOn { get; set; }
 
         public virtual void Update(Entity entity)

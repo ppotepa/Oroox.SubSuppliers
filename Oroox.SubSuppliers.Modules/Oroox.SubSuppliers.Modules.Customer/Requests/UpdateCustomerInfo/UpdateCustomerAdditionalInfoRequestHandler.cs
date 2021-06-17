@@ -24,7 +24,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo
                 request.Customer.CustomerAdditionalInfo = request.CustomerAdditionalInfo;
                 response = new UpdateCustomerAdditionalInfoRequestResponse
                 {
-                    Response = $"Added new Customer Info. Id : {request.CustomerAdditionalInfo.Id}",
+                    ResponseText = $"Added new Customer Info. Id : {request.CustomerAdditionalInfo.Id}",
                 };
             }
             else 
@@ -32,7 +32,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo
                 request.Customer.CustomerAdditionalInfo.Update(request.CustomerAdditionalInfo);
                 response = new UpdateCustomerAdditionalInfoRequestResponse
                 {
-                    Response = $"Updated Customer Info. Id : {request.CustomerAdditionalInfo.Id}",
+                    ResponseText = $"Updated Customer Info. Id : {request.CustomerAdditionalInfo.Id}",
                 };
             }
 

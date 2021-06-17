@@ -22,11 +22,11 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
+        "Test": "Test",
         "OX_SS_DB_CONNECTIONSTRING_DEV": "Server=(localdb)\\MSSQLLocalDB;Database=OxSubSuppliers;Trusted_Connection=True;",
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "Test": "Test"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
-    },
+      "applicationUrl": "https://localhost:5069;http://localhost:5070"
+    }
   }
 }

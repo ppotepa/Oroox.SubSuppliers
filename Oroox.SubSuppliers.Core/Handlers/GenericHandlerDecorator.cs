@@ -74,7 +74,7 @@ namespace Oroox.SubSuppliers.Handlers
                 {
                     return new TResponse
                     {
-                        Response = "There were some validation errors.",
+                        ResponseText = "There were some validation errors.",
                         ValidationMessages = validationMessages
                     };
                 }

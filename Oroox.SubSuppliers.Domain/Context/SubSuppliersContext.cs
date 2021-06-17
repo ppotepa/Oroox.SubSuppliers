@@ -150,7 +150,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         public void RollBack()
             => this.Database.RollbackTransaction();
 
-        public async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, TransactionScope scope, CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
             IEnumerable<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>();
