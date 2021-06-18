@@ -11,14 +11,14 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
         /// <summary>
         /// PartialCosts - independent on the day of delivery.
         /// PartialCostType is unique in this list.
-        /// </summary>
-        public virtual List<PartialCost> PartialCosts { get; set; } = new List<PartialCost>();
+        /// </summary>z
+        public virtual List<PartialCost> PartialCosts { get; set; }
 
         /// <summary>
         /// FinalCosts - for each of the dates (FinalCostType is not unique).
         /// Contains codes: RETAIL_PRICE, FINAL_UNIT_PRICE_CHF, FINAL_UNIT_PRICE_EUR
         /// </summary>
-        public virtual List<FinalCost> FinalCosts { get; set; } = new List<FinalCost>();
+        public virtual List<FinalCost> FinalCosts { get; set; } 
 
         /// <summary>Cached details of this calculation. Displayed in admin panel.</summary>
         /// moved to separate object with relation to quote.

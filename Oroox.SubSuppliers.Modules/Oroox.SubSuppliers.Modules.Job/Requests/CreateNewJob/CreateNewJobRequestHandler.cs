@@ -25,16 +25,8 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Response
 
         public async Task<CreateNewJobRequestResponse> Handle(CreateNewJobRequest request, CancellationToken cancellationToken)
         {
-            CalculationDetailsForQuote details = await jobsService.RetrieveJobFromOxQuoteApp(default, cancellationToken);
-            EntityEntry<Job> entry = await this.context.Jobs.AddAsync
-            (
-                new Job
-                {
-                    CalculationDetailsForQuote = details,
-                    CustomerId = this.context.Customers.AsQueryable().First().Id,       
-                    Quote = new Quote()
-                }
-            );
+            Job job = await jobsService.RetrieveJobFromOxQuoteApp(default, cancellationToken);
+            EntityEntry<Job> entry = await this.context.Jobs.AddAsync(job);
 
             return new CreateNewJobRequestResponse
             {

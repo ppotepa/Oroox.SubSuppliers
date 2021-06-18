@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
 {
@@ -6,5 +7,6 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
     {
         public string Name { get; set; }
         public virtual List<CalculationDetails> Details { get; set; }
+        public Guid CalculationDetailsGroupId { get; set; }
     }
 }

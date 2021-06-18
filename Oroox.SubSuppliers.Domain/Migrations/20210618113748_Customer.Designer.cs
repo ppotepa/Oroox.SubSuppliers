@@ -10,8 +10,8 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210617061440_CustomerAndJob")]
-    partial class CustomerAndJob
+    [Migration("20210618113748_Customer")]
+    partial class Customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -2118,7 +2118,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CalculationDetailsSectionId")
+                    b.Property<Guid>("CalculationDetailsSectionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Class")
@@ -2211,7 +2211,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CalculationDetailsGroupMapId")
+                    b.Property<Guid>("CalculationDetailsGroupMapId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -2251,7 +2251,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CalculationDetailsForQuoteId")
+                    b.Property<Guid>("CalculationDetailsForQuoteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -2288,7 +2288,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CalculationDetailsGroupId")
+                    b.Property<Guid>("CalculationDetailsGroupId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -2450,6 +2450,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<Guid?>("CalculationDetailsForQuoteId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CalculationResultId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -2471,12 +2474,14 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("QuoteId")
+                    b.Property<Guid?>("QuoteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CalculationDetailsForQuoteId");
+
+                    b.HasIndex("CalculationResultId");
 
                     b.HasIndex("CustomerId");
 
@@ -2703,7 +2708,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CalculationResultId")
+                    b.Property<Guid?>("CalculationResultId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -2743,7 +2748,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<Guid>("CadFileId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CalculationResultId")
+                    b.Property<Guid?>("CalculationResultId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CalculationResultId1")
@@ -3033,28 +3038,36 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsSection", null)
                         .WithMany("Details")
-                        .HasForeignKey("CalculationDetailsSectionId");
+                        .HasForeignKey("CalculationDetailsSectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroup", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroupMap", null)
                         .WithMany("Details")
-                        .HasForeignKey("CalculationDetailsGroupMapId");
+                        .HasForeignKey("CalculationDetailsGroupMapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroupMap", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsForQuote", null)
                         .WithMany("DetailsForQuantities")
-                        .HasForeignKey("CalculationDetailsForQuoteId");
+                        .HasForeignKey("CalculationDetailsForQuoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsSection", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroup", null)
                         .WithMany("Sections")
-                        .HasForeignKey("CalculationDetailsGroupId");
+                        .HasForeignKey("CalculationDetailsGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.FinalCost", b =>
@@ -3077,17 +3090,21 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .WithMany()
                         .HasForeignKey("CalculationDetailsForQuoteId");
 
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", "CalculationResult")
+                        .WithMany()
+                        .HasForeignKey("CalculationResultId");
+
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Quote", "Quote")
                         .WithMany()
-                        .HasForeignKey("QuoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuoteId");
 
                     b.Navigation("CalculationDetailsForQuote");
+
+                    b.Navigation("CalculationResult");
 
                     b.Navigation("Customer");
 
@@ -3129,9 +3146,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", null)
                         .WithMany("PartialCosts")
-                        .HasForeignKey("CalculationResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CalculationResultId");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Quote", b =>

@@ -34,6 +34,6 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 
         /// <summary>Latest calculation result. Ignored in OxContext</summary>
         public virtual CalculationResult CalculationResult { get; set; }
-        public virtual Guid CalculationResultId { get; set; }
+        public virtual Guid? CalculationResultId { get; set; }
     }
 }

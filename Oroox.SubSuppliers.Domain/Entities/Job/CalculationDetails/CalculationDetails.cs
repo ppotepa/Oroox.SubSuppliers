@@ -1,4 +1,6 @@
-﻿namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
+﻿using System;
+
+namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
 {
     public enum OperationType
     {
@@ -55,5 +57,6 @@
         public string Value { get; set; }
         public ValueGroupType ValueGroupType { get; set; }
         public ValueType ValueType { get; set; }
+        public Guid CalculationDetailsSectionId { get; set; }
     }
 }

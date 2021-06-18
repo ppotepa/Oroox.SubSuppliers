@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    public partial class CustomerAndJob : Migration
+    public partial class Customer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -169,7 +169,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<long>(type: "bigint", nullable: false),
-                    CalculationDetailsForQuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CalculationDetailsForQuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -185,7 +185,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CalculationDetailsForQuoteId,
                         principalTable: "CalculationDetailsForQuote",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,7 +224,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CalculationResultId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CalculationResultId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PartialCostType = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -241,7 +241,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CalculationResultId,
                         principalTable: "CalculationResult",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -257,7 +257,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     ChosenQuantity = table.Column<long>(type: "bigint", nullable: true),
                     ChosenDeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CalculationResultId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CalculationResultId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CalculationResultId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -350,7 +350,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PartIndex = table.Column<int>(type: "int", nullable: false),
-                    CalculationDetailsGroupMapId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CalculationDetailsGroupMapId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -366,7 +366,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CalculationDetailsGroupMapId,
                         principalTable: "CalculationDetailsGroupMap",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -566,9 +566,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CalculationDetailsForQuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    QuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CalculationResultId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    QuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -586,6 +587,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Jobs_CalculationResult_CalculationResultId",
+                        column: x => x.CalculationResultId,
+                        principalTable: "CalculationResult",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Jobs_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
@@ -596,7 +603,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.QuoteId,
                         principalTable: "Quote",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -702,7 +709,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CalculationDetailsGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CalculationDetailsGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -718,7 +725,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CalculationDetailsGroupId,
                         principalTable: "CalculationDetailsGroup",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -770,7 +777,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ValueGroupType = table.Column<int>(type: "int", nullable: false),
                     ValueType = table.Column<int>(type: "int", nullable: false),
-                    CalculationDetailsSectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CalculationDetailsSectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -786,7 +793,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         column: x => x.CalculationDetailsSectionId,
                         principalTable: "CalculationDetailsSection",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -1227,6 +1234,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "IX_Jobs_CalculationDetailsForQuoteId",
                 table: "Jobs",
                 column: "CalculationDetailsForQuoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_CalculationResultId",
+                table: "Jobs",
+                column: "CalculationResultId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_CustomerId",

@@ -8,7 +8,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
     public interface IPartialCost<T> where T : Enum
     {
-        Guid Id { get; set; }
+       
         List<CostPerQuantity> CostPerQuantity { get; set; }
 
         /// <summary>PartialCostType or FinalCostType</summary>
@@ -17,7 +17,7 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 
     public class PartialCost : Entity, IPartialCost<PartialCostType>
     {   
-        public Guid CalculationResultId { get; set; }
+        public Guid? CalculationResultId { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public PartialCostType PartialCostType { get; set; }

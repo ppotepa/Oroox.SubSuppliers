@@ -7,12 +7,14 @@ using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Utilities.Extensions;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Services.Jobs
 {
+
     class TemporaryResult
     {  
         [JsonConverter(typeof(OldNewCalculationDetailsModelConverter))]
@@ -45,7 +47,7 @@ namespace Oroox.SubSuppliers.Services.Jobs
         private string JsonFileLocation => Path.Combine(PathParts);
         private string JsonFileText => File.ReadAllText(JsonFileLocation);
 
-        public  async Task<CalculationDetailsForQuote> RetrieveJobFromOxQuoteApp(Guid quoteid, CancellationToken cancelationToken)
+        public  async Task<Job> RetrieveJobFromOxQuoteApp(Guid quoteid, CancellationToken cancelationToken)
         {
             OxSubSuppliersApplicationSettings settings = this.configuration.GetApplicationSettings();
             Uri serviceUrl = new Uri(settings.Development.ServiceUrls.OxQuoteAppUrl);
@@ -66,9 +68,15 @@ namespace Oroox.SubSuppliers.Services.Jobs
                 new StringContent(payload.ToJsonString(), null, "application/json")
             );
 
-            TemporaryResult result = await quote.Content.ReadDeserializedObject<TemporaryResult>();
+            var result = await quote.Content.ReadDeserializedObject<TemporaryResult>();
 
-            return default;// await Task.FromResult(result);
+            Job job = new Job
+            {
+                CalculationDetailsForQuote = result.Details,                
+                Quote = result.Quote                
+            };
+
+            return job;// await Task.FromResult(result);
         }
     }
 }

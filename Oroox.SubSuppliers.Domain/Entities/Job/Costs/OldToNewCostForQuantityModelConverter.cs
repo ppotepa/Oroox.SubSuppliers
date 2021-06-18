@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Oroox.SubSuppliers.Domain.Entities.Job
 {
@@ -14,13 +15,19 @@ namespace Oroox.SubSuppliers.Domain.Entities.Job
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            Dictionary<uint, decimal> jObject = JObject.Load(reader).ToObject<Dictionary<uint, decimal>>();
-            return null;
+            var readerLoaded = JObject.Load(reader);
+
+            Console.WriteLine("existing value: " + readerLoaded.ToString());
+            List<CostPerQuantity> result = readerLoaded.ToObject<Dictionary<uint, decimal>>()
+                    .Select(kvp => new CostPerQuantity { Quantity = kvp.Key, Cost = kvp.Value })
+                    .ToList();
+
+            return result;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            serializer.Serialize(writer, value);
         }
     }
 }
