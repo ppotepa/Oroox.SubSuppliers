@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 
 namespace Oroox.SubSuppliers.Extensions
 {
@@ -41,6 +40,7 @@ namespace Oroox.SubSuppliers.Extensions
     public class Serviceurls
     {
         public string OxQuoteAppUrl { get; set; }
+        public string OxQuoteAppApiUrl { get; set; }
     }
 
     public class Production
