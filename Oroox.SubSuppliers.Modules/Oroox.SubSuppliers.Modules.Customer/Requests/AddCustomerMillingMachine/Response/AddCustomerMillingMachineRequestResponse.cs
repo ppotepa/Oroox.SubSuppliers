@@ -5,7 +5,7 @@ using System;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.Response
 {
-    public class AddCustomerMillingMachineRequestResponse : BaseRespone
+    public class AddCustomerMillingMachineRequestResponse : BaseResponse
     {
         public NewMillingMachineResponseDTO[] MachineIds { get; internal set; }
     }

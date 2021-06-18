@@ -2,5 +2,5 @@
 
 namespace Oroox.SubSuppliers.Modules.Jobs.Requests.RequestsCreateNewJob.Response
 {
-    public class CreateNewJobRequestResponse : BaseRespone { }
+    public class CreateNewJobRequestResponse : BaseResponse { }
 }

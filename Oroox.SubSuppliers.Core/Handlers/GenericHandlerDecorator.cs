@@ -24,7 +24,7 @@ namespace Oroox.SubSuppliers.Handlers
     /// <typeparam name="TResponse"></typeparam>
     public sealed class GenericHandlerDecorator<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : BaseRespone, new()
+        where TResponse : BaseResponse, new()
     {
         private static List<object> instances = new List<object>();
 

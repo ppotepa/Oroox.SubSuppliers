@@ -1,29 +1,22 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities.Job;
-using Oroox.SubSuppliers.Domain.Entities.Job.Details;
 using Oroox.SubSuppliers.Extensions;
+using Oroox.SubSuppliers.Services.Jobs.Response;
 using Oroox.SubSuppliers.Utilities.Extensions;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Services.Jobs
 {
-
-    class TemporaryResult
-    {  
-        [JsonConverter(typeof(OldNewCalculationDetailsModelConverter))]
-        public CalculationDetailsForQuote CalculationDetailsForQuote { get; set; }
-        public CalculationResult CalculationResult { get; set; }
-        public Quote Quote { get; set; }
-    }
-
+    /// <summary>
+    /// Development Jobs service responsible for obtaining Jobs from OxQuoteApp.
+    /// </summary>
     public class DevelopmentJobsService : IJobsService
     {
+        private const string getQuoteCalculationDetails = "getQuoteCalculationDetails";
         private readonly IConfiguration configuration;
         private readonly IApplicationContext context;        
 
@@ -33,28 +26,47 @@ namespace Oroox.SubSuppliers.Services.Jobs
             this.configuration = configuration;
         }
 
-        public  async Task<Job> RetrieveJobFromOxQuoteApp(Guid quoteid, CancellationToken cancelationToken)
+        /// <summary>
+        /// Retreives a job from OxQuote App.
+        /// If request is successful returns Job otherwise it returns null.
+        /// </summary>
+        /// <param name="quoteid"></param>
+        /// <param name="cancelationToken"></param>
+        /// <returns></returns>
+        public  async Task<GetQuoteCalculationDetailsResponse> RetreiveJobByQuoteId(Guid quoteid, CancellationToken cancelationToken)
         {
             OxSubSuppliersApplicationSettings settings = this.configuration.GetApplicationSettings();
             Uri apiUrl = new Uri(settings.Development.ServiceUrls.OxQuoteAppApiUrl);
-            HttpClient httpClient = new HttpClient();
 
-            var payload = (
-                commandName: "getQuoteCalculationDetails",
-                parameters: new
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string payloadJson = new
                 {
-                    quoteId = "4DC8B714-740A-4575-A0DE-97B4F3BA88C5"
+                    commandName= getQuoteCalculationDetails,
+                    parameters = new
+                    {
+                        quoteId = quoteid
+                    }
                 }
-            );
+                .ToJsonString();
 
-            HttpResponseMessage quote = await httpClient.PostAsync
-            (
-                requestUri: apiUrl,
-                content:    new StringContent(payload.ToJsonString(), null, "application/json")
-            );
-
-            Job job = await quote.Content.ReadDeserializedObject<Job>();
-            return job;
+                using (HttpResponseMessage jobResponse = await httpClient.PostAsync(apiUrl, new StringContent(payloadJson, null, "application/json")))
+                {
+                    if (jobResponse.StatusCode is System.Net.HttpStatusCode.OK)
+                    {
+                        Job job = await jobResponse.Content.ReadDeserializedObject<Job>();
+                        return new GetQuoteCalculationDetailsResponse 
+                        {
+                            Result = job,
+                        };
+                    }
+                    else return new GetQuoteCalculationDetailsResponse
+                    {
+                        ResponseText = $"Unable to fetch Job for Quote with Id {quoteid}",
+                        Result = null,
+                    };
+                }
+            }
         }
     }
 }

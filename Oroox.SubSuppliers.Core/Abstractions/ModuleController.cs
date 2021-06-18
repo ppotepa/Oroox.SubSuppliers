@@ -23,7 +23,7 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         protected readonly IMapper mapper;
         protected readonly IApplicationContext context;
 
-        private Dictionary<ShouldRedirect, Func<BaseRespone, IActionResult>> Actions => new Dictionary<ShouldRedirect, Func<BaseRespone, IActionResult>>()
+        private Dictionary<ShouldRedirect, Func<BaseResponse, IActionResult>> Actions => new Dictionary<ShouldRedirect, Func<BaseResponse, IActionResult>>()
         {
             [ShouldRedirect.ShouldNotRedirect]  = (response) => new ObjectResult(response),
             [ShouldRedirect.ShoulRedirect]      = (response) => Redirect(response.RedirectUrl),
@@ -39,7 +39,7 @@ namespace Oroox.SubSuppliers.Utilities.Abstractions
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Handle(IBaseRequest request)
         {
-            BaseRespone response = await this.mediator.Send(request) as BaseRespone;
+            BaseResponse response = await this.mediator.Send(request) as BaseResponse;
             ShouldRedirect shouldRedirect = string.IsNullOrEmpty(response.RedirectUrl) is false 
                 ? ShouldRedirect.ShoulRedirect 
                 : ShouldRedirect.ShouldNotRedirect;
