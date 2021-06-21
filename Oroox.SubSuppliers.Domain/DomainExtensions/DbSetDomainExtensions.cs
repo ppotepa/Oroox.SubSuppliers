@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Oroox.SubSuppliers.Domain.Entities;
 using System;
 using System.Linq;
 

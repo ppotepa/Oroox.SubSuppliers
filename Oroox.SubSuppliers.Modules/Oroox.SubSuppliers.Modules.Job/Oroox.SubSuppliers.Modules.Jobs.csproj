@@ -5,27 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Requests\CreateNewJob\NewFolder\**" />
     <Compile Remove="Requests\CreateNewJob\Validators\**" />
-    <EmbeddedResource Remove="Requests\CreateNewJob\NewFolder\**" />
     <EmbeddedResource Remove="Requests\CreateNewJob\Validators\**" />
-    <None Remove="Requests\CreateNewJob\NewFolder\**" />
     <None Remove="Requests\CreateNewJob\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
     <ProjectReference Include="..\..\Oroox.SubSuppliers.Services\Oroox.SubSuppliers.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Requests\CreateNewJob\Validation\" />
-    <Folder Include="Requests\CreateNewJob\PostProcessors\" />
-    <Folder Include="Requests\CreateNewJob\PreProcessors\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-﻿namespace Oroox.SubSuppliers.Domain
+﻿using Oroox.SubSuppliers.Domain.Entities;
+
+namespace Oroox.SubSuppliers.Domain
 {
     public class ContactPerson : Entity
     {

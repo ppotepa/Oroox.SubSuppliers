@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Oroox.SubSuppliers.Domain.Utilities.Converters;
 using System;
 using System.Collections.Generic;
 
 
-namespace Oroox.SubSuppliers.Domain.Entities.Job
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class CostPerQuantity : Entity
     {

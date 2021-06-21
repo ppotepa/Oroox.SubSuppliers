@@ -26,17 +26,15 @@ namespace Oroox.SubSuppliers.Handlers
         where TRequest : IRequest<TResponse>
         where TResponse : BaseResponse, new()
     {
-        private static List<object> instances = new List<object>();
 
-        private readonly IEnumerable<IValidator<TRequest>> validators;
-        private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
-        private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
-        private readonly IRequestHandler<TRequest, TResponse> innerRequest;
-        private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IApplicationContext context;
+        private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IRequestHandler<TRequest, TResponse> innerRequest;
         private readonly ILogger logger;
-
+        private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
+        private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
+        private readonly IEnumerable<IValidator<TRequest>> validators;
         public GenericHandlerDecorator
         (
             IEnumerable<IValidator<TRequest>> validators,
@@ -87,7 +85,7 @@ namespace Oroox.SubSuppliers.Handlers
             {
                 throw new RequestProcessingException
                 (
-                    message: $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +
+                    message:    $"Error processing request with id {httpContextAccessor.HttpContext.TraceIdentifier}. " +
                                 $"See Data to provide better view.",
 
                     request: request,

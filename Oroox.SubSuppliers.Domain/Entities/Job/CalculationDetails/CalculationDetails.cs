@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public enum OperationType
     {

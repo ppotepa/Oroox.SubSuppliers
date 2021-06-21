@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
-namespace Oroox.SubSuppliers.Domain
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class Entity 
     {

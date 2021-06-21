@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Oroox.SubSuppliers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Oroox.SubSuppliers.Domain.Entities.Job
+namespace Oroox.SubSuppliers.Domain.Utilities.Converters
 {
     public class OldToNewCostForQuantityModelConverter : JsonConverter
     {

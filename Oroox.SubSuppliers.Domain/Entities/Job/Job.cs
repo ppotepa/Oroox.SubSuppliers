@@ -1,7 +1,6 @@
-﻿using Oroox.SubSuppliers.Domain.Entities.Job.Details;
-using System;
+﻿using System;
 
-namespace Oroox.SubSuppliers.Domain.Entities.Job
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class Job : Entity
     {

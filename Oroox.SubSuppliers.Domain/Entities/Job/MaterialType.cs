@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Oroox.SubSuppliers.Domain.Entities.Job
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class MaterialType : Entity
     {

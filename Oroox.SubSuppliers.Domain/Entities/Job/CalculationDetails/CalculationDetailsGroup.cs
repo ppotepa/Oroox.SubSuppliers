@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Oroox.SubSuppliers.Domain.Entities.Job.Details
+namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class CalculationDetailsGroup : Entity
     {

@@ -20,5 +20,10 @@ namespace Oroox.SubSuppliers.Domain.Entities
             set => this._machineTypeName = value;
         }
         private string _machineTypeName;
+
+        public bool MatchJob(Job job)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
