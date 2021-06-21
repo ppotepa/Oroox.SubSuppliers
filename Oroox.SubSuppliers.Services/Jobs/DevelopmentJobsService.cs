@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Domain.Entities.Job;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Services.Jobs.Response;
 using Oroox.SubSuppliers.Utilities.Extensions;

@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Oroox.SubSuppliers.Domain.Entities.Job.Details;
+using Oroox.SubSuppliers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ValueType = Oroox.SubSuppliers.Domain.Entities.Job.Details.ValueType;
 
 namespace Oroox.SubSuppliers.Services.Jobs
 {
@@ -47,7 +46,7 @@ namespace Oroox.SubSuppliers.Services.Jobs
                                             Value = section["Value"].Value<string>(),
                                             IsBold = section["IsBold"].Value<bool>(),
                                             ValueGroupType = (ValueGroupType)section["ValueGroupType"].Value<int>(),
-                                            ValueType = (ValueType)section["ValueType"].Value<int>(),
+                                            ValueType = (Domain.Entities.ValueType)section["ValueType"].Value<int>(),
                                             Name = section["Name"].Value<string>(),
                                             NumericValue = section["NumericValue"].Value<decimal>(),
                                             OperationType = (OperationType)section["OperationType"].Value<int>(),

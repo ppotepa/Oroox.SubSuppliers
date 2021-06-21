@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Domain.Entities.Job;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.RequestsCreateNewJob.Response;
 using Oroox.SubSuppliers.Services.Jobs;

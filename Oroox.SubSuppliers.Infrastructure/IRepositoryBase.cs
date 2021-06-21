@@ -1,4 +1,4 @@
-﻿using Oroox.SubSuppliers.Domain;
+﻿using Oroox.SubSuppliers.Domain.Entities;
 
 namespace Oroox.SubSuppliers.Infrastructure
 {

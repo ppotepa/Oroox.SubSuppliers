@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Domain.Entities;
 using System;
 
 namespace Oroox.SubSuppliers.Infrastructure

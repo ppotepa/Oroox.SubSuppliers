@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Oroox.SubSuppliers.Domain.Entities.Job;
 using Oroox.SubSuppliers.Services.Jobs.Response;
 using System;
 using System.Threading;
