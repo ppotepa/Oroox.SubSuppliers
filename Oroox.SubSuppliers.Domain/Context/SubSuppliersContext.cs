@@ -1,6 +1,5 @@
 ﻿using Faithlife.Utility;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -8,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
-using Oroox.SubSuppliers.Domain.Entities.Job;
-using Oroox.SubSuppliers.Domain.Entities.Job.Details;
 using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
 using System;
@@ -107,21 +104,21 @@ namespace Oroox.SubSuppliers.Domain.Context
         }
         #region DB_SETS
         public DbSet<AddressType> AddressTypes { get; set; }
+        public DbSet<CalculationDetails> CalculationDetails { get; set; }
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
         public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
-        public DbSet<CalculationDetails> CalculationDetails { get; set; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }        
         public DbSet<Customer> Customers { get; set; }
-        public IEnumerable<object> Entries 
-            => ((IEnumerable<object>) this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
+        public DatabaseFacade DataBase => this.Database;
+
+        public IEnumerable<object> Entries
+                    => ((IEnumerable<object>) this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
         public DbSet<Job> Jobs { get; set; }
         public DbSet<MillingMachine> MillingMachines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<TurningMachine> TurningMachines { get; set; }
-
-        public DatabaseFacade DataBase => this.Database;
         #endregion DB_SETS
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
