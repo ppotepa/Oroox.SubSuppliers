@@ -28,7 +28,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Response
 
             if (jobResponse.Result is null) return new CreateNewJobRequestResponse
             {
-                ResponseText = $"Request was succesful. But not quotes with id '{request.QuoteId}' were found.",
+                ResponseText = $"Request was succesful. But no quotes with id '{request.QuoteId}' were found.",
             };
 
             EntityEntry<Job> entry = await this.context.Jobs.AddAsync(jobResponse.Result as Job);

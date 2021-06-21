@@ -6,16 +6,10 @@
 
   <ItemGroup>
     <Compile Remove="Requests\CreateNewJob\NewFolder\**" />
-    <Compile Remove="Requests\CreateNewJob\PostProcessors\**" />
-    <Compile Remove="Requests\CreateNewJob\PreProcessors\**" />
     <Compile Remove="Requests\CreateNewJob\Validators\**" />
     <EmbeddedResource Remove="Requests\CreateNewJob\NewFolder\**" />
-    <EmbeddedResource Remove="Requests\CreateNewJob\PostProcessors\**" />
-    <EmbeddedResource Remove="Requests\CreateNewJob\PreProcessors\**" />
     <EmbeddedResource Remove="Requests\CreateNewJob\Validators\**" />
     <None Remove="Requests\CreateNewJob\NewFolder\**" />
-    <None Remove="Requests\CreateNewJob\PostProcessors\**" />
-    <None Remove="Requests\CreateNewJob\PreProcessors\**" />
     <None Remove="Requests\CreateNewJob\Validators\**" />
   </ItemGroup>
 
@@ -29,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\Validation\" />
-    <Folder Include="Requests\PostProcessors\" />
-    <Folder Include="Requests\PreProcessors\" />
+    <Folder Include="Requests\CreateNewJob\Validation\" />
+    <Folder Include="Requests\CreateNewJob\PostProcessors\" />
+    <Folder Include="Requests\CreateNewJob\PreProcessors\" />
   </ItemGroup>
 
 </Project>
