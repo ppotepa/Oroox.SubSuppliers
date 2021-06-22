@@ -154,7 +154,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
         private void AddGenericEntityFilter(ModelBuilder modelBuilder)
         {
-            CurrentEntities.Where(e => e.BaseType == typeof(Entity)).ForEach(entity =>
+            CurrentEntities.Where(e => e.BaseType == typeof(Entity) && e.ContainsGenericParameters is false).ForEach(entity =>
             {
                 dynamic expression = ExpressionMethod(entity).Invoke(this, null);
                 modelBuilder.Entity(entity).HasQueryFilter(expression);

@@ -55,7 +55,8 @@ namespace Oroox.SubSuppliers.Domain
 
             var comments = ctx.Comments.ToList();
             var ctx2 = ctx.Find(comments[1].Attachment.RegardingObject.EntityType, comments[1].Attachment.RegardingObject.RegardingObjectId);
-
+            RegardingObject<Comment> @object = RegardingObject.Obtain<Comment>(ctx, comments[1].Attachment.RegardingObject.RegardingObjectId);
+            
             //ctx.SaveChanges();
         }
 

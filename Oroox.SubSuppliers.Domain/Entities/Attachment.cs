@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Oroox.SubSuppliers.Domain.Entities
@@ -19,5 +20,24 @@ namespace Oroox.SubSuppliers.Domain.Entities
         [NotMapped]
         public Type EntityType
             => Type.GetType($"{EntitiesAssemblyNamespace}.{this.EntityName}", true);
+
+        
+        public static RegardingObject<TEntity> Obtain<TEntity>(DbContext context, Guid Id) where TEntity : Entity
+        {
+            TEntity @object = context.Find(typeof(TEntity), Id) as TEntity;
+            RegardingObject<TEntity> result = new RegardingObject<TEntity>(@object);
+            return result;
+        }
+    }
+
+    [NotMapped]
+    public class RegardingObject<TEntity> : Entity where TEntity : Entity
+    {
+        public readonly TEntity Entity;
+
+        public RegardingObject(TEntity Entity)
+        {
+            this.Entity = Entity;
+        }
     }
 }

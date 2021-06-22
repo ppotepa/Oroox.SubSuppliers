@@ -234,7 +234,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("RegardingObjectId")
+                    b.Property<Guid?>("RegardingObjectIdRegardingObjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
