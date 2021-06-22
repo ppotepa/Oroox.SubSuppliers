@@ -10,6 +10,9 @@ namespace Oroox.SubSuppliers.Domain.Entities
 {
     public class Entity 
     {
+        protected static Assembly CurrentAssembly => Assembly.LoadFrom("Oroox.SubSuppliers.Domain.dll");
+        protected const string EntitiesAssemblyNamespace = "Oroox.SubSuppliers.Domain.Entities";
+
         public object this[string propertyName] => _properties[propertyName];
         public bool HasRootEntity => this.GetType().BaseType != null && this.GetType().BaseType != typeof(object);
         private void UpdateProperty(string propertyName, object @value)

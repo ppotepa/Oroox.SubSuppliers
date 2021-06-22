@@ -13,11 +13,11 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
     public class RegardingObject : Entity
     {
-        public string EntityName { get; set; }       
+        public string EntityName { get; set; }
         public Guid RegardingObjectId { get; set; }
 
         [NotMapped]
         public Type EntityType
-            => Type.GetType(this.EntityName, true, true);
+            => Type.GetType($"{EntitiesAssemblyNamespace}.{this.EntityName}", true);
     }
 }

@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Oroox.SubSuppliers.Domain.Context;
+﻿using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations;
 using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
-using Oroox.SubSuppliers.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain
@@ -14,28 +13,50 @@ namespace Oroox.SubSuppliers.Domain
     public class Program
     {
         public static async Task Main()
-        {
+        {          
             SubSuppliersContext ctx = new SubSuppliersContext(false);
+            //ctx.Add(NewCustomer(ctx, 11));
+            //ctx.SaveChanges();
+            //var customer = ctx.Customers.First();
+
             //ctx.Jobs.Add
             //(
             //    new Job
             //    {
-            //        CustomerId = ctx.Customers.First().Id,
+            //        CustomerId = customer.Id,
             //        SharedJobs = new List<SharedJob>()
             //        {
             //            new SharedJob
             //            {
+            //                SharedJobStatusType = ctx.Enumerations.SharedJobStatusTypes[SharedJobStatusTypeEnum.UnansweredQuestions],
+            //                CustomerId = customer.Id,
             //                Comments = new List<Comment>
             //                {
             //                    new Comment
             //                    {
-            //                        Text = "Some text"
+            //                        Id = Guid.Parse("5697e683-90a4-4b4a-b224-d4cdf6bf2ddb"),
+            //                        CreatedBy = customer.Id,
+            //                        Text = "Some text",
+            //                        Attachment = new Attachment
+            //                        {
+            //                            Content = Encoding.ASCII.GetBytes("Some text content"),
+            //                            RegardingObject = new RegardingObject
+            //                            {
+            //                                EntityName = "Comment",
+            //                                RegardingObjectId = Guid.Parse("5697e683-90a4-4b4a-b224-d4cdf6bf2ddb")                                            
+            //                            }
+            //                        }
             //                    }
             //                }
             //            }
             //        }
             //    }
             //);
+
+            var comments = ctx.Comments.ToList();
+            var ctx2 = ctx.Find(comments[1].Attachment.RegardingObject.EntityType, comments[1].Attachment.RegardingObject.RegardingObjectId);
+
+            //ctx.SaveChanges();
         }
 
         private static Customer NewCustomer(SubSuppliersContext ctx, int index)

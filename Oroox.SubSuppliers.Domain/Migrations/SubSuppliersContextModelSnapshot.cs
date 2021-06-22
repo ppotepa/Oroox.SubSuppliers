@@ -541,7 +541,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AttachmentId")
+                    b.Property<Guid?>("AttachmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -574,7 +574,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("SharedJobId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CostPerQuantity", b =>
@@ -2962,7 +2962,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegardingObject");
+                    b.ToTable("RegardingObjects");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
@@ -3044,7 +3044,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("SharedJobStatusTypeId");
 
-                    b.ToTable("SharedJob");
+                    b.ToTable("SharedJobs");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJobQuestion", b =>
@@ -3081,7 +3081,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("JobOfferId");
 
-                    b.ToTable("SharedJobQuestion");
+                    b.ToTable("SharedJobQuestions");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJobRejectionReasonType", b =>
@@ -3365,9 +3365,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Attachment", "Attachment")
                         .WithMany()
-                        .HasForeignKey("AttachmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AttachmentId");
 
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.SharedJob", null)
                         .WithMany("Comments")

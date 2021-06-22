@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    public partial class Customer_Job : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -164,7 +164,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RegardingObject",
+                name: "RegardingObjects",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -179,7 +179,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RegardingObject", x => x.Id);
+                    table.PrimaryKey("PK_RegardingObjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -427,9 +427,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     table.PrimaryKey("PK_Attachments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attachments_RegardingObject_RegardingObjectId",
+                        name: "FK_Attachments_RegardingObjects_RegardingObjectId",
                         column: x => x.RegardingObjectId,
-                        principalTable: "RegardingObject",
+                        principalTable: "RegardingObjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -848,7 +848,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SharedJob",
+                name: "SharedJobs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -864,21 +864,21 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SharedJob", x => x.Id);
+                    table.PrimaryKey("PK_SharedJobs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SharedJob_Customers_CustomerId",
+                        name: "FK_SharedJobs_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SharedJob_Jobs_JobId",
+                        name: "FK_SharedJobs_Jobs_JobId",
                         column: x => x.JobId,
                         principalTable: "Jobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SharedJob_SharedJobStatusTypes_SharedJobStatusTypeId",
+                        name: "FK_SharedJobs_SharedJobStatusTypes_SharedJobStatusTypeId",
                         column: x => x.SharedJobStatusTypeId,
                         principalTable: "SharedJobStatusTypes",
                         principalColumn: "Id",
@@ -919,11 +919,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AttachmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AttachmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SharedJobId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -935,23 +935,23 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Attachments_AttachmentId",
+                        name: "FK_Comments_Attachments_AttachmentId",
                         column: x => x.AttachmentId,
                         principalTable: "Attachments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comment_SharedJob_SharedJobId",
+                        name: "FK_Comments_SharedJobs_SharedJobId",
                         column: x => x.SharedJobId,
-                        principalTable: "SharedJob",
+                        principalTable: "SharedJobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SharedJobQuestion",
+                name: "SharedJobQuestions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -966,11 +966,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SharedJobQuestion", x => x.Id);
+                    table.PrimaryKey("PK_SharedJobQuestions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SharedJobQuestion_SharedJob_JobOfferId",
+                        name: "FK_SharedJobQuestions_SharedJobs_JobOfferId",
                         column: x => x.JobOfferId,
-                        principalTable: "SharedJob",
+                        principalTable: "SharedJobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1401,13 +1401,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 column: "CustomersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_AttachmentId",
-                table: "Comment",
+                name: "IX_Comments_AttachmentId",
+                table: "Comments",
                 column: "AttachmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_SharedJobId",
-                table: "Comment",
+                name: "IX_Comments_SharedJobId",
+                table: "Comments",
                 column: "SharedJobId");
 
             migrationBuilder.CreateIndex(
@@ -1508,24 +1508,24 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_SharedJob_CustomerId",
-                table: "SharedJob",
+                name: "IX_SharedJobQuestions_JobOfferId",
+                table: "SharedJobQuestions",
+                column: "JobOfferId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SharedJobs_CustomerId",
+                table: "SharedJobs",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SharedJob_JobId",
-                table: "SharedJob",
+                name: "IX_SharedJobs_JobId",
+                table: "SharedJobs",
                 column: "JobId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SharedJob_SharedJobStatusTypeId",
-                table: "SharedJob",
+                name: "IX_SharedJobs_SharedJobStatusTypeId",
+                table: "SharedJobs",
                 column: "SharedJobStatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SharedJobQuestion_JobOfferId",
-                table: "SharedJobQuestion",
-                column: "JobOfferId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1540,7 +1540,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "CertificationCustomer");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "ContactPerson");
@@ -1567,7 +1567,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "Registrations");
 
             migrationBuilder.DropTable(
-                name: "SharedJobQuestion");
+                name: "SharedJobQuestions");
 
             migrationBuilder.DropTable(
                 name: "SharedJobRejectionReasonTypes");
@@ -1609,13 +1609,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "Material");
 
             migrationBuilder.DropTable(
-                name: "SharedJob");
+                name: "SharedJobs");
 
             migrationBuilder.DropTable(
                 name: "CalculationDetailsGroup");
 
             migrationBuilder.DropTable(
-                name: "RegardingObject");
+                name: "RegardingObjects");
 
             migrationBuilder.DropTable(
                 name: "MaterialType");

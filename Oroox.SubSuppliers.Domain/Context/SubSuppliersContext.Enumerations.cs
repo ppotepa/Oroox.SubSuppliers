@@ -19,7 +19,6 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<SharedJobStatusType> SharedJobStatusTypes { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public DbSet<SharedJobRejectionReasonType> SharedJobRejectionReasonTypes { get; set; }
-
         public SubSuppliersContextEnumerations Enumerations
         {
             get

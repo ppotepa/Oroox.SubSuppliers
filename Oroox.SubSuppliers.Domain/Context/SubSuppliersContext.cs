@@ -26,6 +26,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         private readonly bool LoggingEnabled;
         private readonly string outputFileName;
         private readonly IServiceProvider serviceProvider;
+        private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
 
         public SubSuppliersContext() : base()
         {
