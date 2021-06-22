@@ -15,34 +15,40 @@ namespace Oroox.SubSuppliers.Domain
     {
         public static async Task Main()
         {
-            var result = 1 > 2 && 1 >= 31;
-            var result2 =  1 == 31;
-            var result3 = 1 != 2;
-
-
             SubSuppliersContext ctx = new SubSuppliersContext(false);
-            Enumerable.Range(1, 1000).ForEach((x, i) =>
-            {
-                ctx.Customers.Add(NewCustomer(ctx, i));
-                if (i % 1000 is 0) ctx.SaveChanges();
-                Console.WriteLine(i);
-            });
-
-            List<Customer> allCustomers = await ctx.Customers.AsQueryable().ToListAsync();
-            ctx.SaveChanges();
+            //ctx.Jobs.Add
+            //(
+            //    new Job
+            //    {
+            //        CustomerId = ctx.Customers.First().Id,
+            //        SharedJobs = new List<SharedJob>()
+            //        {
+            //            new SharedJob
+            //            {
+            //                Comments = new List<Comment>
+            //                {
+            //                    new Comment
+            //                    {
+            //                        Text = "Some text"
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //);
         }
 
         private static Customer NewCustomer(SubSuppliersContext ctx, int index)
         {
             Customer newCustomer = new Customer
             {
-                CompanySizeType = ctx.Enumerations.CompanyTypes[CompanySizeTypeEnum.LessThan10],
+                CompanySizeType = ctx.Enumerations.CompanySizeTypes[CompanySizeTypeEnum.LessThan10],
                 Addresses = new[]
                 {
                     new Address
                     {
                         AddressType = ctx.Enumerations.AddressTypes[AddressTypeEnum.Shipping],
-                        CountryCodeType = ctx.Enumerations.CountryCodes[CountryCodeTypeEnum.AD],
+                        CountryCodeType = ctx.Enumerations.CountryCodeTypes[CountryCodeTypeEnum.AD],
                         PhoneNumber = "123 123 123",
                         Street = "Jakas ulica 20",
                     }
@@ -53,7 +59,7 @@ namespace Oroox.SubSuppliers.Domain
                     {
                        MachineNumber = "T2",
                         Name = "MillingMachine",
-                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                        CNCMachineAxesType = ctx.Enumerations.CNCMachineAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                         XMax  = 10f,
                         YMax = 20f,
                         YMin = 30f,
@@ -63,7 +69,7 @@ namespace Oroox.SubSuppliers.Domain
                     {
                        MachineNumber = "T1",
                         Name = "TurningMachine",
-                        CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                        CNCMachineAxesType = ctx.Enumerations.CNCMachineAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                         XMax  = 4.0f,
                         YMax = 30f,
                         YMin = 40f,
@@ -75,8 +81,8 @@ namespace Oroox.SubSuppliers.Domain
                 EmailAddress = $"robert.shmidt{index}@someCompany.com",
                 OtherTechnologies = new[]
                 {
-                    ctx.Enumerations.OtherTechnologies[OtherTechnologyTypeEnum.Annealing],
-                    ctx.Enumerations.OtherTechnologies[OtherTechnologyTypeEnum.Engravings],
+                    ctx.Enumerations.OtherTechnologyTypes[OtherTechnologyTypeEnum.Annealing],
+                    ctx.Enumerations.OtherTechnologyTypes[OtherTechnologyTypeEnum.Engravings],
                 },
                 CompanyName = "Shmidt and Family",
                 RegistrationNumber = "00/01/2000",
@@ -103,7 +109,7 @@ namespace Oroox.SubSuppliers.Domain
 
             newCustomer.AddMachine(new TurningMachine
             {
-                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                CNCMachineAxesType = ctx.Enumerations.CNCMachineAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                 MachineNumber = "200",
                 Name = "Test",
                 XMax = 595959595,
@@ -111,7 +117,7 @@ namespace Oroox.SubSuppliers.Domain
 
             newCustomer.AddMachine(new MillingMachine
             {
-                CNCMachineAxesType = ctx.Enumerations.CNCAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
+                CNCMachineAxesType = ctx.Enumerations.CNCMachineAxesTypes[CNCMachineAxesTypeEnum.THREE_AXIS],
                 MachineNumber = "2001",
                 Name = "Tes2t",
                 XMax = 5959595,

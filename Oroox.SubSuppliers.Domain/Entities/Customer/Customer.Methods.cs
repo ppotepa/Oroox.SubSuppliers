@@ -2,7 +2,7 @@
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
-    public partial class Customer : Entity
+    public partial class Customer : User
     {
         public void AddMachine(Machine machine)
         {

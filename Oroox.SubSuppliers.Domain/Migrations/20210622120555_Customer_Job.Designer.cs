@@ -10,8 +10,8 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210618113748_Customer")]
-    partial class Customer
+    [Migration("20210622120555_Customer_Job")]
+    partial class Customer_Job
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -203,6 +203,49 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Attachment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("RegardingObjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegardingObjectId");
+
+                    b.ToTable("Attachments");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CNCMachineAxesType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -228,16 +271,357 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         },
                         new
                         {
+                            Id = new Guid("95e4738b-95d6-5e10-99f7-2d9c3d44a07a"),
+                            Name = "THREE_PLUS_ONE_AXIS",
+                            Value = 1
+                        },
+                        new
+                        {
                             Id = new Guid("3885e147-acca-5bbb-b04e-735d54671725"),
                             Name = "THREE_PLUS_TWO_AXIS",
-                            Value = 1
+                            Value = 2
                         },
                         new
                         {
                             Id = new Guid("7b4362de-c2e5-53c1-901b-aaadbd8b4eb4"),
                             Name = "FIVE_AXIS",
-                            Value = 2
+                            Value = 3
                         });
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CalculationDetailsSectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Class")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsBold")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("NumericValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OperationType")
+                        .HasColumnType("int");
+
+                    b.Property<long>("PriorityOrder")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ValueGroupType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CalculationDetailsSectionId");
+
+                    b.ToTable("CalculationDetails");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsForQuote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("QuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CalculationDetailsForQuote");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CalculationDetailsGroupMapId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PartIndex")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CalculationDetailsGroupMapId");
+
+                    b.ToTable("CalculationDetailsGroup");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroupMap", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CalculationDetailsForQuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Quantity")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CalculationDetailsForQuoteId");
+
+                    b.ToTable("CalculationDetailsGroupMap");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsSection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CalculationDetailsGroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CalculationDetailsGroupId");
+
+                    b.ToTable("CalculationDetailsSection");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationResult", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfCalculation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("FinalBestUnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FinalPriceForPrototype")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("QuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CalculationResult");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AttachmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("SharedJobId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttachmentId");
+
+                    b.HasIndex("SharedJobId");
+
+                    b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CostPerQuantity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("FinalCostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("PartialCostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Quantity")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinalCostId");
+
+                    b.HasIndex("PartialCostId");
+
+                    b.ToTable("CostPerQuantity");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>
@@ -276,6 +660,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -2026,300 +2413,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOfCalculation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("FinalBestUnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("FinalPriceForPrototype")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("QuoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CalculationResult");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.CostPerQuantity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("FinalCostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("PartialCostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FinalCostId");
-
-                    b.HasIndex("PartialCostId");
-
-                    b.ToTable("CostPerQuantity");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CalculationDetailsSectionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Class")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsBold")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("NumericValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("OperationType")
-                        .HasColumnType("int");
-
-                    b.Property<long>("PriorityOrder")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ValueGroupType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValueType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalculationDetailsSectionId");
-
-                    b.ToTable("CalculationDetails");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsForQuote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("QuoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CalculationDetailsForQuote");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CalculationDetailsGroupMapId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PartIndex")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalculationDetailsGroupMapId");
-
-                    b.ToTable("CalculationDetailsGroup");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroupMap", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CalculationDetailsForQuoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalculationDetailsForQuoteId");
-
-                    b.ToTable("CalculationDetailsGroupMap");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsSection", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CalculationDetailsGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalculationDetailsGroupId");
-
-                    b.ToTable("CalculationDetailsSection");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.FinalCost", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.FinalCost", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2374,7 +2468,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("FinalCost");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Hole", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Hole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2441,16 +2535,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Hole");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Job", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CalculationDetailsForQuoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CalculationResultId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -2481,8 +2572,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
                     b.HasIndex("CalculationDetailsForQuoteId");
 
-                    b.HasIndex("CalculationResultId");
-
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("QuoteId");
@@ -2490,7 +2579,53 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Material", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Machine", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MachineNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MachineTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Machine");
+
+                    b.HasDiscriminator<string>("MachineTypeName").HasValue("Machine");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Material", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2557,7 +2692,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Material");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MaterialSetting", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MaterialSetting", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2600,7 +2735,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("MaterialSetting");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MaterialType", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MaterialType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2635,7 +2770,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("MaterialType");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MilledPart", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MilledPart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2702,7 +2837,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("MilledPart");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.PartialCost", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.PartialCost", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2739,7 +2874,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("PartialCost");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Quote", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Quote", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2797,7 +2932,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.ToTable("Quote");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Machine", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.RegardingObject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2809,20 +2944,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("MachineNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MachineTypeName")
-                        .IsRequired()
+                    b.Property<string>("EntityName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -2831,16 +2959,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("RegardingObjectId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Machine");
-
-                    b.HasDiscriminator<string>("MachineTypeName").HasValue("Machine");
+                    b.ToTable("RegardingObject");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
@@ -2879,6 +3003,199 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .IsUnique();
 
                     b.ToTable("Registrations");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJob", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("JobId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SharedJobStatusTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("JobId");
+
+                    b.HasIndex("SharedJobStatusTypeId");
+
+                    b.ToTable("SharedJob");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJobQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAnswered")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("JobOfferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobOfferId");
+
+                    b.ToTable("SharedJobQuestion");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJobRejectionReasonType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SharedJobRejectionReasonTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("15e78365-66e3-5365-b111-41237c6c49d9"),
+                            Name = "NoCapacity",
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("32853980-049c-525e-8a1b-710736510f91"),
+                            Name = "MaterialNotAvailable",
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("6e5c3bc5-2050-51ea-95a3-9c3d183f852e"),
+                            Name = "LeadTimeTooShort",
+                            Value = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("baed7d1f-d0eb-5a1b-a650-c32c3419ecc7"),
+                            Name = "NotFeasible",
+                            Value = 3
+                        });
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJobStatusType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SharedJobStatusTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("808b507d-9da0-54fb-81ef-d0a0bc58d605"),
+                            Name = "Accepted",
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("7407f8ba-b0fa-5615-8454-70e9c1bc4b1a"),
+                            Name = "Rejected",
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("18389298-fb42-5d64-b305-36fc3d0e8067"),
+                            Name = "UnansweredQuestions",
+                            Value = 2
+                        });
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
@@ -3001,6 +3318,77 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Attachment", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.RegardingObject", "RegardingObject")
+                        .WithMany()
+                        .HasForeignKey("RegardingObjectId");
+
+                    b.Navigation("RegardingObject");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetails", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsSection", null)
+                        .WithMany("Details")
+                        .HasForeignKey("CalculationDetailsSectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroup", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroupMap", null)
+                        .WithMany("Details")
+                        .HasForeignKey("CalculationDetailsGroupMapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroupMap", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsForQuote", null)
+                        .WithMany("DetailsForQuantities")
+                        .HasForeignKey("CalculationDetailsForQuoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsSection", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroup", null)
+                        .WithMany("Sections")
+                        .HasForeignKey("CalculationDetailsGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Attachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.SharedJob", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("SharedJobId");
+
+                    b.Navigation("Attachment");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CostPerQuantity", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.FinalCost", null)
+                        .WithMany("CostPerQuantity")
+                        .HasForeignKey("FinalCostId");
+
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.PartialCost", null)
+                        .WithMany("CostPerQuantity")
+                        .HasForeignKey("PartialCostId");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Enumerations.CompanySizeType", "CompanySizeType")
@@ -3023,139 +3411,39 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.CostPerQuantity", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.FinalCost", b =>
                 {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.FinalCost", null)
-                        .WithMany("CostPerQuantity")
-                        .HasForeignKey("FinalCostId");
-
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.PartialCost", null)
-                        .WithMany("CostPerQuantity")
-                        .HasForeignKey("PartialCostId");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetails", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsSection", null)
-                        .WithMany("Details")
-                        .HasForeignKey("CalculationDetailsSectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroup", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroupMap", null)
-                        .WithMany("Details")
-                        .HasForeignKey("CalculationDetailsGroupMapId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroupMap", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsForQuote", null)
-                        .WithMany("DetailsForQuantities")
-                        .HasForeignKey("CalculationDetailsForQuoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsSection", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroup", null)
-                        .WithMany("Sections")
-                        .HasForeignKey("CalculationDetailsGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.FinalCost", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", null)
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationResult", null)
                         .WithMany("FinalCosts")
                         .HasForeignKey("CalculationResultId");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Hole", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Hole", b =>
                 {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.MilledPart", null)
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.MilledPart", null)
                         .WithMany("Holes")
                         .HasForeignKey("MilledPartId");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Job", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job", b =>
                 {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsForQuote", "CalculationDetailsForQuote")
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsForQuote", "CalculationDetailsForQuote")
                         .WithMany()
                         .HasForeignKey("CalculationDetailsForQuoteId");
-
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", "CalculationResult")
-                        .WithMany()
-                        .HasForeignKey("CalculationResultId");
 
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Quote", "Quote")
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Quote", "Quote")
                         .WithMany()
                         .HasForeignKey("QuoteId");
 
                     b.Navigation("CalculationDetailsForQuote");
 
-                    b.Navigation("CalculationResult");
-
                     b.Navigation("Customer");
 
                     b.Navigation("Quote");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Material", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.MaterialType", "MaterialType")
-                        .WithMany("Materials")
-                        .HasForeignKey("MaterialTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MaterialType");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MaterialSetting", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Material", "Material")
-                        .WithMany("MaterialSettings")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MilledPart", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.Quote", null)
-                        .WithMany("MilledParts")
-                        .HasForeignKey("QuoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.PartialCost", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", null)
-                        .WithMany("PartialCosts")
-                        .HasForeignKey("CalculationResultId");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Quote", b =>
-                {
-                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", "CalculationResult")
-                        .WithMany()
-                        .HasForeignKey("CalculationResultId1");
-
-                    b.Navigation("CalculationResult");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Machine", b =>
@@ -3169,6 +3457,53 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Material", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.MaterialType", "MaterialType")
+                        .WithMany("Materials")
+                        .HasForeignKey("MaterialTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MaterialType");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MaterialSetting", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Material", "Material")
+                        .WithMany("MaterialSettings")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MilledPart", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Quote", null)
+                        .WithMany("MilledParts")
+                        .HasForeignKey("QuoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.PartialCost", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationResult", null)
+                        .WithMany("PartialCosts")
+                        .HasForeignKey("CalculationResultId");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Quote", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.CalculationResult", "CalculationResult")
+                        .WithMany()
+                        .HasForeignKey("CalculationResultId1");
+
+                    b.Navigation("CalculationResult");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Registration", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
@@ -3178,6 +3513,44 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJob", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.Job", "Job")
+                        .WithMany("SharedJobs")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.SharedJobStatusType", "SharedJobStatusType")
+                        .WithMany()
+                        .HasForeignKey("SharedJobStatusTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Job");
+
+                    b.Navigation("SharedJobStatusType");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJobQuestion", b =>
+                {
+                    b.HasOne("Oroox.SubSuppliers.Domain.Entities.SharedJob", "JobOffer")
+                        .WithMany("Questions")
+                        .HasForeignKey("JobOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobOffer");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MillingMachine", b =>
@@ -3209,6 +3582,33 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("TurningMachines");
                 });
 
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsForQuote", b =>
+                {
+                    b.Navigation("DetailsForQuantities");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroup", b =>
+                {
+                    b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsGroupMap", b =>
+                {
+                    b.Navigation("Details");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationDetailsSection", b =>
+                {
+                    b.Navigation("Details");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.CalculationResult", b =>
+                {
+                    b.Navigation("FinalCosts");
+
+                    b.Navigation("PartialCosts");
+                });
+
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Customer", b =>
                 {
                     b.Navigation("Addresses");
@@ -3220,61 +3620,46 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Registration");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.CalculationResult", b =>
-                {
-                    b.Navigation("FinalCosts");
-
-                    b.Navigation("PartialCosts");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsForQuote", b =>
-                {
-                    b.Navigation("DetailsForQuantities");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroup", b =>
-                {
-                    b.Navigation("Sections");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsGroupMap", b =>
-                {
-                    b.Navigation("Details");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Details.CalculationDetailsSection", b =>
-                {
-                    b.Navigation("Details");
-                });
-
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.FinalCost", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.FinalCost", b =>
                 {
                     b.Navigation("CostPerQuantity");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Material", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job", b =>
+                {
+                    b.Navigation("SharedJobs");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Material", b =>
                 {
                     b.Navigation("MaterialSettings");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MaterialType", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MaterialType", b =>
                 {
                     b.Navigation("Materials");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.MilledPart", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.MilledPart", b =>
                 {
                     b.Navigation("Holes");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.PartialCost", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.PartialCost", b =>
                 {
                     b.Navigation("CostPerQuantity");
                 });
 
-            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Job.Quote", b =>
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.Quote", b =>
                 {
                     b.Navigation("MilledParts");
+                });
+
+            modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJob", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

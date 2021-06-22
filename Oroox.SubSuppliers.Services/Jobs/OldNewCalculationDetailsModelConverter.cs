@@ -7,6 +7,14 @@ using System.Linq;
 
 namespace Oroox.SubSuppliers.Services.Jobs
 {
+    /// <summary>
+    /// Converts old data structure which used to be JObject such as 
+    /// { 
+    ///     '1'  :{}
+    ///     '10' :{}
+    /// }
+    /// to new structure which is now POCOs with quantities defined as properties.
+    /// </summary>
     public class OldNewCalculationDetailsModelConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
@@ -87,7 +95,6 @@ namespace Oroox.SubSuppliers.Services.Jobs
             {
 
             }
-
 
             public IList<JToken> ChildrenPublic
                 => this.ChildrenTokens;

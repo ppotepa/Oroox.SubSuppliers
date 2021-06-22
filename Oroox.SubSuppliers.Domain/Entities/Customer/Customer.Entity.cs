@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
-    public partial class Customer : Entity
+    public partial class Customer : User
     {
         private IEnumerable<MillingMachine> millingMachines;
 
@@ -74,7 +74,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public string RegistrationNumber { get; set; }
 
         [NotMapped]
-
         public virtual IEnumerable<TurningMachine> TurningMachines
         {
             get
@@ -93,5 +92,11 @@ namespace Oroox.SubSuppliers.Domain.Entities
         #region FOREIGN_KEYS
         public Guid CompanySizeTypeId { get; set; }
         #endregion
+
+        public override string Name 
+        {
+            get => CompanyName; 
+            set => Name = value;
+        }
     }
 }

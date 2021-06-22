@@ -16,13 +16,11 @@ namespace Oroox.SubSuppliers.Services.Jobs
     /// </summary>
     public class DevelopmentJobsService : IJobsService
     {
-        private const string getQuoteCalculationDetails = "getQuoteCalculationDetails";
+        private const string GetQuoteCalculationDetails = "getQuoteCalculationDetails";
         private readonly IConfiguration configuration;
-        private readonly IApplicationContext context;        
 
         public DevelopmentJobsService(IConfiguration configuration, IApplicationContext context)
         {            
-            this.context = context;
             this.configuration = configuration;
         }
 
@@ -42,7 +40,7 @@ namespace Oroox.SubSuppliers.Services.Jobs
             {
                 string payloadJson = new
                 {
-                    commandName= getQuoteCalculationDetails,
+                    commandName = GetQuoteCalculationDetails,
                     parameters = new
                     {
                         quoteId = quoteid

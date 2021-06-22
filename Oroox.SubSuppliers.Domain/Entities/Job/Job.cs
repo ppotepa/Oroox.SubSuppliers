@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
@@ -10,5 +11,6 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public Guid? CustomerId { get; set; }
         public virtual Quote Quote { get; set; }
         public Guid? QuoteId { get; set; }
+        public virtual List<SharedJob> SharedJobs { get; set; }        
     }
 }

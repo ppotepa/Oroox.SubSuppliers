@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    public partial class Customer : Migration
+    public partial class Customer_Job : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -164,6 +164,69 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RegardingObject",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EntityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegardingObjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegardingObject", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SharedJobRejectionReasonTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SharedJobRejectionReasonTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SharedJobStatusTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SharedJobStatusTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CalculationDetailsGroupMap",
                 columns: table => new
                 {
@@ -289,6 +352,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     VATNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanySizeTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -341,6 +405,33 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalTable: "MaterialType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attachments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RegardingObjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Content = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attachments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attachments_RegardingObject_RegardingObjectId",
+                        column: x => x.RegardingObjectId,
+                        principalTable: "RegardingObject",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -567,7 +658,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CalculationDetailsForQuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CalculationResultId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     QuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -584,12 +674,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         name: "FK_Jobs_CalculationDetailsForQuote_CalculationDetailsForQuoteId",
                         column: x => x.CalculationDetailsForQuoteId,
                         principalTable: "CalculationDetailsForQuote",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Jobs_CalculationResult_CalculationResultId",
-                        column: x => x.CalculationResultId,
-                        principalTable: "CalculationResult",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -764,6 +848,44 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SharedJob",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    JobId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SharedJobStatusTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SharedJob", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SharedJob_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SharedJob_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SharedJob_SharedJobStatusTypes_SharedJobStatusTypeId",
+                        column: x => x.SharedJobStatusTypeId,
+                        principalTable: "SharedJobStatusTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CalculationDetails",
                 columns: table => new
                 {
@@ -796,6 +918,63 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AttachmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SharedJobId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comment_Attachments_AttachmentId",
+                        column: x => x.AttachmentId,
+                        principalTable: "Attachments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comment_SharedJob_SharedJobId",
+                        column: x => x.SharedJobId,
+                        principalTable: "SharedJob",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SharedJobQuestion",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    JobOfferId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsAnswered = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SharedJobQuestion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SharedJobQuestion_SharedJob_JobOfferId",
+                        column: x => x.JobOfferId,
+                        principalTable: "SharedJob",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AddressTypes",
                 columns: new[] { "Id", "Name", "Value" },
@@ -811,8 +990,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 values: new object[,]
                 {
                     { new Guid("6742fcc8-0eff-5717-aee9-d9b939b3a343"), "THREE_AXIS", 0 },
-                    { new Guid("3885e147-acca-5bbb-b04e-735d54671725"), "THREE_PLUS_TWO_AXIS", 1 },
-                    { new Guid("7b4362de-c2e5-53c1-901b-aaadbd8b4eb4"), "FIVE_AXIS", 2 }
+                    { new Guid("95e4738b-95d6-5e10-99f7-2d9c3d44a07a"), "THREE_PLUS_ONE_AXIS", 1 },
+                    { new Guid("3885e147-acca-5bbb-b04e-735d54671725"), "THREE_PLUS_TWO_AXIS", 2 },
+                    { new Guid("7b4362de-c2e5-53c1-901b-aaadbd8b4eb4"), "FIVE_AXIS", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -834,10 +1014,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 values: new object[,]
                 {
                     { new Guid("cbbb988e-fb72-5870-8b4a-d7cbb3c93974"), "MoreThan100", 101 },
-                    { new Guid("85b1ee2c-1907-59a2-b31d-478ffbb68fca"), "LessThan50", 50 },
                     { new Guid("2e6c3fed-bdc4-592b-bc30-6a68e32bed7c"), "LessThan100", 100 },
-                    { new Guid("932bc137-dce8-5a26-86db-0d62c29af0fc"), "LessThan10", 10 },
-                    { new Guid("a7df4e3c-4cc8-57b9-a3ca-fe7df7bf6112"), "LessThan25", 25 }
+                    { new Guid("85b1ee2c-1907-59a2-b31d-478ffbb68fca"), "LessThan50", 50 },
+                    { new Guid("a7df4e3c-4cc8-57b9-a3ca-fe7df7bf6112"), "LessThan25", 25 },
+                    { new Guid("932bc137-dce8-5a26-86db-0d62c29af0fc"), "LessThan10", 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -845,7 +1025,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("da02bbac-a80e-5a16-89a7-c085212d24bd"), "PA", 171 },
                     { new Guid("92d99290-2a2e-5b3b-b2ab-64482839d159"), "NI", 160 },
                     { new Guid("66b8b1c6-ac96-5066-8534-1927594c9d72"), "NE", 161 },
                     { new Guid("42701c99-5139-52ea-bf75-02b968a83c58"), "NG", 162 },
@@ -857,20 +1036,20 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("50847080-8158-5fb6-a56c-a103df10c0f2"), "PK", 168 },
                     { new Guid("6a6a8a96-c842-54d7-82be-005a21a7146d"), "PW", 169 },
                     { new Guid("58eefe0f-2497-54b5-947e-e96648b1f057"), "PS", 170 },
+                    { new Guid("da02bbac-a80e-5a16-89a7-c085212d24bd"), "PA", 171 },
                     { new Guid("def8666f-ad90-5a17-81e4-21da103fe4d4"), "PG", 172 },
-                    { new Guid("5a66dc51-24e9-5b76-8f5b-17ce40a204d1"), "QA", 180 },
+                    { new Guid("b376f7b5-44f7-5701-8ef1-64d64154d554"), "RE", 181 },
                     { new Guid("906e270e-04c8-5b4f-8115-d7c8c826750f"), "PE", 174 },
                     { new Guid("84064b0c-1661-5a48-aeac-d244e213e491"), "PH", 175 },
                     { new Guid("f361ad1e-76b6-5de1-9106-8a4e02d42a4f"), "PN", 176 },
                     { new Guid("284e1ea3-67ee-572a-b167-402423ab15e4"), "PL", 177 },
                     { new Guid("cc6c69bc-e945-501d-bec6-d4e2ea14296c"), "PT", 178 },
                     { new Guid("19362117-cba1-5ec6-9f0a-d645e1ade937"), "PR", 179 },
+                    { new Guid("5a66dc51-24e9-5b76-8f5b-17ce40a204d1"), "QA", 180 },
                     { new Guid("f4dc7cdb-1946-584b-b792-a392f23ddff1"), "NZ", 159 },
-                    { new Guid("b376f7b5-44f7-5701-8ef1-64d64154d554"), "RE", 181 },
                     { new Guid("da6073ac-b698-5016-8d3c-40783a729f54"), "RO", 182 },
                     { new Guid("4a1b09d0-f985-56a3-81f6-0c8057ebae88"), "RU", 183 },
-                    { new Guid("27a0adc0-b178-5009-8cf4-8fccd3b08324"), "RW", 184 },
-                    { new Guid("3d2d9173-d1dc-5e00-a046-ba150f99ed43"), "BL", 185 }
+                    { new Guid("27a0adc0-b178-5009-8cf4-8fccd3b08324"), "RW", 184 }
                 });
 
             migrationBuilder.InsertData(
@@ -878,10 +1057,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
+                    { new Guid("3d2d9173-d1dc-5e00-a046-ba150f99ed43"), "BL", 185 },
                     { new Guid("1c9c3915-fbf1-5d25-b935-e0b076800a1e"), "SH", 186 },
                     { new Guid("5d9f0744-e750-512a-af07-15837ac452fd"), "PY", 173 },
                     { new Guid("cdd269d4-e890-5b50-a5ba-fcab8badcb39"), "NC", 158 },
-                    { new Guid("32d0be12-d418-506d-91ea-080591ca4c99"), "MS", 150 },
+                    { new Guid("7d502e58-9c21-55f3-a132-8b2c8017dd4a"), "ME", 149 },
                     { new Guid("736a044f-f149-5d6f-8bab-d625b9c8032a"), "NP", 156 },
                     { new Guid("684c3026-72e9-5fd1-a881-1800733a7d3c"), "LI", 128 },
                     { new Guid("c046855a-cce6-53de-a20f-e840a9c98ea1"), "LT", 129 },
@@ -904,8 +1084,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("b1f3b4f0-e6f3-5486-a730-ff6d8468d269"), "MD", 146 },
                     { new Guid("10a1d13c-b078-551d-bfbd-05fe212f9f38"), "MC", 147 },
                     { new Guid("219c6296-27e7-543b-b859-c26a943554e6"), "MN", 148 },
-                    { new Guid("7d502e58-9c21-55f3-a132-8b2c8017dd4a"), "ME", 149 },
                     { new Guid("b97bf153-a19f-5641-9081-d08d5a780776"), "KN", 187 },
+                    { new Guid("32d0be12-d418-506d-91ea-080591ca4c99"), "MS", 150 },
                     { new Guid("06fad6b9-7bb3-5ed8-b299-6ac4884d814e"), "MA", 151 },
                     { new Guid("c034306b-99f4-5bab-879a-080e733444f2"), "MZ", 152 },
                     { new Guid("52fa3e58-6312-5494-b6a6-ae5d43116a59"), "MM", 153 },
@@ -918,8 +1098,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("cb0db61d-abe2-5829-b61c-330345b33502"), "TG", 223 },
                     { new Guid("b57d6afe-5b1a-5112-b5da-4497dd330ad8"), "TK", 224 },
                     { new Guid("7c0e946e-cc0c-5810-bb6f-1163dd1bc643"), "TO", 225 },
-                    { new Guid("2d417b25-b6bf-56e2-bdfe-cbb6d8f3beac"), "TT", 226 },
-                    { new Guid("59cb9f3e-4fb3-5531-9a3f-cc988c794e6f"), "TN", 227 }
+                    { new Guid("2d417b25-b6bf-56e2-bdfe-cbb6d8f3beac"), "TT", 226 }
                 });
 
             migrationBuilder.InsertData(
@@ -927,6 +1106,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
+                    { new Guid("59cb9f3e-4fb3-5531-9a3f-cc988c794e6f"), "TN", 227 },
                     { new Guid("1d95447a-28ec-57f5-8177-472968bfea8f"), "TR", 228 },
                     { new Guid("9f00ddab-32c8-51f5-ac9c-9e9393b75776"), "TM", 229 },
                     { new Guid("021fb1e9-9074-5fea-a41c-fb2c3c16354a"), "TC", 230 },
@@ -967,8 +1147,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("14cf7da4-b27c-545c-988c-9407ad9ce1d9"), "SK", 202 },
                     { new Guid("43b08f9d-40b3-52d5-a9e8-1d0ee43807a3"), "SI", 203 },
                     { new Guid("ce1199a1-5d94-5f50-9bdd-b6bc8445978b"), "MF", 189 },
-                    { new Guid("967f2694-4ffb-5cf1-b7a4-8c3ba28430f2"), "SB", 204 },
-                    { new Guid("499e3dad-335f-570e-81e6-30f60857c624"), "ZA", 206 }
+                    { new Guid("967f2694-4ffb-5cf1-b7a4-8c3ba28430f2"), "SB", 204 }
                 });
 
             migrationBuilder.InsertData(
@@ -976,6 +1155,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
+                    { new Guid("499e3dad-335f-570e-81e6-30f60857c624"), "ZA", 206 },
                     { new Guid("e4cb1249-ae70-5c4b-aad7-da2de90380f3"), "GS", 207 },
                     { new Guid("bac00e65-fc94-5d05-be9f-3ed7a5306b2b"), "SS", 208 },
                     { new Guid("4e99487d-6d98-5510-a5bd-3c69ac63c10e"), "ES", 209 },
@@ -990,8 +1170,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("9295726a-4a22-58e4-906a-a155fef490a6"), "TW", 218 },
                     { new Guid("edcf1c73-20e7-5d33-988c-c019e19c05c0"), "SO", 205 },
                     { new Guid("a416f3ae-0bb1-5d9f-8a13-c8e79995b875"), "LR", 126 },
-                    { new Guid("9c75d3e3-0f33-5649-9597-da500385fc10"), "KG", 121 },
                     { new Guid("4cd11757-ef5f-5c4e-b42c-d3d53888e346"), "LB", 124 },
+                    { new Guid("f594fb99-332f-5890-8404-3e96d7a02b2c"), "CI", 55 },
                     { new Guid("cf8e676b-77df-5550-b785-601465aceddf"), "IO", 33 },
                     { new Guid("bbab455e-befa-5f2d-8571-0756fc910d84"), "BN", 34 },
                     { new Guid("b27b2fee-e8e6-5e56-960a-f76a3148739d"), "BG", 35 },
@@ -1014,10 +1194,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("cb2fa77b-e87a-5ae1-b0eb-a613e14fc19b"), "CD", 52 },
                     { new Guid("c3e3c301-f714-556e-babe-53c75b3ab344"), "CK", 53 },
                     { new Guid("9a688895-0de5-5675-80bf-a4842fac2f85"), "CR", 54 },
-                    { new Guid("f594fb99-332f-5890-8404-3e96d7a02b2c"), "CI", 55 },
-                    { new Guid("2656c5f4-1557-54c7-9b94-3c828bcbdc4a"), "HR", 56 },
+                    { new Guid("3c85028e-2976-56a3-bd84-ea1f6db32e23"), "LS", 125 },
                     { new Guid("6b4dcac3-fc9c-583c-a990-fa6dfb7ffff0"), "CU", 57 },
-                    { new Guid("3c85028e-2976-56a3-bd84-ea1f6db32e23"), "LS", 125 }
+                    { new Guid("9ffcd4e3-24fd-5e0e-8c73-cc932c4c499c"), "CW", 58 }
                 });
 
             migrationBuilder.InsertData(
@@ -1026,6 +1205,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 values: new object[,]
                 {
                     { new Guid("9b7022ef-9c26-57a7-9be4-f5eb3dee4661"), "CY", 59 },
+                    { new Guid("8d2eb5f3-65e6-50de-9c08-2d79c5ad92db"), "CZ", 60 },
                     { new Guid("d727b0d3-b402-53ce-81a5-a4c4f8727bb2"), "BR", 32 },
                     { new Guid("daa0d232-df91-5f73-8292-717a0ccb8340"), "BV", 31 },
                     { new Guid("756d0e6b-b5d9-5cd3-a3e8-1417a5a16fd0"), "BW", 30 },
@@ -1043,7 +1223,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("098f8ed7-3b56-5113-9c0c-8a7aec0173ae"), "AR", 11 },
                     { new Guid("245f95e6-2467-5280-99bf-61a23fdbb6b8"), "AM", 12 },
                     { new Guid("4406f10e-17f0-502c-8585-7e7b18e08a5f"), "AW", 13 },
-                    { new Guid("8d2eb5f3-65e6-50de-9c08-2d79c5ad92db"), "CZ", 60 },
+                    { new Guid("c1173fa6-ac66-579e-b6e9-cef9008b9c3c"), "DK", 61 },
                     { new Guid("99bccbd8-4ed8-50ed-afd1-38576c63d14f"), "AU", 14 },
                     { new Guid("e8adcdd8-89ff-5394-baf7-e6571d34fa91"), "AZ", 16 },
                     { new Guid("19fe6bac-521b-5985-953a-d7359c061445"), "BS", 17 },
@@ -1059,14 +1239,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("83293fbb-1f99-5e42-8947-aa7407dfe055"), "BO", 27 },
                     { new Guid("bc786e8e-4b30-53cd-b625-b758456b74b8"), "BQ", 28 },
                     { new Guid("38e6e3ae-0b9c-509c-a1c3-0491033b9195"), "AT", 15 },
-                    { new Guid("c1173fa6-ac66-579e-b6e9-cef9008b9c3c"), "DK", 61 },
-                    { new Guid("9ffcd4e3-24fd-5e0e-8c73-cc932c4c499c"), "CW", 58 },
-                    { new Guid("bcc35689-47b1-5837-b41f-8481dc94bb4f"), "DM", 63 },
-                    { new Guid("87c9c93a-fc56-5510-9046-cd19e17b483c"), "HT", 96 },
                     { new Guid("ef713c0f-8684-5a97-a609-76c6b41af0b3"), "DJ", 62 },
+                    { new Guid("2656c5f4-1557-54c7-9b94-3c828bcbdc4a"), "HR", 56 },
+                    { new Guid("243ab93e-f179-5a5f-8a17-a4cb30798ea4"), "DO", 64 },
+                    { new Guid("87c9c93a-fc56-5510-9046-cd19e17b483c"), "HT", 96 },
+                    { new Guid("1afecb58-ffa0-5588-9ab5-61aba710a226"), "HM", 97 },
                     { new Guid("4b83ab99-173f-5c41-b786-ced320f2bbe4"), "VA", 98 },
-                    { new Guid("2ee95aa1-8ebd-5f01-97e1-b322e3741dec"), "HN", 99 },
-                    { new Guid("77742f9c-af50-5d4c-8b43-ba1b357697b8"), "HK", 100 }
+                    { new Guid("bcc35689-47b1-5837-b41f-8481dc94bb4f"), "DM", 63 }
                 });
 
             migrationBuilder.InsertData(
@@ -1074,6 +1253,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
+                    { new Guid("77742f9c-af50-5d4c-8b43-ba1b357697b8"), "HK", 100 },
                     { new Guid("340724a3-bbc5-52f3-be18-8d2aee1a048f"), "HU", 101 },
                     { new Guid("1163bb1b-d48b-5a58-88eb-97cdc4be250f"), "IS", 102 },
                     { new Guid("5f1c60ca-6b3d-52d4-ac28-2fff346fe340"), "IN", 103 },
@@ -1082,8 +1262,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("4994f988-2ecf-5417-9fc9-cf7c8cd16070"), "IQ", 106 },
                     { new Guid("f977f2e9-9a0f-558b-88e8-0c717a3556f1"), "IE", 107 },
                     { new Guid("88f9703f-299a-5e3b-91a0-a69075a48009"), "IM", 108 },
+                    { new Guid("1803edc4-00ae-5703-bbbf-bf71529e0877"), "GY", 95 },
                     { new Guid("a32e1715-6566-5fce-a146-33b081d0327b"), "IL", 109 },
-                    { new Guid("ea3f2534-d570-5f97-b0a8-c8da47421923"), "IT", 110 },
                     { new Guid("ad5ccd9e-af32-5acb-9d40-4982da6a4e76"), "JM", 111 },
                     { new Guid("e2f11df5-c6e5-52ea-828c-afe9cb80a524"), "JP", 112 },
                     { new Guid("2eba375c-3bdb-517c-9b74-50971259601c"), "JE", 113 },
@@ -1094,13 +1274,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("53726762-0569-54f5-9631-d5175212002f"), "KP", 118 },
                     { new Guid("2e65897d-f731-5685-b0a6-a38407edce80"), "KR", 119 },
                     { new Guid("f3dc1cc1-f842-5b1d-b519-a7ccf6be2bc3"), "KW", 120 },
+                    { new Guid("9c75d3e3-0f33-5649-9597-da500385fc10"), "KG", 121 },
                     { new Guid("f0829a07-8be2-54b1-b2c3-360ad0b206a3"), "LA", 122 },
                     { new Guid("b8f9e4a7-f9fa-54cf-a0c7-343667493681"), "LV", 123 },
-                    { new Guid("1803edc4-00ae-5703-bbbf-bf71529e0877"), "GY", 95 },
+                    { new Guid("ea3f2534-d570-5f97-b0a8-c8da47421923"), "IT", 110 },
                     { new Guid("4a1ac73f-01e2-5125-947e-aafed4c64a87"), "GW", 94 },
-                    { new Guid("1afecb58-ffa0-5588-9ab5-61aba710a226"), "HM", 97 },
+                    { new Guid("2ee95aa1-8ebd-5f01-97e1-b322e3741dec"), "HN", 99 },
                     { new Guid("a6a95a1f-e0b3-586e-af7b-c9fad083e5df"), "GG", 92 },
-                    { new Guid("243ab93e-f179-5a5f-8a17-a4cb30798ea4"), "DO", 64 },
                     { new Guid("27dfd6ae-23cd-55e1-bde2-d583c1c2d195"), "EC", 65 },
                     { new Guid("a5873655-f611-5a8a-b628-3c49ad3b346f"), "EG", 66 },
                     { new Guid("b4af7cfa-5868-542c-ae6a-200909113fb4"), "SV", 67 },
@@ -1108,14 +1288,13 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("9c95bc70-ec04-5cc2-a571-3da7465e976f"), "ER", 69 },
                     { new Guid("bdc65263-ad52-5214-9b5f-bf7004b00067"), "EE", 70 },
                     { new Guid("598f6a92-7976-5c9f-8b11-d00270e37536"), "ET", 71 },
-                    { new Guid("f967421b-c49a-59df-939c-4ececfaddf8a"), "FK", 72 },
                     { new Guid("035c5aa5-0b2c-5471-a127-84c12c25d856"), "GN", 93 },
+                    { new Guid("012e081d-ad96-519b-b72e-92adf8b8d6db"), "FO", 73 },
                     { new Guid("f7071bc0-062a-522e-998e-3d32770fe186"), "FJ", 74 },
                     { new Guid("16c266d0-f6cd-5322-870b-796c282fc2fe"), "FI", 75 },
                     { new Guid("8c3fa648-a1ab-5172-902d-9e6d396622a0"), "FR", 76 },
                     { new Guid("924a142e-3b4b-5bb2-b0df-d3b0f44ab43a"), "GF", 77 },
-                    { new Guid("012e081d-ad96-519b-b72e-92adf8b8d6db"), "FO", 73 },
-                    { new Guid("d6429fc3-35e0-5f38-9a94-c3c074d15780"), "TF", 79 }
+                    { new Guid("f967421b-c49a-59df-939c-4ececfaddf8a"), "FK", 72 }
                 });
 
             migrationBuilder.InsertData(
@@ -1123,13 +1302,14 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("fa0a79a2-3019-5de2-a0c6-63e1b9243163"), "GT", 91 },
-                    { new Guid("6df9c609-85ad-5b99-8afa-ac48d179a7c0"), "GU", 90 },
+                    { new Guid("d6429fc3-35e0-5f38-9a94-c3c074d15780"), "TF", 79 },
                     { new Guid("2c80272d-c886-5d89-8309-6ee43f8b5e4b"), "PF", 78 },
+                    { new Guid("6df9c609-85ad-5b99-8afa-ac48d179a7c0"), "GU", 90 },
                     { new Guid("436a4c05-256a-5d5d-bdde-8a940a93c332"), "GP", 89 },
                     { new Guid("aa2e620c-8b97-53a7-8012-46a6055d1b3f"), "GD", 88 },
-                    { new Guid("32f3b9e8-9559-5dde-89f0-8cb0559eb418"), "GR", 86 },
                     { new Guid("72f0a1de-7632-55dc-8bd6-6aa88fe6e09b"), "GL", 87 },
+                    { new Guid("32f3b9e8-9559-5dde-89f0-8cb0559eb418"), "GR", 86 },
+                    { new Guid("fa0a79a2-3019-5de2-a0c6-63e1b9243163"), "GT", 91 },
                     { new Guid("3592f59f-b5c7-5004-a907-d7523de63d3a"), "GH", 84 },
                     { new Guid("a8599586-d255-5536-a297-79a98379b83d"), "DE", 83 },
                     { new Guid("59f5527a-594b-55e0-bd96-b7ef9aaceca6"), "GE", 82 },
@@ -1143,15 +1323,36 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("60fabdc3-b059-5b10-8ffb-c331efa44416"), "LaserMarking", 5 },
-                    { new Guid("23304941-05aa-5c23-82db-faee6910692a"), "Knurling", 6 },
-                    { new Guid("af9dee55-eff7-5179-afa6-b7bb805db03b"), "Engravings", 4 },
+                    { new Guid("28a87d3e-bd22-503c-9d05-0796440fee66"), "Other", 8 },
                     { new Guid("3f8a5e3b-494e-5099-8bd4-0e7a145d409c"), "Annealing", 7 },
+                    { new Guid("23304941-05aa-5c23-82db-faee6910692a"), "Knurling", 6 },
+                    { new Guid("60fabdc3-b059-5b10-8ffb-c331efa44416"), "LaserMarking", 5 },
+                    { new Guid("170871f3-c45f-5be6-b969-7d444adf0568"), "Toothings", 3 },
                     { new Guid("d69f148f-ef5c-5343-8db0-24cbfcc3653e"), "ThreadsTr", 2 },
                     { new Guid("61fe7597-b8e0-54a0-b3b6-f2c15620949b"), "ThreadsM", 1 },
                     { new Guid("4867b337-2da8-547a-924e-57e5e32c7c07"), "DeepHoleDrilling", 0 },
-                    { new Guid("170871f3-c45f-5be6-b969-7d444adf0568"), "Toothings", 3 },
-                    { new Guid("28a87d3e-bd22-503c-9d05-0796440fee66"), "Other", 8 }
+                    { new Guid("af9dee55-eff7-5179-afa6-b7bb805db03b"), "Engravings", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SharedJobRejectionReasonTypes",
+                columns: new[] { "Id", "Name", "Value" },
+                values: new object[,]
+                {
+                    { new Guid("6e5c3bc5-2050-51ea-95a3-9c3d183f852e"), "LeadTimeTooShort", 2 },
+                    { new Guid("15e78365-66e3-5365-b111-41237c6c49d9"), "NoCapacity", 0 },
+                    { new Guid("32853980-049c-525e-8a1b-710736510f91"), "MaterialNotAvailable", 1 },
+                    { new Guid("baed7d1f-d0eb-5a1b-a650-c32c3419ecc7"), "NotFeasible", 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SharedJobStatusTypes",
+                columns: new[] { "Id", "Name", "Value" },
+                values: new object[,]
+                {
+                    { new Guid("7407f8ba-b0fa-5615-8454-70e9c1bc4b1a"), "Rejected", 1 },
+                    { new Guid("808b507d-9da0-54fb-81ef-d0a0bc58d605"), "Accepted", 0 },
+                    { new Guid("18389298-fb42-5d64-b305-36fc3d0e8067"), "UnansweredQuestions", 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1168,6 +1369,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "IX_Address_CustomerId",
                 table: "Address",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attachments_RegardingObjectId",
+                table: "Attachments",
+                column: "RegardingObjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CalculationDetails_CalculationDetailsSectionId",
@@ -1193,6 +1399,16 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "IX_CertificationCustomer_CustomersId",
                 table: "CertificationCustomer",
                 column: "CustomersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_AttachmentId",
+                table: "Comment",
+                column: "AttachmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_SharedJobId",
+                table: "Comment",
+                column: "SharedJobId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CostPerQuantity_FinalCostId",
@@ -1234,11 +1450,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "IX_Jobs_CalculationDetailsForQuoteId",
                 table: "Jobs",
                 column: "CalculationDetailsForQuoteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Jobs_CalculationResultId",
-                table: "Jobs",
-                column: "CalculationResultId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_CustomerId",
@@ -1295,6 +1506,26 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 table: "Registrations",
                 column: "CustomerId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SharedJob_CustomerId",
+                table: "SharedJob",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SharedJob_JobId",
+                table: "SharedJob",
+                column: "JobId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SharedJob_SharedJobStatusTypeId",
+                table: "SharedJob",
+                column: "SharedJobStatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SharedJobQuestion_JobOfferId",
+                table: "SharedJobQuestion",
+                column: "JobOfferId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1307,6 +1538,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "CertificationCustomer");
+
+            migrationBuilder.DropTable(
+                name: "Comment");
 
             migrationBuilder.DropTable(
                 name: "ContactPerson");
@@ -1324,9 +1558,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "Hole");
 
             migrationBuilder.DropTable(
-                name: "Jobs");
-
-            migrationBuilder.DropTable(
                 name: "Machine");
 
             migrationBuilder.DropTable(
@@ -1334,6 +1565,15 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Registrations");
+
+            migrationBuilder.DropTable(
+                name: "SharedJobQuestion");
+
+            migrationBuilder.DropTable(
+                name: "SharedJobRejectionReasonTypes");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "AddressTypes");
@@ -1346,6 +1586,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Certifications");
+
+            migrationBuilder.DropTable(
+                name: "Attachments");
 
             migrationBuilder.DropTable(
                 name: "FinalCost");
@@ -1366,28 +1609,40 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "Material");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "SharedJob");
 
             migrationBuilder.DropTable(
                 name: "CalculationDetailsGroup");
 
             migrationBuilder.DropTable(
-                name: "Quote");
+                name: "RegardingObject");
 
             migrationBuilder.DropTable(
                 name: "MaterialType");
 
             migrationBuilder.DropTable(
-                name: "CompanySizeTypes");
+                name: "Jobs");
+
+            migrationBuilder.DropTable(
+                name: "SharedJobStatusTypes");
 
             migrationBuilder.DropTable(
                 name: "CalculationDetailsGroupMap");
 
             migrationBuilder.DropTable(
-                name: "CalculationResult");
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Quote");
 
             migrationBuilder.DropTable(
                 name: "CalculationDetailsForQuote");
+
+            migrationBuilder.DropTable(
+                name: "CompanySizeTypes");
+
+            migrationBuilder.DropTable(
+                name: "CalculationResult");
         }
     }
 }

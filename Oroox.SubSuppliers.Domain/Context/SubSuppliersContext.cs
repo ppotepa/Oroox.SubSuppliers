@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
-using Oroox.SubSuppliers.Domain.Entities.Enumerations;
-using Oroox.SubSuppliers.Domain.Entities.Enumerations.Technologies;
 using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
 using System;
@@ -20,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Domain.Context
 {
-    public class SubSuppliersContext : DbContext, IApplicationContext
+    public partial class SubSuppliersContext : DbContext, IApplicationContext
     {            
         private readonly Type[] currentAssemblyTypes;
         private readonly Guid EnumerationNamespace = Guid.Parse("8570b57c-2ffd-4ff3-8bd8-6411fc052822");
@@ -28,8 +26,6 @@ namespace Oroox.SubSuppliers.Domain.Context
         private readonly bool LoggingEnabled;
         private readonly string outputFileName;
         private readonly IServiceProvider serviceProvider;
-        private Type[] _currentEntities = default;
-        private SubSuppliersContextEnumerations _enumerations;
 
         public SubSuppliersContext() : base()
         {
@@ -64,62 +60,12 @@ namespace Oroox.SubSuppliers.Domain.Context
 
             Database.EnsureCreated();
         }
-        public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
-
-        public SubSuppliersContextEnumerations Enumerations
-        {
-            get
-            {
-                if (_enumerations is null)
-                {
-                    _enumerations = new SubSuppliersContextEnumerations
-                    (
-                        this.CompanySizeTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.CountryCodeTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.AddressTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.OtherTechnologies.ToDictionary(type => type.Value, instance => instance),
-                        this.CNCMachineAxesTypes.ToDictionary(type => type.Value, instance => instance),
-                        this.Certifications.ToDictionary(type => type.Value, instance => instance)
-                    );
-                }
-                return _enumerations;
-            }
-            set => _enumerations = value;
-        }
-
-        public DbSet<TurningMachine> Machines { get; set; }
-
-        private static string FormattedDateTime => DateTime.Now.ToString("yyyy-dd-MM-HH-mm-ss");
-
-        private Type[] CurrentEntities
-        {
-            get 
-            {
-                if (_currentEntities is null)
-                {
-                    _currentEntities = currentAssemblyTypes.Where(t => t.IsSubclassOf(typeof(Entity))).ToArray();
-                }
-                return _currentEntities;
-            }
-        }
-        #region DB_SETS
-        public DbSet<AddressType> AddressTypes { get; set; }
-        public DbSet<CalculationDetails> CalculationDetails { get; set; }
-        public DbSet<Certification> Certifications { get; set; }
-        public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
-        public DbSet<CompanySizeType> CompanySizeTypes { get; set; }
-        public DbSet<CountryCodeType> CountryCodeTypes { get; set; }        
-        public DbSet<Customer> Customers { get; set; }
+        
         public DatabaseFacade DataBase => this.Database;
 
         public IEnumerable<object> Entries
                     => ((IEnumerable<object>) this.ChangeTracker.Entries<Entity>()).Concat(this.ChangeTracker.Entries<IEnumerationEntity>());
-        public DbSet<Job> Jobs { get; set; }
-        public DbSet<MillingMachine> MillingMachines { get; set; }
-        public DbSet<OtherTechnology> OtherTechnologies { get; set; }
-        public DbSet<Registration> Registrations { get; set; }
-        public DbSet<TurningMachine> TurningMachines { get; set; }
-        #endregion DB_SETS
+  
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class
             => this.Attach(entity);
 

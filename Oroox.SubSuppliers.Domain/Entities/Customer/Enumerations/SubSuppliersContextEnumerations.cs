@@ -5,21 +5,34 @@ namespace Oroox.SubSuppliers.Domain.Entities.Enumerations
 {
     public class SubSuppliersContextEnumerations
     {
-        public readonly Dictionary<CompanySizeTypeEnum, CompanySizeType> CompanyTypes;
-        public readonly Dictionary<CountryCodeTypeEnum, CountryCodeType> CountryCodes;
-        public readonly Dictionary<AddressTypeEnum, AddressType> AddressTypes;
-        public readonly Dictionary<OtherTechnologyTypeEnum, OtherTechnology> OtherTechnologies;        
-        public readonly Dictionary<CNCMachineAxesTypeEnum, CNCMachineAxesType> CNCAxesTypes;        
-        public readonly Dictionary<CertificationTypeEnum, Certification> Certifications;
-
-        public SubSuppliersContextEnumerations(Dictionary<CompanySizeTypeEnum, CompanySizeType> companyTypes, Dictionary<CountryCodeTypeEnum, CountryCodeType> countryCodes, Dictionary<AddressTypeEnum, AddressType> addressTypes, Dictionary<OtherTechnologyTypeEnum, OtherTechnology> otherTechnologies, Dictionary<CNCMachineAxesTypeEnum, CNCMachineAxesType> cNCAxesTypes, Dictionary<CertificationTypeEnum, Certification> certifications)
+        public SubSuppliersContextEnumerations
+        (
+            Dictionary<CompanySizeTypeEnum, CompanySizeType> companySizeTypes,
+            Dictionary<CountryCodeTypeEnum, CountryCodeType> countryCodeTypes,
+            Dictionary<AddressTypeEnum, AddressType> addressTypes,
+            Dictionary<OtherTechnologyTypeEnum, OtherTechnology> otherTechnologys,
+            Dictionary<CNCMachineAxesTypeEnum, CNCMachineAxesType> cncMachineAxesTypes,
+            Dictionary<CertificationTypeEnum, Certification> certifications,
+            Dictionary<SharedJobStatusTypeEnum, SharedJobStatusType> sharedJobStatusTypes,
+            Dictionary<SharedJobRejectionReasonTypeEnum, SharedJobRejectionReasonType> sharedJobRejectionReasonTypes)
         {
-            this.CompanyTypes = companyTypes;
-            this.CountryCodes = countryCodes;
+            this.CompanySizeTypes = companySizeTypes;
+            this.CountryCodeTypes = countryCodeTypes;
             this.AddressTypes = addressTypes;
-            this.OtherTechnologies = otherTechnologies;
-            this.CNCAxesTypes = cNCAxesTypes;
+            this.OtherTechnologyTypes = otherTechnologys;
+            this.CNCMachineAxesTypes = cncMachineAxesTypes;
             this.Certifications = certifications;
+            this.SharedJobStatusTypes = sharedJobStatusTypes;
+            this.SharedJobRejectionReasonTypes = sharedJobRejectionReasonTypes;
         }
+
+        public Dictionary<CompanySizeTypeEnum, CompanySizeType> CompanySizeTypes { get; }
+        public Dictionary<CountryCodeTypeEnum, CountryCodeType> CountryCodeTypes { get; }
+        public Dictionary<AddressTypeEnum, AddressType> AddressTypes { get; }
+        public Dictionary<OtherTechnologyTypeEnum, OtherTechnology> OtherTechnologyTypes { get; }
+        public Dictionary<CNCMachineAxesTypeEnum, CNCMachineAxesType> CNCMachineAxesTypes { get; }
+        public Dictionary<CertificationTypeEnum, Certification> Certifications { get; }
+        public Dictionary<SharedJobStatusTypeEnum, SharedJobStatusType> SharedJobStatusTypes { get; }
+        public Dictionary<SharedJobRejectionReasonTypeEnum, SharedJobRejectionReasonType> SharedJobRejectionReasonTypes { get; }
     }
 }

@@ -24,12 +24,12 @@ namespace Oroox.SubSuppliers.Application
     public class Startup 
     {
         private const string DevelopmentCORS = "DevelopmentCORS";
-        private readonly IConfiguration Configuration;
+        private readonly IConfiguration configuration;
         private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;
 
         public Startup(IConfiguration configuration)
         {
-            this.Configuration = configuration;
+            this.configuration = configuration;
             this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
 
@@ -64,7 +64,7 @@ namespace Oroox.SubSuppliers.Application
                 typeof(JobsModule).Assembly,
             };
 
-            builder.RegisterModule(new ServicesModule(Configuration));
+            builder.RegisterModule(new ServicesModule(configuration));
             builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
             builder.RegisterModule(new CustomersModule());
 
