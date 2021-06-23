@@ -1,8 +1,5 @@
 ﻿using Oroox.SubSuppliers.Domain.Context;
-using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Event;
-using System;
-using System.Linq;
 using System.Threading;
 
 namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob.Events.NewJobCreated
@@ -18,13 +15,13 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob.Events.NewJobCre
 
         public void Handle(CreateNewJobRequest request, CancellationToken cancelationToken)
         {
-            if (request.Job is null)
-                throw new InvalidOperationException("Something went wrong");
+            //if (request.Job is null)
+            //    throw new InvalidOperationException("Something went wrong");
 
-            IQueryable<Customer> matchingCustomers = this.context
-                                            .Customers
-                                            .AsQueryable()
-                                            .Where(customer => customer.Machines.Any(machine => machine.MatchJob(request.Job)));
+            //IQueryable<Customer> matchingCustomers = this.context
+            //                                .Customers
+            //                                .AsQueryable()
+            //                                .Where(customer => customer.Machines.Any(machine => machine.MatchJob(request.Job)));
             
 
         }

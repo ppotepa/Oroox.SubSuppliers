@@ -22,11 +22,17 @@ namespace Oroox.SubSuppliers.Domain.Entities
             => Type.GetType($"{EntitiesAssemblyNamespace}.{this.EntityName}", true);
 
         
-        public static RegardingObject<TEntity> Obtain<TEntity>(DbContext context, Guid Id) where TEntity : Entity
+        //public static RegardingObject<TEntity> Obtain<TEntity>(DbContext context, Guid Id) where TEntity : Entity
+        //{
+        //    TEntity @object = context.Find(typeof(TEntity), Id) as TEntity;
+        //    RegardingObject<TEntity> result = new RegardingObject<TEntity>(@object);
+        //    return result;
+        //}
+
+        public static TEntity Find<TEntity>(DbContext context, Guid Id) where TEntity : Entity
         {
             TEntity @object = context.Find(typeof(TEntity), Id) as TEntity;
-            RegardingObject<TEntity> result = new RegardingObject<TEntity>(@object);
-            return result;
+            return @object;
         }
     }
 

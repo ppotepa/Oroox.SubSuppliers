@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
 using Oroox.SubSuppliers.Modules.Jobs.RequestsCreateNewJob.Model;
@@ -21,14 +20,15 @@ namespace Oroox.SubSuppliers.Modules.Jobs
         /// <summary>
         /// Creates a new Job
         /// </summary>
-        /// <param name="request">UserDTO</param>
+        /// <param name="request">CreateNewJobModel</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Create(CreateNewJobModel request)
-        {
-            var result = await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
-            string resjson = JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-            return result;
-        }        
+        public async Task<IActionResult> Create(CreateNewJobModel request) 
+            => await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSharedJob(CreateNewJobModel request)
+            => await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
+
     }
 }
