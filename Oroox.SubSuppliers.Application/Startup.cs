@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using AutofacSerilogIntegration;
 using MediatR;
@@ -11,11 +12,11 @@ using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Handlers;
-using Oroox.SubSuppliers.Modules.Customers;
-using Oroox.SubSuppliers.Modules.Jobs;
 using Oroox.SubSuppliers.Services;
+using Oroox.SubSuppliers.Utilities.Abstractions;
 using Oroox.SubSuppliers.Utilities.Middleware.CorrelationId;
 using Serilog;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -26,6 +27,12 @@ namespace Oroox.SubSuppliers.Application
         private const string DevelopmentCORS = "DevelopmentCORS";
         private readonly IConfiguration configuration;
         private readonly OxSuppliersEnvironmentVariables EnvironmentVariables;
+        private static readonly Type[] AutofacModules = AppDomain.CurrentDomain
+                                                .GetAssemblies()
+                                                .SelectMany(a => a.GetTypes())
+                                                .Where(type => type.IsSubclassOf(typeof(SubSuppliersModule)))
+                                                .ToArray();
+
 
         public Startup(IConfiguration configuration)
         {
@@ -58,20 +65,20 @@ namespace Oroox.SubSuppliers.Application
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            Assembly[] moduleAssemblies = new[]
-            {
-                typeof(CustomersModule).Assembly,
-                typeof(JobsModule).Assembly,
-            };
+            Assembly[] moduleAssemblies = AutofacModules.Select(module => module.Assembly).ToArray();
 
             builder.RegisterModule(new ServicesModule(configuration));
-            builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
-            builder.RegisterModule(new CustomersModule());
+
+            AutofacModules.ForEach(module => 
+            {
+                builder.RegisterModule(Activator.CreateInstance(module) as IModule);
+            });
 
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
+            builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
+            builder.RegisterMediatR(moduleAssemblies);
 
             builder.RegisterLogger();
-            builder.RegisterMediatR(moduleAssemblies);
 
             builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().InstancePerDependency();
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();

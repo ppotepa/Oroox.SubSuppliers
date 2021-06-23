@@ -7,9 +7,12 @@ namespace Oroox.SubSuppliers.Response
         public BaseResponse() { }
         public IEnumerable<string> ValidationMessages { get; set; }
         public string ResponseText { get; set; }
-        public object Result { get; set; }
         public string TraceId { get; set; }
         public string RedirectUrl { get; set; }
     }
-      
+    public class BaseResponse<TModel> : BaseResponse where TModel : class
+    {
+        public TModel Result { get; set; }
+    }
+
 }

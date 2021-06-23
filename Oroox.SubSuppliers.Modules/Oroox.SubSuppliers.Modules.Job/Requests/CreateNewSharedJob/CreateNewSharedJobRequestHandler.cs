@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.DTO;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.Model;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.Response;
 using Serilog;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,19 +22,31 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob
             this.logger = logger;
         }
 
-        public Task<CreateNewSharedJobRequestResponse> Handle(CreateNewSharedJobRequest request, CancellationToken cancellationToken)
-        {
-            EntityEntry<SharedJob> newSharedJobEntry = this.context.Add
+        public async Task<CreateNewSharedJobRequestResponse> Handle(CreateNewSharedJobRequest request, CancellationToken cancellationToken)
+        {            
+            EntityEntry<SharedJob> newSharedJobEntry = await this.context.AddAsync
             (
                 new SharedJob
                 {
-                    Job = request.Job,
+                    JobId = request.Job.Id,
                     SharedJobStatusType = context.Enumerations.SharedJobStatusTypes[SharedJobStatusTypeEnum.NoAction],
-                    Customer = request.Customer
+                    CustomerId = request.Customer.Id,
                 }
             );
 
-            return default;
+            request.SharedJob = newSharedJobEntry.Entity;
+
+            return new CreateNewSharedJobRequestResponse
+            {
+                ResponseText = $"Succesfully created new Shared Job with : {request.SharedJob.Id}",
+                Result = new CreateNewSharedJobRequestResponseModel
+                {
+                    SharedJob = new SharedJobResponseDTO 
+                    {
+                        Id = newSharedJobEntry.Entity.Id
+                    }
+                }
+            };
         }
     }
 }

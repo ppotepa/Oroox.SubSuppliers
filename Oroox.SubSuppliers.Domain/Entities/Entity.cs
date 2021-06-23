@@ -8,11 +8,24 @@ using System.Text.Json.Serialization;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
-    public class Entity 
+    public class Entity
     {
         protected static Assembly CurrentAssembly => Assembly.LoadFrom("Oroox.SubSuppliers.Domain.dll");
         protected const string EntitiesAssemblyNamespace = "Oroox.SubSuppliers.Domain.Entities";
-
+        protected bool IsProxyType => this.GetType().Name.EndsWith("Proxy");
+        private Type proxyUnderlyingType = null;
+        private Type ProxyUnderlyingType
+        {
+            get
+            {
+                if (IsProxyType is false) return null;
+                if (proxyUnderlyingType is null)
+                {
+                    proxyUnderlyingType = this.GetType().BaseType;
+                }
+                return proxyUnderlyingType;
+            }
+        }
         public object this[string propertyName] => _properties[propertyName];
         public bool HasRootEntity => this.GetType().BaseType != null && this.GetType().BaseType != typeof(object);
         private void UpdateProperty(string propertyName, object @value)

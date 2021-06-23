@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using Oroox.SubSuppliers.Domain.Entities;
@@ -23,7 +24,7 @@ namespace Oroox.SubSuppliers.Services.Mailing
             useSsl: false
         );
 
-        public async override Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken)
+        protected async override Task<Unit> ConnectAndSend(MimeMessage message, CancellationToken cancelationToken)
         {
             using (this.client = new SmtpClient())
             {
@@ -37,9 +38,11 @@ namespace Oroox.SubSuppliers.Services.Mailing
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true, cancelationToken);
             }
+
+            return await Unit.Task;
         }
 
-        public async override Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string messageText = null)
+        public async override Task<Unit> SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string messageText = null)
         {
             MimeMessage message = new MimeMessage
             {
@@ -56,6 +59,25 @@ namespace Oroox.SubSuppliers.Services.Mailing
             };
 
             await this.ConnectAndSend(message, cancelationToken);
+            return await Unit.Task;
+        }
+
+        public async override Task<Unit> SendNewSharedJobNotification(Customer customer, Job job, SharedJob sharedJob, CancellationToken cancelationToken, string messageText = null)
+        {
+            MimeMessage message = new MimeMessage
+            {
+                To = { InternetAddress.Parse(customer.EmailAddress) },
+                From = { InternetAddress.Parse("pawel.potepa@hotmail.com") },
+                Subject = "New job was shared!",
+                Body = new TextPart("plain")
+                {
+                    Text = messageText is null ? $@"Hello, {customer.CompanyName} a new Job with id {job.Id} was just shared with you."
+                     : messageText
+                }
+            };
+
+            await this.ConnectAndSend(message, cancelationToken);
+            return await Unit.Task;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.DTO;
+using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Response;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +25,13 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById
 
             return new GetCustomerByIdResponse
             {
-                Result = result
+                Result = new GetCustomerByIdResponseModel
+                {
+                    Customer = new CustomerResponseDTO 
+                    {
+                        Id = result.Id
+                    }
+                }
             };
         }
     }

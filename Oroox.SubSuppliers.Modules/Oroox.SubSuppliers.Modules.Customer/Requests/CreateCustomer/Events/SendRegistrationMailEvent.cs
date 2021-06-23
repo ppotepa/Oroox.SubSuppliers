@@ -1,10 +1,12 @@
-﻿using Oroox.SubSuppliers.Event;
+﻿using MediatR;
+using Oroox.SubSuppliers.Event;
 using Oroox.SubSuppliers.Services.Mailing;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Events
 {
-    class SendRegistrationMailEvent : IEvent<CreateCustomerRequest>
+    public class SendRegistrationMailEvent : IEvent<CreateCustomerRequest>
     {
         private readonly IMailingService mailingService;
    
@@ -13,9 +15,10 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Events
             this.mailingService = mailingService;
         }
 
-        public async void Handle(CreateCustomerRequest request, CancellationToken cancelationToken) 
+        public async Task<Unit> Handle(CreateCustomerRequest request, CancellationToken cancelationToken) 
         {
             await this.mailingService.SendNewCustomerRegistrationMessage(request.Customer, cancelationToken);
+            return await Unit.Task;
         }
     }
 }

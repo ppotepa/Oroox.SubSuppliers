@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
@@ -29,32 +30,34 @@ namespace Oroox.SubSuppliers.Handlers
 
         private readonly IApplicationContext context;
         private readonly IEnumerable<IEvent<TRequest>> events;
-        private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly IRequestHandler<TRequest, TResponse> innerRequest;
-        private readonly ILogger logger;
         private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
         private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
         private readonly IEnumerable<IValidator<TRequest>> validators;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly ILogger logger;
+        private readonly IMapper mapper;
+        private readonly IRequestHandler<TRequest, TResponse> innerRequest;
         public GenericHandlerDecorator
         (
-            IEnumerable<IValidator<TRequest>> validators,
-            IEnumerable<IRequestPreProcessor<TRequest>> preProcessors,
-            IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors,
-            IEnumerable<IEvent<TRequest>> events,
-            IHttpContextAccessor httpContextAccessor,
-            IRequestHandler<TRequest, TResponse> innerRequest,
             IApplicationContext context,
-            ILogger logger
+            IEnumerable<IEvent<TRequest>> events,
+            IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors,
+            IEnumerable<IRequestPreProcessor<TRequest>> preProcessors,
+            IEnumerable<IValidator<TRequest>> validators,
+            IHttpContextAccessor httpContextAccessor,
+            ILogger logger,
+            IMapper mapper,
+            IRequestHandler<TRequest, TResponse> innerRequest
         )
         {
-            this.validators = validators;
-            this.preProcessors = preProcessors;
-            this.postProcessors = postProcessors;
-            this.httpContextAccessor = httpContextAccessor;
-            this.logger = logger;
-            this.events = events;
-            this.innerRequest = innerRequest;
             this.context = context;
+            this.events = events;
+            this.httpContextAccessor = httpContextAccessor;
+            this.innerRequest = innerRequest;
+            this.logger = logger;
+            this.postProcessors = postProcessors;
+            this.preProcessors = preProcessors;
+            this.validators = validators;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -64,8 +67,6 @@ namespace Oroox.SubSuppliers.Handlers
             try
             {
                 this.logger.Information($"Processing a request {typeof(TRequest).Name}.");
-                this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
-
                 string[] validationMessages = this.validators.GetValidationMessages(request);
 
                 if (validationMessages.Any() is true)
@@ -77,6 +78,7 @@ namespace Oroox.SubSuppliers.Handlers
                     };
                 }
 
+                this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
                 response = await this.innerRequest.Handle(request, cancellationToken);
                 this.postProcessors.ForEach(processor => processor.Process(request, response, cancellationToken));
                 await context.SaveChangesAsync(true, cancellationToken);
@@ -95,6 +97,7 @@ namespace Oroox.SubSuppliers.Handlers
 
             events.ForEach(@event => @event.Handle(request, cancellationToken));
             return response;
+            //return this.mapper.Map
         }
     }
 }

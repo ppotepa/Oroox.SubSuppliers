@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR.Pipeline;
 using Oroox.SubSuppliers.Event;
+using Oroox.SubSuppliers.Utilities.Abstractions;
 using System;
 using System.Linq;
 
@@ -10,7 +11,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs
     /// <summary>
     /// Autofac JobsModule
     /// </summary>
-    public class JobsModule : Module
+    public class JobsModule : SubSuppliersModule
     {
         protected override void Load(ContainerBuilder builder)
         {

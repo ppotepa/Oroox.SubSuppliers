@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using MediatR;
 using MimeKit;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Utilities;
@@ -20,7 +21,10 @@ namespace Oroox.SubSuppliers.Services.Mailing
             this.logger = logger;
         }
 
-        public abstract Task ConnectAndSend(MimeMessage message, CancellationToken cancelationToken);
-        public abstract Task SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null);
+        
+        public abstract Task<Unit> SendNewCustomerRegistrationMessage(Customer customer, CancellationToken cancelationToken, string text = null);
+        public abstract Task<Unit> SendNewSharedJobNotification(Customer customer, Job Job, SharedJob SharedJob, CancellationToken cancelationToken, string text = null);
+        protected abstract Task<Unit> ConnectAndSend(MimeMessage message, CancellationToken cancelationToken);
+        
     }
 }

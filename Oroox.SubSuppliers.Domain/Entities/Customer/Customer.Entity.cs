@@ -9,9 +9,9 @@ namespace Oroox.SubSuppliers.Domain.Entities
 {
     public partial class Customer : User
     {
-        private IEnumerable<MillingMachine> millingMachines;
+        private List<MillingMachine> millingMachines;
 
-        private IEnumerable<TurningMachine> turningMachines;        
+        private List<TurningMachine> turningMachines;        
 
         public Customer() { }
         public Customer
@@ -38,6 +38,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Certification> Certifications { get; set; }
+        public virtual List<SharedJob> SharedJobs { get; set; }
         public string CompanyName { get; set; }
         public virtual CompanySizeType CompanySizeType { get; set; }
         public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
@@ -46,14 +47,14 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual List<Machine> Machines { get; set; }
 
         [NotMapped]
-        public virtual IEnumerable<MillingMachine> MillingMachines
+        public virtual List<MillingMachine> MillingMachines
         {
             get
             {
                 if (this.Machines is null)
                     millingMachines = new List<MillingMachine>();
                 else
-                    millingMachines = this.Machines.OfType<MillingMachine>();
+                    millingMachines = this.Machines.OfType<MillingMachine>().ToList();
 
                 return millingMachines;
             }
@@ -74,12 +75,12 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public string RegistrationNumber { get; set; }
 
         [NotMapped]
-        public virtual IEnumerable<TurningMachine> TurningMachines
+        public virtual List<TurningMachine> TurningMachines
         {
             get
             {
                 if (this.Machines is null)
-                    turningMachines = new TurningMachine[0];
+                    turningMachines = new List<TurningMachine>();
                 else
                     turningMachines = new List<TurningMachine>();
 

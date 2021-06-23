@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    public partial class Initial : Migration
+    public partial class CustomerAndJob : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1170,8 +1170,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("9295726a-4a22-58e4-906a-a155fef490a6"), "TW", 218 },
                     { new Guid("edcf1c73-20e7-5d33-988c-c019e19c05c0"), "SO", 205 },
                     { new Guid("a416f3ae-0bb1-5d9f-8a13-c8e79995b875"), "LR", 126 },
+                    { new Guid("3c85028e-2976-56a3-bd84-ea1f6db32e23"), "LS", 125 },
                     { new Guid("4cd11757-ef5f-5c4e-b42c-d3d53888e346"), "LB", 124 },
-                    { new Guid("f594fb99-332f-5890-8404-3e96d7a02b2c"), "CI", 55 },
                     { new Guid("cf8e676b-77df-5550-b785-601465aceddf"), "IO", 33 },
                     { new Guid("bbab455e-befa-5f2d-8571-0756fc910d84"), "BN", 34 },
                     { new Guid("b27b2fee-e8e6-5e56-960a-f76a3148739d"), "BG", 35 },
@@ -1193,8 +1193,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("fd005c52-dfd6-54dd-a64d-01185309ac61"), "CG", 51 },
                     { new Guid("cb2fa77b-e87a-5ae1-b0eb-a613e14fc19b"), "CD", 52 },
                     { new Guid("c3e3c301-f714-556e-babe-53c75b3ab344"), "CK", 53 },
-                    { new Guid("9a688895-0de5-5675-80bf-a4842fac2f85"), "CR", 54 },
-                    { new Guid("3c85028e-2976-56a3-bd84-ea1f6db32e23"), "LS", 125 },
+                    { new Guid("f594fb99-332f-5890-8404-3e96d7a02b2c"), "CI", 55 },
+                    { new Guid("2656c5f4-1557-54c7-9b94-3c828bcbdc4a"), "HR", 56 },
                     { new Guid("6b4dcac3-fc9c-583c-a990-fa6dfb7ffff0"), "CU", 57 },
                     { new Guid("9ffcd4e3-24fd-5e0e-8c73-cc932c4c499c"), "CW", 58 }
                 });
@@ -1240,12 +1240,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("bc786e8e-4b30-53cd-b625-b758456b74b8"), "BQ", 28 },
                     { new Guid("38e6e3ae-0b9c-509c-a1c3-0491033b9195"), "AT", 15 },
                     { new Guid("ef713c0f-8684-5a97-a609-76c6b41af0b3"), "DJ", 62 },
-                    { new Guid("2656c5f4-1557-54c7-9b94-3c828bcbdc4a"), "HR", 56 },
+                    { new Guid("9a688895-0de5-5675-80bf-a4842fac2f85"), "CR", 54 },
                     { new Guid("243ab93e-f179-5a5f-8a17-a4cb30798ea4"), "DO", 64 },
                     { new Guid("87c9c93a-fc56-5510-9046-cd19e17b483c"), "HT", 96 },
                     { new Guid("1afecb58-ffa0-5588-9ab5-61aba710a226"), "HM", 97 },
                     { new Guid("4b83ab99-173f-5c41-b786-ced320f2bbe4"), "VA", 98 },
-                    { new Guid("bcc35689-47b1-5837-b41f-8481dc94bb4f"), "DM", 63 }
+                    { new Guid("2ee95aa1-8ebd-5f01-97e1-b322e3741dec"), "HN", 99 }
                 });
 
             migrationBuilder.InsertData(
@@ -1254,7 +1254,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 values: new object[,]
                 {
                     { new Guid("77742f9c-af50-5d4c-8b43-ba1b357697b8"), "HK", 100 },
-                    { new Guid("340724a3-bbc5-52f3-be18-8d2aee1a048f"), "HU", 101 },
+                    { new Guid("bcc35689-47b1-5837-b41f-8481dc94bb4f"), "DM", 63 },
                     { new Guid("1163bb1b-d48b-5a58-88eb-97cdc4be250f"), "IS", 102 },
                     { new Guid("5f1c60ca-6b3d-52d4-ac28-2fff346fe340"), "IN", 103 },
                     { new Guid("79e78aff-0120-5a77-b11f-9e3ef277835a"), "ID", 104 },
@@ -1279,7 +1279,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("b8f9e4a7-f9fa-54cf-a0c7-343667493681"), "LV", 123 },
                     { new Guid("ea3f2534-d570-5f97-b0a8-c8da47421923"), "IT", 110 },
                     { new Guid("4a1ac73f-01e2-5125-947e-aafed4c64a87"), "GW", 94 },
-                    { new Guid("2ee95aa1-8ebd-5f01-97e1-b322e3741dec"), "HN", 99 },
+                    { new Guid("340724a3-bbc5-52f3-be18-8d2aee1a048f"), "HU", 101 },
                     { new Guid("a6a95a1f-e0b3-586e-af7b-c9fad083e5df"), "GG", 92 },
                     { new Guid("27dfd6ae-23cd-55e1-bde2-d583c1c2d195"), "EC", 65 },
                     { new Guid("a5873655-f611-5a8a-b628-3c49ad3b346f"), "EG", 66 },
@@ -1287,14 +1287,14 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     { new Guid("64debd5f-eabf-570e-8476-49b54742f8b5"), "GQ", 68 },
                     { new Guid("9c95bc70-ec04-5cc2-a571-3da7465e976f"), "ER", 69 },
                     { new Guid("bdc65263-ad52-5214-9b5f-bf7004b00067"), "EE", 70 },
-                    { new Guid("598f6a92-7976-5c9f-8b11-d00270e37536"), "ET", 71 },
                     { new Guid("035c5aa5-0b2c-5471-a127-84c12c25d856"), "GN", 93 },
+                    { new Guid("f967421b-c49a-59df-939c-4ececfaddf8a"), "FK", 72 },
                     { new Guid("012e081d-ad96-519b-b72e-92adf8b8d6db"), "FO", 73 },
                     { new Guid("f7071bc0-062a-522e-998e-3d32770fe186"), "FJ", 74 },
                     { new Guid("16c266d0-f6cd-5322-870b-796c282fc2fe"), "FI", 75 },
                     { new Guid("8c3fa648-a1ab-5172-902d-9e6d396622a0"), "FR", 76 },
                     { new Guid("924a142e-3b4b-5bb2-b0df-d3b0f44ab43a"), "GF", 77 },
-                    { new Guid("f967421b-c49a-59df-939c-4ececfaddf8a"), "FK", 72 }
+                    { new Guid("598f6a92-7976-5c9f-8b11-d00270e37536"), "ET", 71 }
                 });
 
             migrationBuilder.InsertData(
@@ -1323,15 +1323,15 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("28a87d3e-bd22-503c-9d05-0796440fee66"), "Other", 8 },
-                    { new Guid("3f8a5e3b-494e-5099-8bd4-0e7a145d409c"), "Annealing", 7 },
-                    { new Guid("23304941-05aa-5c23-82db-faee6910692a"), "Knurling", 6 },
-                    { new Guid("60fabdc3-b059-5b10-8ffb-c331efa44416"), "LaserMarking", 5 },
                     { new Guid("170871f3-c45f-5be6-b969-7d444adf0568"), "Toothings", 3 },
-                    { new Guid("d69f148f-ef5c-5343-8db0-24cbfcc3653e"), "ThreadsTr", 2 },
-                    { new Guid("61fe7597-b8e0-54a0-b3b6-f2c15620949b"), "ThreadsM", 1 },
                     { new Guid("4867b337-2da8-547a-924e-57e5e32c7c07"), "DeepHoleDrilling", 0 },
-                    { new Guid("af9dee55-eff7-5179-afa6-b7bb805db03b"), "Engravings", 4 }
+                    { new Guid("61fe7597-b8e0-54a0-b3b6-f2c15620949b"), "ThreadsM", 1 },
+                    { new Guid("d69f148f-ef5c-5343-8db0-24cbfcc3653e"), "ThreadsTr", 2 },
+                    { new Guid("af9dee55-eff7-5179-afa6-b7bb805db03b"), "Engravings", 4 },
+                    { new Guid("60fabdc3-b059-5b10-8ffb-c331efa44416"), "LaserMarking", 5 },
+                    { new Guid("23304941-05aa-5c23-82db-faee6910692a"), "Knurling", 6 },
+                    { new Guid("3f8a5e3b-494e-5099-8bd4-0e7a145d409c"), "Annealing", 7 },
+                    { new Guid("28a87d3e-bd22-503c-9d05-0796440fee66"), "Other", 8 }
                 });
 
             migrationBuilder.InsertData(
@@ -1340,9 +1340,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 values: new object[,]
                 {
                     { new Guid("6e5c3bc5-2050-51ea-95a3-9c3d183f852e"), "LeadTimeTooShort", 2 },
+                    { new Guid("baed7d1f-d0eb-5a1b-a650-c32c3419ecc7"), "NotFeasible", 3 },
                     { new Guid("15e78365-66e3-5365-b111-41237c6c49d9"), "NoCapacity", 0 },
-                    { new Guid("32853980-049c-525e-8a1b-710736510f91"), "MaterialNotAvailable", 1 },
-                    { new Guid("baed7d1f-d0eb-5a1b-a650-c32c3419ecc7"), "NotFeasible", 3 }
+                    { new Guid("32853980-049c-525e-8a1b-710736510f91"), "MaterialNotAvailable", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1350,9 +1350,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 columns: new[] { "Id", "Name", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("7407f8ba-b0fa-5615-8454-70e9c1bc4b1a"), "Rejected", 1 },
-                    { new Guid("808b507d-9da0-54fb-81ef-d0a0bc58d605"), "Accepted", 0 },
-                    { new Guid("18389298-fb42-5d64-b305-36fc3d0e8067"), "UnansweredQuestions", 2 }
+                    { new Guid("808b507d-9da0-54fb-81ef-d0a0bc58d605"), "Accepted", 1 },
+                    { new Guid("7407f8ba-b0fa-5615-8454-70e9c1bc4b1a"), "Rejected", 2 },
+                    { new Guid("6e948bab-f81d-57f8-80d9-5743eda5790c"), "NoAction", 0 },
+                    { new Guid("18389298-fb42-5d64-b305-36fc3d0e8067"), "UnansweredQuestions", 3 }
                 });
 
             migrationBuilder.CreateIndex(

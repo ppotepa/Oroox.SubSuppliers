@@ -2,8 +2,8 @@
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.Model
 {
-    public class GetCustomerByIdModel
+    public class GetCustomerByIdResponseModel
     {
-        public GetCustomerByIdDTO Customer { get; set; }
+        public CustomerResponseDTO Customer { get; set; }
     }
 }

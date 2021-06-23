@@ -53,13 +53,13 @@ namespace Oroox.SubSuppliers.Domain
                 }
             );
 
-            var comments = ctx.Comments.ToList();
-            var ctx2 = ctx.Find(comments[1].Attachment.RegardingObject.EntityType, comments[1].Attachment.RegardingObject.RegardingObjectId);
-            Comment comment = RegardingObject.Find<Comment>(ctx, comments[1].Attachment.RegardingObject.RegardingObjectId);
-            byte[] byteArray = comment.Attachment.Content;
-            string text = Encoding.Default.GetString(byteArray);
+            //var comments = ctx.Comments.ToList();
+            //var ctx2 = ctx.Find(comments[1].Attachment.RegardingObject.EntityType, comments[1].Attachment.RegardingObject.RegardingObjectId);
+            //Comment comment = RegardingObject.Find<Comment>(ctx, comments[1].Attachment.RegardingObject.RegardingObjectId);
+            //byte[] byteArray = comment.Attachment.Content;
+            //string text = Encoding.Default.GetString(byteArray);
             
-            //ctx.SaveChanges();
+            ctx.SaveChanges();
         }
 
         private static Customer NewCustomer(SubSuppliersContext ctx, int index)

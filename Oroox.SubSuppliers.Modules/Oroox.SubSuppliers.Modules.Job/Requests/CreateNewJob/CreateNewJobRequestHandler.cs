@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob.DTO;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.RequestsCreateNewJob.Model;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.RequestsCreateNewJob.Response;
 using Oroox.SubSuppliers.Services.Jobs;
 using Oroox.SubSuppliers.Services.Jobs.Response;
@@ -35,7 +37,13 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Response
 
             return new CreateNewJobRequestResponse
             {
-                Result = entry.Entity.Id,
+                Result = new CreateNewJobRequestResponseModel
+                { 
+                    Customer = new CustomerResponseDTO
+                    {
+                        Id = entry.Entity.Id
+                    }
+                },
                 ResponseText = $"Created new Entity with id {entry.Entity.Id}."
             };
         }

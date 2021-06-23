@@ -21,8 +21,8 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.PreProcess
 
         public Task Process(CreateNewSharedJobRequest request, CancellationToken cancellationToken)
         {
-            request.Customer = this.context.Customers.FirstOrDefault(customer => customer.Id == request.Customer.Id);
-            request.Job = this.context.Jobs.FirstOrDefault(customer => customer.Id == request.Customer.Id);
+            request.Customer = this.context.Customers.AsQueryable().FirstOrDefault(customer => customer.Id == request.CustomerId);
+            request.Job = this.context.Jobs.AsQueryable().FirstOrDefault(customer => customer.Id == request.JobId);
 
             return Unit.Task;
         }

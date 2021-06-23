@@ -11,5 +11,6 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob
         public Job Job { get; set; }
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
+        public SharedJob SharedJob { get; set; }
     }
 }

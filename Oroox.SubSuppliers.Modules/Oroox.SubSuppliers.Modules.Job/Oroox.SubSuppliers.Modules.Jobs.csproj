@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\CreateNewSharedJob\Events\" />
     <Folder Include="Requests\CreateNewSharedJob\PostProcessors\" />
   </ItemGroup>
 

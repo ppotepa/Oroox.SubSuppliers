@@ -10,8 +10,8 @@ using Oroox.SubSuppliers.Domain.Context;
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
     [DbContext(typeof(SubSuppliersContext))]
-    [Migration("20210622131327_Initial")]
-    partial class Initial
+    [Migration("20210623121042_CustomerAndJob")]
+    partial class CustomerAndJob
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -3148,21 +3148,27 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.HasData(
                         new
                         {
+                            Id = new Guid("6e948bab-f81d-57f8-80d9-5743eda5790c"),
+                            Name = "NoAction",
+                            Value = 0
+                        },
+                        new
+                        {
                             Id = new Guid("808b507d-9da0-54fb-81ef-d0a0bc58d605"),
                             Name = "Accepted",
-                            Value = 0
+                            Value = 1
                         },
                         new
                         {
                             Id = new Guid("7407f8ba-b0fa-5615-8454-70e9c1bc4b1a"),
                             Name = "Rejected",
-                            Value = 1
+                            Value = 2
                         },
                         new
                         {
                             Id = new Guid("18389298-fb42-5d64-b305-36fc3d0e8067"),
                             Name = "UnansweredQuestions",
-                            Value = 2
+                            Value = 3
                         });
                 });
 
@@ -3516,7 +3522,7 @@ namespace Oroox.SubSuppliers.Domain.Migrations
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.SharedJob", b =>
                 {
                     b.HasOne("Oroox.SubSuppliers.Domain.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("SharedJobs")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3616,6 +3622,8 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                     b.Navigation("Machines");
 
                     b.Navigation("Registration");
+
+                    b.Navigation("SharedJobs");
                 });
 
             modelBuilder.Entity("Oroox.SubSuppliers.Domain.Entities.FinalCost", b =>

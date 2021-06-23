@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.Validation
 {
-    public class JobValidator : AbstractValidator<CreateNewSharedJobRequest>
+    public class CreateNewSharedJobValidator : AbstractValidator<CreateNewSharedJobRequest>
     {
         private readonly IApplicationContext context;
-        public JobValidator(IApplicationContext context)
+        public CreateNewSharedJobValidator(IApplicationContext context)
         {
             this.context = context;
 

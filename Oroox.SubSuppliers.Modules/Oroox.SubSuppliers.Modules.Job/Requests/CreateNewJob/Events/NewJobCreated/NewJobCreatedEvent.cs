@@ -1,6 +1,10 @@
-﻿using Oroox.SubSuppliers.Domain.Context;
+﻿using MediatR;
+using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Event;
+using System;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob.Events.NewJobCreated
 {
@@ -13,17 +17,17 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob.Events.NewJobCre
             this.context = context;
         }
 
-        public void Handle(CreateNewJobRequest request, CancellationToken cancelationToken)
+        public Task<Unit> Handle(CreateNewJobRequest request, CancellationToken cancelationToken)
         {
-            //if (request.Job is null)
-            //    throw new InvalidOperationException("Something went wrong");
+            if (request.Job is null)
+                throw new InvalidOperationException("Something went wrong");
 
-            //IQueryable<Customer> matchingCustomers = this.context
-            //                                .Customers
-            //                                .AsQueryable()
-            //                                .Where(customer => customer.Machines.Any(machine => machine.MatchJob(request.Job)));
-            
+            IQueryable<Domain.Entities.Customer> matchingCustomers = this.context
+                                            .Customers
+                                            .AsQueryable()
+                                            .Where(customer => customer.Machines.Any(machine => machine.MatchJob(request.Job)));
 
+            return Unit.Task;
         }
     }
 }

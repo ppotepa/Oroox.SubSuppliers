@@ -46,8 +46,8 @@ namespace Oroox.SubSuppliers.Modules.Customers
             => await Handle(request: this.mapper.Map<ActivateCustomerModel, ActivateCustomerRequest>(request));
 
         [HttpGet]
-        public async Task<IActionResult> GetCustomerById(GetCustomerByIdModel request)
-            => await Handle(request: this.mapper.Map<GetCustomerByIdModel, GetCustomerByIdRequest>(request));
+        public async Task<IActionResult> GetCustomerById(GetCustomerByIdResponseModel request)
+            => await Handle(request: this.mapper.Map<GetCustomerByIdResponseModel, GetCustomerByIdRequest>(request));
 
         [HttpPatch]
         public async Task<IActionResult> UpdateCustomerInfo(UdateCustomerAdditionalInfoModel request)

@@ -18,7 +18,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public Guid SharedJobStatusTypeId { get; set; }
 
         public bool HasAnyUnansweredQuestions 
-            => Questions.Any(question => question.IsAnswered is false);
+            => Questions is null ? false : Questions.Any(question => question.IsAnswered is false);
 
         public virtual List<Comment> Comments { get; set; }
     }

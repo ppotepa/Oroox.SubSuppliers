@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.GetCustomerById.DTO
+namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob.DTO
 {
     public class CustomerResponseDTO
     {

@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR.Pipeline;
 using Oroox.SubSuppliers.Event;
+using Oroox.SubSuppliers.Utilities.Abstractions;
 using System;
 using System.Linq;
 
@@ -10,8 +11,9 @@ namespace Oroox.SubSuppliers.Modules.Customers
     /// <summary>
     /// Autofac UsersModule
     /// </summary>
-    public class CustomersModule : Module
+    public class CustomersModule : SubSuppliersModule
     {
+        
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CustomersController>().PropertiesAutowired();

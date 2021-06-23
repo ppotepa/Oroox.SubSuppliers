@@ -3,6 +3,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.Model;
 using Oroox.SubSuppliers.Modules.Jobs.RequestsCreateNewJob.Model;
 using Oroox.SubSuppliers.Utilities.Abstractions;
 using System.Threading.Tasks;
@@ -27,8 +29,8 @@ namespace Oroox.SubSuppliers.Modules.Jobs
             => await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
 
         [HttpPost]
-        public async Task<IActionResult> CreateSharedJob(CreateNewJobModel request)
-            => await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
+        public async Task<IActionResult> CreateSharedJob(CreateNewSharedJobModel request)
+            => await Handle(request: this.mapper.Map<CreateNewSharedJobModel, CreateNewSharedJobRequest>(request));
 
     }
 }
