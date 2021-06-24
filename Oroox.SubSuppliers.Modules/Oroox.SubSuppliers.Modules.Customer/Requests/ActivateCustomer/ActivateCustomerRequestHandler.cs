@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Oroox.SubSuppliers.Extensions;
+using Oroox.SubSuppliers.Extensions.Configuration;
 using Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomerRequest.Response;
 using System.Threading;
 using System.Threading.Tasks;

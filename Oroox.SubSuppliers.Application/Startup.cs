@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Oroox.SubSuppliers.DependencyInjection;
 using Oroox.SubSuppliers.Extensions;
+using Oroox.SubSuppliers.Extensions.Configuration;
 using Oroox.SubSuppliers.Handlers;
 using Oroox.SubSuppliers.Services;
 using Oroox.SubSuppliers.Utilities.Abstractions;
@@ -37,6 +38,7 @@ namespace Oroox.SubSuppliers.Application
         public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
+            var res = this.configuration.GetApplicationSettings();
             this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
 

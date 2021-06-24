@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Oroox.SubSuppliers.Domain.Entities
 {
@@ -10,6 +11,9 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public byte[] Content { get; set; }
         public string FileName { get; set; }
         public string Description { get; set; }
+
+        [NotMapped]
+        public string Extension => FileName.Split('.').Last();
     }
 
     public class RegardingObject : Entity

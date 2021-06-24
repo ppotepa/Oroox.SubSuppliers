@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Oroox.SubSuppliers.Extensions.Configuration;
 using Oroox.SubSuppliers.Extensions.Exceptions;
 using System;
 
@@ -9,6 +10,8 @@ namespace Oroox.SubSuppliers.Extensions
     /// </summary>
     public static class ConfigurationExtensions
     {
+        private static OxSubSuppliersApplicationSettings oxSubSuppliersApplicationSettings = null;       
+
         public static OxSuppliersEnvironmentVariables GetEnvironmentVariables(this IConfiguration @this)
         {
             return new OxSuppliersEnvironmentVariables
@@ -23,9 +26,17 @@ namespace Oroox.SubSuppliers.Extensions
 
         public static OxSubSuppliersApplicationSettings GetApplicationSettings(this IConfiguration @this)
         {
-            OxSubSuppliersApplicationSettings instance = new OxSubSuppliersApplicationSettings();
-            @this.Bind("OxApplicationSettings", instance);
-            return instance;
+            if (oxSubSuppliersApplicationSettings is null)
+            {
+                OxSubSuppliersApplicationSettings instance = new OxSubSuppliersApplicationSettings();
+                @this.Bind("OxApplicationSettings", instance);
+                oxSubSuppliersApplicationSettings = instance;
+            }
+
+            lock (oxSubSuppliersApplicationSettings)
+            {
+                return oxSubSuppliersApplicationSettings;
+            }
         }  
     }
 

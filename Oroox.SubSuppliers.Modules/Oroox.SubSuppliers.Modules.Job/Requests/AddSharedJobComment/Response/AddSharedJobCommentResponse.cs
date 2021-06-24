@@ -3,8 +3,7 @@ using Oroox.SubSuppliers.Response;
 
 namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Response
 {
-    public class AddSharedJobCommentResponse : BaseResponse<AddSharedJobCommentModel>
+    public class AddSharedJobCommentResponse : BaseResponse<AddSharedJobCommentResponseModel>
     {
-       
     }
 }

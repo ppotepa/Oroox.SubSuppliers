@@ -13,7 +13,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Validatio
             this.context = context;
 
             RuleFor(request => request.SharedJobId).Must(NotBeDefault).WithMessage("Invalid shared job id.");
-            RuleFor(request => request.SharedJobId).Must(Exist).WithMessage(x => $"Shared job with id {x.SharedJobId} does not exist.");
+            RuleFor(request => request.SharedJobId).Must(Exist).WithMessage(x => $"Shared job with id {x.SharedJobId} does not exist.");            
         }
 
         private bool Exist(Guid sharedJobId)

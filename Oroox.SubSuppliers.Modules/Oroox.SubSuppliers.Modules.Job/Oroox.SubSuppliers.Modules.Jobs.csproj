@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\AddSharedJobComment\PostProcessors\" />
     <Folder Include="Requests\CreateNewSharedJob\PostProcessors\" />
   </ItemGroup>
 
