@@ -2,6 +2,6 @@
 {
     public class CreateCustomerRequestResponseModel
     {
-        public CreateCustomerRequestResponseDTO Customer { get; set; }
+        public CustomerCreatedDTO Customer { get; set; }
     }
 }

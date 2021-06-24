@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.PreProcessors
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachines.PreProcessors
 {
     public class BindWithCustomer : IRequestPreProcessor<AddCustomerTurningMachinesRequest>
     {

@@ -2,7 +2,7 @@
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Model
 {
-    public class CreateCustomerRequestResponseDTO
+    public class CustomerCreatedDTO
     {
         public Guid Id { get; set; }
     }

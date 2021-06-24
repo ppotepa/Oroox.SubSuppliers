@@ -4,6 +4,7 @@ using Oroox.SubSuppliers.Domain;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.DTO;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.Model;
 using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachine.Response;
 using System.Linq;
 using System.Threading;
@@ -21,13 +22,17 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerMillingMachin
         }
 
         public Task Process(AddCustomerMillingMachineRequest request, AddCustomerMillingMachineRequestResponse response, CancellationToken cancellationToken)
-        {
-           response.MachineIds = this.context
-                .NewEntries()
-                .Select(x => x.Entity)
-                .Cast<MillingMachine>()
-                .Select(machine => NewMillingMachineResponseDTO.FromMachine(machine))
-                .ToArray();
+        {   
+
+            response.Result = new NewMillingMachineResponseModel
+            {
+                MillingMachines = this.context
+                                    .NewEntries()
+                                    .Select(x => x.Entity)
+                                    .OfType<MillingMachine>()
+                                    .Select(machine => MillingMachineResponseDTO.FromMachine(machine))
+                                    .ToArray()
+            };
 
             return Unit.Task;
         }

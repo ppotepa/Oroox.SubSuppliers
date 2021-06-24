@@ -81,6 +81,7 @@ namespace Oroox.SubSuppliers.Handlers
                 this.preProcessors.ForEach(processor => processor.Process(request, cancellationToken));
                 response = await this.innerRequest.Handle(request, cancellationToken);
                 this.postProcessors.ForEach(processor => processor.Process(request, response, cancellationToken));
+
                 await context.SaveChangesAsync(true, cancellationToken);
             }
             catch (Exception exception)
@@ -94,10 +95,11 @@ namespace Oroox.SubSuppliers.Handlers
                     innerException: exception
                 );
             }
-
+        
             events.ForEach(@event => @event.Handle(request, cancellationToken));
+
+            var responseBase = response is BaseResponse;
             return response;
-            //return this.mapper.Map
         }
     }
 }

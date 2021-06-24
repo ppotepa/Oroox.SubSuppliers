@@ -4,7 +4,7 @@ using Oroox.SubSuppliers.Domain.Entities;
 using System;
 using System.Linq;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Validation
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachines.Validation
 {
     public class TurningMachinesValidator : AbstractValidator<AddCustomerTurningMachinesRequest>
     {

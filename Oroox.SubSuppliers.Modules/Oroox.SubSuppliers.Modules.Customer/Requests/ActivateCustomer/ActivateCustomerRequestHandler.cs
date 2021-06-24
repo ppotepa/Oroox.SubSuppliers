@@ -17,26 +17,23 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.ActivateCustomer
 
         public Task<ActivateCustomerRequestResponse> Handle(ActivateCustomerRequest request, CancellationToken cancellationToken)
         {
+            ActivateCustomerRequestResponse response = default;
+
             if (request.Registration != null && request.Registration.Customer.IsActive is false)
             {
                 request.Registration.Customer.IsActive = true;
-
-                return Task.FromResult
-                (
-                    new ActivateCustomerRequestResponse
-                    {
-                        RedirectUrl = environmentVariables.IsDevelopment ? "http://localhost:4200" : "/"
-                    }
-                );
+                response = new ActivateCustomerRequestResponse
+                {
+                    RedirectUrl = environmentVariables.IsDevelopment ? "http://localhost:4200" : "/"
+                };
             }
 
-            return Task.FromResult
-            (
-                new ActivateCustomerRequestResponse 
-                {
-                   ResponseText = "What are you doing here ? 🤔🤔🤔"
-                }
-            );
+            response = new ActivateCustomerRequestResponse
+            {
+                ResponseText = "What are you doing here ? 🤔🤔🤔"
+            };
+
+            return Task.FromResult(response);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Oroox.SubSuppliers.Domain.Entities;
-using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine.Response;
+using Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachines.Response;
 using System;
 
-namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachine
+namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachines
 {
     public class AddCustomerTurningMachinesRequest : IRequest<AddCustomerTurningMachineRequestResponse>
     {
