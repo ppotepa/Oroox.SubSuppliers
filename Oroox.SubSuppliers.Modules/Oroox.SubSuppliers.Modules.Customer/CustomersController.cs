@@ -54,8 +54,8 @@ namespace Oroox.SubSuppliers.Modules.Customers
             => await Handle(request: this.mapper.Map<UdateCustomerAdditionalInfoModel, UpdateCustomerAdditionalInfoRequest>(request));
 
         [HttpPut]
-        public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachineModel request)
-            => await Handle(request: this.mapper.Map<AddCustomerTurningMachineModel, AddCustomerTurningMachinesRequest>(request));
+        public async Task<IActionResult> AddCustomerTurningMachine(AddCustomerTurningMachinesModel request)
+            => await Handle(request: this.mapper.Map<AddCustomerTurningMachinesModel, AddCustomerTurningMachinesRequest>(request));
 
         [HttpPut]
         public async Task<IActionResult> AddCustomerMillingMachine(AddCustomerMillingMachineModel request) 

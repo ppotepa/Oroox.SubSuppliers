@@ -21,23 +21,23 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachin
                 .WithMessage(x => $"Customer with id {x.CustomerId} does not exist");
 
             RuleFor(x => x.TurningMachines.Select(x => x.MachineNumber)).NotNull().NotEmpty();
-           
-            RuleForEach(x => x.TurningMachines)
-                .NotNull()
-                .NotEmpty()
-                .Must(HaveNonNegativeDimensions)
-                .Must(HaveNameSpecified)
-                .WithMessage((request, machine) =>
-                {
-                    return 
-                        $"Invalid dimensions for machine with name : " +
-                        $"[{ machine.Name }],\\n Wrong Dimensions : " +
-                        $"{ string.Join(", ", machine.Dimensions.Where(dimendions => dimendions.Value < 0).Select(dimensions => dimensions.PropertyName)) }";
-                });
+
+            RuleForEach(x => x.TurningMachines).NotNull().WithMessage("Turning machine was null.");
+            RuleForEach(x => x.TurningMachines).NotEmpty().WithMessage("Turning machine was empty.");
+            RuleForEach(x => x.TurningMachines).Must(HaveNonNegativeDimensions).WithMessage("Turning machine was empty.").WithMessage((request, machine) =>
+            {
+                var message = $"Invalid dimensions for machine with name : " +
+                    $"[{ machine.Name }],\\n Wrong Dimensions : " +
+                    $"{ string.Join(", ", machine.Dimensions.Where(dimensions => dimensions.Value < 0).Select(dimensions => dimensions.PropertyName)) }";
+
+                return message;
+            });
+
+            RuleForEach(x => x.TurningMachines).Must(HaveNameSpecified).WithMessage("Turning machine name was empty.");
         }
 
         private bool HaveNameSpecified(TurningMachine machine) 
-            => string.IsNullOrEmpty(machine.Name);
+            => string.IsNullOrEmpty(machine.Name) is false;
 
         private bool HaveNonNegativeDimensions(TurningMachine machine) 
             => machine.Dimensions.All(machineDimensions => machineDimensions.Value > 0);
