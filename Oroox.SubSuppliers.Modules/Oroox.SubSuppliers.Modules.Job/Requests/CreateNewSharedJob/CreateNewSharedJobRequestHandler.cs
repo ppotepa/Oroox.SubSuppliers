@@ -35,7 +35,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob
             );
 
             request.SharedJob = newSharedJobEntry.Entity;
-
+                
             return new CreateNewSharedJobRequestResponse
             {
                 ResponseText = $"Succesfully created new Shared Job with : {request.SharedJob.Id}",

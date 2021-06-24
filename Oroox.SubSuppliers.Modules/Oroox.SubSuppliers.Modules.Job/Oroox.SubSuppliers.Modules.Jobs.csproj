@@ -6,11 +6,8 @@
 
   <ItemGroup>
     <Compile Remove="Requests\CreateNewJob\Validators\**" />
-    <Compile Remove="Requests\NewFolder\**" />
     <EmbeddedResource Remove="Requests\CreateNewJob\Validators\**" />
-    <EmbeddedResource Remove="Requests\NewFolder\**" />
     <None Remove="Requests\CreateNewJob\Validators\**" />
-    <None Remove="Requests\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Requests\AddSharedJobComment\PostProcessors\" />
     <Folder Include="Requests\CreateNewSharedJob\PostProcessors\" />
   </ItemGroup>
 

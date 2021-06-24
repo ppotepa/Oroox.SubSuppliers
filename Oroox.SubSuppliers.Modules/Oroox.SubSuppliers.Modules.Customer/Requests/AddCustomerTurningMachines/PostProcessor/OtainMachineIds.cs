@@ -13,23 +13,22 @@ using System.Threading.Tasks;
 
 namespace Oroox.SubSuppliers.Modules.Customers.Requests.AddCustomerTurningMachines.PostProcessor
 {
-    public class GetNewMachinesIds : IRequestPostProcessor<AddCustomerTurningMachinesRequest, AddCustomerTurningMachineRequestResponse>
+    public class OtainMachineIds : IRequestPostProcessor<AddCustomerTurningMachinesRequest, AddCustomerTurningMachineRequestResponse>
     {
         private readonly IApplicationContext context;
 
-        public GetNewMachinesIds(IApplicationContext context)
+        public OtainMachineIds(IApplicationContext context)
         {
             this.context = context;
         }
 
         public Task Process(AddCustomerTurningMachinesRequest request, AddCustomerTurningMachineRequestResponse response, CancellationToken cancellationToken)
         {
-            TurningMachineResponseDTO[] newEntries = this.context
-                                    .NewEntries()
-                                    .Select(x => x.Entity)
-                                    .OfType<TurningMachine>()
-                                    .Select(machine => TurningMachineResponseDTO.FromMachine(machine))
-                                    .ToArray();
+            TurningMachineResponseDTO[] newEntries = this.context.NewEntries()
+                                                            .Select(x => x.Entity)
+                                                            .OfType<TurningMachine>()
+                                                            .Select(machine => TurningMachineResponseDTO.FromMachine(machine))
+                                                            .ToArray();
 
             response.Result = new AddCustomerTurningMachineResponseModel { TurningMachines = newEntries };
             return Unit.Task;

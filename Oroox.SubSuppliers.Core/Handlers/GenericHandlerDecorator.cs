@@ -98,7 +98,7 @@ namespace Oroox.SubSuppliers.Handlers
         
             events.ForEach(@event => @event.Handle(request, cancellationToken));
 
-            var responseBase = response is BaseResponse;
+            bool responseBase = response is BaseResponse;
             return response;
         }
     }

@@ -16,6 +16,7 @@ namespace Oroox.SubSuppliers.Response
         }
         protected object result;
     }
+
     public class BaseResponse<TModel> : BaseResponse where TModel : class
     {
         public new TModel Result
@@ -24,5 +25,4 @@ namespace Oroox.SubSuppliers.Response
             set => result = value;
         }
     }
-
 }
