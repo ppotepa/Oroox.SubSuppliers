@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Oroox.SubSuppliers.Domain.Context;
 using System;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Validatio
         }
 
         private bool Exist(Guid sharedJobId)
-            => this.context.SharedJobs.Any(x => x.Id == sharedJobId);
+            => this.context.SharedJobs.AsNoTracking().Any(x => x.Id == sharedJobId);
 
 
         private bool NotBeDefault(Guid sharedJobId) 

@@ -24,7 +24,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment
                     ResponseText = "Something went wrong."
                 };
             }
-
+            
             request.SharedJob.Comments.Add(request.Comment);
 
             return new AddSharedJobCommentResponse

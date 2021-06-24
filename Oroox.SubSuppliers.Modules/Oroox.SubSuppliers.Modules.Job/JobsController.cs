@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Model;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.Model;
@@ -31,6 +33,11 @@ namespace Oroox.SubSuppliers.Modules.Jobs
         [HttpPost]
         public async Task<IActionResult> CreateSharedJob(CreateNewSharedJobModel request)
             => await Handle(request: this.mapper.Map<CreateNewSharedJobModel, CreateNewSharedJobRequest>(request));
+
+        [HttpPut]
+        public async Task<IActionResult> AddSharedJobComment(AddSharedJobCommentModel request)
+            => await Handle(request: this.mapper.Map<AddSharedJobCommentModel, AddSharedJobCommentRequest>(request));
+
 
     }
 }

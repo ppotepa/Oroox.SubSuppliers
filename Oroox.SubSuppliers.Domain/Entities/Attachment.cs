@@ -18,6 +18,10 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
     public class RegardingObject : Entity
     {
+        public RegardingObject()
+        {
+        }
+
         public string EntityName { get; set; }
         public Guid RegardingObjectId { get; set; }
 

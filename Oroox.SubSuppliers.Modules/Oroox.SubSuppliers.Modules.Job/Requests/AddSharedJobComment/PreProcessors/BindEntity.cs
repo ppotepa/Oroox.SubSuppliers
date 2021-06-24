@@ -17,9 +17,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.PreProces
 
         public async Task Process(AddSharedJobCommentRequest request, CancellationToken cancellationToken)
         {
-            request.SharedJob = this.context.SharedJobs.AsQueryable()
-                                    .FirstOrDefault(job => job.Id == request.SharedJobId);
-
+            request.SharedJob = this.context.SharedJobs.FirstOrDefault(job => job.Id == request.SharedJobId);
             await Unit.Task;
         }
     }

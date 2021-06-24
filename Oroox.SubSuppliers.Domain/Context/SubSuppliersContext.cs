@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Domain.Utilities;
 using Oroox.SubSuppliers.Extensions;
+using Oroox.SubSuppliers.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,21 +97,34 @@ namespace Oroox.SubSuppliers.Domain.Context
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             DateTime currentDateTime = DateTime.Now;
-            IEnumerable<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>();
-            
+            List<EntityEntry<Entity>> entities = ChangeTracker.Entries<Entity>().ToList();
+           
             entities.ForEach(entry =>
             {
                 dynamic dynamicEntry = entry as dynamic;
 
                 if (dynamicEntry.State is EntityState.Added)
                 {
-                    dynamicEntry.Entity.CreatedOn = currentDateTime;
+                    dynamic dynamicEntity = dynamicEntry.Entity;
+
+                    if (dynamicEntity.GetType().GetProperty(nameof(Attachment)) != null)
+                    {
+                        dynamicEntity.Attachment.RegardingObject = new RegardingObject
+                        {
+                            EntityName = dynamicEntity.GetType().Name,
+                            RegardingObjectId = dynamicEntity.Id,
+                            CreatedOn = currentDateTime
+                        };
+                    }
+
+                    dynamicEntity.CreatedOn = currentDateTime;
                 }
 
                 if (dynamicEntry.State is EntityState.Modified)
                 {
                     dynamicEntry.Entity.ModifiedOn = currentDateTime;
                 }
+
 
                 if (entry.State is EntityState.Deleted)
                 {
