@@ -55,9 +55,11 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Validatio
                     .Must(BeSmallerThan1MB)
                     .WithMessage($"File is too big. Maximum file size is {appConfig.Other.AttachmentSettings.MaxAttachmentFileSize}");
 
+                string validExtensionsString = string.Join(", ", validExtensions);
+
                 RuleFor(request => request.Comment.Attachment.Extension)
                     .Must(BeValid)
-                    .WithMessage($"Unsupported attachment Type. Supported file types are : {string.Join(", ", validExtensions)}");
+                    .WithMessage($"Unsupported attachment Type. Supported file types are : {validExtensionsString}");
             });
         }
 

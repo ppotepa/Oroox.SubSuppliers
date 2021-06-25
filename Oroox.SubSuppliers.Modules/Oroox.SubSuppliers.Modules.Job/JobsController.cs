@@ -30,10 +30,20 @@ namespace Oroox.SubSuppliers.Modules.Jobs
         public async Task<IActionResult> Create(CreateNewJobModel request) 
             => await Handle(request: this.mapper.Map<CreateNewJobModel, CreateNewJobRequest>(request));
 
-        [HttpPost]
+        /// <summary>
+        /// Creates a shared job based on job
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]                                  
         public async Task<IActionResult> CreateSharedJob(CreateNewSharedJobModel request)
             => await Handle(request: this.mapper.Map<CreateNewSharedJobModel, CreateNewSharedJobRequest>(request));
 
+        /// <summary>
+        /// Adds a comment to shared job
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> AddSharedJobComment(AddSharedJobCommentModel request)
             => await Handle(request: this.mapper.Map<AddSharedJobCommentModel, AddSharedJobCommentRequest>(request));

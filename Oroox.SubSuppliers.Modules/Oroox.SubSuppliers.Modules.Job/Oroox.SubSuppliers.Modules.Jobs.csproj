@@ -6,8 +6,11 @@
 
   <ItemGroup>
     <Compile Remove="Requests\CreateNewJob\Validators\**" />
+    <Compile Remove="Requests\CreateNewSharedJob\PostProcessors\**" />
     <EmbeddedResource Remove="Requests\CreateNewJob\Validators\**" />
+    <EmbeddedResource Remove="Requests\CreateNewSharedJob\PostProcessors\**" />
     <None Remove="Requests\CreateNewJob\Validators\**" />
+    <None Remove="Requests\CreateNewSharedJob\PostProcessors\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Oroox.SubSuppliers.Core\Oroox.SubSuppliers.Core.csproj" />
     <ProjectReference Include="..\..\Oroox.SubSuppliers.Services\Oroox.SubSuppliers.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Requests\CreateNewSharedJob\PostProcessors\" />
   </ItemGroup>
 
 </Project>
