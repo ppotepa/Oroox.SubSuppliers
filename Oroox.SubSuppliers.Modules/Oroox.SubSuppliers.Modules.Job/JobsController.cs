@@ -49,8 +49,12 @@ namespace Oroox.SubSuppliers.Modules.Jobs
         public async Task<IActionResult> AddSharedJobComment(AddSharedJobCommentModel request)
             => await Handle(request: this.mapper.Map<AddSharedJobCommentModel, AddSharedJobCommentRequest>(request));
 
-        [HttpPut]
+        [HttpPatch]
         public async Task<IActionResult> UpdateSharedJobComment(UpdateSharedJobCommentModel request)
+            => await Handle(request: this.mapper.Map<UpdateSharedJobCommentModel, UpdateSharedJobCommentRequest>(request));
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSharedJobComment(UpdateSharedJobCommentModel request)
             => await Handle(request: this.mapper.Map<UpdateSharedJobCommentModel, UpdateSharedJobCommentRequest>(request));
     }
 }

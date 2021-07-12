@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Response;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,13 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment
                     ResponseText = "Something went wrong."
                 };
             }
-            
+
+            request.Comment.RegardingObject = new RegardingObject
+            {
+                EntityName = nameof(SharedJob),
+                RegardingObjectId = request.SharedJobId,                
+            };
+
             request.SharedJob.Comments.Add(request.Comment);
 
             AddSharedJobCommentResponse result = new AddSharedJobCommentResponse

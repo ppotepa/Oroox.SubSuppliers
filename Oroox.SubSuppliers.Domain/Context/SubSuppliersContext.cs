@@ -42,8 +42,7 @@ namespace Oroox.SubSuppliers.Domain.Context
 
             environmentVariables = this.configuration.GetEnvironmentVariables();
             currentAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes();
-
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         public DatabaseFacade DataBase => this.Database;
