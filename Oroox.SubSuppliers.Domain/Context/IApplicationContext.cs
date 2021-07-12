@@ -19,18 +19,18 @@ namespace Oroox.SubSuppliers.Domain.Context
         public ChangeTracker ChangeTracker { get; }
         public DbSet<CountryCodeType> CountryCodeTypes { get; set; }
         public DbSet<CustomerAdditionalInfo> CustomerAdditionalInfos { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<CNCMachineAxesType> CNCMachineAxesTypes { get; set; }
         public DbSet<TurningMachine> Machines { get; set; }
         public DbSet<OtherTechnology> OtherTechnologies { get; set; }
         public SubSuppliersContextEnumerations Enumerations { get; set; }
-
         void Update<TEntity>(TEntity entity) where TEntity : Entity;
         void Detach<TEntity>(TEntity entity) where TEntity : Entity;
-
         public DbSet<Registration> Registrations { get; set; }
-        public void AttachEntity<TEntity>(TEntity entity) where TEntity : class;
+        public EntityEntry<TEntity> AttachEntity<TEntity>(TEntity entity) where TEntity : class;
         public EnumerationEntity<TEnumType> ResolveEnum<TEnumType>(int value) where TEnumType : Enum;
         public int SaveChanges();
         public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

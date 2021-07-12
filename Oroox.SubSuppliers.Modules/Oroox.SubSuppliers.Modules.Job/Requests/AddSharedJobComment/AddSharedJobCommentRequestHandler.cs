@@ -27,10 +27,12 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment
             
             request.SharedJob.Comments.Add(request.Comment);
 
-            return new AddSharedJobCommentResponse
+            AddSharedJobCommentResponse result = new AddSharedJobCommentResponse
             {
-                ResponseText = $"Succesfully added a comment for SharedJob with id {request.SharedJobId}"
+                ResponseText = $"Succesfully added a comment for SharedJob with id {request.SharedJobId}",                
             };
+
+            return await Task.FromResult(result);
         }
     }
 }

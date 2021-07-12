@@ -18,13 +18,14 @@ namespace Oroox.SubSuppliers.Domain.Context
         public DbSet<RegardingObject> RegardingObjects { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<SharedJobQuestion> SharedJobQuestions { get; set; }
-        public DbSet<SharedJob> SharedJobs { get; set; }
-        public DbSet<TurningMachine> TurningMachines { get; set; }
+        public DbSet<SharedJob> SharedJobs { get; set; }        
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<User> Users { get; set; }        
+
         private Type[] CurrentEntities
         {
             get
-            {
+            {                
                 if (_currentEntities is null)
                 {
                     _currentEntities = currentAssemblyTypes.Where(t => t.IsSubclassOf(typeof(Entity))).ToArray();

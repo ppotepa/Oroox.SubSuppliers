@@ -37,8 +37,7 @@ namespace Oroox.SubSuppliers.Application
 
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
-            var res = this.configuration.GetApplicationSettings();
+            this.configuration = configuration;            
             this.EnvironmentVariables = configuration.GetEnvironmentVariables();
         }
 
@@ -49,9 +48,9 @@ namespace Oroox.SubSuppliers.Application
 
             app.UseHttpsRedirection();
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(options =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SubsuppliersPlatform API");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "SubsuppliersPlatform API");
             });
             
             app.UseRouting();
@@ -107,9 +106,16 @@ namespace Oroox.SubSuppliers.Application
             }
 
             services.AddOptions();
-            services.AddSwaggerGen(x => x.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()));
-            services.AddHttpContextAccessor();   
-           
+            services.AddSwaggerGen
+            (
+                options =>
+                {
+                    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                    options.CustomSchemaIds(type => type.ToString());
+                }
+            ); 
+
+            services.AddHttpContextAccessor();  
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

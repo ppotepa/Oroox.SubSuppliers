@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Oroox.SubSuppliers.Domain.Migrations
 {
-    public partial class CustomerAndJob : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -209,24 +209,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CalculationDetailsGroupMap",
                 columns: table => new
                 {
@@ -340,19 +322,20 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmailAddress = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VATNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanySizeTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanySizeTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -362,10 +345,10 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
-                    table.UniqueConstraint("AK_Customers_EmailAddress", x => x.EmailAddress);
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.UniqueConstraint("AK_Users_EmailAddress", x => x.EmailAddress);
                     table.ForeignKey(
-                        name: "FK_Customers_CompanySizeTypes_CompanySizeTypeId",
+                        name: "FK_Users_CompanySizeTypes_CompanySizeTypeId",
                         column: x => x.CompanySizeTypeId,
                         principalTable: "CompanySizeTypes",
                         principalColumn: "Id",
@@ -564,9 +547,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Address_Customers_CustomerId",
+                        name: "FK_Address_Users_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -588,9 +571,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CertificationCustomer_Customers_CustomersId",
+                        name: "FK_CertificationCustomer_Users_CustomersId",
                         column: x => x.CustomersId,
-                        principalTable: "Customers",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -621,9 +604,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     table.PrimaryKey("PK_CustomerAdditionalInfos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CustomerAdditionalInfos_Customers_CustomerId",
+                        name: "FK_CustomerAdditionalInfos_Users_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -639,15 +622,15 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     table.PrimaryKey("PK_CustomerOtherTechnology", x => new { x.CustomersId, x.OtherTechnologiesId });
                     table.ForeignKey(
-                        name: "FK_CustomerOtherTechnology_Customers_CustomersId",
-                        column: x => x.CustomersId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_CustomerOtherTechnology_OtherTechnologies_OtherTechnologiesId",
                         column: x => x.OtherTechnologiesId,
                         principalTable: "OtherTechnologies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerOtherTechnology_Users_CustomersId",
+                        column: x => x.CustomersId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -677,15 +660,15 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Jobs_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Jobs_Quote_QuoteId",
                         column: x => x.QuoteId,
                         principalTable: "Quote",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Users_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -728,9 +711,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         principalTable: "CNCMachineAxesTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Machine_Customers_CustomerId",
+                        name: "FK_Machine_Users_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -753,9 +736,9 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     table.PrimaryKey("PK_Registrations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Registrations_Customers_CustomerId",
+                        name: "FK_Registrations_Users_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -866,12 +849,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 {
                     table.PrimaryKey("PK_SharedJobs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SharedJobs_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_SharedJobs_Jobs_JobId",
                         column: x => x.JobId,
                         principalTable: "Jobs",
@@ -881,6 +858,12 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                         name: "FK_SharedJobs_SharedJobStatusTypes_SharedJobStatusTypeId",
                         column: x => x.SharedJobStatusTypeId,
                         principalTable: "SharedJobStatusTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SharedJobs_Users_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1433,11 +1416,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 column: "OtherTechnologiesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_CompanySizeTypeId",
-                table: "Customers",
-                column: "CompanySizeTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FinalCost_CalculationResultId",
                 table: "FinalCost",
                 column: "CalculationResultId");
@@ -1527,6 +1505,11 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "IX_SharedJobs_SharedJobStatusTypeId",
                 table: "SharedJobs",
                 column: "SharedJobStatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_CompanySizeTypeId",
+                table: "Users",
+                column: "CompanySizeTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1572,9 +1555,6 @@ namespace Oroox.SubSuppliers.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "SharedJobRejectionReasonTypes");
-
-            migrationBuilder.DropTable(
-                name: "User");
 
             migrationBuilder.DropTable(
                 name: "AddressTypes");
@@ -1631,19 +1611,19 @@ namespace Oroox.SubSuppliers.Domain.Migrations
                 name: "CalculationDetailsGroupMap");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Quote");
 
             migrationBuilder.DropTable(
-                name: "Quote");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "CalculationDetailsForQuote");
 
             migrationBuilder.DropTable(
-                name: "CompanySizeTypes");
+                name: "CalculationResult");
 
             migrationBuilder.DropTable(
-                name: "CalculationResult");
+                name: "CompanySizeTypes");
         }
     }
 }

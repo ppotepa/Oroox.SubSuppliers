@@ -22,8 +22,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
              List<Machine> machines,
              string vatNumber,
              string website,
-             string registrationNumber,
-             string emailAddress
+             string registrationNumber             
         )
         {
             CompanyName = companyName;
@@ -32,8 +31,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
             Machines = machines;
             VATNumber = vatNumber;
             Website = website;
-            RegistrationNumber = registrationNumber;
-            EmailAddress = emailAddress;
+            RegistrationNumber = registrationNumber;            
         }
 
         public virtual ICollection<Address> Addresses { get; set; }
@@ -41,8 +39,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
         public virtual List<SharedJob> SharedJobs { get; set; }
         public string CompanyName { get; set; }
         public virtual CompanySizeType CompanySizeType { get; set; }
-        public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }
-        public string EmailAddress { get; set; }
+        public virtual CustomerAdditionalInfo CustomerAdditionalInfo { get; set; }        
         public bool IsActive { get; set; }
         public virtual List<Machine> Machines { get; set; }
 

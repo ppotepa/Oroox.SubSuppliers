@@ -56,7 +56,7 @@ namespace Oroox.SubSuppliers.Domain.Entities
 
         public Entity() { }
         [JsonIgnore]
-        public Guid CreatedBy { get; set; }
+        public Guid CreatedBy { get; set; }        
         [JsonIgnore]
         public DateTime CreatedOn { get; set; }
         [JsonIgnore]

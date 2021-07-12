@@ -7,6 +7,7 @@ using Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.Model;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewJob;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.CreateNewSharedJob.Model;
+using Oroox.SubSuppliers.Modules.Jobs.Requests.UpdateSharedJobComment;
 using Oroox.SubSuppliers.Modules.Jobs.RequestsCreateNewJob.Model;
 using Oroox.SubSuppliers.Utilities.Abstractions;
 using System.Threading.Tasks;
@@ -38,6 +39,8 @@ namespace Oroox.SubSuppliers.Modules.Jobs
         public async Task<IActionResult> AddSharedJobComment(AddSharedJobCommentModel request)
             => await Handle(request: this.mapper.Map<AddSharedJobCommentModel, AddSharedJobCommentRequest>(request));
 
-
+        [HttpPut]
+        public async Task<IActionResult> UpdateSharedJobComment(UpdateSharedJobCommentModel request)
+            => await Handle(request: this.mapper.Map<UpdateSharedJobCommentModel, UpdateSharedJobCommentRequest>(request));
     }
 }

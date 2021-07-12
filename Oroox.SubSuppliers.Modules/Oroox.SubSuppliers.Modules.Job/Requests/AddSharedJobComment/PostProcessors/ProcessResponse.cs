@@ -19,9 +19,12 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.AddSharedJobComment.PostProce
             this.context = context;
         }
 
+
         public Task Process(AddSharedJobCommentRequest request, AddSharedJobCommentResponse response, CancellationToken cancellationToken)
         {
-            Comment entry = this.context.NewEntries().Select(entry => entry.Entity as Comment).FirstOrDefault();
+            Comment entry = this.context.NewEntries()
+                                        .Select(entry => entry.Entity as Comment)
+                                        .FirstOrDefault();
 
             if (entry != null)
             {

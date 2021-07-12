@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
@@ -35,7 +34,6 @@ namespace Oroox.SubSuppliers.Handlers
         private readonly IEnumerable<IValidator<TRequest>> validators;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ILogger logger;
-        private readonly IMapper mapper;
         private readonly IRequestHandler<TRequest, TResponse> innerRequest;
         public GenericHandlerDecorator
         (
@@ -46,7 +44,6 @@ namespace Oroox.SubSuppliers.Handlers
             IEnumerable<IValidator<TRequest>> validators,
             IHttpContextAccessor httpContextAccessor,
             ILogger logger,
-            IMapper mapper,
             IRequestHandler<TRequest, TResponse> innerRequest
         )
         {

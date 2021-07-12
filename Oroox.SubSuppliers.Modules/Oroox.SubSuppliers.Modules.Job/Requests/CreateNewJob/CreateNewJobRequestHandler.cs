@@ -30,15 +30,16 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Response
 
             if (jobResponse.Result is null) return new CreateNewJobRequestResponse
             {
-                ResponseText = $"Request was succesful. But no quotes with id '{request.QuoteId}' were found.",
+                ResponseText = $"Request was succesful. But no quotes with id '{request.QuoteId}' were found."
             };
 
-            EntityEntry<Job> entry = await this.context.Jobs.AddAsync(jobResponse.Result as Job);
+            EntityEntry<Job> entry = await this.context.Jobs.AddAsync(jobResponse.Result);
+            request.Job = entry.Entity;
 
             return new CreateNewJobRequestResponse
             {
                 Result = new CreateNewJobRequestResponseModel
-                { 
+                {
                     Customer = new CustomerResponseDTO
                     {
                         Id = entry.Entity.Id
@@ -46,6 +47,7 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Response
                 },
                 ResponseText = $"Created new Entity with id {entry.Entity.Id}."
             };
+
         }
     }
 }

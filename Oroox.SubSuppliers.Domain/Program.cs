@@ -14,7 +14,7 @@ namespace Oroox.SubSuppliers.Domain
     {
         public static async Task Main()
         {          
-            SubSuppliersContext ctx = new SubSuppliersContext(false);
+            SubSuppliersContext ctx = new SubSuppliersContext(null);
             ctx.Add(NewCustomer(ctx, DateTime.Now.Millisecond));
             ctx.SaveChanges();
             var customer = ctx.Customers.First();
