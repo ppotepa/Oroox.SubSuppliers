@@ -7,8 +7,7 @@ using System.Transactions;
 namespace Oroox.SubSuppliers.Utilities.Middleware.CorrelationId
 {
     /// <summary>
-    /// Works as an Request Interceptor.
-    /// Allows for request to return current TraceIdentifier.
+    /// <br>Makes every single request Transactional.</br>
     /// </summary>
     public class TransactionMiddleware
     {

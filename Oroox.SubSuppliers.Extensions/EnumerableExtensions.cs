@@ -11,6 +11,7 @@ namespace Oroox.SubSuppliers.Extensions
     
         /// <summary>
         /// Allows using ForEach every Enumerable Collection.
+        /// <br><b>Does not allow collections to be modified.</b></br>
         /// </summary>
         /// <typeparam name="TObjectType"></typeparam>
         /// <param name="this"></param>
@@ -40,7 +41,13 @@ namespace Oroox.SubSuppliers.Extensions
                 func(enumerator.Current, index++);
             }
         }
-
+        /// <summary>
+        /// Extension method that allows obtaining multiple Validation messages from IEnumerable of Validator.
+        /// </summary>
+        /// <typeparam name="TRequest"></typeparam>
+        /// <param name="validators"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static string[] GetValidationMessages<TRequest>(this IEnumerable<IValidator<TRequest>> validators, TRequest request) where TRequest : IBaseRequest
             => validators.Select(validator => validator.Validate(request))
                             .Where(result => result.IsValid is false)

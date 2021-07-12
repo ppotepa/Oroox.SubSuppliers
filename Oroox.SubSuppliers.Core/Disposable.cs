@@ -4,7 +4,7 @@ namespace Oroox.SubSuppliers.Utilities
 {
     /// <summary>
     /// Disposable class to satisfy Disposable Pattern.
-    /// <br>If you want your class to be Disposable friendly simply devire from this class.</br>
+    /// <br><b>If you want your class to be Disposable friendly simply devire from this class.</b></br>
     /// </summary>
     public class Disposable : IDisposable
     {
@@ -16,7 +16,6 @@ namespace Oroox.SubSuppliers.Utilities
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
        
         protected virtual void Dispose(bool disposing)
         {
