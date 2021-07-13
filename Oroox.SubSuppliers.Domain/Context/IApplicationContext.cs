@@ -31,6 +31,7 @@ namespace Oroox.SubSuppliers.Domain.Context
         void Detach<TEntity>(TEntity entity) where TEntity : Entity;
         public DbSet<Registration> Registrations { get; set; }
         public EntityEntry<TEntity> AttachEntity<TEntity>(TEntity entity) where TEntity : class;
+        public EntityEntry AttachEntity(object entity);
         public EnumerationEntity<TEnumType> ResolveEnum<TEnumType>(int value) where TEnumType : Enum;
         public int SaveChanges();
         public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

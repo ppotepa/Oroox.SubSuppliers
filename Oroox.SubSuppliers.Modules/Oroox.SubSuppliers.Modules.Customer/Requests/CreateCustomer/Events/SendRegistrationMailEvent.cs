@@ -17,8 +17,8 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.CreateCustomer.Events
 
         public async Task<Unit> Handle(CreateCustomerRequest request, CancellationToken cancelationToken) 
         {
-            await this.mailingService.SendNewCustomerRegistrationMessage(request.Customer, cancelationToken);
-            return await Unit.Task;
+            Unit result = await this.mailingService.SendNewCustomerRegistrationMessage(request.Customer, cancelationToken);
+            return result;
         }
     }
 }

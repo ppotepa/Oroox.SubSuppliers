@@ -232,5 +232,14 @@ namespace Oroox.SubSuppliers.Domain.Context
         }
         private Expression<Func<TEntity, bool>> GetGlobalFilterExpression<TEntity>() where TEntity : Entity
             => (entity) => EF.Property<bool>(entity, "Deleted").Equals(false);
+
+        public EntityEntry AttachEntity(object entity)
+        {
+            Type entityType = entity.GetType();
+            if (entityType != typeof(Entity))
+                throw new InvalidOperationException($"Unable to attach object of type : {entityType}.");
+            else return this.Attach(entity);
+        }
+       
     }
 }

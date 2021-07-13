@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oroox.SubSuppliers.Domain.Context;
+using Oroox.SubSuppliers.Domain.Entities;
 using Oroox.SubSuppliers.Modules.Jobs.Requests.DeleteSharedJobComment.Response;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,14 +17,16 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.DeleteSharedJobComment
             this.context = context;
         }
 
-        public Task<DeleteSharedJobCommentResponse> Handle(DeleteSharedJobCommentRequest request, CancellationToken cancellationToken)
+        public async Task<DeleteSharedJobCommentResponse> Handle(DeleteSharedJobCommentRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
-        }
+            EntityEntry<Comment> entry = this.context.Comments.Remove(request.Comment);
 
-        //public Task<DeleteSharedJobCommentResponse> Handle(DeleteSharedJobCommentRequest request, CancellationToken cancellationToken)
-        //{
-        //    return Task.FromResult(null);
-        //}
+            DeleteSharedJobCommentResponse response = new DeleteSharedJobCommentResponse
+            {
+                ResponseText = $"Succesfully removed comment with id {entry.Entity.Id}"
+            };
+
+            return await Task.FromResult(response);
+        }
     }
 }

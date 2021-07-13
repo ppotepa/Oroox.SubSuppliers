@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Oroox.SubSuppliers.Core.Binders;
 using Oroox.SubSuppliers.DependencyInjection;
 using Oroox.SubSuppliers.Extensions;
 using Oroox.SubSuppliers.Extensions.Configuration;
@@ -67,23 +68,21 @@ namespace Oroox.SubSuppliers.Application
         public void ConfigureContainer(ContainerBuilder builder)
         {
             Assembly[] moduleAssemblies = AutofacModules.Select(module => module.Assembly).ToArray();
-
+            builder.RegisterGeneric(typeof(EFCoreEntityBinder<>)).AsImplementedInterfaces().InstancePerDependency();            
             builder.RegisterModule(new ServicesModule(configuration));
 
             AutofacModules.ForEach(module => 
             {
                 builder.RegisterModule(Activator.CreateInstance(module) as IModule);
             });
-
+            
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerDependency();
             builder.RegisterModule(new AutoMapperModule(moduleAssemblies));
             builder.RegisterMediatR(moduleAssemblies);
-
             builder.RegisterLogger();
 
             builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().InstancePerDependency();
-            builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();
-
+            builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();            
             builder.RegisterGeneric(typeof(GenericHandlerDecorator<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerDependency();
                 
         }

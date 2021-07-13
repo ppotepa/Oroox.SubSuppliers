@@ -13,9 +13,7 @@ namespace Oroox.SubSuppliers.Modules.Customers.Requests.UpdateCustomerInfo
             this.context = context;
         }
 
-        public Task<UpdateCustomerAdditionalInfoRequestResponse> Handle(
-            UpdateCustomerAdditionalInfoRequest request,
-            CancellationToken cancellationToken)
+        public Task<UpdateCustomerAdditionalInfoRequestResponse> Handle(UpdateCustomerAdditionalInfoRequest request, CancellationToken cancellationToken)
         {
             UpdateCustomerAdditionalInfoRequestResponse response = default;
 

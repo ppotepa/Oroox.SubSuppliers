@@ -20,15 +20,12 @@ namespace Oroox.SubSuppliers.Modules.Jobs.Requests.DeleteSharedJobComment.Valida
             this.CascadeMode = CascadeMode.Stop;
             this.context = context;
 
-            RuleFor(request => request.CommentId).NotEmpty().NotNull().WithMessage("Please provide valid CommendId");
-            RuleFor(request => request.SharedJobId).NotEmpty().NotNull().WithMessage("Please provide valid SharedJobId");
-
-            RuleFor(request => request).Must(CommentMustExist).WithMessage(request => $"Comment with id {request.CommentId} does not exist.");
+            RuleFor(request => request.Comment.Id).NotEmpty().NotNull().WithMessage("Please provide valid CommendId");
+            RuleFor(request => request).Must(CommentMustExist).WithMessage(request => $"Comment with id {request.Comment.Id} does not exist.");
         }
 
-        private bool CommentMustExist(DeleteSharedJobCommentRequest request)
-        {
-            return this.context.Comments.AsNoTracking().Any(comment => comment.Id == request.CommentId);
-        }
+        private bool CommentMustExist(DeleteSharedJobCommentRequest request) =>
+             this.context.Comments.AsNoTracking().Any(comment => comment.Id == request.Comment.Id);
+       
     }
 }

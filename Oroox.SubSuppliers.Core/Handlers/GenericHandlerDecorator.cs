@@ -2,6 +2,7 @@
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
+using Oroox.SubSuppliers.Core.Binders;
 using Oroox.SubSuppliers.Domain.Context;
 using Oroox.SubSuppliers.Event;
 using Oroox.SubSuppliers.Exceptions;
@@ -28,6 +29,7 @@ namespace Oroox.SubSuppliers.Handlers
     {
 
         private readonly IApplicationContext context;
+        private readonly IEntityBinder<TRequest> binder;
         private readonly IEnumerable<IEvent<TRequest>> events;
         private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
         private readonly IEnumerable<IRequestPreProcessor<TRequest>> preProcessors;
@@ -44,10 +46,12 @@ namespace Oroox.SubSuppliers.Handlers
             IEnumerable<IValidator<TRequest>> validators,
             IHttpContextAccessor httpContextAccessor,
             ILogger logger,
-            IRequestHandler<TRequest, TResponse> innerRequest
+            IRequestHandler<TRequest, TResponse> innerRequest,
+            IEntityBinder<TRequest> binder
         )
         {
             this.context = context;
+            this.binder = binder;
             this.events = events;
             this.httpContextAccessor = httpContextAccessor;
             this.innerRequest = innerRequest;
@@ -60,6 +64,7 @@ namespace Oroox.SubSuppliers.Handlers
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             TResponse response = default;
+            await binder.Attach(request, cancellationToken);
 
             try
             {
